@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = null;
+}
+<html ng-app="propertyManagerApp">
+<head>
+    @Styles.Render("~/bundles/propertymanagerapp/style")
+    @Scripts.Render("~/bundles/propertymanagerapp/script")
+</head>
+<body class="container">
+    <div class="row">
+        <div ng-include='"/app/Partials/header.html"'></div>
+        <div ng-view></div>
+    </div>
+</body>
+</html>
