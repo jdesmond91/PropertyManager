@@ -1,6 +1,7 @@
 ﻿using PropertyManager.App_Start;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -21,8 +22,10 @@ namespace PropertyManager
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutoMapperConfig.RegisterMappings();
 
+            GlobalConfiguration.Configuration.Formatters.Add(new ServiceLayer.ByteFormatter());
+
             //recreate the DB
-            //Database.SetInitializer<Models.ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<Models.ApplicationDbContext>());
+            Database.SetInitializer<Models.ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<Models.ApplicationDbContext>());
 
             //Database.SetInitializer<Models.ApplicationDbContext>(new DropCreateDatabaseAlways<Models.ApplicationDbContext>());    
         }

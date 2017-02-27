@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using System.Data.Entity;
 
 namespace PropertyManager.Models
 {
@@ -28,7 +29,12 @@ namespace PropertyManager.Models
         }
 
         //SET DB HERE
-        
+        public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<Facility> Facilities { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<Unit> Units { get; set; }
+        public DbSet<UnitPhoto> UnitPhotos { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
