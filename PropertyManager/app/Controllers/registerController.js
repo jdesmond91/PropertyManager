@@ -18,7 +18,8 @@ function registerController($scope, $location, loginService, userProfile) {
             Password: $scope.userPassword,
             ConfirmPassword: $scope.userPassword,
             GivenName: $scope.userFirstName,
-            Surname: $scope.userLastName
+            Surname: $scope.userLastName,
+            Role: "Tenant"
         };
         console.log(userInfo.Email + " " + userInfo.Password + " " + userInfo.GivenName + " " + userInfo.Surname);
         var registerResult = loginService.register(userInfo);

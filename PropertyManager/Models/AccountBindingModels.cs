@@ -35,10 +35,6 @@ namespace PropertyManager.Models
 
     public class RegisterBindingModel
     {
-        public RegisterBindingModel()
-        {
-            Roles = new List<string>();
-        }
 
         [Required]
         [Display(Name = "Email")]
@@ -63,7 +59,7 @@ namespace PropertyManager.Models
         [Required, StringLength(128, ErrorMessage = "The {0} must be {2} or fewer characters.")]
         public string Surname { get; set; }
 
-        public ICollection<string> Roles { get; set; }
+        public string Role { get; set; }
     }
 
     public class RegisterExternalBindingModel
