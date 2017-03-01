@@ -431,6 +431,71 @@ namespace PropertyManager.Controllers
                 catch (Exception) { }
             }
         }
+        //************************************** TENANT SECTION ***********************************************************
+        public IEnumerable<TenantBase> TenantGetAll()
+        {
+            var c = ds.Tenants.OrderBy(a => a.LastName);
+
+            return Mapper.Map<IEnumerable<TenantBase>>(c);
+        }
+
+        public TenantBase TenantGetById(int id)
+        {
+            var c = ds.Tenants.SingleOrDefault(a => a.Id == id);
+
+            return (c == null) ? null : Mapper.Map<TenantBase>(c);
+        }
+
+        public TenantBase TenantAdd(TenantAdd newItem)
+        {
+            if (newItem == null)
+            {
+                return null;
+            }
+            var addedItem = ds.Tenants.Add(Mapper.Map<Tenant>(newItem));
+            ds.SaveChanges();
+
+            return (addedItem == null) ? null : Mapper.Map<TenantBase>(addedItem);
+        }
+
+        public TenantBase TenantEdit(TenantEdit editedItem)
+        {
+            if (editedItem == null)
+            {
+                return null;
+            }
+            var storedItem = ds.Tenants.SingleOrDefault(e => e.Id == editedItem.Id);
+
+            if (storedItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
+                ds.SaveChanges();
+
+                return Mapper.Map<TenantBase>(storedItem);
+            }
+        }
+
+        public void TenantDelete(int id)
+        {
+            var storedItem = ds.Tenants.Find(id);
+            if (storedItem == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            else
+            {
+                try
+                {
+                    ds.Tenants.Remove(storedItem);
+                    ds.SaveChanges();
+                }
+                catch (Exception) { }
+            }
+        }
 
     }
 }

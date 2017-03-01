@@ -36,6 +36,10 @@ namespace PropertyManager.App_Start
             Mapper.CreateMap<Controllers.ApartmentAdd, Models.Apartment>();
             Mapper.CreateMap<Models.Apartment, Controllers.ApartmentBase>();
 
+            //Tenant
+            Mapper.CreateMap<Controllers.TenantAdd, Models.Tenant>();
+            Mapper.CreateMap<Models.Tenant, Controllers.TenantBase>();
+
             // Disable AutoMapper v4.2.x warnings
 #pragma warning disable CS0618
 

@@ -35,6 +35,7 @@ namespace PropertyManager.Models
         public DbSet<Unit> Units { get; set; }
         public DbSet<UnitPhoto> UnitPhotos { get; set; }
         public DbSet<Apartment> Apartments { get; set; }
+        public DbSet<Tenant> Tenants { get; set; }
 
         public static ApplicationDbContext Create()
         {

@@ -222,6 +222,8 @@
     <Compile Include="Controllers\Manager.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\Service_vm.cs" />
+    <Compile Include="Controllers\TenantsController.cs" />
+    <Compile Include="Controllers\Tenant_vm.cs" />
     <Compile Include="Controllers\UnitPhotosController.cs" />
     <Compile Include="Controllers\UnitPhoto_vm.cs" />
     <Compile Include="Controllers\UnitsController.cs" />
@@ -239,6 +241,7 @@
     <Compile Include="Models\Facility.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\Tenant.cs" />
     <Compile Include="Models\Unit.cs" />
     <Compile Include="Models\UnitPhoto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
