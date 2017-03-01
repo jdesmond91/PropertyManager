@@ -14,6 +14,14 @@
                 .when('/register/', {
                     controller: 'loginController',
                     templateUrl: 'app/Partials/register.html'
-                })              
+                })
+                .when('/announcement/', {
+                     controller: 'announcementController',
+                     templateUrl: 'app/Partials/announcement.html'
+                })
+                .when('/facility/', {
+                     controller: 'facilityController',
+                     templateUrl: 'app/Partials/facility.html'
+                 })
                 .otherwise({ redirectTo: '/home' });
             }]);

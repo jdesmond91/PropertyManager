@@ -1,4 +1,4 @@
-﻿angular.module("propertyManagerApp").controller("headerController", ["$scope",  headerController]);
+﻿angular.module("propertyManagerApp").controller("headerController", ["$scope", headerController]);
 function headerController($scope) {
   
     $scope.Message = "";
