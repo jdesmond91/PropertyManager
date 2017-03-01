@@ -7,22 +7,22 @@ using System.Web.Http;
 
 namespace PropertyManager.Controllers
 {
-    public class UnitsController : ApiController
+    public class ApartmentsController : ApiController
     {
         private Manager m = new Manager();
 
-        // GET: api/Units
+        // GET: api/Apartments
         public IHttpActionResult Get()
         {
-            return Ok(m.UnitGetAll());
+            return Ok(m.ApartmentGetAll());
         }
 
-        // GET: api/Units/5
+        // GET: api/Apartments/5
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
             // Attempt to fetch the object
-            var o = m.UnitGetById(id.GetValueOrDefault());
+            var o = m.ApartmentGetById(id.GetValueOrDefault());
 
             // Continue?
             if (o == null)
@@ -35,8 +35,8 @@ namespace PropertyManager.Controllers
             }
         }
 
-        // POST: api/Units
-        public IHttpActionResult Post([FromBody]UnitAdd newItem)
+        // POST: api/Apartments
+        public IHttpActionResult Post([FromBody]ApartmentAdd newItem)
         {
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
 
@@ -47,34 +47,34 @@ namespace PropertyManager.Controllers
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
             // Attempt to add the new object
-            var addedItem = m.UnitAdd(newItem);
+            var addedItem = m.ApartmentAdd(newItem);
 
             // Continue?
             if (addedItem == null) { return BadRequest("Cannot add the object"); }
 
             // HTTP 201 with the new object in the entity body
             // Notice how to create the URI for the Location header
-            var uri = Url.Link("DefaultApi", new { id = addedItem.Id });
+            var uri = Url.Link("DefaultApi", new { id = addedItem.ApartmentNumber });
 
             return Created(uri, addedItem);
         }
 
-        // PUT: api/Units/5
-        public IHttpActionResult Put(int id, [FromBody]UnitEdit editedItem)
+        // PUT: api/Apartments/5
+        public IHttpActionResult Put(int id, [FromBody]ApartmentEdit editedItem)
         {
             if (editedItem == null)
             {
                 return BadRequest("Must send an entity body with the request");
             }
 
-            if (id != editedItem.Id)
+            if (id != editedItem.ApartmentNumber)
             {
                 return BadRequest("Invalid data in the entity body");
             }
 
             if (ModelState.IsValid)
             {
-                var changedItem = m.UnitEdit(editedItem);
+                var changedItem = m.ApartmentEdit(editedItem);
 
                 if (changedItem == null)
                 {
@@ -93,10 +93,10 @@ namespace PropertyManager.Controllers
             }
         }
 
-        // DELETE: api/Units/5
+        // DELETE: api/Apartments/5
         public void Delete(int id)
         {
-            m.UnitDelete(id);
+            m.ApartmentDelete(id);
         }
     }
 }

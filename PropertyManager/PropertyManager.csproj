@@ -213,6 +213,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnnouncementsController.cs" />
     <Compile Include="Controllers\Announcement_vm.cs" />
+    <Compile Include="Controllers\ApartmentsController.cs" />
+    <Compile Include="Controllers\Apartment_vm.cs" />
     <Compile Include="Controllers\AuthInfoController.cs" />
     <Compile Include="Controllers\FacilitiesController.cs" />
     <Compile Include="Controllers\Facility_vm.cs" />
@@ -232,6 +234,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
+    <Compile Include="Models\Apartment.cs" />
     <Compile Include="Models\DataBaseInitializer.cs" />
     <Compile Include="Models\Facility.cs" />
     <Compile Include="Models\IdentityModels.cs" />

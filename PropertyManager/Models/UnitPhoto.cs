@@ -12,7 +12,9 @@ namespace PropertyManager.Models
         public string Description { get; set; }
         public byte[] Photo { get; set; }
         public string ContentType { get; set; }
-        public int UnitNumber { get; set; }
-        public virtual Unit Unit { get; set; }
+        public Unit Unit { get; set; }
+        public int UnitId { get; set; }
+
+     
     }
 }

@@ -213,14 +213,14 @@ namespace PropertyManager.Controllers
 
         public IEnumerable<UnitBase> UnitGetAll()
         {
-            var c = ds.Units.OrderBy(a => a.UnitNumber);
+            var c = ds.Units.OrderBy(a => a.Id);
 
             return Mapper.Map<IEnumerable<UnitBase>>(c);
         }
 
         public UnitBase UnitGetById(int id)
         {
-            var c = ds.Units.SingleOrDefault(a => a.UnitNumber == id);
+            var c = ds.Units.Include("UnitPhotos").SingleOrDefault(a => a.Id == id);
 
             return (c == null) ? null : Mapper.Map<UnitBase>(c);
         }
@@ -242,7 +242,7 @@ namespace PropertyManager.Controllers
             {
                 return null;
             }
-            var storedItem = ds.Units.SingleOrDefault(e => e.UnitNumber == editedItem.UnitNumber);
+            var storedItem = ds.Units.SingleOrDefault(e => e.Id == editedItem.Id);
 
             if (storedItem == null)
             {
@@ -277,23 +277,23 @@ namespace PropertyManager.Controllers
         //***********************************************UNITPHOTO SECTION ***********************************************
         public IEnumerable<UnitPhotoBase> UnitPhotoGetAll()
         {
-            var c = ds.UnitPhotos.OrderBy(a => a.Id);
+            var c = ds.UnitPhotos.Include("Unit").OrderBy(a => a.Id);
 
             return Mapper.Map<IEnumerable<UnitPhotoBase>>(c);
         }
 
-        public UnitPhotoBase UnitPhotoGetById(int id)
+        public UnitPhotoWithMedia UnitPhotoGetById(int id)
         {
-            var c = ds.UnitPhotos.SingleOrDefault(a => a.Id == id);
+            var c = ds.UnitPhotos.Include("Unit").SingleOrDefault(a => a.Id == id);
 
-            return (c == null) ? null : Mapper.Map<UnitPhotoBase>(c);
+            return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
         }
 
-        public UnitPhotoBase UnitPhotoGetByUnitNumber(int unitNumber)
+        public UnitPhotoWithMedia UnitPhotoGetByAptNumber(int unitId)
         {
-            var c = ds.UnitPhotos.SingleOrDefault(a => a.UnitNumber == unitNumber);
+            var c = ds.UnitPhotos.SingleOrDefault(a => a.UnitId == unitId);
 
-            return (c == null) ? null : Mapper.Map<UnitPhotoBase>(c);
+            return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
         }
         public UnitPhotoBase UnitPhotoAdd(UnitPhotoAdd newItem)
         {
@@ -301,13 +301,13 @@ namespace PropertyManager.Controllers
             {
                 return null;
             }
-            var associatedItem = ds.Units.Find(newItem.UnitNumber);
+            var associatedItem = ds.Units.Find(newItem.UnitId);
             if (associatedItem == null)
             {
                 return null;
             }
             var addedItem = Mapper.Map<UnitPhoto>(newItem);
-            addedItem.UnitNumber = newItem.UnitNumber;
+            addedItem.UnitId = newItem.UnitId;
 
             ds.UnitPhotos.Add(addedItem);
             ds.SaveChanges();
@@ -362,6 +362,70 @@ namespace PropertyManager.Controllers
                 try
                 {              
                     ds.UnitPhotos.Remove(storedItem);
+                    ds.SaveChanges();
+                }
+                catch (Exception) { }
+            }
+        }
+
+        // ********************************************** APARTMENT SECTION***************************************************
+        public IEnumerable<ApartmentBase> ApartmentGetAll()
+        {
+            var c = ds.Apartments.OrderBy(a => a.ApartmentNumber);
+
+            return Mapper.Map<IEnumerable<ApartmentBase>>(c);
+        }
+
+        public ApartmentBase ApartmentGetById(int id)
+        {
+            var c = ds.Apartments.SingleOrDefault(a => a.ApartmentNumber == id);
+
+            return (c == null) ? null : Mapper.Map<ApartmentBase>(c);
+        }
+        public ApartmentBase ApartmentAdd(ApartmentAdd newItem)
+        {
+            if (newItem == null)
+            {
+                return null;
+            }
+            var addedItem = ds.Apartments.Add(Mapper.Map<Apartment>(newItem));
+            ds.SaveChanges();
+
+            return (addedItem == null) ? null : Mapper.Map<ApartmentBase>(addedItem);
+        }
+
+        public ApartmentBase ApartmentEdit(ApartmentEdit editedItem)
+        {
+            if (editedItem == null)
+            {
+                return null;
+            }
+            var storedItem = ds.Apartments.SingleOrDefault(e => e.ApartmentNumber == editedItem.ApartmentNumber);
+
+            if (storedItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
+                ds.SaveChanges();
+
+                return Mapper.Map<ApartmentBase>(storedItem);
+            }
+        }
+        public void ApartmentDelete(int id)
+        {
+            var storedItem = ds.Apartments.Find(id);
+            if (storedItem == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            else
+            {
+                try
+                {
+                    ds.Apartments.Remove(storedItem);
                     ds.SaveChanges();
                 }
                 catch (Exception) { }

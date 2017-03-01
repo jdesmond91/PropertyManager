@@ -26,11 +26,15 @@ namespace PropertyManager.App_Start
             //Unit
             Mapper.CreateMap<Controllers.UnitAdd, Models.Unit>();
             Mapper.CreateMap<Models.Unit, Controllers.UnitBase>();
-            Mapper.CreateMap<Models.Unit, Controllers.UnitWithPhotos>();
 
             //UnitPhoto
             Mapper.CreateMap<Controllers.UnitPhotoAdd, Models.UnitPhoto>();
             Mapper.CreateMap<Models.UnitPhoto, Controllers.UnitPhotoBase>();
+            Mapper.CreateMap<Models.UnitPhoto, Controllers.UnitPhotoWithMedia>();
+
+            //Apartment
+            Mapper.CreateMap<Controllers.ApartmentAdd, Models.Apartment>();
+            Mapper.CreateMap<Models.Apartment, Controllers.ApartmentBase>();
 
             // Disable AutoMapper v4.2.x warnings
 #pragma warning disable CS0618

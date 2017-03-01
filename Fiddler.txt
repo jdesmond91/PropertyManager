@@ -42,6 +42,20 @@ Unit
   "Laundry" : false  
 }
 
+Apartment
+{
+"ApartmentNumber" : 520,
+ "floorNumber" : 5,
+  "UnitId" : 1
+}
+
+UnitPhotos
+{
+"Name" : "Testing",
+"Description" : "lalala",
+"UnitId" : 3
+}
+
 
 
 

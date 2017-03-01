@@ -49,7 +49,7 @@ namespace PropertyManager.Controllers
         {
             if (!id.HasValue) { return NotFound(); }
             // Attempt to fetch the object
-            var o = m.UnitPhotoGetByUnitNumber(id.GetValueOrDefault());
+            var o = m.UnitPhotoGetByAptNumber(id.GetValueOrDefault());
 
             // Continue?
             if (o == null)

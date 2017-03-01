@@ -344,39 +344,7 @@ namespace PropertyManager.Controllers
                 return GetErrorResult(result);
             }
 
-            await UserManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "Tenant"));
-
-            if (model.Role == "Tenant")
-            {
-                try
-                {
-                    MailMessage email = new MailMessage();
-                    email.From = new MailAddress("amandamc4@gmail.com");
-                    email.To.Add("amanda.mc4@hotmail.com");
-                    email.Subject = "Your Forget Password:";
-                    email.Body = "Hi,Your Password is: " + model.Password;
-
-                    email.IsBodyHtml = true;
-                    SmtpClient smtp = new SmtpClient("smtp.gmail.com");                   
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Port = 587;
-                    smtp.UseDefaultCredentials = false;
-                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    var credential = new NetworkCredential
-                    {
-                        UserName = "amandamc4@gmail.com",  // replace with valid value
-                        Password = "momoteamomais"  // replace with valid value
-                    };
-                    smtp.Credentials = credential;
-                    smtp.EnableSsl = true;
-                    smtp.Send(email);
-                       
-                }
-                catch (Exception ex)
-                {
-
-                }
-            }
+            await UserManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "Tenant"));           
 
             return Ok();
         }

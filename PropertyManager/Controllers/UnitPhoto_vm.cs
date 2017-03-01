@@ -9,14 +9,19 @@ namespace PropertyManager.Controllers
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public int UnitNumber { get; set; }
+        public int UnitId { get; set; }
     }
 
     public class UnitPhotoBase : UnitPhotoAdd
     {
         public int Id { get; set; }
-        public byte[] Photo { get; set; }
+        
         public string ContentType { get; set; }
+    }
+
+    public class UnitPhotoWithMedia : UnitPhotoBase
+    {
+        public byte[] Photo { get; set; }
     }
 
     public class UnitPhotoEdit
@@ -24,6 +29,6 @@ namespace PropertyManager.Controllers
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int UnitNumber { get; set; }
+        public int UnitId { get; set; }
     }
 }

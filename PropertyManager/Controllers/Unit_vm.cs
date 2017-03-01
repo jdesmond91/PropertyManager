@@ -20,20 +20,15 @@ namespace PropertyManager.Controllers
     }
 
     public class UnitBase : UnitAdd
-    {       
-        [Key]
-        public int UnitNumber { get; set; }
-    }
-
-    public class UnitWithPhotos : UnitBase
-    {     
+    {             
+        public int Id { get; set; }
         public ICollection<UnitPhotoBase> UnitPhotos { get; set; }
     }
 
+
     public class UnitEdit
     {
-        [Key]
-        public int UnitNumber { get; set; }
+        public int Id { get; set; }
         public string Status { get; set; }
         public int Bedrooms { get; set; }
         public int Bathrooms { get; set; }
