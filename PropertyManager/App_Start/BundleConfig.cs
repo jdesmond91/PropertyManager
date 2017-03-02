@@ -38,19 +38,23 @@ namespace PropertyManager
                       //SERVICES
                       "~/app/Services/common.services.js",
                       "~/app/Services/announcementService.js",
+                      "~/app/Services/apartmentService.js",
                       "~/app/Services/facilityService.js",
                       "~/app/Services/loginService.js",
                       "~/app/Services/serviceService.js",
+                      "~/app/Services/tenantService.js",
                       "~/app/Services/unitService.js",
                       "~/app/Services/userProfile.js",
                       //CONTROLLERS
                       "~/app/Controllers/announcementController.js",
+                      "~/app/Controllers/apartmentController.js",
                       "~/app/Controllers/facilityController.js",
                       "~/app/Controllers/headerController.js",
                       "~/app/Controllers/homeController.js",
                       "~/app/Controllers/loginController.js",
                       "~/app/Controllers/registerController.js",
                       "~/app/Controllers/serviceController.js",
+                      "~/app/Controllers/tenantController.js",
                       "~/app/Controllers/unitController.js"));
         }
     }
