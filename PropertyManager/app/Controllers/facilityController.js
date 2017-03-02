@@ -12,13 +12,17 @@ function facilityController($scope, $filter, facilityService, userProfile) {
     $scope.facilities = [];
 
     $scope.addFacility = function () {
-        var openTimeFiltered = $filter('date')($scope.openTime, 'HH:mm:ss');
-        var expireDateFiltered = $filter('date')($scope.closeTime, 'HH:mm:ss');
 
-        console.log($scope.openTime);
-        console.log(openTimeFiltered);
-        console.log(expireDateFiltered);
+        var openTimeFiltered = null;
+        var expireDateFiltered = null;
 
+        if ($scope.openTime != "") {
+            openTimeFiltered = $filter('date')($scope.openTime, 'HH:mm:ss');
+        }
+        if ($scope.closeTime != "") {
+            expireDateFiltered  = $filter('date')($scope.closeTime, 'HH:mm:ss');
+        }
+        
         var facility = {
             FacilityName: $scope.name,
             Description: $scope.description,

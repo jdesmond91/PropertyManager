@@ -10,8 +10,8 @@ function announcementController($scope, $filter, announcementService, userProfil
     $scope.announces = [];
 
     $scope.addAnnouncement = function () {
-        var startDateFiltered = "";
-        var expireDateFiltered = "";
+        var startDateFiltered = null;
+        var expireDateFiltered = null;
 
         if($scope.startDate != ""){
             startDateFiltered = $filter('date')($scope.startDate, "yyyy-MM-dd");            
@@ -65,8 +65,8 @@ function announcementController($scope, $filter, announcementService, userProfil
 
     $scope.editAnnouncement = function () {
 
-        var startDateFiltered = "";
-        var expireDateFiltered = "";
+        var startDateFiltered = null;
+        var expireDateFiltered = null;
 
         if ($scope.startDate != "") {
             startDateFiltered = $filter('date')($scope.startDate, "yyyy-MM-dd");

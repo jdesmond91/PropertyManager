@@ -14,10 +14,10 @@ namespace PropertyManager.Controllers
         public string Status { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:t}")]
-        public DateTime OpenTime { get; set; }
+        public DateTime? OpenTime { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:t}")]
-        public DateTime CloseTime { get; set; }
+        public DateTime? CloseTime { get; set; }
     }
 
     public class FacilityBase : FacilityAdd
@@ -34,9 +34,9 @@ namespace PropertyManager.Controllers
         public string Status { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:t}")]
-        public DateTime OpenTime { get; set; }
+        public DateTime? OpenTime { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:t}")]
-        public DateTime CloseTime { get; set; }
+        public DateTime? CloseTime { get; set; }
     }
 }

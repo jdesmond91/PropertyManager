@@ -12,8 +12,8 @@ namespace PropertyManager.Controllers
             StartDate = DateTime.Now;
         }
         public string Title { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime ExpireDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? ExpireDate { get; set; }
     }
 
     public class AnnouncementBase : AnnouncementAdd
@@ -25,7 +25,7 @@ namespace PropertyManager.Controllers
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime ExpireDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? ExpireDate { get; set; }
     }
 }
