@@ -22,6 +22,14 @@
                 .when('/facility/', {
                      controller: 'facilityController',
                      templateUrl: 'app/Partials/facility.html'
-                 })
+                })
+                .when('/service/', {
+                     controller: 'serviceController',
+                     templateUrl: 'app/Partials/service.html'
+                })
+                .when('/unit/', {
+                      controller: 'unitController',
+                      templateUrl: 'app/Partials/unit.html'
+                })
                 .otherwise({ redirectTo: '/home' });
             }]);

@@ -1,0 +1,86 @@
+﻿<html>
+<head>
+    <title>Unit</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+
+<body ng-app="propertyManagerApp">
+    <div>
+        <form name="form">
+
+            <input type="text" name="status" id="status" class="form-control" placeholder="status" ng-model="status">
+
+            <input type="number" name="bedrooms" id="bedrooms" class="form-control" placeholder="bedrooms" ng-model="bedrooms">
+
+            <input type="number" name="bathrooms" id="bathrooms" class="form-control" placeholder="bathrooms" ng-model="bathrooms">
+
+            <input type="number" name="squareft" id="squareft" step=0.01 class="form-control" ng-model="squareft">
+
+            <input type="number" name="maxOccupants" id="maxOccupants" class="form-control" placeholder="maxOccupants" ng-model="maxOccupants">
+
+            <input type="text" name="balcony" id="balcony" class="form-control" placeholder="balcony Y or N" ng-model="balcony">
+
+            <input type="text" name="dishwasher" id="dishwasher" class="form-control" placeholder="dishwasher Y or N" ng-model="dishwasher">
+
+            <input type="text" name="laundry" id="laundry" class="form-control" placeholder="laundry Y or N" ng-model="laundry">
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="addUnit()">Add</button>
+            </div>
+            <input type="text" name="serviceId" id="serviceId" class="form-control" placeholder="Id" ng-model="unitId">
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="getUnit()">Get All</button>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="getUnitById()">Get One</button>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="editUnit()">Edit</button>
+            </div>
+
+            <p> Testing Get One</p>
+            <p>{{message}}</p>
+            <p>{{status}}</p>
+            <p>{{bedrooms}}</p>
+             <p>{{bathrooms}}</p>
+            <p>{{squareft}}</p>
+            <p>{{maxOccupants}}</p>
+            <p>{{balcony}}</p>
+            <p>{{dishwasher}}</p>
+            <p>{{laundry}}</p>
+
+            <p> Testing Get All</p>
+            <div ng-repeat="unit in units">
+                <p>{{unit.Status}}</p>              
+                <p>
+                    {{unit.Bedrooms}}
+                </p>
+                <p>
+                    {{unit.Bathrooms}}
+                </p>
+                <p>
+                    {{unit.SquareFeet}}
+                </p>
+                <p>
+                    {{unit.MaxOccupants}}
+                </p>
+                <p>
+                    {{unit.Balcony}}
+                </p>
+                <p>
+                    {{unit.Dishwasher}}
+                </p>
+                <p>
+                    {{unit.Laundry}}
+                </p>
+                <p>{{unit.Id}}</p>
+
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>
