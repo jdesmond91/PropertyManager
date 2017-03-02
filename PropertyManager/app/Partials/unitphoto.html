@@ -1,0 +1,58 @@
+﻿<html>
+<head>
+    <title>Unit Photo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+
+<body ng-app="propertyManagerApp">
+    <div>
+        <form name="form">
+
+            <input type="text" name="name" id="name" class="form-control" placeholder="Name" ng-model="name">
+
+            <input type="text" name="description" id="description" class="form-control" placeholder="description" ng-model="description">
+
+            <input type="text" name="unitId" id="unitId" class="form-control" placeholder="unitId" ng-model="unitId">
+
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="addUnitPhoto()">Add</button>
+            </div>
+            <input type="text" name="unitphotoId" id="unitphotoId" class="form-control" placeholder="Id" ng-model="unitphotoId">
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="getUnitPhoto()">Get All</button>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="getUnitPhotoById()">Get One</button>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="editUnitPhoto()">Edit</button>
+            </div>
+
+            <p> Testing Get One</p>
+            <p>{{message}}</p>
+            <p>{{name}}</p>
+            <p>{{description}}</p>
+            <p>{{unitId}}</p>
+         
+
+            <p> Testing Get All</p>
+            <div ng-repeat="photo in unitPhotos">
+                <p>{{photo.Name}}</p>
+                <p>
+                    {{photo.Description}}
+                </p>
+                <p>
+                    {{photo.UnitId}}
+                </p>             
+                <p>{{photo.Id}}</p>
+
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>

@@ -39,5 +39,9 @@
                      controller: 'tenantController',
                      templateUrl: 'app/Partials/tenant.html'
                 })
+                .when('/unitphoto/', {
+                     controller: 'unitphotoController',
+                     templateUrl: 'app/Partials/unitphoto.html'
+                })
                 .otherwise({ redirectTo: '/home' });
             }]);

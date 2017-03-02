@@ -262,6 +262,7 @@
     <Content Include="app\Controllers\serviceController.js" />
     <Content Include="app\Controllers\tenantController.js" />
     <Content Include="app\Controllers\unitController.js" />
+    <Content Include="app\Controllers\unitphotoController.js" />
     <Content Include="app\Index.html" />
     <Content Include="app\Partials\announcement.html" />
     <Content Include="app\Partials\apartment.html" />
@@ -272,6 +273,7 @@
     <Content Include="app\Partials\service.html" />
     <Content Include="app\Partials\tenant.html" />
     <Content Include="app\Partials\unit.html" />
+    <Content Include="app\Partials\unitphoto.html" />
     <Content Include="app\Services\announcementService.js" />
     <Content Include="app\Services\apartmentService.js" />
     <Content Include="app\Services\common.services.js" />
@@ -279,6 +281,7 @@
     <Content Include="app\Services\loginService.js" />
     <Content Include="app\Services\serviceService.js" />
     <Content Include="app\Services\tenantService.js" />
+    <Content Include="app\Services\unitphotoService.js" />
     <Content Include="app\Services\unitService.js" />
     <Content Include="app\Services\userProfile.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
