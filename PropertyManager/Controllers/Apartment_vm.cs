@@ -11,6 +11,7 @@ namespace PropertyManager.Controllers
         [Key]
         public int ApartmentNumber { get; set; }
         public int FloorNumber { get; set; }
+        public string Status { get; set; }
         public int UnitId { get; set; }
     }
 
@@ -24,6 +25,7 @@ namespace PropertyManager.Controllers
         [Key]
         public int ApartmentNumber { get; set; }
         public int FloorNumber { get; set; }
+        public string Status { get; set; }
         public int UnitId { get; set; }
     }
 }

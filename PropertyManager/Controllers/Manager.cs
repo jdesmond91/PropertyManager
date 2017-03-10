@@ -220,7 +220,7 @@ namespace PropertyManager.Controllers
 
         public UnitBase UnitGetById(int id)
         {
-            var c = ds.Units.Include("UnitPhotos").SingleOrDefault(a => a.Id == id);
+            var c = ds.Units.Include("UnitPhotos").Include("Apartments").SingleOrDefault(a => a.Id == id);
 
             return (c == null) ? null : Mapper.Map<UnitBase>(c);
         }

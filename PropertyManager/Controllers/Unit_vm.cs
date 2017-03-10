@@ -23,6 +23,7 @@ namespace PropertyManager.Controllers
     {             
         public int Id { get; set; }
         public ICollection<UnitPhotoBase> UnitPhotos { get; set; }
+        public ICollection<ApartmentBase> Apartments { get; set; }
     }
 
 

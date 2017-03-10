@@ -11,6 +11,8 @@ namespace PropertyManager.Models
         public Unit()
         {
             UnitPhotos = new List<UnitPhoto>();
+
+            Apartments = new HashSet<Apartment>();
         }
                 
         public int Id { get; set; }
@@ -23,6 +25,7 @@ namespace PropertyManager.Models
         public bool Dishwasher { get; set; }
         public bool Laundry { get; set; }
         public ICollection<UnitPhoto> UnitPhotos { get; set; }
+        public ICollection<Apartment> Apartments { get; set; }
 
     }
 }

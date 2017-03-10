@@ -14,6 +14,7 @@ namespace PropertyManager.Models
         public int ApartmentNumber { get; set; }
         public int FloorNumber { get; set; }
         public int UnitId { get; set; }
+        public string Status { get; set; }
         public virtual Unit Unit { get; set; }
         
     }
