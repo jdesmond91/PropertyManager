@@ -52,6 +52,11 @@
 
             </div>
 
+            <label for="file">Select a File to Upload</label><br />
+            <input type="file" id="file" onchange="angular.element(this).scope().uploadFiles(this)" />
+            <button ng-click="addPhoto()">Add</button>
+            
+
         </form>
     </div>
 </body>

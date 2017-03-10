@@ -39,7 +39,6 @@ function unitphotoService($http, $q, appSettings) {
     };
 
     this.editUnitPhoto = function (unitPhoto, unitphotoId) {
-
         var def = $q.defer();
         $http({
             url: appSettings.serverPath + "/api/unitphotos/" + unitphotoId,
@@ -53,10 +52,27 @@ function unitphotoService($http, $q, appSettings) {
         return def.promise;
     };
 
+    this.setPhoto = function (photoFile, unitphotoId) {
+      var response = 
+        $http({
+            url: appSettings.serverPath + "/api/unitphotos/" + unitphotoId + "/setphoto",
+            method: "PUT",
+            data: photoFile,
+            headers: { 'Content-Type': "image/jpeg" },
+            transformRequest: angular.identity
+        }).then(function (response) {
+            console.log(response);
+        }, function (err) {
+            console.log(err);
+        });
+        return response;
+    };
+
     return {
         addUnitPhoto: this.addUnitPhoto,
         getAllUnitPhoto: this.getAllUnitPhoto,
         getByIdUnitPhoto: this.getByIdUnitPhoto,
-        editUnitPhoto: this.editUnitPhoto
+        editUnitPhoto: this.editUnitPhoto,
+        setPhoto: this.setPhoto
     }
 }

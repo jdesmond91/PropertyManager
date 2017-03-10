@@ -68,5 +68,28 @@ function unitphotoController($scope, $filter, unitphotoService, userProfile) {
         });
     } // close function
 
+    var fd;
+    var reader;
+    $scope.uploadFile = function (files) {
+        reader = new FileReader();
+        reader.onload = function (e) {
+            console.log("about to encode");
+            $scope.encoded_file = btoa(e.target.result.toString());
+        };
+        reader.readAsBinaryString(files[0]);
+        //fd = new FormData();
+        //fd.append("file", files[0])
+    };
+
+    $scope.addPhoto = function(){
+            var addPhoto = unitphotoService.setPhoto(reader, $scope.unitphotoId);
+            addPhoto.then(function (response) {
+                console.log("added");
+                console.log(response);
+            }, function (error) {
+                $scope.message = response.statusText;
+            });
+    }
+       
 
 }
