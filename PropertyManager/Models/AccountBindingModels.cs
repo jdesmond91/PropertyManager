@@ -58,8 +58,8 @@ namespace PropertyManager.Models
         [Display(Name = "Last name")]
         [Required, StringLength(128, ErrorMessage = "The {0} must be {2} or fewer characters.")]
         public string Surname { get; set; }
-
         public string Role { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 
     public class RegisterExternalBindingModel
