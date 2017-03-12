@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace PropertyManager.Controllers
+{
+    public class FacilityBookingAdd
+    {
+        public DateTime? BookingDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:t}")]
+        public DateTime? StartTime { get; set; }
+        [DisplayFormat(DataFormatString = "{0:t}")]
+        public DateTime? EndTime { get; set; }
+        public string Notes { get; set; }
+        public int TenantId { get; set; }
+    }
+
+    public class FacilityBookingBase : FacilityBookingAdd
+    {
+        public int Id { get; set; }
+    }
+
+    public class FacilityBookingEdit
+    {
+        public int Id { get; set; }
+        public DateTime? BookingDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:t}")]
+        public DateTime? StartTime { get; set; }
+        [DisplayFormat(DataFormatString = "{0:t}")]
+        public DateTime? EndTime { get; set; }
+        public string Notes { get; set; }
+    }
+}
