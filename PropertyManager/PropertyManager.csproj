@@ -228,6 +228,7 @@
     <Compile Include="Controllers\UnitPhoto_vm.cs" />
     <Compile Include="Controllers\UnitsController.cs" />
     <Compile Include="Controllers\Unit_vm.cs" />
+    <Compile Include="Controllers\User_vm.cs" />
     <Compile Include="Controllers\Utility.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -264,6 +265,7 @@
     <Content Include="app\Controllers\unitController.js" />
     <Content Include="app\Controllers\unitphotoController.js" />
     <Content Include="app\Index.html" />
+    <Content Include="app\main.css" />
     <Content Include="app\Partials\announcement.html" />
     <Content Include="app\Partials\apartment.html" />
     <Content Include="app\Partials\facility.html" />
@@ -271,6 +273,7 @@
     <Content Include="app\Partials\login.html" />
     <Content Include="app\Partials\register.html" />
     <Content Include="app\Partials\service.html" />
+    <Content Include="app\Partials\sidenav.html" />
     <Content Include="app\Partials\tenant.html" />
     <Content Include="app\Partials\unit.html" />
     <Content Include="app\Partials\unitphoto.html" />

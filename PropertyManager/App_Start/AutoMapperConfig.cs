@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
-
+using Microsoft.AspNet.Identity.EntityFramework;
+using PropertyManager.Models;
 
 namespace PropertyManager.App_Start
 {
@@ -11,6 +12,8 @@ namespace PropertyManager.App_Start
     {
         public static void RegisterMappings()
         {
+            Mapper.CreateMap<ApplicationUser, Controllers.UserBase>();
+
             //Announcement
             Mapper.CreateMap<Controllers.AnnouncementAdd, Models.Announcement>();
             Mapper.CreateMap<Models.Announcement, Controllers.AnnouncementBase>();

@@ -18,6 +18,7 @@ using PropertyManager.Providers;
 using PropertyManager.Results;
 using System.Net.Mail;
 using System.Net;
+using AutoMapper;
 
 namespace PropertyManager.Controllers
 {
@@ -221,6 +222,7 @@ namespace PropertyManager.Controllers
 
             return Ok();
         }
+        
 
         // GET api/Account/ExternalLogin
         [OverrideAuthentication]
@@ -334,7 +336,8 @@ namespace PropertyManager.Controllers
                 UserName = model.Email,
                 Email = model.Email,
                 GivenName = model.GivenName,
-                Surname = model.Surname
+                Surname = model.Surname,
+                Role = model.Role
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -344,9 +347,18 @@ namespace PropertyManager.Controllers
                 return GetErrorResult(result);
             }
 
-            await UserManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "Tenant"));           
+            await UserManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, model.Role));
 
-            return Ok();
+            var userFound = new ApplicationUser()
+            {
+                UserName = user.UserName,
+                Role = user.Role,
+                GivenName = user.GivenName
+            };
+
+            var userMapped = Mapper.Map<UserBase>(userFound);
+
+            return Ok(userMapped);
         }
 
         // POST api/Account/RegisterExternal

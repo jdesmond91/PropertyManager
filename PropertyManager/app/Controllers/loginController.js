@@ -24,13 +24,23 @@ function loginController($scope, $location, loginService, userProfile) {
         };
         $scope.responseData = "";
         var loginResult = loginService.login(userLogin);
-
-        loginResult.then(function (resp) {
-            console.log(resp);
-            $scope.userName = resp.data.userName;
-            userProfile.setProfile(resp.data.userName, resp.data.access_token, resp.data.refresh_token);
-            $scope.isLoggedIn = true;
-            $location.path('/home');
+        loginResult.then(function (response) {
+            $scope.userName = response.data.userName;
+            return response.data;
+        }).
+        then(function (data){
+            var getUserResult = loginService.getUserInfo(data.userName);
+            getUserResult.then(function (response) {
+                console.log(response);               
+                userProfile.setProfile(response.data.UserName, data.access_token, response.data.Role, response.data.GivenName);
+                $scope.isLoggedIn = true;
+                $location.path('/home');
+            }, function (error) {
+                $scope.responseData = response.statusText + " : \r\n";
+                if (error.data.error) {
+                    $scope.responseData += error.data.error_description;
+                }
+            })            
         }, function (response) {
             $scope.responseData = response.statusText + " : \r\n";
             if (response.data.error) {
@@ -38,10 +48,6 @@ function loginController($scope, $location, loginService, userProfile) {
             }
         });
     };
-
-    $scope.logout = function () {
-        sessionStorage.removeItem('accessToken');
-        $scope.userName = "";
-        console.log("i am logout");
-    };
+                           
+    
 }

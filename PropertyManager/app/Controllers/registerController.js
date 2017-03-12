@@ -26,7 +26,7 @@ function registerController($scope, $location, loginService, userProfile) {
         registerResult.then(function (data) {
             $scope.responseData = "User Registration Successfull";
             $scope.userPassword = "";
-            console.log(data);
+            $location.path('/home');
         }, function (response) {
             $scope.responseData = response.statusText + "\r\n";
             if (response.data.exceptionMessage) {

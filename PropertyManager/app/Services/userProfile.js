@@ -1,17 +1,19 @@
 ﻿angular.module("common.services").factory("userProfile", userProfile);
 function userProfile() {
-    var setProfile = function (username, token, refreshToken) {
+    var setProfile = function (username, token, role, firstName) {
         sessionStorage.setItem('userName', username);
+        sessionStorage.setItem('userRole', role);
         sessionStorage.setItem('accessToken', token);
-        sessionStorage.setItem('refreshToken', refreshToken);
+        sessionStorage.setItem('firstName', firstName);
     };
 
     var getProfile = function () {
         var profile = {
             isLoggedIn: sessionStorage.getItem('accessToken') != null,
             username: sessionStorage.getItem('userName'),
+            userRole: sessionStorage.getItem('userRole'),
             token: sessionStorage.getItem('accessToken'),
-            refreshToken: sessionStorage.getItem('refreshToken')
+            firstName: sessionStorage.getItem('firstName')
         };
         return profile;
     }

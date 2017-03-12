@@ -25,7 +25,8 @@ namespace PropertyManager
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/bundles/propertymanagerapp/style").Include(
-                     "~/Content/bootstrap.css"));
+                     "~/Content/bootstrap.css",
+                     "~/app/main.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/propertymanagerapp/script").Include(
                       "~/Scripts/angular.js",

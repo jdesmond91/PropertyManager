@@ -17,6 +17,22 @@ namespace PropertyManager.Controllers
             return Ok(m.UnitGetAll());
         }
 
+        [Route("api/units/getUser/{email}/find")]
+        [HttpGet]
+        public IHttpActionResult GetUser(string email)
+        {
+            var o = m.getByEmail(email);
+
+            if (o == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(o);
+            }
+        }
+
         // GET: api/Units/5
         public IHttpActionResult Get(int? id)
         {

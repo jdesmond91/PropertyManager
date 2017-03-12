@@ -8,6 +8,7 @@
 </head>
 
 <body ng-app="propertyManagerApp">
+    <div ng-include='"/app/Partials/header.html"'></div>
     <div>
         <form name="form">
             <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
@@ -21,14 +22,8 @@
             </div>
             <div class="form-actions">
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" ng-click="login()">Login</button>
-
-                <div ng-show="responseData">{{responseData}}</div>
             </div>
         </form>
-        <h3 ng-show="isLoggedIn">
-            <span>{{userName}}</span>
-            <input type="button" class="btn" value="Logoff" ng-click="logout()" />
-        </h3>
     </div>
 </body>
 </html>
