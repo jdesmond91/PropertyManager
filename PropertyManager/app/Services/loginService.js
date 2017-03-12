@@ -31,9 +31,19 @@ function loginService($http, appSettings) {
         return resp;
     };
 
+    this.resetPassword = function (userInfo) {
+        var resp = $http({
+            url: appSettings.serverPath + "/api/account/SetPassword",
+            method: "POST",
+            data: userInfo,
+        });
+        return resp;
+    };
+
     return {
         register: this.register,
         login: this.login,
-        getUserInfo: this.getUserInfo
+        getUserInfo: this.getUserInfo,
+        resetPassword: this.resetPassword
     }
 }

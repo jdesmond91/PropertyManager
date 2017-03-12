@@ -1,6 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("loginController", ["$scope", '$location', "loginService", "userProfile", loginController]);
+﻿angular.module("propertyManagerApp").controller("loginController", ["$scope", '$location', "$filter", "loginService", "userProfile", loginController]);
 
-function loginController($scope, $location, loginService, userProfile) {
+function loginController($scope, $location, $filter, loginService, userProfile) {
     $scope.responseData = "";
     $scope.userName = "";
     $scope.userEmail = "";
@@ -10,6 +10,10 @@ function loginController($scope, $location, loginService, userProfile) {
     $scope.accessToken = "";
     $scope.refreshToken = "";
     $scope.isLoggedIn = false;
+    $scope.passForget = false;
+    $scope.userLastName = "";
+    $scope.birthDate = "";
+
 
     $scope.registerUser = function () {
         $location.path('/register');
@@ -42,12 +46,34 @@ function loginController($scope, $location, loginService, userProfile) {
                 }
             })            
         }, function (response) {
-            $scope.responseData = response.statusText + " : \r\n";
-            if (response.data.error) {
-                $scope.responseData += response.data.error_description;
-            }
+            $scope.responseData = response.statusText + " : \r\n";           
+            $scope.responseData += response.data.error_description;          
         });
     };
-                           
-    
+
+    $scope.forgetPassword = function () {
+        $scope.passForget = true;
+    }
+
+    $scope.resetPasword = function () {
+        $scope.responseData = "";
+
+        var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
+
+        var userInfo = {
+            NewPassword: $scope.userPassword,
+            ConfirmPassword: $scope.userPassword,
+            Surname: $scope.userLastName,
+            Email: $scope.userEmail,
+            BirthDate: birthDateFiltered
+        };
+        var resetResult = loginService.resetPassword(userInfo);
+        resetResult.then(function (data) {
+            console.log(data);
+            $scope.responseData = "Reset Password Successfull";
+            //$location.path('/home');
+        }, function (response) {
+            $scope.responseData = response.statusText + "\r\n";
+        });
+    };                        
 }

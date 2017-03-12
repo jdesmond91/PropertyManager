@@ -32,6 +32,11 @@
                     <input type="password" name="password" id="password" class="form-control" placeholder="Password" ng-model="userPassword" ng-pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/" required />
                     <span ng-show="form.password.$dirty && form.password.$invalid" class="help-block">Enter a valid password!</span>
                 </div>
+                <div class="form-group" ng-class="{ 'has-error': form.birthDate.$dirty && form.birthDate.$error.required }">
+                    <label class="control-label" for="birthDate">Birth Date: </label>
+                    <input type="date" name="birthDate" id="birthDate" class="form-control" placeholder="birthDate" ng-model="birthDate" required />
+                    <span ng-show="form.birthDate.$dirty && form.birthDate.$error.required" class="help-block">Birth Date required!</span>
+                </div>
                 <button type="submit" class="btn btn-default" ng-disabled="form.$invalid" ng-click="registerUser()">
                     Register
                 </button>
