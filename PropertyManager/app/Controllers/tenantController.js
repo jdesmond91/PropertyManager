@@ -7,17 +7,25 @@ function tenantController($scope, $filter, tenantService, userProfile) {
     $scope.mobileNumber = "";
     $scope.email = "";
     $scope.homeNumber = "";
+    $scope.birthDate = "";
     $scope.message = "";
     $scope.tenants = [];
 
     $scope.addTenant = function () {
+
+        var birthDateFiltered = null;
+
+        if ($scope.birthDate != "") {
+            birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
+        }
 
         var tenant = {
             FirstName: $scope.firstName,
             LastName: $scope.lastName,
             MobilePhone: $scope.mobileNumber,
             HomePhone: $scope.homeNumber,
-            Email: $scope.email
+            Email: $scope.email,
+            BirthDate: birthDateFiltered
         };
 
         var addResults = tenantService.addTenant(tenant);
@@ -50,6 +58,7 @@ function tenantController($scope, $filter, tenantService, userProfile) {
             $scope.mobileNumber = response.data.MobilePhone;
             $scope.email = response.data.Email;
             $scope.homeNumber = response.data.HomePhone;
+            $scope.birthDate = new Date(response.data.BirthDate.replace('T', ' ').replace('-', '/'));
 
         }, function (error) {
             $scope.message = response.statusText;
@@ -59,13 +68,20 @@ function tenantController($scope, $filter, tenantService, userProfile) {
 
     $scope.editTenant = function () {
 
+        var birthDateFiltered = null;
+
+        if ($scope.birthDate != "") {
+            birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
+        }
+
         var tenant = {
             Id: $scope.tenantId,
             FirstName: $scope.firstName,
             LastName: $scope.lastName,
             MobilePhone: $scope.mobileNumber,
             HomePhone: $scope.homeNumber,
-            Email: $scope.email
+            Email: $scope.email,
+            BirthDate: birthDateFiltered
         };
 
         var editResults = tenantService.editTenant(tenant, $scope.tenantId);

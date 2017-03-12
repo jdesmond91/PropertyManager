@@ -12,6 +12,7 @@ namespace PropertyManager.Controllers
         public string MobilePhone { get; set; }
         public string HomePhone { get; set; }
         public string Email { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 
     public class TenantBase : TenantAdd
@@ -26,5 +27,6 @@ namespace PropertyManager.Controllers
         public string MobilePhone { get; set; }
         public string HomePhone { get; set; }
         public string Email { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 }
