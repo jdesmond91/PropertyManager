@@ -32,7 +32,7 @@ namespace PropertyManager.Controllers
         public int Terms { get; set; }
     }
 
-    public class LeaseWithInformation
+    public class LeaseWithInformation : LeaseBase
     {
         public ApartmentBase Apartment { get; set; }
         public TenantBase Tenant { get; set; }

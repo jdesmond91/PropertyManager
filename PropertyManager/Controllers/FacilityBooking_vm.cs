@@ -15,11 +15,13 @@ namespace PropertyManager.Controllers
         public DateTime? EndTime { get; set; }
         public string Notes { get; set; }
         public int TenantId { get; set; }
+        public int FacilityId { get; set; }
     }
 
     public class FacilityBookingBase : FacilityBookingAdd
     {
         public int Id { get; set; }
+        public FacilityBase Facility { get; set; }
     }
 
     public class FacilityBookingEdit
@@ -31,5 +33,6 @@ namespace PropertyManager.Controllers
         [DisplayFormat(DataFormatString = "{0:t}")]
         public DateTime? EndTime { get; set; }
         public string Notes { get; set; }
+        public int FacilityId { get; set; }
     }
 }

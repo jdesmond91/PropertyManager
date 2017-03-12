@@ -290,8 +290,12 @@
     <Content Include="app\Services\announcementService.js" />
     <Content Include="app\Services\apartmentService.js" />
     <Content Include="app\Services\common.services.js" />
+    <Content Include="app\Services\employeeService.js" />
+    <Content Include="app\Services\leaseService.js" />
     <Content Include="app\Services\facilityService.js" />
+    <Content Include="app\Services\inventoryService.js" />
     <Content Include="app\Services\loginService.js" />
+    <Content Include="app\Services\serviceRequestService.js" />
     <Content Include="app\Services\serviceService.js" />
     <Content Include="app\Services\tenantService.js" />
     <Content Include="app\Services\unitService.js" />

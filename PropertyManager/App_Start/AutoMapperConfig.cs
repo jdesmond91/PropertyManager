@@ -33,6 +33,11 @@ namespace PropertyManager.App_Start
             Mapper.CreateMap<Models.Facility, Controllers.FacilityBase>();
             Mapper.CreateMap<Controllers.FacilityEdit, Controllers.FacilityBase>();
 
+            //Facility Booking
+            Mapper.CreateMap<Controllers.FacilityBookingAdd, Models.Facility>();
+            Mapper.CreateMap<Models.FacilityBooking, Controllers.FacilityBookingBase>();
+            Mapper.CreateMap<Controllers.FacilityBookingEdit, Controllers.FacilityBookingBase>();
+
             //Service
             Mapper.CreateMap<Controllers.ServiceAdd, Models.Service>();
             Mapper.CreateMap<Models.Service, Controllers.ServiceBase>();

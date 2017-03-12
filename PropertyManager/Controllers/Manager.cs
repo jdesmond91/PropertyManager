@@ -278,6 +278,106 @@ namespace PropertyManager.Controllers
             }
         }
 
+        //**************************************** FACILITY BOOKING *****************************************************
+
+        public IEnumerable<FacilityBookingBase> FacilityBookingGetAllWithFacility()
+        {
+            var s = ds.FacilityBookings.Include("Facility").OrderBy(j => j.Id);
+            return Mapper.Map<IEnumerable<FacilityBookingBase>>(s);
+        }
+
+        public FacilityBookingBase FacilityBookingGetByIdWithFacility(int id)
+        {
+            var o = ds.FacilityBookings.Include("Facility").SingleOrDefault(j => j.Id == id);
+            return (o == null) ? null : Mapper.Map<FacilityBookingBase>(o);
+        }
+
+        public FacilityBookingBase FacilityBookingAdd(FacilityBookingAdd newItem)
+        {
+            // Ensure that we can continue
+            if (newItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                // Must validate the associated object
+                var associatedItem = ds.Facilities.Find(newItem.FacilityId);
+                if (associatedItem == null)
+                {
+                    return null;
+                }
+
+                // Add the new object
+
+                // Build the FacilityBooking object
+                FacilityBooking addedItem = Mapper.Map<FacilityBooking>(newItem);
+
+                // Set its associated item identifier
+                addedItem.Facility = associatedItem;
+
+                ds.FacilityBookings.Add(addedItem);
+                ds.SaveChanges();
+
+                // Return the object
+                return Mapper.Map<FacilityBookingBase>(addedItem);
+            }
+        }
+
+        public FacilityBookingBase FacilityBookingEdit(FacilityBookingEdit editedItem)
+        {
+            // Ensure that we can continue
+            if (editedItem == null)
+            {
+                return null;
+            }
+
+            // Attempt to fetch the underlying object
+            var storedItem = ds.FacilityBookings.Find(editedItem.Id);
+
+            if (storedItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                // Fetch the object from the data store - ds.Entry(storedItem)
+                // Get its current values collection - .CurrentValues
+                // Set those to the edited values - .SetValues(editedItem)
+                ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
+                // The SetValues() method ignores missing properties and navigation properties
+                ds.SaveChanges();
+
+                return Mapper.Map<FacilityBookingBase>(storedItem);
+            }
+        }
+
+        public void FacilityBookingDelete(int id)
+        {
+            // Attempt to fetch the existing item
+            var storedItem = ds.FacilityBookings.Find(id);
+
+            // Interim coding strategy...
+
+            if (storedItem == null)
+            {
+                // Throw an exception
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            else
+            {
+                try
+                {
+                    // If this fails, throw an exception (as above)
+                    // This implementation just prevents an error from bubbling up
+
+                    ds.FacilityBookings.Remove(storedItem);
+                    ds.SaveChanges();
+                }
+                catch (Exception) { }
+            }
+        }
+
         //**************************************** SERVICE SECTION ******************************************************
 
         public IEnumerable<ServiceBase> ServiceGetAll()
@@ -389,7 +489,7 @@ namespace PropertyManager.Controllers
 
                 // Add the new object
 
-                // Build the Album object
+                // Build the ServiceRequest object
                 ServiceRequest addedItem = Mapper.Map<ServiceRequest>(newItem);
 
                 // Set its associated item identifier
@@ -788,7 +888,7 @@ namespace PropertyManager.Controllers
 
                 // Add the new object
 
-                // Build the Album object
+                // Build the Lease object
                 Lease addedItem = Mapper.Map<Lease>(newItem);
 
                 // Set its associated item identifier

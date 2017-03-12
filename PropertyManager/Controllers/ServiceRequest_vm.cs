@@ -32,5 +32,6 @@ namespace PropertyManager.Controllers
         public int Id { get; set; }
         public DateTime RequestDate { get; set; }
         public DateTime? CompletionDate { get; set; }
+        public int ServiceId { get; set; }
     }
 }

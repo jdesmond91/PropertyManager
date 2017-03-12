@@ -16,5 +16,6 @@ namespace PropertyManager.Models
         public DateTime? EndTime { get; set; }
         public string Notes { get; set; }
         public virtual Tenant Tenant { get; set; }
+        public virtual Facility Facility { get; set; }
     }
 }
