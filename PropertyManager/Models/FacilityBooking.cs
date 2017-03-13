@@ -9,7 +9,7 @@ namespace PropertyManager.Models
     public class FacilityBooking
     {
         public int Id { get; set; }
-        public DateTime? BookingDate { get; set; }
+        public DateTime? BookedDate { get; set; }
         [DisplayFormat(DataFormatString = "{0:t}")]
         public DateTime? StartTime { get; set; }
         [DisplayFormat(DataFormatString = "{0:t}")]

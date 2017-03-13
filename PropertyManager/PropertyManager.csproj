@@ -269,9 +269,12 @@
     <Content Include="app\Controllers\announcementController.js" />
     <Content Include="app\app.js" />
     <Content Include="app\Controllers\apartmentController.js" />
+    <Content Include="app\Controllers\employeeController.js" />
+    <Content Include="app\Controllers\facilityBookingController.js" />
     <Content Include="app\Controllers\facilityController.js" />
     <Content Include="app\Controllers\headerController.js" />
     <Content Include="app\Controllers\homeController.js" />
+    <Content Include="app\Controllers\inventoryController.js" />
     <Content Include="app\Controllers\loginController.js" />
     <Content Include="app\Controllers\registerController.js" />
     <Content Include="app\Controllers\serviceController.js" />
@@ -291,6 +294,7 @@
     <Content Include="app\Services\apartmentService.js" />
     <Content Include="app\Services\common.services.js" />
     <Content Include="app\Services\employeeService.js" />
+    <Content Include="app\Services\facilityBookingService.js" />
     <Content Include="app\Services\leaseService.js" />
     <Content Include="app\Services\facilityService.js" />
     <Content Include="app\Services\inventoryService.js" />
@@ -305,6 +309,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="app\Controllers\serviceRequestController.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />

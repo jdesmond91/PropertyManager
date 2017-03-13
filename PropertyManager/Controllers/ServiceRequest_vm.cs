@@ -13,8 +13,10 @@ namespace PropertyManager.Controllers
             RequestDate = DateTime.Now.Date;
         }
 
+        public string Description { get; set; }
         public DateTime RequestDate { get; set; }
         public DateTime? CompletionDate { get; set; }
+        public string Notes { get; set; }
         public int ServiceId { get; set; }
     }
 
@@ -30,8 +32,10 @@ namespace PropertyManager.Controllers
     public class ServiceRequestEdit
     {
         public int Id { get; set; }
+        public string Description { get; set; }
         public DateTime RequestDate { get; set; }
         public DateTime? CompletionDate { get; set; }
+        public string Notes { get; set; }
         public int ServiceId { get; set; }
     }
 }
