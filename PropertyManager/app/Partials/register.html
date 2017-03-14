@@ -4,11 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
-
 <body ng-app="propertyManagerApp">
     <div ng-include='"/app/Partials/header.html"'></div>
-    <div class="row" ng-controller="registerController">
-        <div class="col-md-6">
             <form name="form">
                 <label class="control-label" for="username">Email: </label>
                 <div class="form-group" ng-class="{'has-error': form.username.$invalid && !form.username.$pristine}">
@@ -46,6 +43,4 @@
                 <span>{{userName}}</span>
                 <input type="button" class="btn" value="Logoff" ng-click="logout()" />
             </h3>
-        </div>
-    </div>
 </body>

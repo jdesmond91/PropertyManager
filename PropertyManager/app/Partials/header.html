@@ -1,7 +1,7 @@
 ﻿    <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid" ng-controller="headerController">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Property Manager App</a>
+                <a class="navbar-brand" href="#">Property Cloud</a>
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
@@ -30,14 +30,14 @@
             </ul>
             <div ng-if="isLoggedIn == false">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="#/register">Sign Up</a></li>
+                    <li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span></a></li>
                 </ul>
             </div>
             <div ng-if="isLoggedIn == true">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Hello, {{firstName}} !! </a> </li>
-                    <li><a href ng-click="logout()">Logout</a></li>
+                    <li><a href ng-click="logout()"><span class="glyphicon glyphicon-log-out"></a></li>
                 </ul>
             </div>
 

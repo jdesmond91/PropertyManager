@@ -26,6 +26,8 @@ namespace PropertyManager
 
             bundles.Add(new StyleBundle("~/bundles/propertymanagerapp/style").Include(
                      "~/Content/bootstrap.css",
+                     "~/Content/font-awesome.min.css",
+                     "~/app/Vendor/metisMenu.css",
                      "~/app/main.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/propertymanagerapp/script").Include(
@@ -34,7 +36,8 @@ namespace PropertyManager
                       "~/Scripts/angular-resource.js",
                       "~/Scripts/jquery-1.10.2.js",
                       "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
-                      "~/Scripts/bootstrap.min.js",                    
+                      "~/Scripts/bootstrap.min.js",  
+                      "~/app/Vendor/metisMenu.js",                  
                       "~/app/app.js",
                       //SERVICES
                       "~/app/Services/common.services.js",
