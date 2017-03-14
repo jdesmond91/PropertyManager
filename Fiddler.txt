@@ -12,7 +12,7 @@ Facility
 
 {
   "Id" : 1,
-  "FacilityName" : "Facility Test" Edit,
+  "FacilityName" : "Facility Test",
   "Description": "Testing Facility",
   "Location" : "First Floor",
   "OpenTime" : "2012-03-19T08:00Z",

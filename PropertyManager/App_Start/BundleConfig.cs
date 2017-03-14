@@ -32,16 +32,30 @@ namespace PropertyManager
                       "~/Scripts/angular-route.js",
                       "~/Scripts/angular-resource.js",
                       "~/Scripts/jquery-1.10.2.js",
-                      "~/Scripts/bootstrap.min.js",
                       "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
+                      "~/Scripts/bootstrap.min.js",                    
                       "~/app/app.js",
+                      //SERVICES
                       "~/app/Services/common.services.js",
+                      "~/app/Services/announcementService.js",
+                      "~/app/Services/apartmentService.js",
+                      "~/app/Services/facilityService.js",
                       "~/app/Services/loginService.js",
+                      "~/app/Services/serviceService.js",
+                      "~/app/Services/tenantService.js",
+                      "~/app/Services/unitService.js",
                       "~/app/Services/userProfile.js",
-                      "~/app/Controllers/homeController.js",
+                      //CONTROLLERS
+                      "~/app/Controllers/announcementController.js",
+                      "~/app/Controllers/apartmentController.js",
+                      "~/app/Controllers/facilityController.js",
                       "~/app/Controllers/headerController.js",
+                      "~/app/Controllers/homeController.js",
                       "~/app/Controllers/loginController.js",
-                      "~/app/Controllers/registerController.js" ));
+                      "~/app/Controllers/registerController.js",
+                      "~/app/Controllers/serviceController.js",
+                      "~/app/Controllers/tenantController.js",
+                      "~/app/Controllers/unitController.js"));
         }
     }
 }

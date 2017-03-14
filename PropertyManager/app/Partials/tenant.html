@@ -1,0 +1,70 @@
+﻿<html>
+<head>
+    <title>Tenant</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+
+<body ng-app="propertyManagerApp">
+    <div>
+        <form name="form">
+
+            <input type="text" name="firstName" id="firstName" class="form-control" placeholder="Name" ng-model="firstName">
+
+            <input type="text" name="lastName" id="lastName" class="form-control" placeholder="lastName" ng-model="lastName">
+
+            <input type="text" name="mobileNumber" id="mobileNumber" class="form-control" placeholder="mobileNumber" ng-model="mobileNumber">
+
+            <input type="text" name="homeNumber" id="homeNumber" class="form-control" placeholder="homeNumber" ng-model="homeNumber">
+            
+             <input type="email" name="email" id="email" class="form-control" placeholder="email" ng-model="email">
+
+            
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="addTenant()">Add</button>
+            </div>
+            <input type="text" name="serviceId" id="serviceId" class="form-control" placeholder="Id" ng-model="tenantId">
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="getTenant()">Get All</button>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="getTenantById()">Get One</button>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="editTenant()">Edit</button>
+            </div>
+
+            <p> Testing Get One</p>
+            <p>{{message}}</p>
+            <p>{{firstName}}</p>
+            <p>{{lastName}}</p>
+            <p>{{mobileNumber}}</p>
+            <p>{{homeNumber}}</p>
+            <p>{{email}}</p>
+
+            <p> Testing Get All</p>
+            <div ng-repeat="tenant in tenants">
+                <p>{{tenant.FirstName}}</p>
+                <p>
+                    {{tenant.LastNumber}}
+                </p>
+                <p>
+                    {{tenant.MobilePhone}}
+                </p>
+                <p>
+                    {{tenant.HomePhone}}
+                </p>
+                <p>
+                    {{tenant.Email}}
+                </p>
+                <p>{{tenant.Id}}</p>
+
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>

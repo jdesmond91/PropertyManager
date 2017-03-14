@@ -15,9 +15,9 @@ namespace PropertyManager.Models
         public string Status { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:t}")]
-        public DateTime OpenTime { get; set; }
+        public DateTime? OpenTime { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:t}")]
-        public DateTime CloseTime { get; set; }
+        public DateTime? CloseTime { get; set; }
     }
 }

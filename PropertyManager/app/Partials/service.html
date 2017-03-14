@@ -1,0 +1,68 @@
+﻿<html>
+<head>
+    <title>Service</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+
+<body ng-app="propertyManagerApp">
+    <div>
+        <form name="form">
+
+            <input type="text" name="name" id="name" class="form-control" placeholder="Name" ng-model="name">
+
+            <input type="text" name="companyName" id="companyName" class="form-control" placeholder="companyName" ng-model="companyName">
+
+            <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" placeholder="phoneNumber" ng-model="phoneNumber">
+
+            <input type="email" name="email" id="email" class="form-control" placeholder="email" ng-model="email">
+
+            <input type="text" name="address" id="address" class="form-control" placeholder="address" ng-model="address">
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="addService()">Add</button>
+            </div>
+            <input type="text" name="serviceId" id="serviceId" class="form-control" placeholder="Id" ng-model="serviceId">
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="getService()">Get All</button>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="getServiceById()">Get One</button>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="editService()">Edit</button>
+            </div>
+
+            <p> Testing Get One</p>
+            <p>{{message}}</p>
+            <p>{{name}}</p>
+            <p>{{companyName}}</p>
+            <p>{{phoneNumber}}</p>
+            <p>{{email}}</p>
+            <p>{{address}}</p>
+
+            <p> Testing Get All</p>
+            <div ng-repeat="service in services">
+                <p>{{service.ServiceName}}</p>
+                <p>
+                    {{service.CompanyName}}
+                </p>
+                <p>
+                    {{service.PhoneNumber}}
+                </p>
+                <p>
+                    {{service.Email}}
+                </p>
+                <p>
+                    {{service.Address}}
+                </p>
+                <p>{{service.Id}}</p>
+
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>

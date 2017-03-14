@@ -1,0 +1,74 @@
+﻿<html>
+<head>
+    <title>Facility</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+
+<body ng-app="propertyManagerApp">
+    <div>
+        <form name="form">
+
+            <input type="text" name="name" id="name" class="form-control" placeholder="Name" ng-model="name">
+
+            <input type="text" name="description" id="description" class="form-control" placeholder="description" ng-model="description">
+
+            <input type="text" name="location" id="location" class="form-control" placeholder="location" ng-model="location">
+
+            <input type="text" name="status" id="status" class="form-control" placeholder="status" ng-model="status">
+
+            <input type="time" name="openTime" id="openTime" class="form-control" placeholder="Open Time" ng-model="openTime">
+
+            <input type="time" name="closeTime" id="closeTime" class="form-control" placeholder="Close Time" ng-model="closeTime">
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="addFacility()">Add</button>
+            </div>
+            <input type="text" name="facilityId" id="facilityId" class="form-control" placeholder="Id" ng-model="facilityId">
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="getFacility()">Get All</button>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="getFacilityById()">Get One</button>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="editFacility()">Edit</button>
+            </div>
+
+            <p> Testing Get One</p>
+            <p>{{message}}</p>
+            <p>{{name}}</p>
+            <p>{{description}}</p>
+            <p>{{location}}</p>
+            <p>{{status}}</p>
+            <p>{{openTime}}</p>
+            <p>{{closeTime}}</p>
+
+            <p> Testing Get All</p>
+            <div ng-repeat="facility in facilities">
+                <p>{{facility.FacilityName}}</p>
+                <p>
+                    {{facility.Description}}
+                </p>
+                <p>
+                    {{facility.Location}}
+                </p>
+                <p>
+                    {{facility.OpenTime}}
+                </p>
+                <p>
+                    {{facility.CloseTime}}
+                </p>
+                <p>
+                    {{facility.Status}}
+                </p>
+                <p>{{facility.Id}}</p>
+
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>
