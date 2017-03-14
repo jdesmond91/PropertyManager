@@ -270,7 +270,6 @@
     <Content Include="app\Partials\apartment.html" />
     <Content Include="app\Partials\facility.html" />
     <Content Include="app\Partials\header.html" />
-    <Content Include="app\Partials\headerLogged.html" />
     <Content Include="app\Partials\login.html" />
     <Content Include="app\Partials\menu.html" />
     <Content Include="app\Partials\register.html" />
