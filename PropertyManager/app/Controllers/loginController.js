@@ -19,6 +19,11 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         $location.path('/register');
     };
 
+    $scope.getName = function () {
+        console.log($scope.name);
+    }
+  
+
     $scope.login = function () {
         $scope.dataLoading = true;
         var userLogin = {
@@ -38,7 +43,7 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
                 console.log(response);               
                 userProfile.setProfile(response.data.UserName, data.access_token, response.data.Role, response.data.GivenName);
                 $scope.isLoggedIn = true;
-                $location.path('/home');
+                $location.path('/announcement');
             }, function (error) {
                 $scope.responseData = response.statusText + " : \r\n";
                 if (error.data.error) {
@@ -71,7 +76,7 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         resetResult.then(function (data) {
             console.log(data);
             $scope.responseData = "Reset Password Successfull";
-            //$location.path('/home');
+            $location.path('/home');
         }, function (response) {
             $scope.responseData = response.statusText + "\r\n";
         });

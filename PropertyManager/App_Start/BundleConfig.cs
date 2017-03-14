@@ -37,7 +37,8 @@ namespace PropertyManager
                       "~/Scripts/jquery-1.10.2.js",
                       "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                       "~/Scripts/bootstrap.min.js",  
-                      "~/app/Vendor/metisMenu.js",                  
+                      "~/app/Vendor/metisMenu.js",
+                      "~/app/Vendor/angular-modal-service.min.js",
                       "~/app/app.js",
                       //SERVICES
                       "~/app/Services/common.services.js",

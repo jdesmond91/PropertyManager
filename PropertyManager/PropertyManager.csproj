@@ -272,6 +272,7 @@
     <Content Include="app\Partials\header.html" />
     <Content Include="app\Partials\login.html" />
     <Content Include="app\Partials\menu.html" />
+    <Content Include="app\Partials\modalLogin.html" />
     <Content Include="app\Partials\register.html" />
     <Content Include="app\Partials\service.html" />
     <Content Include="app\Partials\sidenav.html" />
@@ -289,6 +290,8 @@
     <Content Include="app\Services\unitphotoService.js" />
     <Content Include="app\Services\unitService.js" />
     <Content Include="app\Services\userProfile.js" />
+    <Content Include="app\Vendor\angular-modal-service.js" />
+    <Content Include="app\Vendor\angular-modal-service.min.js" />
     <Content Include="app\Vendor\metisMenu.css" />
     <Content Include="app\Vendor\metisMenu.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -374,6 +377,8 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="app\Vendor\angular-modal-service.js.map" />
+    <Content Include="app\Vendor\angular-modal-service.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

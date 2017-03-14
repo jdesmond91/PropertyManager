@@ -1,4 +1,4 @@
-﻿angular.module("propertyManagerApp", ['ngRoute', 'common.services'])
+﻿angular.module("propertyManagerApp", ['ngRoute', 'common.services', 'angularModalService'])
         .config(['$routeProvider', '$locationProvider',
             function ($routeProvider, $locationProvider) {
                 $locationProvider.hashPrefix('');
