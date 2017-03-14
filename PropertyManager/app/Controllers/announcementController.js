@@ -91,5 +91,5 @@ function announcementController($scope, $filter, announcementService, userProfil
         });
     } // close function
 
-
+    $scope.getAnnouncement();
 }
