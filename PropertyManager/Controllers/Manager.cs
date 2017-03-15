@@ -94,6 +94,139 @@ namespace PropertyManager.Controllers
             }
         }
 
+        // ****************************************** EMPLOYEEE SECTION *****************************************
+
+        public IEnumerable<EmployeeBase> EmployeeGetAll()
+        {
+            var c = ds.Employees.OrderBy(a => a.Title);
+
+            return Mapper.Map<IEnumerable<EmployeeBase>>(c);
+        }
+
+        public EmployeeBase EmployeeGetById(int id)
+        {
+            var c = ds.Employees.SingleOrDefault(a => a.Id == id);
+
+            return (c == null) ? null : Mapper.Map<EmployeeBase>(c);
+        }
+
+        public EmployeeBase EmployeeAdd(EmployeeAdd newItem)
+        {
+            if (newItem == null)
+            {
+                return null;
+            }
+            var addedItem = ds.Employees.Add(Mapper.Map<Employee>(newItem));
+            ds.SaveChanges();
+
+            return (addedItem == null) ? null : Mapper.Map<EmployeeBase>(addedItem);
+        }
+
+        public EmployeeBase EmployeeEdit(EmployeeEdit editedItem)
+        {
+            if (editedItem == null)
+            {
+                return null;
+            }
+            var storedItem = ds.Employees.SingleOrDefault(e => e.Id == editedItem.Id);
+
+            if (storedItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
+                ds.SaveChanges();
+
+                return Mapper.Map<EmployeeBase>(storedItem);
+            }
+        }
+
+        public void EmployeeDelete(int id)
+        {
+            var storedItem = ds.Employees.Find(id);
+            if (storedItem == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            else
+            {
+                try
+                {
+                    ds.Employees.Remove(storedItem);
+                    ds.SaveChanges();
+                }
+                catch (Exception) { }
+            }
+        }
+
+        // *************************************************** INVENTORY SECTION *****************************************
+        public IEnumerable<InventoryBase> InventoryGetAll()
+        {
+            var c = ds.Inventory.OrderBy(a => a.Id);
+
+            return Mapper.Map<IEnumerable<InventoryBase>>(c);
+        }
+
+        public InventoryBase InventoryGetById(int id)
+        {
+            var c = ds.Inventory.SingleOrDefault(a => a.Id == id);
+
+            return (c == null) ? null : Mapper.Map<InventoryBase>(c);
+        }
+
+        public InventoryBase InventoryAdd(InventoryAdd newItem)
+        {
+            if (newItem == null)
+            {
+                return null;
+            }
+            var addedItem = ds.Inventory.Add(Mapper.Map<Inventory>(newItem));
+            ds.SaveChanges();
+
+            return (addedItem == null) ? null : Mapper.Map<InventoryBase>(addedItem);
+        }
+
+        public InventoryBase InventoryEdit(InventoryEdit editedItem)
+        {
+            if (editedItem == null)
+            {
+                return null;
+            }
+            var storedItem = ds.Inventory.SingleOrDefault(e => e.Id == editedItem.Id);
+
+            if (storedItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
+                ds.SaveChanges();
+
+                return Mapper.Map<InventoryBase>(storedItem);
+            }
+        }
+
+        public void InventoryDelete(int id)
+        {
+            var storedItem = ds.Inventory.Find(id);
+            if (storedItem == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            else
+            {
+                try
+                {
+                    ds.Inventory.Remove(storedItem);
+                    ds.SaveChanges();
+                }
+                catch (Exception) { }
+            }
+        }
+
         // *************************************************** FACILITY SECTION *****************************************
 
         public IEnumerable<FacilityBase> FacilityGetAll()
@@ -160,6 +293,106 @@ namespace PropertyManager.Controllers
             }
         }
 
+        //**************************************** FACILITY BOOKING *****************************************************
+
+        public IEnumerable<FacilityBookingBase> FacilityBookingGetAllWithFacility()
+        {
+            var s = ds.FacilityBookings.Include("Facility").OrderBy(j => j.Id);
+            return Mapper.Map<IEnumerable<FacilityBookingBase>>(s);
+        }
+
+        public FacilityBookingBase FacilityBookingGetByIdWithFacility(int id)
+        {
+            var o = ds.FacilityBookings.Include("Facility").SingleOrDefault(j => j.Id == id);
+            return (o == null) ? null : Mapper.Map<FacilityBookingBase>(o);
+        }
+
+        public FacilityBookingBase FacilityBookingAdd(FacilityBookingAdd newItem)
+        {
+            // Ensure that we can continue
+            if (newItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                // Must validate the associated object
+                var associatedItem = ds.Facilities.Find(newItem.FacilityId);
+                if (associatedItem == null)
+                {
+                    return null;
+                }
+
+                // Add the new object
+
+                // Build the FacilityBooking object
+                FacilityBooking addedItem = Mapper.Map<FacilityBooking>(newItem);
+
+                // Set its associated item identifier
+                addedItem.Facility = associatedItem;
+
+                ds.FacilityBookings.Add(addedItem);
+                ds.SaveChanges();
+
+                // Return the object
+                return Mapper.Map<FacilityBookingBase>(addedItem);
+            }
+        }
+
+        public FacilityBookingBase FacilityBookingEdit(FacilityBookingEdit editedItem)
+        {
+            // Ensure that we can continue
+            if (editedItem == null)
+            {
+                return null;
+            }
+
+            // Attempt to fetch the underlying object
+            var storedItem = ds.FacilityBookings.Find(editedItem.Id);
+
+            if (storedItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                // Fetch the object from the data store - ds.Entry(storedItem)
+                // Get its current values collection - .CurrentValues
+                // Set those to the edited values - .SetValues(editedItem)
+                ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
+                // The SetValues() method ignores missing properties and navigation properties
+                ds.SaveChanges();
+
+                return Mapper.Map<FacilityBookingBase>(storedItem);
+            }
+        }
+
+        public void FacilityBookingDelete(int id)
+        {
+            // Attempt to fetch the existing item
+            var storedItem = ds.FacilityBookings.Find(id);
+
+            // Interim coding strategy...
+
+            if (storedItem == null)
+            {
+                // Throw an exception
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            else
+            {
+                try
+                {
+                    // If this fails, throw an exception (as above)
+                    // This implementation just prevents an error from bubbling up
+
+                    ds.FacilityBookings.Remove(storedItem);
+                    ds.SaveChanges();
+                }
+                catch (Exception) { }
+            }
+        }
+
         //**************************************** SERVICE SECTION ******************************************************
 
         public IEnumerable<ServiceBase> ServiceGetAll()
@@ -175,6 +408,14 @@ namespace PropertyManager.Controllers
 
             return (c == null) ? null : Mapper.Map<ServiceBase>(c);
         }
+
+        public ServiceWithServiceRequests ServiceGetByIdWithServiceRequests(int id)
+        {
+            var o = ds.Services.Include("ServiceRequests").SingleOrDefault(j => j.Id == id);
+
+            return (o == null) ? null : Mapper.Map<ServiceWithServiceRequests>(o);
+        }
+
         public ServiceBase ServiceAdd(ServiceAdd newItem)
         {
             if (newItem == null)
@@ -206,6 +447,7 @@ namespace PropertyManager.Controllers
                 return Mapper.Map<ServiceBase>(storedItem);
             }
         }
+
         public void ServiceDelete(int id)
         {
             var storedItem = ds.Services.Find(id);
@@ -218,6 +460,112 @@ namespace PropertyManager.Controllers
                 try
                 {
                     ds.Services.Remove(storedItem);
+                    ds.SaveChanges();
+                }
+                catch (Exception) { }
+            }
+        }
+
+        //**************************************** SERVICE REQUEST SECTION ***********************************************
+
+        public IEnumerable<ServiceRequestBase> ServiceRequestGetAll()
+        {
+            var s = ds.ServiceRequests.OrderBy(a => a.Id);
+            return Mapper.Map<IEnumerable<ServiceRequestBase>>(s);
+        }
+
+        public IEnumerable<ServiceRequestWithService> ServiceRequestGetAllWithService()
+        {
+            var s = ds.ServiceRequests.Include("Service").OrderBy(j => j.Id);
+            return Mapper.Map<IEnumerable<ServiceRequestWithService>>(s);
+        }
+
+        public ServiceRequestWithService ServiceRequestGetByIdWithService(int id)
+        {
+            var o = ds.ServiceRequests.Include("Service").SingleOrDefault(j => j.Id == id);
+            return (o == null) ? null : Mapper.Map<ServiceRequestWithService>(o);
+        }
+
+        public ServiceRequestBase ServiceRequestAdd(ServiceRequestAdd newItem)
+        {
+            // Ensure that we can continue
+            if (newItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                // Must validate the associated object
+                var associatedItem = ds.Services.Find(newItem.ServiceId);
+                if (associatedItem == null)
+                {
+                    return null;
+                }
+
+                // Add the new object
+
+                // Build the ServiceRequest object
+                ServiceRequest addedItem = Mapper.Map<ServiceRequest>(newItem);
+
+                // Set its associated item identifier
+                addedItem.Service = associatedItem;
+
+                ds.ServiceRequests.Add(addedItem);
+                ds.SaveChanges();
+
+                // Return the object
+                return Mapper.Map<ServiceRequestBase>(addedItem);
+            }
+        }
+
+        public ServiceRequestBase ServiceRequestEdit(ServiceRequestEdit editedItem)
+        {
+            // Ensure that we can continue
+            if (editedItem == null)
+            {
+                return null;
+            }
+
+            // Attempt to fetch the underlying object
+            var storedItem = ds.ServiceRequests.Find(editedItem.Id);
+
+            if (storedItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                // Fetch the object from the data store - ds.Entry(storedItem)
+                // Get its current values collection - .CurrentValues
+                // Set those to the edited values - .SetValues(editedItem)
+                ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
+                // The SetValues() method ignores missing properties and navigation properties
+                ds.SaveChanges();
+
+                return Mapper.Map<ServiceRequestBase>(storedItem);
+            }
+        }
+
+        public void ServiceRequestDelete(int id)
+        {
+            // Attempt to fetch the existing item
+            var storedItem = ds.ServiceRequests.Find(id);
+
+            // Interim coding strategy...
+
+            if (storedItem == null)
+            {
+                // Throw an exception
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            else
+            {
+                try
+                {
+                    // If this fails, throw an exception (as above)
+                    // This implementation just prevents an error from bubbling up
+
+                    ds.ServiceRequests.Remove(storedItem);
                     ds.SaveChanges();
                 }
                 catch (Exception) { }
@@ -239,6 +587,7 @@ namespace PropertyManager.Controllers
 
             return (c == null) ? null : Mapper.Map<UnitBase>(c);
         }
+
         public UnitBase UnitAdd(UnitAdd newItem)
         {
             if (newItem == null)
@@ -429,6 +778,7 @@ namespace PropertyManager.Controllers
                 return Mapper.Map<ApartmentBase>(storedItem);
             }
         }
+
         public void ApartmentDelete(int id)
         {
             var storedItem = ds.Apartments.Find(id);
@@ -446,7 +796,9 @@ namespace PropertyManager.Controllers
                 catch (Exception) { }
             }
         }
+
         //************************************** TENANT SECTION ***********************************************************
+
         public IEnumerable<TenantBase> TenantGetAll()
         {
             var c = ds.Tenants.OrderBy(a => a.LastName);
@@ -506,6 +858,114 @@ namespace PropertyManager.Controllers
                 try
                 {
                     ds.Tenants.Remove(storedItem);
+                    ds.SaveChanges();
+                }
+                catch (Exception) { }
+            }
+        }
+
+        //************************************** LEASE SECTION ***********************************************************
+
+        public IEnumerable<LeaseWithInformation> LeaseGetAllWithInformation()
+        {
+            var s = ds.Leases.Include("Tenant").Include("Apartment").OrderBy(j => j.Id);
+            return Mapper.Map<IEnumerable<LeaseWithInformation>>(s);
+        }
+
+        public LeaseWithInformation LeaseGetByIdWithInformation(int id)
+        {
+            var o = ds.Leases.Include("Tenant").Include("Apartment").SingleOrDefault(j => j.Id == id);
+            return (o == null) ? null : Mapper.Map<LeaseWithInformation>(o);
+        }
+
+        public LeaseBase LeaseAdd(LeaseAdd newItem)
+        {
+            // Ensure that we can continue
+            if (newItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                // Must validate the associated object
+                var associatedApartment = ds.Apartments.Find(newItem.ApartmentId);
+                if (associatedApartment == null)
+                {
+                    return null;
+                }
+
+                // Must validate the associated object
+                var associatedTenant = ds.Tenants.Find(newItem.TenantId);
+                if (associatedTenant == null)
+                {
+                    return null;
+                }
+
+                // Add the new object
+
+                // Build the Lease object
+                Lease addedItem = Mapper.Map<Lease>(newItem);
+
+                // Set its associated item identifier
+                addedItem.Apartment = associatedApartment;
+                addedItem.Tenant = associatedTenant;
+
+                ds.Leases.Add(addedItem);
+                ds.SaveChanges();
+
+                // Return the object
+                return Mapper.Map<LeaseBase>(addedItem);
+            }
+        }
+
+        public LeaseBase LeaseEdit(LeaseEdit editedItem)
+        {
+            // Ensure that we can continue
+            if (editedItem == null)
+            {
+                return null;
+            }
+
+            // Attempt to fetch the underlying object
+            var storedItem = ds.Leases.Find(editedItem.Id);
+
+            if (storedItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                // Fetch the object from the data store - ds.Entry(storedItem)
+                // Get its current values collection - .CurrentValues
+                // Set those to the edited values - .SetValues(editedItem)
+                ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
+                // The SetValues() method ignores missing properties and navigation properties
+                ds.SaveChanges();
+
+                return Mapper.Map<LeaseBase>(storedItem);
+            }
+        }
+
+        public void LeaseDelete(int id)
+        {
+            // Attempt to fetch the existing item
+            var storedItem = ds.Leases.Find(id);
+
+            // Interim coding strategy...
+
+            if (storedItem == null)
+            {
+                // Throw an exception
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            else
+            {
+                try
+                {
+                    // If this fails, throw an exception (as above)
+                    // This implementation just prevents an error from bubbling up
+
+                    ds.Leases.Remove(storedItem);
                     ds.SaveChanges();
                 }
                 catch (Exception) { }

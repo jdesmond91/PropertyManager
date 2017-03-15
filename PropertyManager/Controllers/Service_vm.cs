@@ -28,4 +28,13 @@ namespace PropertyManager.Controllers
         public string Email { get; set; }
         public string Address { get; set; }
     }
+
+    public class ServiceWithServiceRequests : ServiceBase
+    {
+        public ServiceWithServiceRequests()
+        {
+            ServiceRquests = new List<ServiceRequestBase>();
+        }
+        public IEnumerable<ServiceRequestBase> ServiceRquests { get; set; }
+    }
 }
