@@ -1,5 +1,5 @@
-﻿angular.module("propertyManagerApp").controller("headerController", ["$scope", "$location", "userProfile", 'ModalService', headerController]);
-function headerController($scope, $location, userProfile, ModalService) {
+﻿angular.module("propertyManagerApp").controller("headerController", ["$scope", "$location", "userProfile", headerController]);
+function headerController($scope, $location, userProfile) {
   
     $scope.Message = "";
     $scope.status;
