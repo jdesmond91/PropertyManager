@@ -272,10 +272,8 @@
     <Content Include="app\Partials\header.html" />
     <Content Include="app\Partials\login.html" />
     <Content Include="app\Partials\menu.html" />
-    <Content Include="app\Partials\modalLogin.html" />
     <Content Include="app\Partials\register.html" />
     <Content Include="app\Partials\service.html" />
-    <Content Include="app\Partials\sidenav.html" />
     <Content Include="app\Partials\tenant.html" />
     <Content Include="app\Partials\testmenu.html" />
     <Content Include="app\Partials\unit.html" />
