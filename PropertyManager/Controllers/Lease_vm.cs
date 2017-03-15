@@ -12,7 +12,7 @@ namespace PropertyManager.Controllers
         public double SecurityDeposit { get; set; }
         public double MonthlyRent { get; set; }
         public int Terms { get; set; }
-        public int ApartmentId { get; set; }
+        public int ApartmentNumber { get; set; }
         public int TenantId { get; set; }
 
     }

@@ -12,7 +12,7 @@
                     templateUrl: 'app/Partials/login.html'
                 })
                 .when('/register/', {
-                    controller: 'loginController',
+                    controller: 'registerController',
                     templateUrl: 'app/Partials/register.html'
                 })
                 .when('/announcement/', {
@@ -39,5 +39,9 @@
                      controller: 'tenantController',
                      templateUrl: 'app/Partials/tenant.html'
                 })
+                .when('/lease/', {
+                     controller: 'leaseController',
+                     templateUrl: 'app/Partials/lease.html'
+                 })
                 .otherwise({ redirectTo: '/home' });
             }]);

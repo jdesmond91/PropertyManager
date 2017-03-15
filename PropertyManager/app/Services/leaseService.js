@@ -9,7 +9,7 @@ function leaseService($http, $q, appSettings) {
         //}
         var def = $q.defer();
         $http({
-            url: appSettings.serverPath + "/api/Leases",
+            url: appSettings.serverPath + "/api/leases",
             method: "POST",
             data: lease,
         }).then(function (response) {

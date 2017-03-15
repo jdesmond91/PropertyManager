@@ -888,7 +888,7 @@ namespace PropertyManager.Controllers
             else
             {
                 // Must validate the associated object
-                var associatedApartment = ds.Apartments.Find(newItem.ApartmentId);
+                var associatedApartment = ds.Apartments.Find(newItem.ApartmentNumber);
                 if (associatedApartment == null)
                 {
                     return null;

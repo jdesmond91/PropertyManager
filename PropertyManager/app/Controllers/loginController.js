@@ -19,11 +19,6 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         $location.path('/register');
     };
 
-    $scope.getName = function () {
-        console.log($scope.name);
-    }
-  
-
     $scope.login = function () {
         $scope.dataLoading = true;
         var userLogin = {

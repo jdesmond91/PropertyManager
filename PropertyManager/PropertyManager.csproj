@@ -267,6 +267,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\Vendor\angular-modal-service.js" />
+    <Content Include="app\Vendor\angular-modal-service.min.js" />
     <Content Include="app\Controllers\announcementController.js" />
     <Content Include="app\app.js" />
     <Content Include="app\Controllers\apartmentController.js" />
@@ -276,17 +278,23 @@
     <Content Include="app\Controllers\headerController.js" />
     <Content Include="app\Controllers\homeController.js" />
     <Content Include="app\Controllers\inventoryController.js" />
+    <Content Include="app\Controllers\leaseController.js" />
     <Content Include="app\Controllers\loginController.js" />
     <Content Include="app\Controllers\registerController.js" />
     <Content Include="app\Controllers\serviceController.js" />
     <Content Include="app\Controllers\tenantController.js" />
     <Content Include="app\Controllers\unitController.js" />
     <Content Include="app\Index.html" />
+    <Content Include="app\main.css" />
+    <Content Include="app\Vendor\metisMenu.css" />
+    <Content Include="app\Vendor\metisMenu.js" />
     <Content Include="app\Partials\announcement.html" />
     <Content Include="app\Partials\apartment.html" />
     <Content Include="app\Partials\facility.html" />
     <Content Include="app\Partials\header.html" />
+    <Content Include="app\Partials\lease.html" />
     <Content Include="app\Partials\login.html" />
+    <Content Include="app\Partials\menu.html" />
     <Content Include="app\Partials\register.html" />
     <Content Include="app\Partials\service.html" />
     <Content Include="app\Partials\tenant.html" />
@@ -381,6 +389,8 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="app\Vendor\angular-modal-service.js.map" />
+    <Content Include="app\Vendor\angular-modal-service.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1141,6 +1151,8 @@
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\NewFolder1\" />
+    <Folder Include="app\NewFolder2\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

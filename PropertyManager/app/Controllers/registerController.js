@@ -8,6 +8,7 @@ function registerController($scope, $location, $filter, loginService, userProfil
     $scope.userFirstName = "";
     $scope.userLastName = "";
     $scope.birthDate = "";
+    $scope.apartmentNumber = "";
     $scope.accessToken = "";
     $scope.refreshToken = "";
     $scope.isLoggedIn = false;
@@ -23,7 +24,8 @@ function registerController($scope, $location, $filter, loginService, userProfil
             GivenName: $scope.userFirstName,
             Surname: $scope.userLastName,
             Role: "Tenant",
-            BirthDate: birthDateFiltered
+            BirthDate: birthDateFiltered,
+            ApartmentNumber: $scope.apartmentNumber
         };
         var registerResult = loginService.register(userInfo);
         registerResult.then(function (data) {
