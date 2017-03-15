@@ -44,6 +44,7 @@ namespace PropertyManager
                       "~/app/Services/common.services.js",
                       "~/app/Services/announcementService.js",
                       "~/app/Services/apartmentService.js",
+                      "~/app/Services/Directives.js",
                       "~/app/Services/facilityService.js",
                       "~/app/Services/leaseService.js",
                       "~/app/Services/loginService.js",

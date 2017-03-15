@@ -267,6 +267,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\Services\Directives.js" />
     <Content Include="app\Vendor\angular-modal-service.js" />
     <Content Include="app\Vendor\angular-modal-service.min.js" />
     <Content Include="app\Controllers\announcementController.js" />

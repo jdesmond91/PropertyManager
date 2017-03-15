@@ -9,6 +9,7 @@ function registerController($scope, $location, $filter, loginService, userProfil
     $scope.userLastName = "";
     $scope.birthDate = "";
     $scope.apartmentNumber = "";
+    $scope.confirmPassword = "";
     $scope.accessToken = "";
     $scope.refreshToken = "";
     $scope.isLoggedIn = false;
@@ -45,4 +46,5 @@ function registerController($scope, $location, $filter, loginService, userProfil
             }
         });
     };
+   
 }

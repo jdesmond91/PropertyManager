@@ -13,6 +13,7 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
     $scope.passForget = false;
     $scope.userLastName = "";
     $scope.birthDate = "";
+    $scope.confirmPassword = "";
 
 
     $scope.registerUser = function () {
