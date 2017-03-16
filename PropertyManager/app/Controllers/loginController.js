@@ -14,6 +14,7 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
     $scope.userLastName = "";
     $scope.birthDate = "";
     $scope.confirmPassword = "";
+    $scope.userResetPassword = "";
 
 
     $scope.registerUser = function () {
@@ -62,8 +63,8 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
 
         var userInfo = {
-            NewPassword: $scope.userPassword,
-            ConfirmPassword: $scope.userPassword,
+            NewPassword: $scope.userResetPassword,
+            ConfirmPassword: $scope.userResetPassword,
             Surname: $scope.userLastName,
             Email: $scope.userEmail,
             BirthDate: birthDateFiltered

@@ -15,8 +15,8 @@
                     <span ng-show="form.username.$dirty" class="help-block">Enter a valid email</span>
                 </div>
                 <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-                    <label class="control-label" for="password" id="inputRegister">Password:</label>
-                    <input type="text" name="password" id="inputRegister" class="form-control" ng-model="userPassword" required>
+                    <label class="control-label" for="userPassword" id="password">Password:</label>
+                    <input type="password" name="password" id="inputRegister" class="form-control" ng-model="userPassword" required>
                     <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
                 </div>
                 <div class="form-actions">
@@ -43,14 +43,14 @@
                     <input type="date" name="birthDate" id="birthDate" class="form-control" ng-model="birthDate" style="width: 200px" required />
                     <span ng-show="formReset.birthDate.$dirty && formReset.birthDate.$error.required" class="help-block">Birth Date is required</span>
                 </div>
-                <div class="form-group" ng-class="{'has-error': formReset.password.$dirty && formReset.password.$error.required && formReset.password.$invalid}">
-                    <label class="control-label" for="password">New Password: </label>
-                    <input type="password" name="password" id="inputRegister" class="form-control" ng-model="userPassword" ng-pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/" required>
-                    <span ng-show="formReset.password.$dirty && formReset.password.$error.required && formReset.password.$invalid" class="help-block">Enter a valid password</span>
+                <div class="form-group" ng-class="{'has-error': formReset.resetPassword.$dirty && formReset.resetPassword.$error.required && formReset.resetPassword.$invalid}">
+                    <label class="control-label" for="resetPassword">New Password: </label>
+                    <input type="password" name="resetPassword" id="inputRegister" class="form-control" ng-model="userResetPassword" ng-pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/" required>
+                    <span ng-show="formReset.resetPassword.$dirty && formReset.resetPassword.$invalid" class="help-block">Enter a valid password</span>
                 </div>
                 <div class="form-group" ng-class="{'has-error': formReset.confirm_password.$dirty && formReset.confirm_password.$error.required && formReset.confirm_password.$invalid}">
                     <label class="control-label" for="confirm_password" id="confirm_password">Confirm Password:</label>
-                    <input type="password" name="confirm_password" id="inputRegister" class="form-control" ng-model="confirmPassword" compare-to="userPassword" required />
+                    <input type="password" name="confirm_password" id="inputRegister" class="form-control" ng-model="confirmPassword" compare-to="userResetPassword" required />
                     <span ng-show="formReset.confirm_password.$dirty && formReset.confirm_password.$invalid" class="help-block">Enter a valid password</span>                
                 </div>
                 <div class="form-actions">
