@@ -353,12 +353,18 @@ namespace PropertyManager.Controllers
                 return BadRequest(ModelState);
             }
 
-            var tenant = ds.Tenants.SingleOrDefault(a => a.BirthDate == model.BirthDate);
+            var tenant = ds.Tenants.SingleOrDefault(a => a.BirthDate == model.BirthDate && a.Email == model.Email && a.LastName == model.Surname);
+          
 
-            if(tenant == null)
+            if(tenant != null)
             {
-                return Content(HttpStatusCode.NotFound, "User not found");
-            }
+                var lease = ds.Leases.Include("Tenant").Include("Apartment").FirstOrDefault(j => j.Tenant.Id == tenant.Id && j.Apartment.ApartmentNumber == model.ApartmentNumber);
+                if (tenant == null || lease == null)
+                {
+                    return Content(HttpStatusCode.NotFound, "User not found");
+                }
+
+            }                      
 
             var user = new ApplicationUser() {
                 UserName = model.Email,

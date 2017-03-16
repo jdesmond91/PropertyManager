@@ -1,4 +1,4 @@
-﻿angular.module("propertyManagerApp", ['ngRoute', 'common.services', 'angularModalService'])
+﻿angular.module("propertyManagerApp", ['ngRoute', 'common.services'])
         .config(['$routeProvider', '$locationProvider',
             function ($routeProvider, $locationProvider) {
                 $locationProvider.hashPrefix('');
@@ -12,7 +12,7 @@
                     templateUrl: 'app/Partials/login.html'
                 })
                 .when('/register/', {
-                    controller: 'loginController',
+                    controller: 'registerController',
                     templateUrl: 'app/Partials/register.html'
                 })
                 .when('/announcement/', {
@@ -39,9 +39,9 @@
                      controller: 'tenantController',
                      templateUrl: 'app/Partials/tenant.html'
                 })
-                .when('/unitphoto/', {
-                     controller: 'unitphotoController',
-                     templateUrl: 'app/Partials/unitphoto.html'
-                })
+                .when('/lease/', {
+                     controller: 'leaseController',
+                     templateUrl: 'app/Partials/lease.html'
+                 })
                 .otherwise({ redirectTo: '/home' });
             }]);

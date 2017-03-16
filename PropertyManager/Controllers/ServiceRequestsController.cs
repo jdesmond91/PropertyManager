@@ -7,22 +7,22 @@ using System.Web.Http;
 
 namespace PropertyManager.Controllers
 {
-    public class ServicesController : ApiController
+    public class ServiceRequestsController : ApiController
     {
         private Manager m = new Manager();
 
-        // GET: api/Services
+        // GET: api/ServiceRequests
         public IHttpActionResult Get()
         {
-            return Ok(m.ServiceGetAll());
+            return Ok(m.ServiceRequestGetAllWithService());
         }
 
-        // GET: api/Services/5
+        // GET: api/ServiceRequests/5
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
             // Attempt to fetch the object
-            var o = m.ServiceGetByIdWithServiceRequests(id.GetValueOrDefault());
+            var o = m.ServiceRequestGetByIdWithService(id.GetValueOrDefault());
 
             // Continue?
             if (o == null)
@@ -35,8 +35,8 @@ namespace PropertyManager.Controllers
             }
         }
 
-        // POST: api/Services
-        public IHttpActionResult Post([FromBody]ServiceAdd newItem)
+        // POST: api/ServiceRequests
+        public IHttpActionResult Post([FromBody]ServiceRequestAdd newItem)
         {
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
 
@@ -47,7 +47,7 @@ namespace PropertyManager.Controllers
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
             // Attempt to add the new object
-            var addedItem = m.ServiceAdd(newItem);
+            var addedItem = m.ServiceRequestAdd(newItem);
 
             // Continue?
             if (addedItem == null) { return BadRequest("Cannot add the object"); }
@@ -59,8 +59,8 @@ namespace PropertyManager.Controllers
             return Created(uri, addedItem);
         }
 
-        // PUT: api/Services/5
-        public IHttpActionResult Put(int id, [FromBody]ServiceEdit editedItem)
+        // PUT: api/ServiceRequests/5
+        public IHttpActionResult Put(int id, [FromBody]ServiceRequestEdit editedItem)
         {
             if (editedItem == null)
             {
@@ -74,7 +74,7 @@ namespace PropertyManager.Controllers
 
             if (ModelState.IsValid)
             {
-                var changedItem = m.ServiceEdit(editedItem);
+                var changedItem = m.ServiceRequestEdit(editedItem);
 
                 if (changedItem == null)
                 {
@@ -93,10 +93,10 @@ namespace PropertyManager.Controllers
             }
         }
 
-        // DELETE: api/Services/5
+        // DELETE: api/ServiceRequests/5
         public void Delete(int id)
         {
-            m.ServiceDelete(id);
+            m.ServiceRequestDelete(id);
         }
     }
 }

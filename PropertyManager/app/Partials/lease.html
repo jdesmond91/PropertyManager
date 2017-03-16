@@ -1,0 +1,86 @@
+﻿<html>
+<head>
+    <title>Lease</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body ng-app="propertyManagerApp">
+    <div ng-include='"/app/Partials/menu.html"'></div>
+    <div id="page-wrapper">
+        <form name="form">
+        
+            <input type="date" name="startDate" id="startDate" class="form-control" placeholder="start Date" ng-model="startDate">
+
+            <input type="date" name="endDate" id="endDate" class="form-control" placeholder="expire Date" ng-model="endDate">
+
+            <input type="number" name="securityDeposit" id="securityDeposit" step=0.01 class="form-control" ng-model="securityDeposit">
+
+            <input type="number" name="monthlyRent" id="monthlyRent" step=0.01 class="form-control" ng-model="monthlyRent">
+
+            <input type="number" name="terms" id="terms" class="form-control" placeholder="terms" ng-model="terms">
+
+            <input type="number" name="apartmentId" id="apartmentId" class="form-control" placeholder="apartmentId" ng-model="apartmentId">
+
+            <input type="number" name="tenantId" id="tenantId" class="form-control" placeholder="tenantId" ng-model="tenantId">
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="addLease()">Add</button>
+            </div>
+            <input type="text" name="leaseId" id="leaseId" class="form-control" placeholder="Id" ng-model="leaseId">
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="getLease()">Get All</button>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="getLeaseById()">Get One</button>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="editLease()">Edit</button>
+            </div>
+
+            <p> Testing Get One</p>
+            <p>{{message}}</p>
+            <p>{{startDate}}</p>
+            <p>{{endDate}}</p>
+            <p>{{apartmentId}}</p>
+            <p>{{tenantId}}</p>
+
+            <p> Testing Get All</p>
+            <div ng-repeat="announce in leases">
+                <p>{{announce.StartDate}}</p>
+                <p>
+                    {{announce.EndDate}}
+                </p>
+                <p>
+                    {{announce.MonthlyRent}}
+                </p>
+                <p>
+                    {{announce.Apartment.ApartmentNumber}}
+                </p>
+                <p>
+                    {{announce.TenantId}}
+                </p>
+                <p>{{announce.Id}}</p>
+
+            </div>
+
+        </form>
+        <table class="table-fill">
+            <thead>
+                <tr>
+                    <th class="text-left">Title</th>
+                    <th class="text-left">Start Date</th>
+                    <th class="text-left">Expire Date</th>
+                </tr>
+            </thead>
+            <tbody class="table-hover" ng-repeat="announce in announces">
+                <tr>
+                    <td class="text-left">{{announce.Title}}</td>
+                    <td class="text-left">{{announce.StartDate}}</td>
+                    <td class="text-left">{{announce.ExpireDate}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

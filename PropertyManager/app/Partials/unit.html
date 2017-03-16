@@ -12,8 +12,6 @@
     <div id="page-wrapper">
         <form name="form">
 
-            <input type="text" name="status" id="status" class="form-control" placeholder="status" ng-model="status">
-
             <input type="number" name="bedrooms" id="bedrooms" class="form-control" placeholder="bedrooms" ng-model="bedrooms">
 
             <input type="number" name="bathrooms" id="bathrooms" class="form-control" placeholder="bathrooms" ng-model="bathrooms">
@@ -44,7 +42,6 @@
 
             <p> Testing Get One</p>
             <p>{{message}}</p>
-            <p>{{status}}</p>
             <p>{{bedrooms}}</p>
              <p>{{bathrooms}}</p>
             <p>{{squareft}}</p>
@@ -55,7 +52,6 @@
 
             <p> Testing Get All</p>
             <div ng-repeat="unit in units">
-                <p>{{unit.Status}}</p>              
                 <p>
                     {{unit.Bedrooms}}
                 </p>

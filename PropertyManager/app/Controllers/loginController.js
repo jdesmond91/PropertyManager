@@ -13,16 +13,12 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
     $scope.passForget = false;
     $scope.userLastName = "";
     $scope.birthDate = "";
+    $scope.confirmPassword = "";
 
 
     $scope.registerUser = function () {
         $location.path('/register');
     };
-
-    $scope.getName = function () {
-        console.log($scope.name);
-    }
-  
 
     $scope.login = function () {
         $scope.dataLoading = true;
@@ -42,18 +38,8 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
             getUserResult.then(function (response) {
                 console.log(response);               
                 userProfile.setProfile(response.data.UserName, data.access_token, response.data.Role, response.data.GivenName);
-                $scope.isLoggedIn = true;
-                $("#myModal").modal('hide');
-                //  Now call close, returning control to the caller.
-                close({                 
-                }, 500); // close, but give 500ms for bootstrap to animate
-
-                $('#myModal').on('hidden.bs.modal', function () {
-                    $location.path('/announcement');
-                });
-            
-                $location.path('/announcement');
-                
+                $scope.isLoggedIn = true;              
+                $location.path('/announcement');                  
             }, function (error) {
                 $scope.responseData = response.statusText + " : \r\n";
                 if (error.data.error) {

@@ -9,7 +9,6 @@ namespace PropertyManager.Controllers
 {
     public class UnitAdd
     {
-        public string Status { get; set; }
         public int Bedrooms { get; set; }
         public int Bathrooms { get; set; }
         public double SquareFeet { get; set; }
@@ -30,7 +29,6 @@ namespace PropertyManager.Controllers
     public class UnitEdit
     {
         public int Id { get; set; }
-        public string Status { get; set; }
         public int Bedrooms { get; set; }
         public int Bathrooms { get; set; }
         public double SquareFeet { get; set; }
