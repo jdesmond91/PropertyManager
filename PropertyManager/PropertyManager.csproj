@@ -267,6 +267,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\Partials\employee.html" />
     <Content Include="app\Services\Directives.js" />
     <Content Include="app\Vendor\angular-modal-service.js" />
     <Content Include="app\Vendor\angular-modal-service.min.js" />
@@ -1152,8 +1153,6 @@
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\NewFolder1\" />
-    <Folder Include="app\NewFolder2\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
