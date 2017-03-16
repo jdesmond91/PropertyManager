@@ -42,6 +42,10 @@
                 .when('/lease/', {
                      controller: 'leaseController',
                      templateUrl: 'app/Partials/lease.html'
-                 })
+                })
+                .when('/employee/', {
+                     controller: 'employeeController',
+                     templateUrl: 'app/Partials/employee.html'
+                })
                 .otherwise({ redirectTo: '/home' });
             }]);
