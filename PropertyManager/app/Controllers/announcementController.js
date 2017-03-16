@@ -46,15 +46,16 @@ function announcementController($scope, $filter, announcementService, userProfil
 
     } // close function
 
-    $scope.getAnnouncementById = function () {
-        var announceById = announcementService.getByIdAnnouncement($scope.announcementId);
+    $scope.getAnnouncementById = function (id) {
+        var announceById = announcementService.getByIdAnnouncement(id);
         announceById.then(function (response) {
+            console.log(response.data);
             $scope.title = response.data.Title;
             if (response.data.StartDate != "") {
-                $scope.startDate = new Date(response.data.StartDate.replace('T', ' ').replace('-', '/'));
+                $scope.startDate = response.data.StartDate//new Date(response.data.StartDate.replace('T', ' ').replace('-', '/'));
             }
             if (response.data.ExpireDate != "") {
-                $scope.expireDate = new Date(response.data.ExpireDate.replace('T', ' ').replace('-', '/'));
+                $scope.expireDate = response.data.ExpireDate//new Date(response.data.ExpireDate.replace('T', ' ').replace('-', '/'));
             }
             
         }, function (error){

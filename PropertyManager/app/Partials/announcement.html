@@ -37,36 +37,39 @@
             <p>{{expireDate}}</p>
             <p>{{announcementId}}</p>
 
-            <p> Testing Get All</p>
-            <div ng-repeat="announce in announces">
-                <p>{{announce.Title}}</p>
-                <p>
-                    {{announce.StartDate}}
-                </p>
-                <p>
-                    {{announce.ExpireDate}}
-                </p>
-                <p>{{announce.Id}}</p>
-
-            </div>
-
         </form>
-        <table class="table-fill">
-            <thead>
+        <div>
+            <table class="table-fill" style="float: left">
+                <thead>
+                    <tr>
+                        <th class="text-left">Title</th>
+                        <th class="text-left">Start Date</th>
+                        <th class="text-left">Expire Date</th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover" ng-repeat="announce in announces">
+                    <tr ng-click="getAnnouncementById(announce.Id)">
+                        <td class="text-left">{{announce.Title}}</td>
+                        <td class="text-left">{{announce.StartDate}}</td>
+                        <td class="text-left">{{announce.ExpireDate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="width: 45%">
                 <tr>
-                    <th class="text-left">Title</th>
-                    <th class="text-left">Start Date</th>
-                    <th class="text-left">Expire Date</th>
+                    <th>Title:</th>
+                    <td class="text-left">{{title}}</td>
                 </tr>
-            </thead>
-            <tbody class="table-hover" ng-repeat="announce in announces">
                 <tr>
-                    <td class="text-left">{{announce.Title}}</td>
-                    <td class="text-left">{{announce.StartDate}}</td>
-                    <td class="text-left">{{announce.ExpireDate}}</td>
+                    <th>Start Date:</th>
+                    <td class="text-left">{{startDate}}</td>
                 </tr>
-            </tbody>
-        </table>
+                <tr>
+                    <th>Expire Date:</th>
+                    <td class="text-left">{{expireDate}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </body>
 </html>
