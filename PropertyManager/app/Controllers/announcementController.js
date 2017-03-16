@@ -8,6 +8,9 @@ function announcementController($scope, $filter, announcementService, userProfil
     $scope.announcementId = "";
     $scope.message = "";
     $scope.announces = [];
+    $scope.sortType = "title";
+    $scope.sortReverse = false;
+    $scope.searchAnnouncement = "";
 
     $scope.addAnnouncement = function () {
         var startDateFiltered = null;
@@ -52,10 +55,10 @@ function announcementController($scope, $filter, announcementService, userProfil
             console.log(response.data);
             $scope.title = response.data.Title;
             if (response.data.StartDate != "") {
-                $scope.startDate = response.data.StartDate//new Date(response.data.StartDate.replace('T', ' ').replace('-', '/'));
+                $scope.startDate = new Date(response.data.StartDate.replace('T', ' ').replace('-', '/'));
             }
             if (response.data.ExpireDate != "") {
-                $scope.expireDate = response.data.ExpireDate//new Date(response.data.ExpireDate.replace('T', ' ').replace('-', '/'));
+                $scope.expireDate = new Date(response.data.ExpireDate.replace('T', ' ').replace('-', '/'));
             }
             
         }, function (error){

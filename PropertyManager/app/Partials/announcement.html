@@ -39,16 +39,44 @@
 
         </form>
         <div>
+            <form>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                        <input type="text" class="form-control" placeholder="Search" ng-model="searchAnnouncement">
+                    </div>
+                </div>
+            </form>
+
+
             <table class="table-fill" style="float: left">
                 <thead>
                     <tr>
-                        <th class="text-left">Title</th>
-                        <th class="text-left">Start Date</th>
-                        <th class="text-left">Expire Date</th>
+                        <th class="text-left">
+                            <a href ng-click="sortType = 'title'; sortReverse = !sortReverse">
+                            Title
+                            <span ng-show="sortType == 'title' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'title' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="text-left">
+                            <a href ng-click="sortType = 'startDate'; sortReverse = !sortReverse">
+                            Start Date
+                            <span ng-show="sortType == 'startDate' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'startDate' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="text-left">
+                            <a href ng-click="sortType = 'expireDate'; sortReverse = !sortReverse">                        
+                            Expire Date
+                            <span ng-show="sortType == 'expireDate' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'expireDate' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                       </th>
                     </tr>
                 </thead>
-                <tbody class="table-hover" ng-repeat="announce in announces">
-                    <tr ng-click="getAnnouncementById(announce.Id)">
+                <tbody class="table-hover">
+                    <tr ng-repeat="announce in announces | orderBy:sortType:sortReverse | filter:searchAnnouncement" ng-click="getAnnouncementById(announce.Id)">
                         <td class="text-left">{{announce.Title}}</td>
                         <td class="text-left">{{announce.StartDate}}</td>
                         <td class="text-left">{{announce.ExpireDate}}</td>
