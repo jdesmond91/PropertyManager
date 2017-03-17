@@ -31,7 +31,7 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         $scope.responseData = "";
         var loginResult = loginService.login(userLogin);
         loginResult.then(function (response) {
-            $scope.userName = response.data.userName;
+            $scope.userName = response.data.userName;           
             return response.data;
         }).
         then(function (data){

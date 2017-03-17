@@ -813,6 +813,13 @@ namespace PropertyManager.Controllers
             return (c == null) ? null : Mapper.Map<TenantBase>(c);
         }
 
+        public TenantBase TenantGetByEmail(string email)
+        {
+            var c = ds.Tenants.SingleOrDefault(a => a.Email == email);
+
+            return (c == null) ? null : Mapper.Map<TenantBase>(c);
+        }
+
         public TenantBase TenantAdd(TenantAdd newItem)
         {
             if (newItem == null)
