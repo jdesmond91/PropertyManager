@@ -241,6 +241,7 @@
     <Compile Include="Controllers\User_vm.cs" />
     <Compile Include="Controllers\Utility.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\WorkOrdersController.cs" />
     <Compile Include="Controllers\WorkOrder_vm.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -269,10 +270,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\Controllers\workOrderController.js" />
     <Content Include="app\Partials\employee.html" />
     <Content Include="app\Partials\home.html" />
     <Content Include="app\Partials\workorderrequest.html" />
     <Content Include="app\Services\Directives.js" />
+    <Content Include="app\Services\workOrderService.js" />
     <Content Include="app\Vendor\angular-modal-service.js" />
     <Content Include="app\Vendor\angular-modal-service.min.js" />
     <Content Include="app\Controllers\announcementController.js" />

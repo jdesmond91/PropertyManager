@@ -10,33 +10,35 @@
         <div ng-include='"/app/Partials/menu.html"'></div>
         <div id="page-wrapper">
             <form name="form">
+                <label class="control-label" for="description">Description </label><br/>
+                <textarea id="description" name="description" ng-model="description" rows="6" cols="70"></textarea><br/>
 
-                <input type="text" name="title" id="title" class="form-control" placeholder="Title" ng-model="title">
+                <label class="control-label" for="notes">Notes </label><br/>
+                <textarea id="notes" name="notes" ng-model="notes" rows="4" cols="70"></textarea><br/>
 
-                <input type="date" name="startDate" id="startDate" class="form-control" placeholder="start Date" ng-model="startDate">
-
-                <input type="date" name="expireDate" id="expireDate" class="form-control" placeholder="expire Date" ng-model="expireDate">
+                <label class="control-label" for="requestDate">Request Date </label><br/>
+                <input type="date" name="requestDate" id="requestDate" class="form-control" ng-model="requestDate"><br/>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="addAnnouncement()">Add</button>
+                    <button type="submit" class="btn btn-primary" ng-click="addWorkOrder()">Add</button>
                 </div>
-                <input type="text" name="announceId" id="announceId" class="form-control" placeholder="Id" ng-model="announcementId">
+                <input type="text" name="workOrderId" id="workOrderId" class="form-control" placeholder="Id" ng-model="workOrderId">
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="getAnnouncement()">Get All</button>
+                    <button type="submit" class="btn btn-primary" ng-click="getWorkOrder()">Get All</button>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="getAnnouncementById()">Get One</button>
+                    <button type="submit" class="btn btn-primary" ng-click="getWorkOrderById()">Get One</button>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="editAnnouncement()">Edit</button>
+                    <button type="submit" class="btn btn-primary" ng-click="editWorkOrder()">Edit</button>
                 </div>
 
                 <p> Testing Get One</p>
                 <p>{{message}}</p>
-                <p>{{title}}</p>
-                <p>{{startDate}}</p>
-                <p>{{expireDate}}</p>
-                <p>{{announcementId}}</p>
+                <p>{{notes}}</p>
+                <p>{{requestDate}}</p>
+                <p>{{description}}</p>
+                <p>{{workOrderId}}</p>
 
             </form>
            

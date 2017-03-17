@@ -63,10 +63,10 @@ function leaseController($scope, $filter, leaseService, userProfile) {
             $scope.apartmentId = response.data.Apartment.ApartmentNumber;
             $scope.tenantId = response.data.TenantId;
             console.log(response);
-            if (response.data.StartDate != "") {
+            if (response.data.StartDate != null) {
                 $scope.startDate = new Date(response.data.StartDate.replace('T', ' ').replace('-', '/'));
             }
-            if (response.data.EndDate != "") {
+            if (response.data.EndDate != null) {
                 $scope.endDate = new Date(response.data.EndDate.replace('T', ' ').replace('-', '/'));
             }
 

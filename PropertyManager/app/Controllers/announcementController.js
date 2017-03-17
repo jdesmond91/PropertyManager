@@ -54,10 +54,10 @@ function announcementController($scope, $filter, announcementService, userProfil
         announceById.then(function (response) {
             console.log(response.data);
             $scope.title = response.data.Title;
-            if (response.data.StartDate != "") {
+            if (response.data.StartDate != null) {
                 $scope.startDate = new Date(response.data.StartDate.replace('T', ' ').replace('-', '/'));
             }
-            if (response.data.ExpireDate != "") {
+            if (response.data.ExpireDate != null) {
                 $scope.expireDate = new Date(response.data.ExpireDate.replace('T', ' ').replace('-', '/'));
             }
             

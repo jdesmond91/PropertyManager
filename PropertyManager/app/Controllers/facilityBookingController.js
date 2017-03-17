@@ -55,7 +55,7 @@ function facilityBookingController($scope, $filter, facilityBookingService, user
             $scope.EndTime = response.data.EndTime;
             $scope.Notes = response.data.Notes;
 
-            if (response.data.BookedDate != "") {
+            if (response.data.BookedDate != null) {
                 $scope.BookedDate = new Date(response.data.BookedDate.replace('T', ' ').replace('-', '/'));
             }
 

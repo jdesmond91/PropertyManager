@@ -6,47 +6,49 @@
 </head>
 
 <body ng-app="propertyManagerApp">
-    <div ng-include='"/app/Partials/menu.html"'></div>
-    <div id="page-wrapper">
-        <form name="form">
+    <div id="wrapper">
+        <div ng-include='"/app/Partials/menu.html"'></div>
+        <div id="page-wrapper">
+            <form name="form">
 
-            <input type="number" name="aptNumber" id="aptNumber" class="form-control" placeholder="aptNumber" ng-model="aptNumber">
+                <input type="number" name="aptNumber" id="aptNumber" class="form-control" placeholder="aptNumber" ng-model="aptNumber">
 
-            <input type="number" name="floorNumber" id="floorNumber" class="form-control" placeholder="floorNumber" ng-model="floorNumber">
+                <input type="number" name="floorNumber" id="floorNumber" class="form-control" placeholder="floorNumber" ng-model="floorNumber">
 
-            <input type="number" name="unitId" id="unitId" class="form-control" placeholder="unitId" ng-model="unitId">
+                <input type="number" name="unitId" id="unitId" class="form-control" placeholder="unitId" ng-model="unitId">
 
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary" ng-click="addApartment()">Add</button>
-            </div>
-            <input type="text" name="aptNumber" id="aptNumber" class="form-control" placeholder="Id" ng-model="aptNumber">
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary" ng-click="getApartment()">Get All</button>
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary" ng-click="getApartmentById()">Get One</button>
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary" ng-click="editApartment()">Edit</button>
-            </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="addApartment()">Add</button>
+                </div>
+                <input type="text" name="aptNumber" id="aptNumber" class="form-control" placeholder="Id" ng-model="aptNumber">
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="getApartment()">Get All</button>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="getApartmentById()">Get One</button>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="editApartment()">Edit</button>
+                </div>
 
-            <p> Testing Get One</p>
-            <p>{{message}}</p>
-            <p>{{aptNumber}}</p>
-            <p>{{floorNumber}}</p>
-            <p>{{unitId}}</p>
+                <p> Testing Get One</p>
+                <p>{{message}}</p>
+                <p>{{aptNumber}}</p>
+                <p>{{floorNumber}}</p>
+                <p>{{unitId}}</p>
 
-            <p> Testing Get All</p>
-            <div ng-repeat="apt in apartments">
-                <p>{{apt.ApartmentNumber}}</p>
-                <p>
-                    {{apt.FloorNumber}}
-                </p>
-                <p>
-                    {{apt.UnitId}}
-                </p>
-            </div>
-        </form>
-    </div>
+                <p> Testing Get All</p>
+                <div ng-repeat="apt in apartments">
+                    <p>{{apt.ApartmentNumber}}</p>
+                    <p>
+                        {{apt.FloorNumber}}
+                    </p>
+                    <p>
+                        {{apt.UnitId}}
+                    </p>
+                </div>
+            </form>
+        </div>
+     </div>
 </body>
 </html>
