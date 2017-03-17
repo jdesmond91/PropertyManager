@@ -22,8 +22,28 @@ function loginService($http, appSettings) {
         });
         return resp;
     };
+
+    this.getUserInfo = function (email) {
+        var resp = $http({
+            url: appSettings.serverPath + "/api/units/getUser/" + email + "/find",
+            method: "GET",         
+        });
+        return resp;
+    };
+
+    this.resetPassword = function (userInfo) {
+        var resp = $http({
+            url: appSettings.serverPath + "/api/account/SetPassword",
+            method: "POST",
+            data: userInfo,
+        });
+        return resp;
+    };
+
     return {
         register: this.register,
-        login: this.login
+        login: this.login,
+        getUserInfo: this.getUserInfo,
+        resetPassword: this.resetPassword
     }
 }

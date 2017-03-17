@@ -1,32 +1,39 @@
-﻿angular.module("propertyManagerApp").controller("registerController", ["$scope", '$location', "loginService", "userProfile", registerController]);
+﻿angular.module("propertyManagerApp").controller("registerController", ["$scope", '$location', "$filter", "loginService", "userProfile", registerController]);
 
-function registerController($scope, $location, loginService, userProfile) {
+function registerController($scope, $location, $filter, loginService, userProfile) {
     $scope.responseData = "";
     $scope.userName = "";
     $scope.userEmail = "";
     $scope.userPassword = "";
     $scope.userFirstName = "";
     $scope.userLastName = "";
+    $scope.birthDate = "";
+    $scope.apartmentNumber = "";
+    $scope.confirmPassword = "";
     $scope.accessToken = "";
     $scope.refreshToken = "";
     $scope.isLoggedIn = false;
 
     $scope.registerUser = function () {
         $scope.responseData = "";
+        var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
+
         var userInfo = {
             Email: $scope.userEmail,
             Password: $scope.userPassword,
             ConfirmPassword: $scope.userPassword,
             GivenName: $scope.userFirstName,
             Surname: $scope.userLastName,
-            Role: "Tenant"
+            Role: "Tenant",
+            BirthDate: birthDateFiltered,
+            ApartmentNumber: $scope.apartmentNumber
         };
-        console.log(userInfo.Email + " " + userInfo.Password + " " + userInfo.GivenName + " " + userInfo.Surname);
         var registerResult = loginService.register(userInfo);
         registerResult.then(function (data) {
+            console.log(data);
             $scope.responseData = "User Registration Successfull";
             $scope.userPassword = "";
-            console.log(data);
+            $location.path('/home');
         }, function (response) {
             $scope.responseData = response.statusText + "\r\n";
             if (response.data.exceptionMessage) {
@@ -39,4 +46,5 @@ function registerController($scope, $location, loginService, userProfile) {
             }
         });
     };
+   
 }

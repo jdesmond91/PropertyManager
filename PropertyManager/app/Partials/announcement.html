@@ -3,55 +3,89 @@
     <title>Announcement</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
 </head>
 
 <body ng-app="propertyManagerApp">
-    <div>
-        <form name="form">
-          
-            <input type="text" name="title" id="title" class="form-control" placeholder="Title" ng-model="title">
-                        
-            <input type="date" name="startDate" id="startDate" class="form-control" placeholder="start Date" ng-model="startDate">
+    <div id="wrapper">
+        <div ng-include='"/app/Partials/menu.html"'></div>
+        <div id="page-wrapper">
+            <form name="form">
 
-            <input type="date" name="expireDate" id="expireDate" class="form-control" placeholder="expire Date" ng-model="expireDate">
-                
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary" ng-click="addAnnouncement()">Add</button>              
-            </div>
-            <input type="text" name="announceId" id="announceId" class="form-control" placeholder="Id" ng-model="announcementId">
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary" ng-click="getAnnouncement()">Get All</button>
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary" ng-click="getAnnouncementById()">Get One</button>
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary" ng-click="editAnnouncement()">Edit</button>
-            </div>
-           
-            <p> Testing Get One</p> 
-         <p>{{message}}</p>
-            <p>{{title}}</p>
-            <p>{{startDate}}</p>
-            <p>{{expireDate}}</p>
-            <p>{{announcementId}}</p>
+                <input type="text" name="title" id="title" class="form-control" placeholder="Title" ng-model="title">
 
-            <p> Testing Get All</p> 
-            <div ng-repeat="announce in announces">
-                <p>{{announce.Title}}</p>
-                <p>
-                    {{announce.StartDate}}
-                </p>
-                <p>
-                    {{announce.ExpireDate}}
-                </p>
-                <p>{{announce.Id}}</p>
+                <input type="date" name="startDate" id="startDate" class="form-control" placeholder="start Date" ng-model="startDate">
 
-</div>
+                <input type="date" name="expireDate" id="expireDate" class="form-control" placeholder="expire Date" ng-model="expireDate">
 
-        </form>        
-    </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="addAnnouncement()">Add</button>
+                </div>
+                <input type="text" name="announceId" id="announceId" class="form-control" placeholder="Id" ng-model="announcementId">
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="getAnnouncement()">Get All</button>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="getAnnouncementById()">Get One</button>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="editAnnouncement()">Edit</button>
+                </div>
+
+                <p> Testing Get One</p>
+                <p>{{message}}</p>
+                <p>{{title}}</p>
+                <p>{{startDate}}</p>
+                <p>{{expireDate}}</p>
+                <p>{{announcementId}}</p>
+
+            </form>
+            <div>
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" class="form-control" placeholder="Search" ng-model="searchAnnouncement">
+                        </div>
+                    </div>
+                </form>
+
+
+                <table class="table-fill" style="float: left">
+                    <thead>
+                        <tr>
+                            <th class="text-left">
+                                <a href ng-click="sortType = 'title'; sortReverse = !sortReverse">
+                                    Title
+                                    <span ng-show="sortType == 'title' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'title' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th class="text-left">
+                                <a href ng-click="sortType = 'startDate'; sortReverse = !sortReverse">
+                                    Start Date
+                                    <span ng-show="sortType == 'startDate' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'startDate' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th class="text-left">
+                                <a href ng-click="sortType = 'expireDate'; sortReverse = !sortReverse">
+                                    Expire Date
+                                    <span ng-show="sortType == 'expireDate' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'expireDate' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-hover">
+                        <tr ng-repeat="announce in announces | orderBy:sortType:sortReverse | filter:searchAnnouncement" ng-click="getAnnouncementById(announce.Id)">
+                            <td class="text-left">{{announce.Title}}</td>
+                            <td class="text-left">{{announce.StartDate}}</td>
+                            <td class="text-left">{{announce.ExpireDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+   </div>
 </body>
 </html>

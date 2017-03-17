@@ -2,7 +2,6 @@
 
 function unitController($scope, $filter, unitService, userProfile) {
 
-    $scope.status = "";
     $scope.bedrooms = "";
     $scope.bathrooms = "";
     $scope.squareft = "";
@@ -37,7 +36,6 @@ function unitController($scope, $filter, unitService, userProfile) {
         }
 
         var unit = {
-            Status: $scope.status,
             Bedrooms: $scope.bedrooms,
             Bathrooms: $scope.bathrooms,
             SquareFeet: $scope.squareft,
@@ -71,8 +69,7 @@ function unitController($scope, $filter, unitService, userProfile) {
     $scope.getUnitById = function () {
         var resultById = unitService.getByIdUnit($scope.unitId);
         resultById.then(function (response) {
-            console.log(response.data);
-            $scope.status = response.data.Status;
+            console.log(response.data);  
             $scope.bedrooms = response.data.Bedrooms;
             $scope.bathrooms = response.data.Bathrooms;
             $scope.squareft = response.data.SquareFeet;
@@ -112,7 +109,6 @@ function unitController($scope, $filter, unitService, userProfile) {
 
         var unit = {
             Id: $scope.unitId,
-            Status: $scope.status,
             Bedrooms: $scope.bedrooms,
             Bathrooms: $scope.bathrooms,
             SquareFeet: $scope.squareft,

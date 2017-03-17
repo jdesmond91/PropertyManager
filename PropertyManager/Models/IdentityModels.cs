@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace PropertyManager.Models
 {
@@ -12,6 +13,7 @@ namespace PropertyManager.Models
     {
         public string GivenName { get; set; }
         public string Surname { get; set; }
+        public string Role { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

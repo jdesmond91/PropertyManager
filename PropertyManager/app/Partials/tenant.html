@@ -8,7 +8,8 @@
 </head>
 
 <body ng-app="propertyManagerApp">
-    <div>
+    <div ng-include='"/app/Partials/menu.html"'></div>
+    <div id="page-wrapper">
         <form name="form">
 
             <input type="text" name="firstName" id="firstName" class="form-control" placeholder="Name" ng-model="firstName">
@@ -20,6 +21,8 @@
             <input type="text" name="homeNumber" id="homeNumber" class="form-control" placeholder="homeNumber" ng-model="homeNumber">
             
              <input type="email" name="email" id="email" class="form-control" placeholder="email" ng-model="email">
+
+            <input type="date" name="birthDate" id="birthDate" class="form-control" placeholder="birth Date" ng-model="birthDate">
 
             
 

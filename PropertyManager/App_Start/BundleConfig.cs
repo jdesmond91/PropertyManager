@@ -25,7 +25,10 @@ namespace PropertyManager
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/bundles/propertymanagerapp/style").Include(
-                     "~/Content/bootstrap.css"));
+                     "~/Content/bootstrap.css",
+                     "~/Content/font-awesome.min.css",
+                     "~/app/Vendor/metisMenu.css",
+                     "~/app/main.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/propertymanagerapp/script").Include(
                       "~/Scripts/angular.js",
@@ -33,29 +36,39 @@ namespace PropertyManager
                       "~/Scripts/angular-resource.js",
                       "~/Scripts/jquery-1.10.2.js",
                       "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
-                      "~/Scripts/bootstrap.min.js",                    
+                      "~/Scripts/bootstrap.min.js",  
+                      "~/app/Vendor/metisMenu.js",
+                      "~/app/Vendor/angular-modal-service.min.js",
                       "~/app/app.js",
                       //SERVICES
                       "~/app/Services/common.services.js",
                       "~/app/Services/announcementService.js",
                       "~/app/Services/apartmentService.js",
+                      "~/app/Services/Directives.js",
                       "~/app/Services/facilityService.js",
+                      "~/app/Services/leaseService.js",
                       "~/app/Services/loginService.js",
                       "~/app/Services/serviceService.js",
                       "~/app/Services/tenantService.js",
                       "~/app/Services/unitService.js",
+                      "~/app/Services/unitphotoService.js",
                       "~/app/Services/userProfile.js",
+                      "~/app/Services/employeeService.js",
                       //CONTROLLERS
                       "~/app/Controllers/announcementController.js",
                       "~/app/Controllers/apartmentController.js",
                       "~/app/Controllers/facilityController.js",
                       "~/app/Controllers/headerController.js",
                       "~/app/Controllers/homeController.js",
+                      "~/app/Controllers/leaseController.js",
                       "~/app/Controllers/loginController.js",
                       "~/app/Controllers/registerController.js",
                       "~/app/Controllers/serviceController.js",
                       "~/app/Controllers/tenantController.js",
-                      "~/app/Controllers/unitController.js"));
+                      "~/app/Controllers/unitController.js",
+                      "~/app/Controllers/unitphotoController.js",
+                      "~/app/Controllers/employeeController.js"
+            ));
         }
     }
 }

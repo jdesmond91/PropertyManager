@@ -3,16 +3,20 @@
             function ($routeProvider, $locationProvider) {
                 $locationProvider.hashPrefix('');
                 $routeProvider
-                .when('/home', {
+                .when('/index', {
                     controller: 'homeController',
                     templateUrl: 'app/Index.html'
                 })
+                .when('/home', {
+                    controller: 'homeController',
+                    templateUrl: 'app/Partials/home.html'
+                 })
                 .when('/login', {
                     controller: 'loginController',
                     templateUrl: 'app/Partials/login.html'
                 })
                 .when('/register/', {
-                    controller: 'loginController',
+                    controller: 'registerController',
                     templateUrl: 'app/Partials/register.html'
                 })
                 .when('/announcement/', {
@@ -39,5 +43,13 @@
                      controller: 'tenantController',
                      templateUrl: 'app/Partials/tenant.html'
                 })
-                .otherwise({ redirectTo: '/home' });
+                .when('/lease/', {
+                     controller: 'leaseController',
+                     templateUrl: 'app/Partials/lease.html'
+                })
+                .when('/employee/', {
+                     controller: 'employeeController',
+                     templateUrl: 'app/Partials/employee.html'
+                })
+                .otherwise({ redirectTo: '/index' });
             }]);

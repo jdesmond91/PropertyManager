@@ -55,6 +55,9 @@ namespace PropertyManager.App_Start
             Mapper.CreateMap<Models.Unit, Controllers.UnitBase>();
             Mapper.CreateMap<Controllers.UnitEdit, Controllers.UnitBase>();
 
+            //User
+            Mapper.CreateMap<Models.ApplicationUser, Controllers.UserBase>();
+
             //UnitPhoto
             Mapper.CreateMap<Controllers.UnitPhotoAdd, Models.UnitPhoto>();
             Mapper.CreateMap<Models.UnitPhoto, Controllers.UnitPhotoBase>();

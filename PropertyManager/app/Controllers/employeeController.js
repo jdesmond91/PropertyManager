@@ -18,6 +18,8 @@ function employeeController($scope, $filter, employeeService, userProfile) {
     $scope.Id = "";
     $scope.employees = [];
     $scope.message = "";
+    $scope.sortType = 'FirstName'; // set the default sort type
+    $scope.sortReverse = false;
 
     $scope.addEmployee = function () {
         var BirthDateFiltered = null;
@@ -65,8 +67,8 @@ function employeeController($scope, $filter, employeeService, userProfile) {
 
     } // close function
 
-    $scope.getEmployeeById = function () {
-        var employeeById = employeeService.getByIdEmployee($scope.Id);
+    $scope.getEmployeeById = function (id) {
+        var employeeById = employeeService.getByIdEmployee(id);
         employeeById.then(function (response) {
 
             $scope.LastName = response.data.LastName;
@@ -81,10 +83,10 @@ function employeeController($scope, $filter, employeeService, userProfile) {
             $scope.Email = response.data.Email;
 
             if (response.data.BirthDate != "") {
-                $scope.BirthDate = new Date(response.data.BirthDate.replace('T', ' ').replace('-', '/'));
+                $scope.BirthDate = response.data.BirthDate//new Date(response.data.BirthDate.replace('T', ' ').replace('-', '/'));
             }
             if (response.data.HireDate != "") {
-                $scope.HireDate = new Date(response.data.HireDate.replace('T', ' ').replace('-', '/'));
+                $scope.HireDate = response.data.HireDate//new Date(response.data.HireDate.replace('T', ' ').replace('-', '/'));
             }
 
         }, function (error) {
@@ -105,21 +107,21 @@ function employeeController($scope, $filter, employeeService, userProfile) {
             HireDateFiltered = $filter('date')($scope.HireDate, "yyyy-MM-dd");
         }
 
-        var employee = {
-            Id: $scope.Id,
-            LastName: $scope.LastName,
-            FirstName: $scope.FirstName,
-            Title: $scope.Title,
-            Address: $scope.Address,
-            City: $scope.City,
-            State: $scope.State,
-            PostalCode: $scope.PostalCode,
-            Phone: $scope.Phone,
-            Fax: $scope.Fax,
-            Email: $scope.Email,
-            BirthDate: BirthDateFiltered,
-            HireDate: HireDateFiltered
-        };
+            var employee = {
+                Id: $scope.Id,
+                LastName: $scope.LastName,
+                FirstName: $scope.FirstName,
+                Title: $scope.Title,
+                Address: $scope.Address,
+                City: $scope.City,
+                State: $scope.State,
+                PostalCode: $scope.PostalCode,
+                Phone: $scope.Phone,
+                Fax: $scope.Fax,
+                Email: $scope.Email,
+                BirthDate: BirthDateFiltered,
+                HireDate: HireDateFiltered
+            };
 
         var editResults = employeeService.editEmployee(employee, $scope.Id);
         editResults.then(function (response) {
@@ -130,4 +132,5 @@ function employeeController($scope, $filter, employeeService, userProfile) {
         });
     } // close function
 
+    $scope.getEmployee();
 }

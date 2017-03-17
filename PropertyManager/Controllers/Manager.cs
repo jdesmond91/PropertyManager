@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using PropertyManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Http;
 
 namespace PropertyManager.Controllers
@@ -11,6 +14,18 @@ namespace PropertyManager.Controllers
     public class Manager
     {
         private ApplicationDbContext ds = new ApplicationDbContext();
+
+        public UserBase getByEmail(string email)
+        {
+            // Attempt to fetch the object
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            // Attempt to locate the object
+            var user = userManager.FindByEmailAsync(email).Result;
+
+            return (user == null) ? null : Mapper.Map<UserBase>(user);
+
+        }
 
         // ****************************************** ANNOUNCEMENT SECTION *****************************************
 
@@ -798,6 +813,13 @@ namespace PropertyManager.Controllers
             return (c == null) ? null : Mapper.Map<TenantBase>(c);
         }
 
+        public TenantBase TenantGetByEmail(string email)
+        {
+            var c = ds.Tenants.SingleOrDefault(a => a.Email == email);
+
+            return (c == null) ? null : Mapper.Map<TenantBase>(c);
+        }
+
         public TenantBase TenantAdd(TenantAdd newItem)
         {
             if (newItem == null)
@@ -873,7 +895,7 @@ namespace PropertyManager.Controllers
             else
             {
                 // Must validate the associated object
-                var associatedApartment = ds.Apartments.Find(newItem.ApartmentId);
+                var associatedApartment = ds.Apartments.Find(newItem.ApartmentNumber);
                 if (associatedApartment == null)
                 {
                     return null;

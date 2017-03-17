@@ -25,7 +25,8 @@ namespace PropertyManager.Models
                     UserName = "admin@propertymanager.com",
                     Email = "admin@propertymanager.com",
                     GivenName = "Administrator",
-                    Surname = "Adm"
+                    Surname = "Adm",
+                    Role = "Administrator"
                 };
                 var result = await userManager.CreateAsync(user, "PropertyApp123");
                 if (result.Succeeded)

@@ -60,6 +60,7 @@ namespace PropertyManager.Models
         public string Surname { get; set; }
         public string Role { get; set; }
         public DateTime BirthDate { get; set; }
+        public int ApartmentNumber { get; set; }
     }
 
     public class RegisterExternalBindingModel
@@ -92,5 +93,16 @@ namespace PropertyManager.Models
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Last name")]
+        [Required, StringLength(128, ErrorMessage = "The {0} must be {2} or fewer characters.")]
+        public string Surname { get; set; }
+
+        [Required]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        public DateTime BirthDate { get; set; }
+
     }
 }

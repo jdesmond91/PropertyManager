@@ -18,6 +18,8 @@ using PropertyManager.Providers;
 using PropertyManager.Results;
 using System.Net.Mail;
 using System.Net;
+using AutoMapper;
+using System.Linq;
 
 namespace PropertyManager.Controllers
 {
@@ -27,6 +29,7 @@ namespace PropertyManager.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext ds = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -137,6 +140,7 @@ namespace PropertyManager.Controllers
         }
 
         // POST api/Account/SetPassword
+        [AllowAnonymous]
         [Route("SetPassword")]
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
         {
@@ -145,11 +149,28 @@ namespace PropertyManager.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+            var tenant = ds.Tenants.SingleOrDefault(a => a.BirthDate == model.BirthDate && a.Email == model.Email && a.LastName == model.Surname);
 
-            if (!result.Succeeded)
+            IdentityUser user = UserManager.FindByEmailAsync(model.Email).Result;          
+
+            if (tenant == null || user == null)
             {
-                return GetErrorResult(result);
+                return Content(HttpStatusCode.NotFound, "User not found");
+            }
+
+            IdentityResult passwordChangeResult = null ;
+
+            if (tenant.Email == user.Email)
+            {
+                string resetToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                passwordChangeResult = await UserManager.ResetPasswordAsync(user.Id, resetToken, model.NewPassword);
+            }
+
+            //IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+
+            if (!passwordChangeResult.Succeeded)
+            {
+                return GetErrorResult(passwordChangeResult);
             }
 
             return Ok();
@@ -221,6 +242,7 @@ namespace PropertyManager.Controllers
 
             return Ok();
         }
+        
 
         // GET api/Account/ExternalLogin
         [OverrideAuthentication]
@@ -325,16 +347,31 @@ namespace PropertyManager.Controllers
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            var tenant = ds.Tenants.SingleOrDefault(a => a.BirthDate == model.BirthDate && a.Email == model.Email && a.LastName == model.Surname);
+          
+
+            if(tenant != null)
+            {
+                var lease = ds.Leases.Include("Tenant").Include("Apartment").FirstOrDefault(j => j.Tenant.Id == tenant.Id && j.Apartment.ApartmentNumber == model.ApartmentNumber);
+                if (tenant == null || lease == null)
+                {
+                    return Content(HttpStatusCode.NotFound, "User not found");
+                }
+
+            }                      
+
             var user = new ApplicationUser() {
                 UserName = model.Email,
                 Email = model.Email,
                 GivenName = model.GivenName,
-                Surname = model.Surname
+                Surname = model.Surname,
+                Role = model.Role
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -344,9 +381,18 @@ namespace PropertyManager.Controllers
                 return GetErrorResult(result);
             }
 
-            await UserManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "Tenant"));           
+            await UserManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, model.Role));
 
-            return Ok();
+            var userFound = new ApplicationUser()
+            {
+                UserName = user.UserName,
+                Role = user.Role,
+                GivenName = user.GivenName
+            };
+
+            var userMapped = Mapper.Map<UserBase>(userFound);
+
+            return Ok(userMapped);
         }
 
         // POST api/Account/RegisterExternal

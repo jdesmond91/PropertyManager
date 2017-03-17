@@ -35,6 +35,24 @@ namespace PropertyManager.Controllers
             }
         }
 
+        [Route("api/tenants/email/{email}/find")]
+        public IHttpActionResult GetByEmail(string email)
+        {
+            if (email == "") { return NotFound(); }
+            // Attempt to fetch the object
+            var o = m.TenantGetByEmail(email);
+
+            // Continue?
+            if (o == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(o);
+            }
+        }
+
         // POST: api/Tenants
         public IHttpActionResult Post([FromBody]TenantAdd newItem)
         {
