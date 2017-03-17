@@ -241,6 +241,7 @@
     <Compile Include="Controllers\User_vm.cs" />
     <Compile Include="Controllers\Utility.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\WorkOrdersController.cs" />
     <Compile Include="Controllers\WorkOrder_vm.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
