@@ -59,29 +59,42 @@
             <a class="navbar-brand" href="#" style="color: gold"><span class="fa fa-building fa-1x" ></span> Property Cloud</a>
         </div>
         <!-- /.navbar-header -->
-        <ul class="nav navbar-top-links navbar-right">
-            <li>
-                <a href="#"><i class="fa fa-user fa-1x"></i> Hello, {{firstName}} !!</a>
-            </li>
-            <li>
-                <a href ng-click="logout()"><i class="fa fa-sign-out fa-1x"></i></a>
-            </li>
-        </ul>
-                                 
-        <!-- /.navbar-top-links -->
+        <div ng-if="isLoggedIn == false">
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="#/register">Sign Up</a>
+                </li>
+                <li>
+                <a href="#/login"><span class="glyphicon glyphicon-log-in"></span></a>
+                </li>
+            </ul>
+        </div>
+        <div ng-if="isLoggedIn == true">
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="#"><i class="fa fa-user fa-1x"></i> Hello, {{firstName}} !!</a>
+                </li>
+                <li>
+                    <a href ng-click="logout()"><i class="fa fa-sign-out fa-1x"></i></a>
+                </li>
+            </ul>
+        </div>
 
-        <div class="navbar-default sidebar" role="navigation" style="background-color: aliceblue">
-            <div class="sidebar-nav navbar-collapse">
-                <ul class="nav" id="side-menu">                    
-                    <li>
-                        <a href="#/announcement"><i class="fa fa-calendar-check-o"></i> Announcements</a>
-                    </li>
-                    <li>
-                        <a href="#/apartment"><i class="fa fa-bed"></i> Apartments</a>
-                    </li>
-                    <li>
-                        <a href="#/employee"><i class="fa fa-address-book"></i> Employees</a>
-                        <!--<ul class="nav nav-second-level">
+            <!-- /.navbar-top-links -->
+
+            <!-- / side bar Managers/Adm-->
+            <div class="navbar-default sidebar" role="navigation" style="background-color: aliceblue" ng-show="isLoggedIn && (userRole=='Administrator' || userRole=='Manager')">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="#/announcement"><i class="fa fa-calendar-check-o"></i> Announcements</a>
+                        </li>
+                        <li>
+                            <a href="#/apartment"><i class="fa fa-bed"></i> Apartments</a>
+                        </li>
+                        <li>
+                            <a href="#/employee"><i class="fa fa-address-book"></i> Employees</a>
+                            <!--<ul class="nav nav-second-level">
                             <li>
                                 <a href="flot.html">Flot Charts</a>
                             </li>
@@ -89,41 +102,41 @@
                                 <a href="morris.html">Morris.js Charts</a>
                             </li>
                         </ul> -->
-                        <!-- /.nav-second-level -->
-                    </li>
-                    <li>
-                        <a href="#/facility"><i class="fa fa-television"></i> Facilities</a>
-                    </li>
-                    <li>
-                        <a href="#/inventory"><i class="fa fa-list"></i> Inventory</a>
-                    </li>
-                    <li>
-                        <a href="#/lease"><i class="fa fa-handshake-o"></i> Leases<span class="fa arrow"></span></a>
-                        <!--<ul class="nav nav-second-level">
-                            <li>
-                                <a href="panels-wells.html">Panels and Wells</a>
-                            </li>
-                            <li>
-                                <a href="buttons.html">Buttons</a>
-                            </li>
-                            <li>
-                                <a href="notifications.html">Notifications</a>
-                            </li>
-                            <li>
-                                <a href="typography.html">Typography</a>
-                            </li>
-                            <li>
-                                <a href="icons.html"> Icons</a>
-                            </li>
-                            <li>
-                                <a href="grid.html">Grid</a>
-                            </li>
-                        </ul> -->
-                        <!-- /.nav-second-level -->
-                    </li>
-                    <li>
-                        <a href="#/service"><i class="fa fa-industry"></i> Services<span class="fa arrow"></span></a>
-                        <!-- <ul class="nav nav-second-level">
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#/facility"><i class="fa fa-television"></i> Facilities</a>
+                        </li>
+                        <li>
+                            <a href="#/inventory"><i class="fa fa-list"></i> Inventory</a>
+                        </li>
+                        <li>
+                            <a href="#/lease"><i class="fa fa-handshake-o"></i> Leases<span class="fa arrow"></span></a>
+                            <!--<ul class="nav nav-second-level">
+                                <li>
+                                    <a href="panels-wells.html">Panels and Wells</a>
+                                </li>
+                                <li>
+                                    <a href="buttons.html">Buttons</a>
+                                </li>
+                                <li>
+                                    <a href="notifications.html">Notifications</a>
+                                </li>
+                                <li>
+                                    <a href="typography.html">Typography</a>
+                                </li>
+                                <li>
+                                    <a href="icons.html"> Icons</a>
+                                </li>
+                                <li>
+                                    <a href="grid.html">Grid</a>
+                                </li>
+                            </ul>-->
+                            <!-- /.nav-second-level --
+                        </li>
+                        <li>
+                            <a href="#/service"><i class="fa fa-industry"></i> Services<span class="fa arrow"></span></a>
+                            <!-- <ul class="nav nav-second-level">
                             <li>
                                 <a href="#">Second Level Item</a>
                             </li>
@@ -147,13 +160,13 @@
                                     </li>
                                 </ul>
                                 <!-- /.nav-third-level -->
-                          <!--  </li>
+                            <!--  </li>
                         </ul> -->
-                        <!-- /.nav-second-level -->
-                    </li>
-                    <li class="active">
-                        <a href="#/tenant"><i class="fa fa-users"></i> Tenants<span class="fa arrow"></span></a>
-                        <!-- <ul class="nav nav-second-level">
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li class="active">
+                            <a href="#/tenant"><i class="fa fa-users"></i> Tenants<span class="fa arrow"></span></a>
+                            <!-- <ul class="nav nav-second-level">
                             <li>
                                 <a class="active" href="blank.html">Blank Page</a>
                             </li>
@@ -161,15 +174,34 @@
                                 <a href="login.html">Login Page</a>
                             </li>
                         </ul> -->
-                        <!-- /.nav-second-level -->
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#/unit"><i class="fa fa-home"></i> Units</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+
+        <!-- / side bar Tenants-->
+        <div class="navbar-default sidebar" role="navigation" style="background-color: aliceblue" ng-show="isLoggedIn && userRole=='Tenant'">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="#/servicerequest"><i class="fa fa-calendar-check-o"></i> Service Request</a>
                     </li>
                     <li>
-                        <a href="#/unit"><i class="fa fa-home"></i> Units</a>
-                    </li>
+                        <a href="#/facilitybooking"><i class="fa fa-bed"></i> Facility Booking</a>
+                    </li>                   
+                    <li>
+                        <a href="#/lease"><i class="fa fa-handshake-o"></i> Leases<span class="fa arrow"></span></a>                      
+                    </li>                    
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->
         </div>
         <!-- /.navbar-static-side -->
-    </nav>
+</nav>
 </div>

@@ -8,9 +8,10 @@ function headerController($scope, $location, userProfile) {
 
     $scope.isLoggedIn = user.isLoggedIn;
     $scope.firstName = user.firstName;
+    $scope.userRole = user.userRole;
 
     console.log($scope.isLoggedIn);
-    console.log($scope.firstName);   
+    console.log($scope.userRole);
 
     $scope.logout = function () {
         sessionStorage.removeItem('accessToken');
@@ -19,6 +20,6 @@ function headerController($scope, $location, userProfile) {
         sessionStorage.removeItem('firstName');
         $scope.isLoggedIn = false;
         $scope.firstName = "";
-        $location.path('/home');
+        $location.path('/index');
     };
 }

@@ -3,10 +3,14 @@
             function ($routeProvider, $locationProvider) {
                 $locationProvider.hashPrefix('');
                 $routeProvider
-                .when('/home', {
+                .when('/index', {
                     controller: 'homeController',
                     templateUrl: 'app/Index.html'
                 })
+                .when('/home', {
+                    controller: 'homeController',
+                    templateUrl: 'app/Partials/home.html'
+                 })
                 .when('/login', {
                     controller: 'loginController',
                     templateUrl: 'app/Partials/login.html'
@@ -47,5 +51,5 @@
                      controller: 'employeeController',
                      templateUrl: 'app/Partials/employee.html'
                 })
-                .otherwise({ redirectTo: '/home' });
+                .otherwise({ redirectTo: '/index' });
             }]);
