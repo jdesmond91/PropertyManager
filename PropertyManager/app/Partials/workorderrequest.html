@@ -1,0 +1,46 @@
+﻿<html>
+<head>
+    <title>Announcement</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body ng-app="propertyManagerApp">
+    <div id="wrapper">
+        <div ng-include='"/app/Partials/menu.html"'></div>
+        <div id="page-wrapper">
+            <form name="form">
+
+                <input type="text" name="title" id="title" class="form-control" placeholder="Title" ng-model="title">
+
+                <input type="date" name="startDate" id="startDate" class="form-control" placeholder="start Date" ng-model="startDate">
+
+                <input type="date" name="expireDate" id="expireDate" class="form-control" placeholder="expire Date" ng-model="expireDate">
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="addAnnouncement()">Add</button>
+                </div>
+                <input type="text" name="announceId" id="announceId" class="form-control" placeholder="Id" ng-model="announcementId">
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="getAnnouncement()">Get All</button>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="getAnnouncementById()">Get One</button>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="editAnnouncement()">Edit</button>
+                </div>
+
+                <p> Testing Get One</p>
+                <p>{{message}}</p>
+                <p>{{title}}</p>
+                <p>{{startDate}}</p>
+                <p>{{expireDate}}</p>
+                <p>{{announcementId}}</p>
+
+            </form>
+           
+            </div>
+        </div>
+</body>
+</html>

@@ -269,6 +269,7 @@
   <ItemGroup>
     <Content Include="app\Partials\employee.html" />
     <Content Include="app\Partials\home.html" />
+    <Content Include="app\Partials\workorderrequest.html" />
     <Content Include="app\Services\Directives.js" />
     <Content Include="app\Vendor\angular-modal-service.js" />
     <Content Include="app\Vendor\angular-modal-service.min.js" />
