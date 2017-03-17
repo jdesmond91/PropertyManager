@@ -79,6 +79,11 @@ namespace PropertyManager.App_Start
             Mapper.CreateMap<Controllers.LeaseAdd, Models.Lease>();
             Mapper.CreateMap<Controllers.LeaseEdit, Controllers.LeaseBase>();
 
+            //WorkOrder
+            Mapper.CreateMap<Controllers.WorkOrderAdd, Models.WorkOrder>();
+            Mapper.CreateMap<Models.WorkOrder, Controllers.WorkOrderBase>();
+            Mapper.CreateMap<Controllers.WorkOrderEdit, Controllers.WorkOrderBase>();
+
 #pragma warning restore CS0618
         }
     }

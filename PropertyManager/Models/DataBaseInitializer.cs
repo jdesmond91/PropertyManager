@@ -89,7 +89,7 @@ namespace PropertyManager.Models
                 lease.SecurityDeposit = 500.00;
                 lease.MonthlyRent = 1050.60;
                 lease.Terms = 1;
-                lease.ApartmentId = 520;
+                lease.ApartmentNumber = 520;
                 lease.TenantId = 1;
 
                 m.LeaseAdd(lease);
@@ -99,7 +99,8 @@ namespace PropertyManager.Models
                     UserName = "amanda@test.ca",
                     Email = "amanda@test.ca",
                     GivenName = "Amanda",
-                    Surname = "Marques"
+                    Surname = "Marques",
+                    Role = "Tenant"
                 };
 
                 var ds = new ApplicationDbContext();

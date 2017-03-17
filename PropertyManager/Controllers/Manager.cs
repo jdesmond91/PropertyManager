@@ -979,5 +979,84 @@ namespace PropertyManager.Controllers
             }
         }
 
+        //****************************** WORK ORDER SECTION *******************************************************************
+
+        public IEnumerable<WorkOrderBase> WorkOrderGetAll()
+        {
+            var c = ds.WorkOrders.OrderBy(a => a.RequestDate);
+
+            return Mapper.Map<IEnumerable<WorkOrderBase>>(c);
+        }
+
+        public WorkOrderBase WorkOrderGetById(int id)
+        {
+            var c = ds.WorkOrders.SingleOrDefault(a => a.Id == id);
+
+            return (c == null) ? null : Mapper.Map<WorkOrderBase>(c);
+        }
+
+        public WorkOrderBase WorkOrderAdd(WorkOrderAdd newItem)
+        {
+            if (newItem == null)
+            {
+                return null;
+            }
+
+            var associatedTenant = ds.Tenants.Find(newItem.TenantId);
+            if (associatedTenant == null)
+            {
+                return null;
+            }
+
+            WorkOrder addedItem = Mapper.Map<WorkOrder>(newItem);      
+          
+            addedItem.Tenant = associatedTenant;
+
+            ds.WorkOrders.Add(addedItem);
+            ds.SaveChanges();
+
+            // Return the object
+            return Mapper.Map<WorkOrderBase>(addedItem);
+        }
+
+        public WorkOrderBase WorkOrderEdit(WorkOrderEdit editedItem)
+        {
+            if (editedItem == null)
+            {
+                return null;
+            }
+            var storedItem = ds.WorkOrders.SingleOrDefault(e => e.Id == editedItem.Id);
+
+            if (storedItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
+                ds.SaveChanges();
+
+                return Mapper.Map<WorkOrderBase>(storedItem);
+            }
+        }
+
+        public void WorkOrderDelete(int id)
+        {
+            var storedItem = ds.WorkOrders.Find(id);
+            if (storedItem == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            else
+            {
+                try
+                {
+                    ds.WorkOrders.Remove(storedItem);
+                    ds.SaveChanges();
+                }
+                catch (Exception) { }
+            }
+        }
+
     }
 }
