@@ -43,6 +43,7 @@ namespace PropertyManager.Models
         public DbSet<Inventory> Inventory { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Lease> Leases { get; set; }
+        public DbSet<WorkOrder> WorkOrders { get; set; }
 
         public static ApplicationDbContext Create()
         {

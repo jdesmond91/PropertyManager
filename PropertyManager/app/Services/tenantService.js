@@ -38,6 +38,15 @@ function tenantService($http, $q, appSettings) {
         return response;
     };
 
+    this.getByEmailTenant = function (tenantEmail) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/tenants/email/" + tenantEmail + "/find",
+            method: "GET",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     this.editTenant = function (tenant, tenantId) {
 
         var def = $q.defer();
@@ -57,6 +66,7 @@ function tenantService($http, $q, appSettings) {
         addTenant: this.addTenant,
         getAllTenant: this.getAllTenant,
         getByIdTenant: this.getByIdTenant,
+        getByEmailTenant: this.getByEmailTenant,
         editTenant: this.editTenant
     }
 

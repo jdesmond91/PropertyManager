@@ -31,7 +31,7 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         $scope.responseData = "";
         var loginResult = loginService.login(userLogin);
         loginResult.then(function (response) {
-            $scope.userName = response.data.userName;
+            $scope.userName = response.data.userName;           
             return response.data;
         }).
         then(function (data){
@@ -40,7 +40,7 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
                 console.log(response);               
                 userProfile.setProfile(response.data.UserName, data.access_token, response.data.Role, response.data.GivenName);
                 $scope.isLoggedIn = true;              
-                $location.path('/announcement');                  
+                $location.path('/home');                  
             }, function (error) {
                 $scope.responseData = response.statusText + " : \r\n";
                 if (error.data.error) {

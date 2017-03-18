@@ -4,6 +4,9 @@ function homeController($scope, userProfile) {
 
 
     var user = userProfile.getProfile();
-    console.log(user);
+    
+    $scope.isLoggedIn = user.isLoggedIn;
+    $scope.firstName = user.firstName;
+    $scope.userRole = user.userRole;
 
 }

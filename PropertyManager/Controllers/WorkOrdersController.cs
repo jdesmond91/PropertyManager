@@ -7,22 +7,22 @@ using System.Web.Http;
 
 namespace PropertyManager.Controllers
 {
-    public class TenantsController : ApiController
+    public class WorkOrdersController : ApiController
     {
         private Manager m = new Manager();
 
-        // GET: api/Tenants
+        // GET: api/WorkOrders
         public IHttpActionResult Get()
         {
-            return Ok(m.TenantGetAll());
+            return Ok(m.WorkOrderGetAll());
         }
 
-        // GET: api/Tenants/5
+        // GET: api/WorkOrders/5
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
             // Attempt to fetch the object
-            var o = m.TenantGetById(id.GetValueOrDefault());
+            var o = m.WorkOrderGetById(id.GetValueOrDefault());
 
             // Continue?
             if (o == null)
@@ -35,26 +35,8 @@ namespace PropertyManager.Controllers
             }
         }
 
-        [Route("api/tenants/email/{email}/find")]
-        public IHttpActionResult GetByEmail(string email)
-        {
-            if (email == "") { return NotFound(); }
-            // Attempt to fetch the object
-            var o = m.TenantGetByEmail(email);
-
-            // Continue?
-            if (o == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(o);
-            }
-        }
-
-        // POST: api/Tenants
-        public IHttpActionResult Post([FromBody]TenantAdd newItem)
+        // POST: api/WorkOrders
+        public IHttpActionResult Post([FromBody]WorkOrderAdd newItem)
         {
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
 
@@ -65,7 +47,7 @@ namespace PropertyManager.Controllers
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
             // Attempt to add the new object
-            var addedItem = m.TenantAdd(newItem);
+            var addedItem = m.WorkOrderAdd(newItem);
 
             // Continue?
             if (addedItem == null) { return BadRequest("Cannot add the object"); }
@@ -77,8 +59,8 @@ namespace PropertyManager.Controllers
             return Created(uri, addedItem);
         }
 
-        // PUT: api/Tenants/5
-        public IHttpActionResult Put(int id, [FromBody]TenantEdit editedItem)
+        // PUT: api/WorkOrders/5
+        public IHttpActionResult Put(int id, [FromBody]WorkOrderEdit editedItem)
         {
             if (editedItem == null)
             {
@@ -92,7 +74,7 @@ namespace PropertyManager.Controllers
 
             if (ModelState.IsValid)
             {
-                var changedItem = m.TenantEdit(editedItem);
+                var changedItem = m.WorkOrderEdit(editedItem);
 
                 if (changedItem == null)
                 {
@@ -111,10 +93,10 @@ namespace PropertyManager.Controllers
             }
         }
 
-        // DELETE: api/Tenants/5
+        // DELETE: api/WorkOrders/5
         public void Delete(int id)
         {
-            m.TenantDelete(id);
+            m.WorkOrderDelete(id);
         }
     }
 }
