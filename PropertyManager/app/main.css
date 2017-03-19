@@ -462,11 +462,11 @@ table {
   padding:5px;
   width: 100%;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  animation: float 5s infinite;
 }
 
-.table-fill i {
-    font-size: 10px;
+.table-fill th i {
+    font-size: 8px;
+    vertical-align: middle;
 }
  
 .table-fill th {
@@ -481,6 +481,8 @@ table {
   text-align:left;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   vertical-align:middle;
+  max-width: 200px;
+  min-width: 20px;
 }
 
 .table-fill th:hover {
@@ -578,55 +580,18 @@ td.text-right {
 
 /** Details **/
 
-.details-div {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.details-table {
-    text-align: left;
-    line-height: 40px;
-    border-collapse: separate;
-    border-spacing: 0;
-    border: 2px solid #ed1c40;
-    width: 500px;
-    margin: 50px auto;
-    border-radius: .25rem;
-    //width: 75%;
-}
-
-.details-row td {
-    background: aliceblue !important;
-    color:#666B85;
-    font-size:16px;
-    font-weight:normal;
-}
-
-
-.details-row th {
-    background: aliceblue !important;
-    color:#666B85;
-    font-size:16px;
-    font-weight:normal;
-    border: none;
-}
-
-.details-data {
-    
-}
-
 .detailDivTable {
-    display: table;
+    display: table; 
 }
 
 .detailDivTableRow {
+    transition-timing-function: ease-in;
     display: table-row;
 }
 
 .detailDivTableHeader {
     display: table-cell;
     padding: 10px;
-    font-size: 20px;
     height: 40px;
 }
 

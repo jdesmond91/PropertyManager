@@ -20,6 +20,7 @@ function employeeController($scope, $filter, employeeService, userProfile) {
     $scope.message = "";
     $scope.sortType = 'FirstName'; // set the default sort type
     $scope.sortReverse = false;
+    $scope.searchEmployee = "";
 
     $scope.addEmployee = function () {
         var BirthDateFiltered = null;
