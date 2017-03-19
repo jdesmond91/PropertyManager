@@ -9,7 +9,6 @@
     <div ng-include='"/app/Partials/menu.html"'></div>
     <div id="page-wrapper">
         <div style="padding-top: 10px;">
-
             <form>
                 <div class="form-group">
                     <div class="input-group">
@@ -53,14 +52,14 @@
                     <tr class="list-hover">
                         <td>
                             <i style="cursor: pointer" class="fa fa-minus" ng-if="employee.expanded" ng-click="employee.expanded = false"></i>
-                            <i style="cursor: pointer" class="fa fa-plus" ng-if="!employee.expanded" ng-click="getEmployeeById(employee.Id); employee.expanded = true;"></i>
+                            <i style="cursor: pointer" class="fa fa-plus" ng-if="!employee.expanded" ng-click="employee.expanded = true;"></i>
                         </td>
                         <td class="text-left">{{employee.FirstName}}</td>
                         <td class="text-left">{{employee.LastName}}</td>
                         <td class="text-left">{{employee.Title}}</td>
                         <td class="text-left">{{employee.Phone}}</td>
                         <td class="text-left">{{employee.Email}}</td>
-                        <td class="text-left">{{employee.HireDate}}</td>
+                        <td class="text-left">{{employee.HireDate | date:'MM-dd-yyyy'}}</td>
                     </tr>
                     <tr class="details-row" ng-if="employee.expanded" ng-repeat-end="">
                         <td colspan="7">
@@ -68,7 +67,7 @@
                             <table class="details-table">
                                 <tr>
                                     <th class="details-header">First Name:</th>
-                                    <td class="detail-data">{{FirstName}}</td>
+                                    <td class="detail-data">{{employee.FirstName}}</td>
                                 </tr>
                             </table>
                                 -->
@@ -76,43 +75,43 @@
                                 <div class="detailDivTableBody">
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">First Name:</div>
-                                        <div class="detailDivTableCell">{{FirstName}}</div>
+                                        <div class="detailDivTableCell">{{employee.FirstName}}</div>
                                     </div>
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Last Name:</div>
-                                        <div class="detailDivTableCell">{{LastName}}</div>
+                                        <div class="detailDivTableCell">{{employee.LastName}}</div>
                                     </div>
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Title:</div>
-                                        <div class="detailDivTableCell">{{Title}}</div>
+                                        <div class="detailDivTableCell">{{employee.Title}}</div>
                                     </div>
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Address:</div>
-                                        <div class="detailDivTableCell">{{Address}}</div>
+                                        <div class="detailDivTableCell">{{employee.Address}}</div>
                                     </div>
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Province:</div>
-                                        <div class="detailDivTableCell">{{State}}</div>
+                                        <div class="detailDivTableCell">{{employee.State}}</div>
                                     </div>
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">City:</div>
-                                        <div class="detailDivTableCell">{{City}}</div>
+                                        <div class="detailDivTableCell">{{employee.City}}</div>
                                     </div>
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Postal Code:</div>
-                                        <div class="detailDivTableCell">{{PostalCode}}</div>
+                                        <div class="detailDivTableCell">{{employee.PostalCode}}</div>
                                     </div>
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Phone:</div>
-                                        <div class="detailDivTableCell">{{Phone}}</div>
+                                        <div class="detailDivTableCell">{{employee.Phone}}</div>
                                     </div>
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Fax:</div>
-                                        <div class="detailDivTableCell">{{Fax}}</div>
+                                        <div class="detailDivTableCell">{{employee.Fax}}</div>
                                     </div>
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Email:</div>
-                                        <div class="detailDivTableCell">{{Email}}</div>
+                                        <div class="detailDivTableCell">{{employee.Email}}</div>
                                     </div>
                                 </div>
                             </div>

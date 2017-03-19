@@ -113,6 +113,71 @@ namespace PropertyManager.Models
                     await userManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "Tenant"));
                 }
             }
+
+            if(m.EmployeeGetAll().Count() == 0)
+            {
+                var employee = new EmployeeAdd();
+                employee.LastName = "Marques";
+                employee.FirstName = "Amanda";
+                employee.Title = "Supervisor";
+                employee.BirthDate = new DateTime(1988, 12, 23);
+                employee.HireDate = new DateTime(2017, 02, 06);
+                employee.Address = "Wellesley St";
+                employee.City = "Toronto";
+                employee.State = "ON";
+                employee.Country = "Canada";
+                employee.PostalCode = "m4x 1g5";
+                employee.Fax = "4165789654";
+                employee.Email = "amandamc@hotmail.com";
+                employee.Phone = "6475895357";
+                m.EmployeeAdd(employee);
+
+                employee.LastName = "Desmond";
+                employee.FirstName = "Jonathan";
+                employee.Title = "Manager";
+                employee.BirthDate = new DateTime(1990, 11, 16);
+                employee.HireDate = new DateTime(2017, 01, 05);
+                employee.Address = "Pond Rd";
+                employee.City = "Toronto";
+                employee.State = "ON";
+                employee.Country = "Canada";
+                employee.PostalCode = "m6h 18h";
+                employee.Fax = "4168547523";
+                employee.Email = "jonathan@hotmail.com";
+                employee.Phone = "6478965236";
+                m.EmployeeAdd(employee);
+
+                employee.LastName = "Capello";
+                employee.FirstName = "Silvia";
+                employee.Title = "Clerk";
+                employee.BirthDate = new DateTime(1958, 01, 09);
+                employee.HireDate = new DateTime(2016, 04, 28);
+                employee.Address = "Aluisio St";
+                employee.City = "Toronto";
+                employee.State = "ON";
+                employee.Country = "Canada";
+                employee.PostalCode = "j7g 1s3";
+                employee.Fax = "416532065";
+                employee.Email = "silvia@hotmail.com";
+                employee.Phone = "6476523105";
+                m.EmployeeAdd(employee);
+            }
+
+            if(m.AnnouncementGetAll().Count() == 0)
+            {
+                var announce = new AnnouncementAdd();
+                announce.Title = "Laundry closed";
+                announce.StartDate = new DateTime(2017, 05, 05);
+                announce.ExpireDate = new DateTime(2017, 05, 06);
+                announce.Description = "The laundry room will be closed for maintenance";
+                m.AnnouncementAdd(announce);
+               
+                announce.Title = "Cleaning of corridor";
+                announce.StartDate = new DateTime(2017, 04, 20);
+                announce.ExpireDate = new DateTime(2017, 04, 22);
+                announce.Description = "The carpet will be cleaned on the upcoming weekend";
+                m.AnnouncementAdd(announce);
+            }
     
         }
     }

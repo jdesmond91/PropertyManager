@@ -17,7 +17,6 @@ namespace PropertyManager.Controllers
 
     public class ApartmentBase : ApartmentAdd
     {
-        
     }
 
     public class ApartmentEdit
@@ -27,5 +26,10 @@ namespace PropertyManager.Controllers
         public int FloorNumber { get; set; }
         public string Status { get; set; }
         public int UnitId { get; set; }
+    }
+
+    public class ApartmentWithUnit : ApartmentBase
+    {
+        public UnitBase Unit { get; set; }
     }
 }

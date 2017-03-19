@@ -740,11 +740,11 @@ namespace PropertyManager.Controllers
             return Mapper.Map<IEnumerable<ApartmentBase>>(c);
         }
 
-        public ApartmentBase ApartmentGetById(int id)
+        public ApartmentWithUnit ApartmentGetById(int id)
         {
-            var c = ds.Apartments.SingleOrDefault(a => a.ApartmentNumber == id);
+            var c = ds.Apartments.Include("Unit").SingleOrDefault(a => a.ApartmentNumber == id);
 
-            return (c == null) ? null : Mapper.Map<ApartmentBase>(c);
+            return (c == null) ? null : Mapper.Map<ApartmentWithUnit>(c);
         }
         public ApartmentBase ApartmentAdd(ApartmentAdd newItem)
         {
@@ -752,10 +752,26 @@ namespace PropertyManager.Controllers
             {
                 return null;
             }
-            var addedItem = ds.Apartments.Add(Mapper.Map<Apartment>(newItem));
-            ds.SaveChanges();
+            else
+            {
+                // Must validate the associated object
+                var associatedUnit = ds.Units.Find(newItem.UnitId);
+                if (associatedUnit == null)
+                {
+                    return null;
+                }
+               
+                Apartment addedItem = Mapper.Map<Apartment>(newItem);
 
-            return (addedItem == null) ? null : Mapper.Map<ApartmentBase>(addedItem);
+                // Set its associated item identifier
+                addedItem.Unit = associatedUnit;
+
+                ds.Apartments.Add(addedItem);
+                ds.SaveChanges();
+
+                // Return the object
+                return Mapper.Map<ApartmentBase>(addedItem);
+            }
         }
 
         public ApartmentBase ApartmentEdit(ApartmentEdit editedItem)

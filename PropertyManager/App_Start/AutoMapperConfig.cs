@@ -67,6 +67,7 @@ namespace PropertyManager.App_Start
             Mapper.CreateMap<Controllers.ApartmentAdd, Models.Apartment>();
             Mapper.CreateMap<Models.Apartment, Controllers.ApartmentBase>();
             Mapper.CreateMap<Controllers.ApartmentEdit, Controllers.ApartmentBase>();
+            Mapper.CreateMap<Models.Apartment, Controllers.ApartmentWithUnit>();
 
             //Tenant
             Mapper.CreateMap<Controllers.TenantAdd, Models.Tenant>();

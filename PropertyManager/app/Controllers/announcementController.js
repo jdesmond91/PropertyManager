@@ -5,6 +5,9 @@ function announcementController($scope, $filter, announcementService, userProfil
     $scope.title = "";
     $scope.startDate = "";
     $scope.expireDate = "";
+    $scope.startDateDetail = "";
+    $scope.expireDateDetail = "";
+    $scope.description = "";
     $scope.announcementId = "";
     $scope.message = "";
     $scope.announces = [];
@@ -26,7 +29,8 @@ function announcementController($scope, $filter, announcementService, userProfil
         var announcement = {
             Title : $scope.title,
             StartDate: startDateFiltered,
-            ExpireDate: expireDateFiltered
+            ExpireDate: expireDateFiltered,
+            Description: $scope.description
         };
 
         var addResults = announcementService.addAnnouncement(announcement);
@@ -54,11 +58,14 @@ function announcementController($scope, $filter, announcementService, userProfil
         announceById.then(function (response) {
             console.log(response.data);
             $scope.title = response.data.Title;
-            if (response.data.StartDate != null) {
-                $scope.startDate = new Date(response.data.StartDate.replace('T', ' ').replace('-', '/'));
+            $scope.description = response.data.Description;
+            if (response.data.StartDate != null) {              
+                $scope.startDate = new Date(response.data.StartDate.replace('T', ' ').replace('-', '/'));               
+                $scope.startDateDetail = $scope.startDate.toString().substring(0, 15);
             }
             if (response.data.ExpireDate != null) {
                 $scope.expireDate = new Date(response.data.ExpireDate.replace('T', ' ').replace('-', '/'));
+                $scope.expireDateDetail = $scope.expireDate.toString().substring(0, 15);
             }
             
         }, function (error){
@@ -83,7 +90,8 @@ function announcementController($scope, $filter, announcementService, userProfil
             Id: $scope.announcementId,
             Title: $scope.title,
             StartDate: startDateFiltered,
-            ExpireDate: expireDateFiltered
+            ExpireDate: expireDateFiltered,
+            Description: $scope.description
         };
 
         var editResults = announcementService.editAnnouncement(announcement, $scope.announcementId);

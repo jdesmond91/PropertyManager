@@ -4,14 +4,20 @@ function leaseController($scope, $filter, leaseService, userProfile) {
 
     $scope.startDate = "";
     $scope.endDate = "";
+    $scope.startDateDetail = "";
+    $scope.endDateDetail = "";
     $scope.securityDeposit = "";
     $scope.monthlyRent = "";
     $scope.terms = "";
     $scope.apartmentId = "";
     $scope.tenantId = "";
     $scope.leaseId = "";
+    $scope.tenantName = "";
     $scope.message = "";
     $scope.leases = [];
+    $scope.sortType = "ApartmentNumber";
+    $scope.sortReverse = false;
+    $scope.searchLease = "";
 
     $scope.addLease = function () {
         var startDateFiltered = null;
@@ -57,17 +63,20 @@ function leaseController($scope, $filter, leaseService, userProfile) {
     $scope.getLeaseById = function () {
         var leaseById = leaseService.getByIdLease($scope.leaseId);
         leaseById.then(function (response) {
-            $scope.securityDeposit = response.data.SecurityDeposit;
-            $scope.monthlyRent = response.data.MonthlyRent;
-            $scope.terms = response.data.Terms;
-            $scope.apartmentId = response.data.Apartment.ApartmentNumber;
-            $scope.tenantId = response.data.TenantId;
+            $scope.securityDeposit = response.data[0].SecurityDeposit;
+            $scope.monthlyRent = response.data[0].MonthlyRent;
+            $scope.terms = response.data[0].Terms;
+            $scope.apartmentId = response.data[0].Apartment.ApartmentNumber;
+            $scope.tenantId = response.data[0].TenantId;
+            $scope.tenantName = response.data[0].Tenant.FirstName + ' ' + response.data[0].Tenant.LastName;
             console.log(response);
-            if (response.data.StartDate != null) {
-                $scope.startDate = new Date(response.data.StartDate.replace('T', ' ').replace('-', '/'));
+            if (response.data[0].StartDate != null) {
+                $scope.startDate = new Date(response.data[0].StartDate.replace('T', ' ').replace('-', '/'));
+                $scope.startDateDetail = $scope.startDate.toString().substring(0, 15);
             }
-            if (response.data.EndDate != null) {
-                $scope.endDate = new Date(response.data.EndDate.replace('T', ' ').replace('-', '/'));
+            if (response.data[0].EndDate != null) {
+                $scope.endDate = new Date(response.data[0].EndDate.replace('T', ' ').replace('-', '/'));
+                $scope.endDateDetail = $scope.endDate.toString().substring(0, 15);
             }
 
         }, function (error) {
@@ -108,5 +117,6 @@ function leaseController($scope, $filter, leaseService, userProfile) {
         });
     } // close function
 
+    $scope.getLease();
 
 }

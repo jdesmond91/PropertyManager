@@ -18,7 +18,7 @@ function employeeController($scope, $filter, employeeService, userProfile) {
     $scope.Id = "";
     $scope.employees = [];
     $scope.message = "";
-    $scope.sortType = 'FirstName'; // set the default sort type
+    $scope.sortType = 'FirstName';
     $scope.sortReverse = false;
     $scope.searchEmployee = "";
 
@@ -95,7 +95,7 @@ function employeeController($scope, $filter, employeeService, userProfile) {
         })
 
     } // close function
-
+  
     $scope.editEmployee = function () {
 
         var BirthDateFiltered = null;

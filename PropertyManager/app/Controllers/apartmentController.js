@@ -4,9 +4,14 @@ function apartmentController($scope, $filter, apartmentService, userProfile) {
 
     $scope.aptNumber = "";
     $scope.floorNumber = "";
+    $scope.status = "";
     $scope.unitId = "";
+    $scope.unitType = "";
     $scope.message = "";
     $scope.apartments = [];
+    $scope.sortType = "ApartmentNumber";
+    $scope.sortReverse = false;
+    $scope.searchApartment = "";
 
     $scope.addApartment = function () {
 
@@ -36,13 +41,15 @@ function apartmentController($scope, $filter, apartmentService, userProfile) {
 
     } // close function
 
-    $scope.getApartmentById = function () {
-        var resultById = apartmentService.getByIdApartment($scope.aptNumber);
+    $scope.getApartmentById = function (id) {
+        var resultById = apartmentService.getByIdApartment(id);
         resultById.then(function (response) {
             console.log(response.data);
             $scope.aptNumber = response.data.ApartmentNumber;
             $scope.floorNumber = response.data.FloorNumber;
+            $scope.status = response.data.Status;
             $scope.unitId = response.data.UnitId;
+            $scope.unitType = response.data.Unit.Bedrooms;
         }, function (error) {
             $scope.message = response.statusText;
         })
@@ -66,5 +73,6 @@ function apartmentController($scope, $filter, apartmentService, userProfile) {
         });
     } // close function
 
+    $scope.getApartment();
 
 }
