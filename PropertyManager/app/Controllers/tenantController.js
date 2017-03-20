@@ -1,6 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("tenantController", ["$scope", "$filter", "tenantService", "userProfile", tenantController]);
+﻿angular.module("propertyManagerApp").controller("tenantController", ["$scope", "$filter", "tenantService", "userProfile", "leaseService", tenantController]);
 
-function tenantController($scope, $filter, tenantService, userProfile) {
+function tenantController($scope, $filter, tenantService, userProfile, leaseService) {
 
     $scope.firstName = "";
     $scope.lastName = "";
@@ -8,8 +8,12 @@ function tenantController($scope, $filter, tenantService, userProfile) {
     $scope.email = "";
     $scope.homeNumber = "";
     $scope.birthDate = "";
+    $scope.apartmentNumber = "";
     $scope.message = "";
     $scope.tenants = [];
+    $scope.sortType = 'FirstName';
+    $scope.sortReverse = false;
+    $scope.searchTenant = "";
 
     $scope.addTenant = function () {
 
@@ -49,8 +53,8 @@ function tenantController($scope, $filter, tenantService, userProfile) {
 
     } // close function
 
-    $scope.getTenantById = function () {
-        var resultById = tenantService.getByIdTenant($scope.tenantId);
+    $scope.getTenantById = function (id) {
+        var resultById = tenantService.getByIdTenant(id);
         resultById.then(function (response) {
             console.log(response.data);
             $scope.firstName = response.data.FirstName;
@@ -59,7 +63,15 @@ function tenantController($scope, $filter, tenantService, userProfile) {
             $scope.email = response.data.Email;
             $scope.homeNumber = response.data.HomePhone;
             $scope.birthDate = new Date(response.data.BirthDate.replace('T', ' ').replace('-', '/'));
-
+            return response.data.Id;
+        }).then(function (tenantId){
+            var leaseInfo = leaseService.getLeaseByTenantId(tenantId);
+            leaseInfo.then(function (response) {
+                console.log(response);
+                $scope.apartmentNumber = response.data.Apartment.ApartmentNumber;
+            }, function (error) {
+                $scope.message = response.statusText;
+            })
         }, function (error) {
             $scope.message = response.statusText;
         })
@@ -93,5 +105,6 @@ function tenantController($scope, $filter, tenantService, userProfile) {
         });
     } // close function
 
+    $scope.getTenant();
 
 }

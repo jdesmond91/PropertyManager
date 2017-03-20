@@ -7,6 +7,7 @@ namespace PropertyManager.Controllers
 {
     public class InventoryAdd
     {
+        public string ProductName { get; set; }
         public string Supplier { get; set; }
         public int Quantity { get; set; }
     }
@@ -19,6 +20,7 @@ namespace PropertyManager.Controllers
     public class InventoryEdit
     {
         public int Id { get; set; }
+        public string ProductName { get; set; }
         public string Supplier { get; set; }
         public int Quantity { get; set; }
     }

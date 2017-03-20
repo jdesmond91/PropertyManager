@@ -38,6 +38,15 @@ function leaseService($http, $q, appSettings) {
         return response;
     };
 
+    this.getLeaseByTenantId = function (tenantId) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/leases/id/" + tenantId + "/find",
+            method: "GET",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     this.editLease = function (lease, leaseId) {
 
         var def = $q.defer();
@@ -57,7 +66,8 @@ function leaseService($http, $q, appSettings) {
         addLease: this.addLease,
         getAllLease: this.getAllLease,
         getByIdLease: this.getByIdLease,
-        editLease: this.editLease
+        editLease: this.editLease,
+        getLeaseByTenantId: this.getLeaseByTenantId
     }
 
 

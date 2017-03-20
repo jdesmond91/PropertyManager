@@ -53,6 +53,24 @@ namespace PropertyManager.Models
                 unit.Dishwasher = true;
                 unit.Laundry = false;
                 m.UnitAdd(unit);
+
+                unit.Bedrooms = 1;
+                unit.Bathrooms = 1;
+                unit.SquareFeet = 87.5;
+                unit.MaxOccupants = 2;
+                unit.Balcony = true;
+                unit.Dishwasher = false;
+                unit.Laundry = false;
+                m.UnitAdd(unit);
+
+                unit.Bedrooms = 3;
+                unit.Bathrooms = 2;
+                unit.SquareFeet = 130.0;
+                unit.MaxOccupants = 5;
+                unit.Balcony = true;
+                unit.Dishwasher = true;
+                unit.Laundry = true;
+                m.UnitAdd(unit);
             }
 
             if(m.ApartmentGetAll().Count() == 0)
@@ -62,7 +80,21 @@ namespace PropertyManager.Models
                 apt.ApartmentNumber = 520;
                 apt.FloorNumber = 5;
                 apt.Status = "Occupied";
-                apt.UnitId = 1;
+                apt.UnitId = 2;
+
+                m.ApartmentAdd(apt);
+
+                apt.ApartmentNumber = 603;
+                apt.FloorNumber = 6;
+                apt.Status = "Occupied";
+                apt.UnitId = 3;
+
+                m.ApartmentAdd(apt);
+
+                apt.ApartmentNumber = 1705;
+                apt.FloorNumber = 17;
+                apt.Status = "Occupied";
+                apt.UnitId = 3;
 
                 m.ApartmentAdd(apt);
             }
@@ -77,7 +109,22 @@ namespace PropertyManager.Models
                 tenant.HomePhone = "";
                 tenant.Email = "amanda@test.ca";
                 tenant.BirthDate = new DateTime(1988, 12, 23);
+                m.TenantAdd(tenant);
 
+                tenant.FirstName = "Jonathan";
+                tenant.LastName = "Desmond";
+                tenant.MobilePhone = "5368596415";
+                tenant.HomePhone = "3654598752";
+                tenant.Email = "jonathan@tenant.ca";
+                tenant.BirthDate = new DateTime(1990, 10, 18);
+                m.TenantAdd(tenant);
+
+                tenant.FirstName = "Arnold";
+                tenant.LastName = "Goncharenko";
+                tenant.MobilePhone = "9631254789";
+                tenant.HomePhone = "9645853658";
+                tenant.Email = "arnold@tenant.ca";
+                tenant.BirthDate = new DateTime(1994, 09, 21);
                 m.TenantAdd(tenant);
             }
 
@@ -90,28 +137,48 @@ namespace PropertyManager.Models
                 lease.MonthlyRent = 1050.60;
                 lease.Terms = 1;
                 lease.ApartmentNumber = 520;
-                lease.TenantId = 1;
+                lease.TenantId = 2;
+
+                m.LeaseAdd(lease);
+    
+                lease.StartDate = new DateTime(2017, 08, 20);
+                lease.EndDate = new DateTime(2018, 08, 19);
+                lease.SecurityDeposit = 525.00;
+                lease.MonthlyRent = 1400.80;
+                lease.Terms = 1;
+                lease.ApartmentNumber = 603;
+                lease.TenantId = 3;
 
                 m.LeaseAdd(lease);
 
-                var user = new ApplicationUser
-                {
-                    UserName = "amanda@test.ca",
-                    Email = "amanda@test.ca",
-                    GivenName = "Amanda",
-                    Surname = "Marques",
-                    Role = "Tenant"
-                };
+                lease.StartDate = new DateTime(2017, 08, 20);
+                lease.EndDate = new DateTime(2018, 08, 19);
+                lease.SecurityDeposit = 525.00;
+                lease.MonthlyRent = 1400.80;
+                lease.Terms = 1;
+                lease.ApartmentNumber = 1705;
+                lease.TenantId = 4;
 
-                var ds = new ApplicationDbContext();
-                var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(ds));
+                m.LeaseAdd(lease);
 
-                var result = await userManager.CreateAsync(user, "Asdf4321!");
-                if (result.Succeeded)
-                {
-                    // Add claims                   
-                    await userManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "Tenant"));
-                }
+                //var user = new ApplicationUser
+                //{
+                //    UserName = "amanda@test.ca",
+                //    Email = "amanda@test.ca",
+                //    GivenName = "Amanda",
+                //    Surname = "Marques",
+                //    Role = "Tenant"
+                //};
+
+                //var ds = new ApplicationDbContext();
+                //var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(ds));
+
+                //var result = await userManager.CreateAsync(user, "Asdf4321!");
+                //if (result.Succeeded)
+                //{
+                //    // Add claims                   
+                //    await userManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "Tenant"));
+                //}
             }
 
             if(m.EmployeeGetAll().Count() == 0)
@@ -178,6 +245,46 @@ namespace PropertyManager.Models
                 announce.Description = "The carpet will be cleaned on the upcoming weekend";
                 m.AnnouncementAdd(announce);
             }
+
+            if (m.FacilityGetAll().Count() == 0)
+            {
+                var facility = new FacilityAdd();
+                facility.FacilityName = "Pool";
+                facility.Description = "Open Pool";
+                facility.Location = "40th floor";
+                facility.Status = "Open";
+                facility.OpenTime = new DateTime(2017, 01, 01, 08, 0, 0);
+                facility.CloseTime = new DateTime(2017, 01, 01, 18, 0, 0);
+                m.FacilityAdd(facility);
+
+                facility.FacilityName = "Movie Room";
+                facility.Description = "Movie Theater";
+                facility.Location = "Lobby";
+                facility.Status = "Open";
+                facility.OpenTime = new DateTime(2017, 01, 01, 10, 0, 0);
+                facility.CloseTime = new DateTime(2017, 01, 01, 20, 30, 0);
+                m.FacilityAdd(facility);
+
+            }
+
+            if(m.InventoryGetAll().Count() == 0)
+            {
+                var inventory = new InventoryAdd();
+                inventory.ProductName = "Cleaning";
+                inventory.Supplier = "Lisol";
+                inventory.Quantity = 20;
+                m.InventoryAdd(inventory);
+
+                inventory.ProductName = "Garbage Bag";
+                inventory.Supplier = "My Garbages";
+                inventory.Quantity = 100;
+                m.InventoryAdd(inventory);
+
+                inventory.ProductName = "Window cleaning";
+                inventory.Supplier = "Windex";
+                inventory.Quantity = 87;
+                m.InventoryAdd(inventory);
+            }          
     
         }
     }

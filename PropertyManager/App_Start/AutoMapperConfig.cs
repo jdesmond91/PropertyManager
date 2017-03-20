@@ -54,6 +54,7 @@ namespace PropertyManager.App_Start
             Mapper.CreateMap<Controllers.UnitAdd, Models.Unit>();
             Mapper.CreateMap<Models.Unit, Controllers.UnitBase>();
             Mapper.CreateMap<Controllers.UnitEdit, Controllers.UnitBase>();
+            Mapper.CreateMap<Models.Unit, Controllers.UnitForApartment>();
 
             //User
             Mapper.CreateMap<Models.ApplicationUser, Controllers.UserBase>();
@@ -77,6 +78,7 @@ namespace PropertyManager.App_Start
             //Lease
             Mapper.CreateMap<Models.Lease, Controllers.LeaseBase>();
             Mapper.CreateMap<Models.Lease, Controllers.LeaseWithInformation>();
+            Mapper.CreateMap<Models.Lease, Controllers.LeaseForTenant>();
             Mapper.CreateMap<Controllers.LeaseAdd, Models.Lease>();
             Mapper.CreateMap<Controllers.LeaseEdit, Controllers.LeaseBase>();
 

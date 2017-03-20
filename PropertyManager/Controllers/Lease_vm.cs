@@ -37,4 +37,9 @@ namespace PropertyManager.Controllers
         public ApartmentBase Apartment { get; set; }
         public TenantBase Tenant { get; set; }
     }
+
+    public class LeaseForTenant
+    {
+        public ApartmentBase Apartment { get; set; }
+    }
 }

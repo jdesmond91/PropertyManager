@@ -733,11 +733,11 @@ namespace PropertyManager.Controllers
         }
 
         // ********************************************** APARTMENT SECTION***************************************************
-        public IEnumerable<ApartmentBase> ApartmentGetAll()
+        public IEnumerable<ApartmentWithUnit> ApartmentGetAll()
         {
-            var c = ds.Apartments.OrderBy(a => a.ApartmentNumber);
+            var c = ds.Apartments.Include("Unit").OrderBy(a => a.ApartmentNumber);
 
-            return Mapper.Map<IEnumerable<ApartmentBase>>(c);
+            return Mapper.Map<IEnumerable<ApartmentWithUnit>>(c);
         }
 
         public ApartmentWithUnit ApartmentGetById(int id)
@@ -819,14 +819,29 @@ namespace PropertyManager.Controllers
         {
             var c = ds.Tenants.OrderBy(a => a.LastName);
 
-            return Mapper.Map<IEnumerable<TenantBase>>(c);
+            var tenants = Mapper.Map<IEnumerable<TenantBase>>(c);
+
+            foreach(TenantBase tenant in tenants)
+            {
+                var leaseInfo = ds.Leases.Include("Apartment").SingleOrDefault(a => a.Tenant.Id == tenant.Id);
+                var leaseMap = Mapper.Map<LeaseForTenant>(leaseInfo);
+                tenant.Lease = leaseMap;
+            }
+
+            return tenants;
         }
 
         public TenantBase TenantGetById(int id)
         {
-            var c = ds.Tenants.SingleOrDefault(a => a.Id == id);
+            var c = ds.Tenants.SingleOrDefault(a => a.Id == id);  
+            
+            var leaseInfo = ds.Leases.Include("Apartment").SingleOrDefault(a => a.Tenant.Id == id);
+            var leaseMap = Mapper.Map<LeaseForTenant>(leaseInfo);
 
-            return (c == null) ? null : Mapper.Map<TenantBase>(c);
+            var newTenant = Mapper.Map<TenantBase>(c);
+            newTenant.Lease = leaseMap;
+
+            return (c == null) ? null : newTenant;
         }
 
         public TenantBase TenantGetByEmail(string email)
@@ -898,6 +913,12 @@ namespace PropertyManager.Controllers
         public LeaseWithInformation LeaseGetByIdWithInformation(int id)
         {
             var o = ds.Leases.Include("Tenant").Include("Apartment").SingleOrDefault(j => j.Id == id);
+            return (o == null) ? null : Mapper.Map<LeaseWithInformation>(o);
+        }
+
+        public LeaseWithInformation LeaseGetByTenantId(int? id)
+        {
+            var o = ds.Leases.Include("Tenant").SingleOrDefault(j => j.Tenant.Id == id);
             return (o == null) ? null : Mapper.Map<LeaseWithInformation>(o);
         }
 

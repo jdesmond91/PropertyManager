@@ -30,6 +30,6 @@ namespace PropertyManager.Controllers
 
     public class ApartmentWithUnit : ApartmentBase
     {
-        public UnitBase Unit { get; set; }
+        public UnitForApartment Unit { get; set; }
     }
 }

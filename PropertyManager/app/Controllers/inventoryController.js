@@ -2,24 +2,29 @@
 
 function inventoryController($scope, $filter, inventoryService, userProfile) {
 
-    $scope.Supplier = "";
-    $scope.Quantity = "";
+    $scope.supplier = "";
+    $scope.quantity = "";
+    $scope.productName = "";
 
-    $scope.Id
-    $scope.Inventory = [];
+    $scope.inventoryId
+    $scope.inventorys = [];
     $scope.message = "";
+    $scope.sortType = "productName";
+    $scope.sortReverse = false;
+    $scope.searchInventory = "";
     
     $scope.addInventory = function () {
 
         var inventory = {
-            Supplier: $scope.Supplier,
-            Quantity: $scope.Quantity,
+            ProductName: $scope.productName,
+            Supplier: $scope.supplier,
+            Quantity: $scope.quantity,
         };
 
         var addResults = inventoryService.addInventory(inventory);
         addResults.then(function (response) {
             console.log(response.data);
-            $scope.Id = response.data.Id;
+            $scope.inventoryId = response.data.Id;
         }, function (error) {
             $scope.message = response.statusText + " " + response.status;
         });
@@ -29,8 +34,8 @@ function inventoryController($scope, $filter, inventoryService, userProfile) {
     $scope.getInventory = function () {
         var allResults = inventoryService.getAllInventory();
         allResults.then(function (response) {
-            $scope.Inventory = response.data;
-            console.log($scope.Inventory);
+            $scope.inventorys = response.data;
+            console.log($scope.inventorys);
         }, function (error) {
             $scope.message = response.statusText;
         })
@@ -38,11 +43,12 @@ function inventoryController($scope, $filter, inventoryService, userProfile) {
     } // close function
 
     $scope.getInventoryById = function () {
-        var resultById = inventoryService.getByIdInventory($scope.Id);
+        var resultById = inventoryService.getByIdInventory($scope.inventoryId);
         resultById.then(function (response) {
             console.log(response.data);
-            $scope.Supplier = response.data.Supplier;
-            $scope.Quantity = response.data.Quantity;
+            $scope.productName = response.data.ProductName;
+            $scope.supplier = response.data.Supplier;
+            $scope.quantity = response.data.Quantity;
          }, function (error) {
             $scope.message = response.statusText;
         })
@@ -52,12 +58,13 @@ function inventoryController($scope, $filter, inventoryService, userProfile) {
     $scope.editInventory = function () {
 
         var inventory = {
-            Id: $scope.Id,
-            Supplier: $scope.Supplier,
-            Quantity: $scope.Quantity
+            Id: $scope.inventoryId,
+            ProductName: $scope.productName,
+            Supplier: $scope.supplier,
+            Quantity: $scope.quantity
         };
 
-        var editResults = inventoryService.editInventory(inventory, $scope.Id);
+        var editResults = inventoryService.editInventory(inventory, $scope.inventoryId);
         editResults.then(function (response) {
             console.log("edit");
             console.log(response);
@@ -65,6 +72,8 @@ function inventoryController($scope, $filter, inventoryService, userProfile) {
             $scope.message = response.statusText;
         });
     } // close function
+
+    $scope.getInventory();
 
 
 }

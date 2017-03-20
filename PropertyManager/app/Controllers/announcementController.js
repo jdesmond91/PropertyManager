@@ -11,7 +11,7 @@ function announcementController($scope, $filter, announcementService, userProfil
     $scope.announcementId = "";
     $scope.message = "";
     $scope.announces = [];
-    $scope.sortType = "title";
+    $scope.sortType = "name";
     $scope.sortReverse = false;
     $scope.searchAnnouncement = "";
 

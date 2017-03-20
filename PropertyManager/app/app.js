@@ -55,5 +55,9 @@
                      controller: 'workOrderController',
                      templateUrl: 'app/Partials/workorderrequest.html'
                 })
+                 .when('/inventory/', {
+                     controller: 'inventoryController',
+                     templateUrl: 'app/Partials/inventory.html'
+                 })
                 .otherwise({ redirectTo: '/index' });
             }]);

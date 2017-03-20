@@ -37,4 +37,10 @@ namespace PropertyManager.Controllers
         public bool Dishwasher { get; set; }
         public bool Laundry { get; set; }
     }
+
+    public class UnitForApartment
+    {
+        public int Id { get; set; }
+        public int Bedrooms { get; set; }
+    }
 }

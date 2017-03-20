@@ -8,10 +8,90 @@
 </head>
 
 <body ng-app="propertyManagerApp">
-    <div id="wrapper">
         <div ng-include='"/app/Partials/menu.html"'></div>
         <div id="page-wrapper">
-            <form name="form">
+            <form>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                        <input type="text" class="form-control" placeholder="Search" ng-model="searchFacility">
+                    </div>
+                </div>
+            </form>
+
+            <table class="table-fill" style="float: left">
+                <thead>
+                    <tr>
+                        <th style="width: 2%"></th>
+                        <th class="text-left" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                            Facility
+                            <span><i class="fa fa-caret-up" ng-show="sortType == 'name' && !sortReverse"></i></span>
+                            <span><i class="fa fa-caret-down" ng-show="sortType == 'name' && sortReverse"></i></span>
+                        </th>
+                        <th class="text-left" ng-click="sortType = 'location'; sortReverse = !sortReverse">
+                            Location
+                            <span><i class="fa fa-caret-up" ng-show="sortType == 'location' && !sortReverse"></i></span>
+                            <span><i class="fa fa-caret-down" ng-show="sortType == 'location' && sortReverse"></i></span>
+                        </th>
+                        <th class="text-left" ng-click="sortType = 'openTime'; sortReverse = !sortReverse">
+                            Open Time
+                            <span><i class="fa fa-caret-up" ng-show="sortType == 'openTime' && !sortReverse"></i></span>
+                            <span><i class="fa fa-caret-down" ng-show="sortType == 'openTime' && sortReverse"></i></span>
+                        </th>
+                        <th class="text-left" ng-click="sortType = 'closeTime'; sortReverse = !sortReverse">
+                            Close Time
+                            <span><i class="fa fa-caret-up" ng-show="sortType == 'closeTime' && !sortReverse"></i></span>
+                            <span><i class="fa fa-caret-down" ng-show="sortType == 'closeTime' && sortReverse"></i></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="list-tbody" ng-repeat="facility in facilities | orderBy:sortType:sortReverse | filter:searchFacility" ng-class-odd="'list-row-odd'" ng-class-even="'list-row-even'">
+                    <tr class="list-hover">
+                        <td>
+                            <i style="cursor: pointer" class="fa fa-minus" ng-if="facility.expanded" ng-click="facility.expanded = false"></i>
+                            <i style="cursor: pointer" class="fa fa-plus" ng-if="!facility.expanded" ng-click="facility.expanded = true;"></i>
+                        </td>
+                        <td class="text-left">{{facility.FacilityName}}</td>
+                        <td class="text-left">{{facility.Location}}</td>
+                        <td class="text-left">{{facility.OpenTime | date:'hh:mm:ss a'}}</td>
+                        <td class="text-left">{{facility.CloseTime | date:'hh:mm:ss a'}}</td>
+                    </tr>
+                    <tr class="details-row" ng-if="facility.expanded" ng-repeat-end="">
+                        <td colspan="7">
+                            <div class="detailDivTable">
+                                <div class="detailDivTableBody">
+                                    <div class="detailDivTableRow">
+                                        <div class="detailDivTableHeader">Facility:</div>
+                                        <div class="detailDivTableCell">{{facility.FacilityName}}</div>
+                                    </div>
+                                    <div class="detailDivTableRow">
+                                        <div class="detailDivTableHeader">Location:</div>
+                                        <div class="detailDivTableCell">{{facility.Location}}</div>
+                                    </div>
+                                    <div class="detailDivTableRow">
+                                        <div class="detailDivTableHeader">Description:</div>
+                                        <div class="detailDivTableCell">{{facility.Description}}</div>
+                                    </div>
+                                    <div class="detailDivTableRow">
+                                        <div class="detailDivTableHeader">Status:</div>
+                                        <div class="detailDivTableCell">{{facility.Status}}</div>
+                                    </div>
+                                    <div class="detailDivTableRow">
+                                        <div class="detailDivTableHeader">Open Time:</div>
+                                        <div class="detailDivTableCell">{{facility.OpenTime | date:'hh:mm:ss a' }}</div>
+                                    </div>
+                                    <div class="detailDivTableRow">
+                                        <div class="detailDivTableHeader">Close Time:</div>
+                                        <div class="detailDivTableCell">{{facility.CloseTime | date:'hh:mm:ss a' }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- EDIT <form name="form">
 
                 <input type="text" name="name" id="name" class="form-control" placeholder="Name" ng-model="name">
 
@@ -37,41 +117,9 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary" ng-click="editFacility()">Edit</button>
-                </div>
+                </div>              
 
-                <p> Testing Get One</p>
-                <p>{{message}}</p>
-                <p>{{name}}</p>
-                <p>{{description}}</p>
-                <p>{{location}}</p>
-                <p>{{status}}</p>
-                <p>{{openTime}}</p>
-                <p>{{closeTime}}</p>
-
-                <p> Testing Get All</p>
-                <div ng-repeat="facility in facilities">
-                    <p>{{facility.FacilityName}}</p>
-                    <p>
-                        {{facility.Description}}
-                    </p>
-                    <p>
-                        {{facility.Location}}
-                    </p>
-                    <p>
-                        {{facility.OpenTime}}
-                    </p>
-                    <p>
-                        {{facility.CloseTime}}
-                    </p>
-                    <p>
-                        {{facility.Status}}
-                    </p>
-                    <p>{{facility.Id}}</p>
-
-                </div>
-
-            </form>
+            </form> -->
         </div>
-    </div>
 </body>
 </html>

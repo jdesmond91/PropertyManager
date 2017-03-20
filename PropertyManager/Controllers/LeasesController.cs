@@ -35,6 +35,24 @@ namespace PropertyManager.Controllers
             }
         }
 
+        [Route("api/leases/id/{id}/find")]
+        public IHttpActionResult GetByEmail(int? id)
+        {
+            if (!id.HasValue) { return NotFound(); }
+            // Attempt to fetch the object
+            var o = m.LeaseGetByTenantId(id);
+
+            // Continue?
+            if (o == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(o);
+            }
+        }
+
         // POST: api/Leases
         public IHttpActionResult Post([FromBody]LeaseAdd newItem)
         {

@@ -6,7 +6,6 @@
 </head>
 
 <body ng-app="propertyManagerApp">
-    <div id="wrapper">
         <div ng-include='"/app/Partials/menu.html"'></div>
         <div id="page-wrapper">
             <form>
@@ -43,7 +42,7 @@
                     <tr class="list-hover">
                         <td>
                             <i style="cursor: pointer" class="fa fa-minus" ng-if="apt.expanded" ng-click="apt.expanded = false"></i>
-                            <i style="cursor: pointer" class="fa fa-plus" ng-if="!apt.expanded" ng-click="getApartmentById(apt.ApartmentNumber); apt.expanded = true;"></i>
+                            <i style="cursor: pointer" class="fa fa-plus" ng-if="!apt.expanded" ng-click="apt.expanded = true;"></i>
                         </td>
                         <td class="text-left">{{apt.ApartmentNumber}}</td>
                         <td class="text-left">{{apt.FloorNumber}}</td>
@@ -55,19 +54,19 @@
                                 <div class="detailDivTableBody">
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Apartment Number:</div>
-                                        <div class="detailDivTableCell">{{aptNumber}}</div>
+                                        <div class="detailDivTableCell">{{apt.ApartmentNumber}}</div>
                                     </div>
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Floor Number:</div>
-                                        <div class="detailDivTableCell">{{floorNumber}}</div>
+                                        <div class="detailDivTableCell">{{apt.FloorNumber}}</div>
                                     </div>
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Status:</div>
-                                        <div class="detailDivTableCell">{{status}}</div>
+                                        <div class="detailDivTableCell">{{apt.Status}}</div>
                                     </div>
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Unit Type:</div>
-                                        <div class="detailDivTableCell">{{unitType}} Bedrooms</div>
+                                        <div class="detailDivTableCell">{{apt.Unit.Bedrooms}} Bedrooms</div>
                                     </div>                             
                                 </div>
                             </div>
@@ -101,6 +100,5 @@
                 </div>
             </form> -->
         </div>
-     </div>
 </body>
 </html>

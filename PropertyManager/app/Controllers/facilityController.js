@@ -10,6 +10,9 @@ function facilityController($scope, $filter, facilityService, userProfile) {
     $scope.closeTime = "";
     $scope.message = "";
     $scope.facilities = [];
+    $scope.sortType = "title";
+    $scope.sortReverse = false;
+    $scope.searchFacility = "";
 
     $scope.addFacility = function () {
 
@@ -92,6 +95,8 @@ function facilityController($scope, $filter, facilityService, userProfile) {
             $scope.message = response.statusText;
         });
     } // close function
+
+    $scope.getFacility();
 
 
 }

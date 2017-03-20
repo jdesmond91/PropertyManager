@@ -18,6 +18,7 @@ namespace PropertyManager.Controllers
     public class TenantBase : TenantAdd
     {
         public int Id { get; set; }
+        public LeaseForTenant Lease { get; set; }
     }
     public class TenantEdit
     {
