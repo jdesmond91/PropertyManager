@@ -1,6 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("facilityBookingController", ["$scope", "$filter", "facilityBookingService", "userProfile", facilityBookingController]);
+﻿angular.module("propertyManagerApp").controller("facilityBookingController", ["$scope", "$filter", 'uiCalendarConfig', "facilityBookingService", "userProfile", facilityBookingController]);
 
-function facilityBookingController($scope, $filter, facilityBookingService, userProfile) {
+function facilityBookingController($scope, $filter, uiCalendarConfig, facilityBookingService, userProfile) {
 
     $scope.startTime = "";
     $scope.endTime = "";
@@ -12,6 +12,13 @@ function facilityBookingController($scope, $filter, facilityBookingService, user
     $scope.bookingId = "";
     $scope.facilityBookings = [];
     $scope.message = "";
+
+    $scope.SelectedEvent = null;
+    var isFirstTime = true;
+
+    $scope.events = [];
+    $scope.eventSources = [$scope.events];
+
 
     $scope.addFacilityBooking = function () {
         var bookedDateFiltered = null;
@@ -40,12 +47,48 @@ function facilityBookingController($scope, $filter, facilityBookingService, user
         var allFacilityBookings = facilityBookingService.getAllFacilityBooking();
         allFacilityBookings.then(function (response) {
             $scope.facilityBookings = response.data;
-            console.log($scope.facilityBookings);
+            console.log($scope.facilityBookings);            
+            $scope.events.slice(0, $scope.events.length);
+            angular.forEach($scope.facilityBookings, function (value) {
+               // var start = new Date(value.StartTime);
+                //var newStartDate = new Date(start.getTime() + start.getTimezoneOffset() * 60 * 1000);
+ 
+                $scope.events.push({
+                    title: value.Facility.FacilityName,
+                    description: value.Notes,
+                    start: new Date(value.StartTime.replace('T', ' ').replace('-', '/')),
+                    end: new Date(value.EndTime.replace('T', ' ').replace('-', '/')),
+                    stick: true
+                });
+            });
         }, function (error) {
             $scope.message = response.statusText;
         })
 
-    } // close function
+   } // close function
+
+        $scope.uiConfig = {
+        calendar: {
+            height: 450,
+            editable: false,
+            displayEventTime: false,
+            header: {
+                left: 'month basicWeek basicDay agendaWeek agendaDay',
+                center: 'title',
+                right:'today prev,next'
+            },
+            eventClick: function (event) {
+                $scope.SelectedEvent = event;
+            },
+            eventAfterAllRender: function () {
+                if ($scope.events.length > 0 && isFirstTime) {
+                    //Focus first event
+                    uiCalendarConfig.calendars.myCalendar.fullCalendar('gotoDate', $scope.events[0].start);
+                    isFirstTime = false;
+                }
+            }
+        }
+    };
 
     $scope.getFacilityBookingById = function () {
         var facilityBookingById = facilityBookingService.getByIdFacilityBooking($scope.Id);

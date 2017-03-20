@@ -298,6 +298,9 @@
     <Content Include="app\Controllers\unitController.js" />
     <Content Include="app\Index.html" />
     <Content Include="app\main.css" />
+    <Content Include="app\Vendor\calendar.js" />
+    <Content Include="app\Vendor\fullcalendar.js" />
+    <Content Include="app\Vendor\gcal.js" />
     <Content Include="app\Vendor\metisMenu.css" />
     <Content Include="app\Vendor\metisMenu.js" />
     <Content Include="app\Partials\announcement.html" />
@@ -325,12 +328,14 @@
     <Content Include="app\Services\tenantService.js" />
     <Content Include="app\Services\unitService.js" />
     <Content Include="app\Services\userProfile.js" />
+    <Content Include="app\Vendor\moment.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="app\Controllers\serviceRequestController.js" />
+    <Content Include="Content\fullcalendar.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />

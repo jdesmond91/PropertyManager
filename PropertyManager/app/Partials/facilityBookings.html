@@ -7,6 +7,22 @@
 <body ng-app="propertyManagerApp">
     <div ng-include='"/app/Partials/menu.html"'></div>
     <div id="page-wrapper">
+
+        <div class="row">
+            <div class="col-md-8">
+                <div id="calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="myCalendar"></div>
+            </div>
+            <div class="col-md-4">
+                <div ng-show="SelectedEvent" class="alert alert-success" style="margin-top:50px">
+                    <h3 style="margin-top:0px"> Selected Event:</h3>
+                    <h3 style="color:#A9A50E">{{SelectedEvent.title}}</h3>
+                    <p>{{SelectedEvent.description}}</p>
+                    <p>{{SelectedEvent.start | date:'hh:mm:ss a'}} - {{SelectedEvent.end | date:'hh:mm:ss a'}}</p>
+                </div>
+            </div>
+        </div>
+
+
         <form>
             <div class="form-group">
                 <div class="input-group">
