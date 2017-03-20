@@ -323,6 +323,12 @@ namespace PropertyManager.Controllers
                     return null;
                 }
 
+                var associatedTenant = ds.Tenants.Find(newItem.TenantId);
+                if (associatedTenant == null)
+                {
+                    return null;
+                }
+
                 // Add the new object
 
                 // Build the FacilityBooking object
@@ -330,6 +336,7 @@ namespace PropertyManager.Controllers
 
                 // Set its associated item identifier
                 addedItem.Facility = associatedItem;
+                addedItem.Tenant = associatedTenant;
 
                 ds.FacilityBookings.Add(addedItem);
                 ds.SaveChanges();
@@ -825,7 +832,10 @@ namespace PropertyManager.Controllers
             {
                 var leaseInfo = ds.Leases.Include("Apartment").SingleOrDefault(a => a.Tenant.Id == tenant.Id);
                 var leaseMap = Mapper.Map<LeaseForTenant>(leaseInfo);
-                tenant.Lease = leaseMap;
+                if(leaseInfo != null)
+                {
+                    tenant.Lease = leaseMap;
+                }               
             }
 
             return tenants;
@@ -1018,11 +1028,24 @@ namespace PropertyManager.Controllers
 
         //****************************** WORK ORDER SECTION *******************************************************************
 
-        public IEnumerable<WorkOrderBase> WorkOrderGetAll()
+        public IEnumerable<WorkOrderWithTenant> WorkOrderGetAll()
         {
-            var c = ds.WorkOrders.OrderBy(a => a.RequestDate);
+            var c = ds.WorkOrders.Include("Tenant").OrderBy(a => a.RequestDate);
 
-            return Mapper.Map<IEnumerable<WorkOrderBase>>(c);
+            var workOrders = Mapper.Map<IEnumerable<WorkOrderWithTenant>>(c);
+
+            foreach (WorkOrderWithTenant workOrder in workOrders)
+            {
+                var leaseInfo = ds.Leases.Include("Apartment").SingleOrDefault(a => a.Tenant.Id == workOrder.Tenant.Id);
+                var leaseMap = Mapper.Map<LeaseForTenant>(leaseInfo);
+                if(leaseInfo != null)
+                {
+                    workOrder.Tenant.Lease = leaseMap;
+                }
+                
+            }
+
+            return workOrders;
         }
 
         public WorkOrderBase WorkOrderGetById(int id)
@@ -1030,6 +1053,13 @@ namespace PropertyManager.Controllers
             var c = ds.WorkOrders.SingleOrDefault(a => a.Id == id);
 
             return (c == null) ? null : Mapper.Map<WorkOrderBase>(c);
+        }
+
+        public IEnumerable<WorkOrderBase> WorkOrderGetByTenantId(int id)
+        {
+            var c = ds.WorkOrders.Where(a => a.Tenant.Id == id);
+
+            return (c == null) ? null : Mapper.Map<IEnumerable<WorkOrderBase>>(c);
         }
 
         public WorkOrderBase WorkOrderAdd(WorkOrderAdd newItem)

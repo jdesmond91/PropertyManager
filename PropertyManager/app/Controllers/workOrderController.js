@@ -7,25 +7,47 @@ function workOrderController($scope, $filter, workOrderService, userProfile, ten
     $scope.requestDate = "";
     $scope.completionDate = "";
     $scope.tenantId = "";
-
     $scope.workOrderId = "";
     $scope.workOrders = [];
     $scope.message = "";
+    $scope.sortType = "description";
+    $scope.sortReverse = false;
+    $scope.searchWorkOrder = "";
 
     var user = userProfile.getProfile();
     $scope.userName = user.username;
+    $scope.userRole = user.userRole;
 
-    getUserId();
-
+    if ($scope.userRole == 'Tenant') {
+        getUserId();
+    }
+    else if ($scope.userRole == 'Administrator' || $scope.userRole == 'Manager') {
+        getWorkOrder();
+    }
+    
     function getUserId() {
         var user = tenantService.getByEmailTenant($scope.userName);
         user.then(function (response) {
             console.log("user Id:");
             console.log(response.data);
             $scope.tenantId = response.data.Id;
+            return response.data.Id;
+        })
+           .then(function(tenantId){
+               getAllTenantOrders(tenantId);                          
+           }, function (error) {
+               $scope.message = response.statusText + " " + response.status;
+           })
+    }     
+
+    function getAllTenantOrders(id) {
+        var tenantOrder = workOrderService.getByTenantIdWorkOrder(id);
+        tenantOrder.then(function (response) {
+            $scope.workOrders = response.data;
+            console.log($scope.workOrders);
         }, function (error) {
-            $scope.message = response.statusText + " " + response.status;
-        });
+            $scope.message = response.statusText;
+        })
     }
 
     $scope.addWorkOrder = function () {
@@ -56,7 +78,7 @@ function workOrderController($scope, $filter, workOrderService, userProfile, ten
         });
     } // close function
 
-    $scope.getWorkOder = function () {
+   function getWorkOrder() {
         var allRequests = workOrderService.getAllWorkOrder();
         allRequests.then(function (response) {
             $scope.workOrders = response.data;
@@ -65,7 +87,7 @@ function workOrderController($scope, $filter, workOrderService, userProfile, ten
             $scope.message = response.statusText;
         })
 
-    } // close function
+    }; // close function
 
     $scope.getWorkOrderById = function () {
         var RequestById = workOrderService.getByIdWorkOrder($scope.workOrderId);

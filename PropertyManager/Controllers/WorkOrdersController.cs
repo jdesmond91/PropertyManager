@@ -35,6 +35,24 @@ namespace PropertyManager.Controllers
             }
         }
 
+        [Route("api/workorders/tenant/{id}/find")]
+        public IHttpActionResult GetByTenantId(int? id)
+        {
+            if (!id.HasValue) { return NotFound(); }
+            // Attempt to fetch the object
+            var o = m.WorkOrderGetByTenantId(id.GetValueOrDefault());
+
+            // Continue?
+            if (o == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(o);
+            }
+        }
+
         // POST: api/WorkOrders
         public IHttpActionResult Post([FromBody]WorkOrderAdd newItem)
         {

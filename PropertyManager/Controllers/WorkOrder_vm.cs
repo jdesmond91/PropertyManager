@@ -23,6 +23,11 @@ namespace PropertyManager.Controllers
         public int Id { get; set; }
     }
 
+    public class WorkOrderWithTenant : WorkOrderBase
+    {
+        public TenantBase Tenant { get; set; }
+    }
+
     public class WorkOrderEdit
     {
         public WorkOrderEdit()

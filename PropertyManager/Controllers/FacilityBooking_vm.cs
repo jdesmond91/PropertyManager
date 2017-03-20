@@ -22,6 +22,7 @@ namespace PropertyManager.Controllers
     {
         public int Id { get; set; }
         public FacilityBase Facility { get; set; }
+        public TenantBase Tenant { get; set; }
     }
 
     public class FacilityBookingEdit

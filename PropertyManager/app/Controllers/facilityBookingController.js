@@ -2,35 +2,35 @@
 
 function facilityBookingController($scope, $filter, facilityBookingService, userProfile) {
 
-    $scope.StartTime = "";
-    $scope.EndTime = "";
-    $scope.Notes = "";
-    $scope.BookedDate = "";
-
-    //NEED TO INCLUDE TENANT ID AND FACILITY ID
-
-    $scope.Id = "";
+    $scope.startTime = "";
+    $scope.endTime = "";
+    $scope.notes = "";
+    $scope.bookedDate = "";
+    $scope.sortType = "description";
+    $scope.sortReverse = false;
+    $scope.searchBooking = "";
+    $scope.bookingId = "";
     $scope.facilityBookings = [];
     $scope.message = "";
 
     $scope.addFacilityBooking = function () {
-        var BookedDateFiltered = null;
+        var bookedDateFiltered = null;
 
         if ($scope.BookedDate != "") {
-            BookedDateFiltered = $filter('date')($scope.BookedDate, "yyyy-MM-dd");
+            bookedDateFiltered = $filter('date')($scope.bookedDate, "yyyy-MM-dd");
         }
 
         var facilityBooking = {
-            StartTime: $scope.StartTime,
-            EndTime: $scope.EndTime,
-            Notes: $scope.Notes,
-            BookedDate: BookedDateFiltered
+            StartTime: $scope.startTime,
+            EndTime: $scope.endTime,
+            Notes: $scope.notes,
+            BookedDate: bookedDateFiltered
         };
 
         var addResults = facilityBookingService.addFacilityBooking(facilityBooking);
         addResults.then(function (response) {
             console.log(response.data);
-            $scope.Id = response.data.Id;
+            $scope.bookingId = response.data.Id;
         }, function (error) {
             $scope.message = response.statusText + " " + response.status;
         });
@@ -51,12 +51,12 @@ function facilityBookingController($scope, $filter, facilityBookingService, user
         var facilityBookingById = facilityBookingService.getByIdFacilityBooking($scope.Id);
         facilityBookingById.then(function (response) {
 
-            $scope.StartTime = response.data.StartTime;
-            $scope.EndTime = response.data.EndTime;
-            $scope.Notes = response.data.Notes;
+            $scope.startTime = response.data.StartTime;
+            $scope.endTime = response.data.EndTime;
+            $scope.notes = response.data.Notes;
 
             if (response.data.BookedDate != null) {
-                $scope.BookedDate = new Date(response.data.BookedDate.replace('T', ' ').replace('-', '/'));
+                $scope.bookedDate = new Date(response.data.bookedDate.replace('T', ' ').replace('-', '/'));
             }
 
         }, function (error) {
@@ -67,18 +67,18 @@ function facilityBookingController($scope, $filter, facilityBookingService, user
 
     $scope.editFacilityBooking = function () {
 
-        var BookedDateFiltered = null;
+        var bookedDateFiltered = null;
 
         if ($scope.BookedDate != "") {
-            BookedDateFiltered = $filter('date')($scope.BookedDate, "yyyy-MM-dd");
+            bookedDateFiltered = $filter('date')($scope.bookedDate, "yyyy-MM-dd");
         }
 
         var facilityBooking = {
-            Id: $scope.Id,
-            StartTime: $scope.StartTime,
-            EndTime: $scope.EndTime,
-            Notes: $scope.Notes,
-            BookedDate: BookedDateFiltered
+            Id: $scope.bookingId,
+            StartTime: $scope.startTime,
+            EndTime: $scope.endTime,
+            Notes: $scope.notes,
+            BookedDate: bookedDateFiltered
         };
 
         var editResults = facilityBookingService.editFacilityBooking(facilityBooking, $scope.Id);
@@ -89,5 +89,7 @@ function facilityBookingController($scope, $filter, facilityBookingService, user
             $scope.message = response.statusText;
         });
     } // close function
+
+    $scope.getFacilityBooking();
 
 }

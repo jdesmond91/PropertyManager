@@ -9,6 +9,9 @@ function serviceController($scope, $filter, serviceService, userProfile) {
     $scope.address = "";
     $scope.message = "";
     $scope.services = [];
+    $scope.sortType = "name";
+    $scope.sortReverse = false;
+    $scope.searchService = "";
 
     $scope.addService = function () {
 
@@ -77,5 +80,6 @@ function serviceController($scope, $filter, serviceService, userProfile) {
         });
     } // close function
 
+    $scope.getService();
 
 }

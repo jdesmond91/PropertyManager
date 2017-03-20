@@ -11,6 +11,9 @@ function unitController($scope, $filter, unitService, userProfile) {
     $scope.laundry = "";
     $scope.message = "";
     $scope.units = [];
+    $scope.sortType = "bedrooms";
+    $scope.sortReverse = false;
+    $scope.searchUnit = "";
 
     $scope.addUnit = function () {
 
@@ -73,7 +76,7 @@ function unitController($scope, $filter, unitService, userProfile) {
             $scope.bedrooms = response.data.Bedrooms;
             $scope.bathrooms = response.data.Bathrooms;
             $scope.squareft = response.data.SquareFeet;
-            $scope.maxOccupants = response.data.MaxOccupants;
+            $scope.maxOccupants = response.data.MaxOccupants;           
             $scope.balcony = response.data.Balcony;
             $scope.dishwasher = response.data.Dishwasher;
             $scope.laundry = response.data.Laundry;
@@ -126,6 +129,12 @@ function unitController($scope, $filter, unitService, userProfile) {
             $scope.message = response.statusText;
         });
     } // close function
+
+    $scope.sorterFunc = function (unit) {
+        return parseInt(unit.Bedrooms);
+    };
+
+    $scope.getUnit()
 
 
 }

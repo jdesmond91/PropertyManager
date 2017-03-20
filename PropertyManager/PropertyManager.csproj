@@ -272,8 +272,10 @@
   <ItemGroup>
     <Content Include="app\Controllers\workOrderController.js" />
     <Content Include="app\Partials\employee.html" />
+    <Content Include="app\Partials\facilityBookings.html" />
     <Content Include="app\Partials\home.html" />
     <Content Include="app\Partials\inventory.html" />
+    <Content Include="app\Partials\servicerequest.html" />
     <Content Include="app\Partials\workorderrequest.html" />
     <Content Include="app\Services\Directives.js" />
     <Content Include="app\Services\workOrderService.js" />

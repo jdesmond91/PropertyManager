@@ -161,24 +161,24 @@ namespace PropertyManager.Models
 
                 m.LeaseAdd(lease);
 
-                //var user = new ApplicationUser
-                //{
-                //    UserName = "amanda@test.ca",
-                //    Email = "amanda@test.ca",
-                //    GivenName = "Amanda",
-                //    Surname = "Marques",
-                //    Role = "Tenant"
-                //};
+                var user = new ApplicationUser
+                {
+                    UserName = "amanda@test.ca",
+                    Email = "amanda@test.ca",
+                    GivenName = "Amanda",
+                    Surname = "Marques",
+                    Role = "Tenant"
+                };
 
-                //var ds = new ApplicationDbContext();
-                //var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(ds));
+                var ds = new ApplicationDbContext();
+                var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(ds));
 
-                //var result = await userManager.CreateAsync(user, "Asdf4321!");
-                //if (result.Succeeded)
-                //{
-                //    // Add claims                   
-                //    await userManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "Tenant"));
-                //}
+                var result = await userManager.CreateAsync(user, "Asdf4321!");
+                if (result.Succeeded)
+                {
+                    // Add claims                   
+                    await userManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "Tenant"));
+                }
             }
 
             if(m.EmployeeGetAll().Count() == 0)
@@ -284,8 +284,111 @@ namespace PropertyManager.Models
                 inventory.Supplier = "Windex";
                 inventory.Quantity = 87;
                 m.InventoryAdd(inventory);
-            }          
-    
+            }      
+            
+            if(m.ServiceGetAll().Count() == 0)
+            {
+                var service = new ServiceAdd();
+                service.ServiceName = "Gardening";
+                service.CompanyName = "Gardening Express";
+                service.PhoneNumber = "4165478963";
+                service.Email = "gardexpress@test.ca";
+                service.Address = "346 Allen Rd";
+                m.ServiceAdd(service);
+
+                service.ServiceName = "Pest Control";
+                service.CompanyName = "Pest Rock";
+                service.PhoneNumber = "6475148965";
+                service.Email = "pest@test.ca";
+                service.Address = "1549 Dufferin St";
+                m.ServiceAdd(service);
+
+                service.ServiceName = "Cleaning";
+                service.CompanyName = "Nice Cleaning";
+                service.PhoneNumber = "9075348698";
+                service.Email = "niceclean@test.ca";
+                service.Address = "15 Bloor St";
+                m.ServiceAdd(service);
+                
+            }   
+            
+            if(m.WorkOrderGetAll().Count() == 0)
+            {
+                var workOrder = new WorkOrderAdd();
+                workOrder.Description = "Fixing light bulb";
+                workOrder.Notes = "In the living room";
+                workOrder.RequestDate = new DateTime(2017, 02, 26);
+                workOrder.TenantId = 2;
+                m.WorkOrderAdd(workOrder);
+
+                workOrder.Description = "Kill bugs";
+                workOrder.Notes = "Many bugs in the house";
+                workOrder.RequestDate = new DateTime(2017, 10, 05);
+                workOrder.TenantId = 3;
+                m.WorkOrderAdd(workOrder);
+
+                workOrder.Description = "Leaking in the kitchen";
+                workOrder.Notes = "My sink is full of water";
+                workOrder.RequestDate = new DateTime(2017, 05, 22);
+                workOrder.TenantId = 4;
+                m.WorkOrderAdd(workOrder);
+            }
+            
+            if(m.ServiceRequestGetAll().Count() == 0)
+            {
+                var request = new ServiceRequestAdd();
+                request.Description = "Monthly Cleaning";
+                request.RequestDate = new DateTime(2017, 03, 01);
+                request.ServiceId = 3;
+                m.ServiceRequestAdd(request);
+
+                request.Description = "Doing gardening";
+                request.RequestDate = new DateTime(2016, 05, 05);
+                request.ServiceId = 1;
+                m.ServiceRequestAdd(request);
+
+                request.Description = "Building Pest Control";
+                request.RequestDate = new DateTime(2017, 04, 23);
+                request.ServiceId = 2;
+                m.ServiceRequestAdd(request);
+            }
+            
+            if(m.FacilityBookingGetAllWithFacility().Count() == 0)
+            {
+                var booking = new FacilityBookingAdd();
+
+                booking.BookedDate = new DateTime(2017, 05, 22);
+                booking.StartTime = new DateTime(2017, 05, 22, 10, 30, 0);
+                booking.EndTime = new DateTime(2017, 05, 22, 17, 0, 0);
+                booking.TenantId = 2;
+                booking.FacilityId = 1;
+                booking.Notes = "No Notes";
+                m.FacilityBookingAdd(booking);
+
+                booking.BookedDate = new DateTime(2017, 10, 01);
+                booking.StartTime = new DateTime(2017, 10, 01, 13, 0, 0);
+                booking.EndTime = new DateTime(2017, 10, 01, 14, 45, 0);
+                booking.TenantId = 3;
+                booking.FacilityId = 2;
+                booking.Notes = "";
+                m.FacilityBookingAdd(booking);
+
+                booking.BookedDate = new DateTime(2017, 10, 01);
+                booking.StartTime = new DateTime(2017, 10, 01, 15, 0, 0);
+                booking.EndTime = new DateTime(2017, 10, 01, 18, 0, 0);
+                booking.TenantId = 4;
+                booking.FacilityId = 2;
+                booking.Notes = "";
+                m.FacilityBookingAdd(booking);
+
+                booking.BookedDate = new DateTime(2017, 04, 05);
+                booking.StartTime = new DateTime(2017, 04, 05, 10, 0, 0);
+                booking.EndTime = new DateTime(2017, 04, 05, 13, 10, 0);
+                booking.TenantId = 2;
+                booking.FacilityId = 2;
+                booking.Notes = "";
+                m.FacilityBookingAdd(booking);
+            }    
         }
     }
 }

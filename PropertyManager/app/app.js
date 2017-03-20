@@ -27,6 +27,10 @@
                      controller: 'facilityController',
                      templateUrl: 'app/Partials/facility.html'
                 })
+                 .when('/bookfacility/', {
+                     controller: 'facilityBookingController',
+                     templateUrl: 'app/Partials/facilityBookings.html'
+                  })
                 .when('/service/', {
                      controller: 'serviceController',
                      templateUrl: 'app/Partials/service.html'
@@ -59,5 +63,9 @@
                      controller: 'inventoryController',
                      templateUrl: 'app/Partials/inventory.html'
                  })
+                  .when('/servicerequest/', {
+                      controller: 'serviceRequestController',
+                      templateUrl: 'app/Partials/servicerequest.html'
+                  })
                 .otherwise({ redirectTo: '/index' });
             }]);

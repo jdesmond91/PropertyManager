@@ -34,7 +34,7 @@ namespace PropertyManager.App_Start
             Mapper.CreateMap<Controllers.FacilityEdit, Controllers.FacilityBase>();
 
             //Facility Booking
-            Mapper.CreateMap<Controllers.FacilityBookingAdd, Models.Facility>();
+            Mapper.CreateMap<Controllers.FacilityBookingAdd, Models.FacilityBooking>();
             Mapper.CreateMap<Models.FacilityBooking, Controllers.FacilityBookingBase>();
             Mapper.CreateMap<Controllers.FacilityBookingEdit, Controllers.FacilityBookingBase>();
 
@@ -85,6 +85,7 @@ namespace PropertyManager.App_Start
             //WorkOrder
             Mapper.CreateMap<Controllers.WorkOrderAdd, Models.WorkOrder>();
             Mapper.CreateMap<Models.WorkOrder, Controllers.WorkOrderBase>();
+            Mapper.CreateMap<Models.WorkOrder, Controllers.WorkOrderWithTenant>();
             Mapper.CreateMap<Controllers.WorkOrderEdit, Controllers.WorkOrderBase>();
 
 #pragma warning restore CS0618

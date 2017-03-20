@@ -38,6 +38,15 @@ function workOrderService($http, $q, appSettings) {
         return response;
     };
 
+    this.getByTenantIdWorkOrder = function (tenantId) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/workorders/tenant/" + tenantId + "/find",
+            method: "GET",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     this.editWorkOrder = function (workOrder, workOrderId) {
 
         var def = $q.defer();
@@ -57,7 +66,8 @@ function workOrderService($http, $q, appSettings) {
         addWorkOrder: this.addWorkOrder,
         getAllWorkOrder: this.getAllWorkOrder,
         getByIdWorkOrder: this.getByIdWorkOrder,
-        editWorkOrder: this.editWorkOrder
+        editWorkOrder: this.editWorkOrder,
+        getByTenantIdWorkOrder: this.getByTenantIdWorkOrder
     }
 
 

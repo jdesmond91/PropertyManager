@@ -6,12 +6,12 @@ function serviceRequestController($scope, $filter, serviceRequestService, userPr
     $scope.Notes = "";
     $scope.RequestDate = "";
     $scope.CompletionDate = "";
-
-    //NEED TO INCLUDE SERVICE ID
-
     $scope.Id = "";
     $scope.serviceRequests = [];
     $scope.message = "";
+    $scope.sortType = "description";
+    $scope.sortReverse = false;
+    $scope.searchRequest = "";
 
     $scope.addServiceRequest = function () {
         var RequestDateFiltered = null;
@@ -99,5 +99,7 @@ function serviceRequestController($scope, $filter, serviceRequestService, userPr
             $scope.message = response.statusText;
         });
     } // close function
+
+    $scope.getServiceRequest();
 
 }
