@@ -15,6 +15,8 @@ function announcementController($scope, $filter, announcementService, userProfil
     $scope.sortReverse = false;
     $scope.searchAnnouncement = "";
 
+    getAnnouncement();
+
     $scope.addAnnouncement = function () {
         var startDateFiltered = null;
         var expireDateFiltered = null;
@@ -42,7 +44,8 @@ function announcementController($scope, $filter, announcementService, userProfil
         });
     } // close function
 
-    $scope.getAnnouncement = function () {
+    //GET ALL
+    function getAnnouncement () {
         var allAnnounces = announcementService.getAllAnnouncement();
         allAnnounces.then(function (response) {
             $scope.announces = response.data;
@@ -74,34 +77,62 @@ function announcementController($scope, $filter, announcementService, userProfil
 
     } // close function
 
-    $scope.editAnnouncement = function () {
+
+    //EDIT SECTION
+    $scope.isEdit = false; 
+
+    $scope.changeEdit = function () {
+        $scope.isEdit = false;
+    }
+
+    $scope.cancelEdit = function () {
+        $scope.isEdit = false;
+    }
+
+    $scope.editClick = function (announce) {
+        $scope.model = {
+            title: announce.Title,
+            editStartDate: new Date(announce.StartDate.replace('T', ' ').replace('-', '/')),
+            editExpireDate: new Date(announce.ExpireDate.replace('T', ' ').replace('-', '/')),
+            editDescription: announce.Description
+        };
+        $scope.isEdit = true;
+    }
+
+    $scope.editAnnouncement = function (announce) {
 
         var startDateFiltered = null;
         var expireDateFiltered = null;
 
-        if ($scope.startDate != "") {
-            startDateFiltered = $filter('date')($scope.startDate, "yyyy-MM-dd");
+        if ($scope.model.editStartDate != "") {
+            startDateFiltered = $filter('date')($scope.model.editStartDate, "yyyy-MM-dd");
         }
-        if ($scope.expireDate != "") {
-            expireDateFiltered = $filter('date')($scope.expireDate, "yyyy-MM-dd");
+        if ($scope.model.editExpireDate != "") {
+            expireDateFiltered = $filter('date')($scope.model.editExpireDate, "yyyy-MM-dd");
         }
 
         var announcement = {
-            Id: $scope.announcementId,
-            Title: $scope.title,
+            Id: announce.Id,
+            Title: $scope.model.title,
             StartDate: startDateFiltered,
             ExpireDate: expireDateFiltered,
-            Description: $scope.description
+            Description: $scope.model.editDescription
         };
 
-        var editResults = announcementService.editAnnouncement(announcement, $scope.announcementId);
+        var editResults = announcementService.editAnnouncement(announcement, announce.Id);
         editResults.then(function (response) {
             console.log("edit");
             console.log(response);
+        })
+        .then(function () {
+            $scope.isEdit = false;
+            getAnnouncement();
+        }, function (error) {
+            $scope.message = response.statusText;
         }, function (error) {
             $scope.message = response.statusText;
         });
     } // close function
 
-    $scope.getAnnouncement();
+    
 }

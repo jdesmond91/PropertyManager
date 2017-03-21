@@ -581,7 +581,24 @@ td.text-right {
 /** Details **/
 
 .detailDivTable {
-    display: table; 
+    display: table;   
+}
+
+.detailDivTableEdit {
+    display: table;  
+    width: 100%;  
+}
+
+.detailDivTableBodyEdit {
+    width: 50%;
+}
+
+.detailLeft {
+    float: left;
+}
+
+.detailRight {
+    float: right;
 }
 
 .detailDivTableRow {
