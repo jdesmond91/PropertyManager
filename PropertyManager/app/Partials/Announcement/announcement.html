@@ -16,7 +16,7 @@
                 </div>
             </div>
         </form>
-        <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-hide="addOne" ng-click="addOne=true">Add</button>
+        <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-hide="addOne" ng-click="addOneClick()">Add</button>
         <table class="table-fill" style="float: left">
             <thead>
                 <tr>
@@ -51,8 +51,8 @@
                 <!-- DETAILS VIEW -->
                 <tr class="details-row" ng-if="announce.expanded" ng-repeat-end="">
                     <td colspan="7">
-                        <div class="detailDivTable" style="float:left">
-                            <div class="detailDivTableBody">
+                        <div class="detailDivTable">
+                            <div class="detailDivTableBody detailLeft">
                                 <div class="detailDivTableRow">
                                     <div class="detailDivTableHeader">Title:</div>
                                     <div class="detailDivTableCell">{{announce.Title}}</div>
@@ -70,17 +70,16 @@
                                     <div class="detailDivTableCell">{{announce.Description}}</div>
                                 </div>
                             </div>
-                        </div>
-                        <button type="submit" style="float:right" class="btn btn-primary" ng-click="editClick(announce)">Edit</button>
+                            <div class="detailRight">
+                                <button type="submit" class="btn btn-primary" style="float: right;" ng-click="editClick(announce.Id)">Edit</button>
+                                <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;"  ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(announce.Id)">Delete</button>
+                            </div>
+                        </div>                       
                     </td>
                 </tr>
             </tbody>
         </table>
         <!-- END OF DETAILS VIEW-->       
-    </div>
-
-    <div  id="page-wrapper-form" ng-show="addOne">
-        <div ng-include='"/app/Partials/Announcement/AnnouncementAdd.html"'></div>
     </div>
 </body>
 </html>

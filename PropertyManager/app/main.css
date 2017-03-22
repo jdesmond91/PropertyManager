@@ -271,7 +271,13 @@ td.text-right {
 /** Details **/
 
 .detailDivTable {
-    display: table;   
+    display: table; 
+    width: 100%;
+}
+
+.detailDivTableBody{
+    width: 50%;
+    float: left;
 }
 
 .detailDivTableEdit {
@@ -289,6 +295,7 @@ td.text-right {
 
 .detailRight {
     float: right;
+    width: 50%;
 }
 
 .detailDivTableRow {
@@ -396,6 +403,20 @@ td.text-right {
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     /*margin-bottom: 30px;*/
+}
+
+.form-style-5 input.ng-invalid.ng-dirty {
+     border-color: #FA787E;
+ }
+
+.messageSuccess {
+    color: green;
+    margin-left: 10px;
+}
+
+.addSuccessfull{
+    margin-top: 20px;
+    margin-left: 15px;
 }
 
 .form-style-5 input[type="text"],

@@ -23,7 +23,7 @@
                          controller: 'announcementController',
                          templateUrl: 'app/Partials/Announcement/announcement.html'
                     })
-                    .when('/addannouncement/', {
+                    .when('/addannouncement/:announce_id?', {
                         controller: 'announcementController',
                         templateUrl: 'app/Partials/Announcement/announcementAdd.html'
                     })

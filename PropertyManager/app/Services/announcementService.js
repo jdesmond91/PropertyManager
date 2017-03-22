@@ -53,11 +53,21 @@ function announcementService($http, $q, appSettings) {
         return def.promise;
     };
 
+    this.deleteAnnouncement = function (id) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/Announcements/" + id,
+            method: "DELETE",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     return {
         addAnnouncement: this.addAnnouncement,
         getAllAnnouncement: this.getAllAnnouncement,
         getByIdAnnouncement: this.getByIdAnnouncement,
-        editAnnouncement: this.editAnnouncement
+        editAnnouncement: this.editAnnouncement,
+        deleteAnnouncement: this.deleteAnnouncement
     }
 
 

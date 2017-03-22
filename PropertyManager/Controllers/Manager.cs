@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 
@@ -76,9 +77,11 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public void AnnouncementDelete(int id)
+        public HttpResponseMessage AnnouncementDelete(int id)
         {
             var storedItem = ds.Announcements.Find(id);
+
+            var response = new HttpResponseMessage();
             if (storedItem == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -89,9 +92,14 @@ namespace PropertyManager.Controllers
                 {
                     ds.Announcements.Remove(storedItem);
                     ds.SaveChanges();
+                    response.Headers.Add("DeleteMessage", "Delete successful");
                 }
-                catch (Exception) { }
+                catch (Exception) {
+                    
+                    response.Headers.Add("DeleteMessage", "Could not delete");                   
+                }
             }
+            return response;
         }
 
         // ****************************************** EMPLOYEEE SECTION *****************************************
