@@ -50,7 +50,7 @@ namespace PropertyManager.Controllers
             var addedItem = m.ApartmentAdd(newItem);
 
             // Continue?
-            if (addedItem == null) { return BadRequest("Cannot add the object"); }
+            if (addedItem == null) { return BadRequest("Cannot add the object"); }            
 
             // HTTP 201 with the new object in the entity body
             // Notice how to create the URI for the Location header
