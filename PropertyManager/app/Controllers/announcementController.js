@@ -1,6 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("announcementController", ["$scope", "$filter", "announcementService", "userProfile", announcementController]);
+﻿angular.module("propertyManagerApp").controller("announcementController", ["$scope", "$filter", '$location', "announcementService", "userProfile", announcementController]);
 
-function announcementController($scope, $filter, announcementService, userProfile) {
+function announcementController($scope, $filter, $location, announcementService, userProfile) {
 
     $scope.title = "";
     $scope.startDate = "";
@@ -14,8 +14,18 @@ function announcementController($scope, $filter, announcementService, userProfil
     $scope.sortType = "name";
     $scope.sortReverse = false;
     $scope.searchAnnouncement = "";
+    $scope.addOne = false;
 
     getAnnouncement();
+
+    $scope.cancelAdd = function () {
+        $scope.addOne = false;
+        console.log($scope.addOne);
+    }
+
+    $scope.addOneClick = function () {
+        $scope.addOne = true;
+    }
 
     $scope.addAnnouncement = function () {
         var startDateFiltered = null;

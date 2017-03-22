@@ -271,12 +271,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\Controllers\workOrderController.js" />
-    <Content Include="app\Partials\employee.html" />
-    <Content Include="app\Partials\facilityBookings.html" />
+    <Content Include="app\Partials\Announcement\announcementAdd.html" />
+    <Content Include="app\Partials\Employee\employee.html" />
+    <Content Include="app\Partials\Facility\facilityBookings.html" />
     <Content Include="app\Partials\home.html" />
-    <Content Include="app\Partials\inventory.html" />
-    <Content Include="app\Partials\servicerequest.html" />
-    <Content Include="app\Partials\workorderrequest.html" />
+    <Content Include="app\Partials\Inventory\inventory.html" />
+    <Content Include="app\Partials\Service\servicerequest.html" />
+    <Content Include="app\Partials\WorkOrder\workorderrequest.html" />
     <Content Include="app\Services\Directives.js" />
     <Content Include="app\Services\workOrderService.js" />
     <Content Include="app\Vendor\angular-modal-service.js" />
@@ -303,17 +304,17 @@
     <Content Include="app\Vendor\gcal.js" />
     <Content Include="app\Vendor\metisMenu.css" />
     <Content Include="app\Vendor\metisMenu.js" />
-    <Content Include="app\Partials\announcement.html" />
-    <Content Include="app\Partials\apartment.html" />
-    <Content Include="app\Partials\facility.html" />
+    <Content Include="app\Partials\Announcement\announcement.html" />
+    <Content Include="app\Partials\Apartment\apartment.html" />
+    <Content Include="app\Partials\Facility\facility.html" />
     <Content Include="app\Partials\header.html" />
-    <Content Include="app\Partials\lease.html" />
-    <Content Include="app\Partials\login.html" />
+    <Content Include="app\Partials\Lease\lease.html" />
+    <Content Include="app\Partials\Login\login.html" />
     <Content Include="app\Partials\menu.html" />
-    <Content Include="app\Partials\register.html" />
-    <Content Include="app\Partials\service.html" />
-    <Content Include="app\Partials\tenant.html" />
-    <Content Include="app\Partials\unit.html" />
+    <Content Include="app\Partials\Login\register.html" />
+    <Content Include="app\Partials\Service\service.html" />
+    <Content Include="app\Partials\Tenant\tenant.html" />
+    <Content Include="app\Partials\Unit\unit.html" />
     <Content Include="app\Services\announcementService.js" />
     <Content Include="app\Services\apartmentService.js" />
     <Content Include="app\Services\common.services.js" />

@@ -1,0 +1,86 @@
+﻿<html>
+<head>
+    <title>Announcement</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body ng-app="propertyManagerApp">
+        <div ng-include='"/app/Partials/menu.html"'></div>
+    <div id="page-wrapper" ng-hide="addOne">
+        <form ng-if="addOne==false">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                    <input type="text" class="form-control" placeholder="Search" ng-model="searchAnnouncement">
+                </div>
+            </div>
+        </form>
+        <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-hide="addOne" ng-click="addOne=true">Add</button>
+        <table class="table-fill" style="float: left">
+            <thead>
+                <tr>
+                    <th style="width: 2%"></th>
+                    <th class="text-left" ng-click="sortType = 'title'; sortReverse = !sortReverse">
+                        Title
+                        <span><i class="fa fa-caret-up" ng-show="sortType == 'title' && !sortReverse"></i></span>
+                        <span><i class="fa fa-caret-down" ng-show="sortType == 'title' && sortReverse"></i></span>
+                    </th>
+                    <th class="text-left" ng-click="sortType = 'StartDate'; sortReverse = !sortReverse">
+                        Start Date
+                        <span><i class="fa fa-caret-up" ng-show="sortType == 'StartDate' && !sortReverse"></i></span>
+                        <span><i class="fa fa-caret-down" ng-show="sortType == 'StartDate' && sortReverse"></i></span>
+                    </th>
+                    <th class="text-left" ng-click="sortType = 'ExpireDate'; sortReverse = !sortReverse">
+                        Expire Date
+                        <span><i class="fa fa-caret-up" ng-show="sortType == 'ExpireDate' && !sortReverse"></i></span>
+                        <span><i class="fa fa-caret-down" ng-show="sortType == 'ExpireDate' && sortReverse"></i></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="list-tbody" ng-repeat="announce in announces | orderBy:sortType:sortReverse | filter:searchAnnouncement" ng-class-odd="'list-row-odd'" ng-class-even="'list-row-even'">
+                <tr class="list-hover">
+                    <td>
+                        <i style="cursor: pointer" class="fa fa-minus" ng-if="announce.expanded" ng-click="announce.expanded = false;"></i>
+                        <i style="cursor: pointer" class="fa fa-plus" ng-if="!announce.expanded" ng-click="announce.expanded = true;" ng-hide="isEdit"></i>
+                    </td>
+                    <td class="text-left">{{announce.Title}}</td>
+                    <td class="text-left">{{announce.StartDate | date:'MM-dd-yyyy'}}</td>
+                    <td class="text-left">{{announce.ExpireDate | date:'MM-dd-yyyy'}}</td>
+                </tr>
+                <!-- DETAILS VIEW -->
+                <tr class="details-row" ng-if="announce.expanded" ng-repeat-end="">
+                    <td colspan="7">
+                        <div class="detailDivTable" style="float:left">
+                            <div class="detailDivTableBody">
+                                <div class="detailDivTableRow">
+                                    <div class="detailDivTableHeader">Title:</div>
+                                    <div class="detailDivTableCell">{{announce.Title}}</div>
+                                </div>
+                                <div class="detailDivTableRow">
+                                    <div class="detailDivTableHeader">Start Date:</div>
+                                    <div class="detailDivTableCell">{{announce.StartDate | date:'MM-dd-yyyy'}}</div>
+                                </div>
+                                <div class="detailDivTableRow">
+                                    <div class="detailDivTableHeader">Expire Date:</div>
+                                    <div class="detailDivTableCell">{{announce.ExpireDate | date:'MM-dd-yyyy'}}</div>
+                                </div>
+                                <div class="detailDivTableRow">
+                                    <div class="detailDivTableHeader">Description:</div>
+                                    <div class="detailDivTableCell">{{announce.Description}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" style="float:right" class="btn btn-primary" ng-click="editClick(announce)">Edit</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- END OF DETAILS VIEW-->       
+    </div>
+
+    <div  id="page-wrapper-form" ng-show="addOne">
+        <div ng-include='"/app/Partials/Announcement/AnnouncementAdd.html"'></div>
+    </div>
+</body>
+</html>
