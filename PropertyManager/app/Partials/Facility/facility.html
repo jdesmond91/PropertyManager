@@ -6,7 +6,7 @@
 </head>
 <body ng-app="propertyManagerApp">
         <div ng-include='"/app/Partials/menu.html"'></div>
-        <div id="page-wrapper" ng-hide="addOne">
+        <div id="page-wrapper">
             <form>
                 <div class="form-group">
                     <div class="input-group">
@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </form>
-            <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-hide="addOne" ng-click="addOneClick()">Add</button>
+
            <table class="table-fill" style="float: left">
                 <thead>
                     <tr>
@@ -56,8 +56,8 @@
                     <!--DETAIL VIEW -->
                     <tr class="details-row" ng-if="facility.expanded" ng-repeat-end="" ng-hide="isEdit">
                         <td colspan="7">
-                            <div class="detailDivTable">
-                                <div class="detailDivTableBody detailLeft">
+                            <div class="detailDivTable" style="float:left">
+                                <div class="detailDivTableBody">
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Facility:</div>
                                         <div class="detailDivTableCell">{{facility.FacilityName}}</div>
@@ -83,18 +83,104 @@
                                         <div class="detailDivTableCell">{{facility.CloseTime | date:'hh:mm:ss a' }}</div>
                                     </div>
                                 </div>
-                                <div class="detailRight">
-                                    <button type="submit" style="float:right" class="btn btn-primary" ng-click="editClick(facility.Id)">Edit</button>
-                                    <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(facility.Id)">Delete</button>
-                                </div>
-                            </div>                          
+                            </div>
+                            <button type="submit" style="float:right" class="btn btn-primary" ng-click="editClick(facility)">Edit</button>
                         </td>
                     </tr>
                     <!--END DETAIL VIEW -->
-                    
+
+                    <!--EDIT VIEW -->
+                    <tr class="details-row" ng-if="facility.expanded" ng-repeat-end="" ng-show="isEdit">
+                        <td colspan="7">
+                            <div class="detailDivTableEdit">
+                                <form name="form" id="form">
+                                    <button type="submit" class="btn btn-primary" ng-click="cancelEdit()">Cancel</button>
+                                    <div class="detailDivTableBodyEdit detailLeft">                                       
+                                        <div class="detailDivTableRow">
+                                            <div class="detailDivTableHeader">Facility:</div>
+                                            <div class="detailDivTableCell">
+                                                <input type="text" name="name_{{$index}}" id="name" class="form-control" ng-model="model.name" ng-pattern="/^[a-zA-Z ]+$/" required>
+                                                <span ng-show="form['name_' + $index].$invalid || form['name_' + $index].$error.pattern">Enter facility name</span>
+                                            </div>
+                                        </div>
+                                        <div class="detailDivTableRow">
+                                            <div class="detailDivTableHeader">Location:</div>
+                                            <div class="detailDivTableCell">
+                                                <input type="text" name="location_{{$index}}" id="location" class="form-control" ng-model="model.location" ng-pattern="/^[a-zA-Z0-9 ]+$/" maxlength="20">
+                                                <span ng-show="form['location_' + $index].$invalid || form['location_' + $index].$error.pattern">Invalid characters</span>
+                                            </div>
+                                        </div>
+                                        <div class="detailDivTableRow">
+                                            <div class="detailDivTableHeader">Description:</div>
+                                            <div class="detailDivTableCell">
+                                                <input type="text" name="description_{{$index}}" id="description" class="form-control" ng-model="model.description" ng-pattern="/^[a-zA-Z0-9 ]+$/" maxlength="30">
+                                                <span ng-show="form['description_' + $index].$invalid || form['description_' + $index].$error.pattern">Invalid characters</span>
+                                            </div>
+                                        </div>                                       
+                                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" style="margin-left: 110px" ng-click="editFacility(facility)">Submit</button>
+                                                              
+                                </div>
+
+                                <div class="detailDivTableBodyEdit detailRight">
+                                    
+                                        <div class="detailDivTableRow">
+
+                                            <div class="detailDivTableHeader">Status:</div>
+                                            <div class="detailDivTableCell">
+                                                <input type="text" name="status_{{$index}}" id="status" class="form-control" maxlength="10" ng-pattern="/^[a-zA-Z ]+$/" ng-model="model.status">
+                                                <span ng-show="form['status_' + $index].$invalid || form['status_' + $index].$error.pattern">Invalid characters</span>
+                                            </div>
+                                        </div>
+                                        <div class="detailDivTableRow">
+                                            <div class="detailDivTableHeader">Open Time:</div>
+                                            <div class="detailDivTableCell">
+                                                <input type="time" name="openTime_{{$index}}" id="openTime" class="form-control" ng-model="model.openTime">
+                                            </div>
+                                        </div>
+                                        <div class="detailDivTableRow">
+                                            <div class="detailDivTableHeader">Close Time:</div>
+                                            <div class="detailDivTableCell">
+                                                <input type="time" name="closeTime_{{$index}}" id="closeTime" class="form-control" ng-model="model.closeTime">
+                                            </div>
+                                        </div>                          
+                                    </div>
+                                    </form>   
+                                </div>                                                                                  
+                        </td>
+                    </tr>
+                    <!--END EDIT VIEW -->
                 </tbody>
             </table>
 
-   </div>
+            <!-- EDIT <form name="form">
+
+                <input type="text" name="name" id="name" class="form-control" placeholder="Name" ng-model="name">
+
+                <input type="text" name="description" id="description" class="form-control" placeholder="description" ng-model="description">
+
+                <input type="text" name="location" id="location" class="form-control" placeholder="location" ng-model="location">
+
+                <input type="text" name="status" id="status" class="form-control" placeholder="status" ng-model="status">
+
+                <input type="time" name="openTime" id="openTime" class="form-control" placeholder="Open Time" ng-model="openTime">
+
+                <input type="time" name="closeTime" id="closeTime" class="form-control" placeholder="Close Time" ng-model="closeTime">
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="addFacility()">Add</button>
+                </div>
+                <input type="text" name="facilityId" id="facilityId" class="form-control" placeholder="Id" ng-model="facilityId">
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="getFacility()">Get All</button>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="getFacilityById()">Get One</button>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="editFacility()">Edit</button>
+                </div>              
+
+            </form> -->
+        </div>
 </body>
 </html>

@@ -7,7 +7,7 @@
 
 <body ng-app="propertyManagerApp">
         <div ng-include='"/app/Partials/menu.html"'></div>
-        <div id="page-wrapper" ng-hide="addOne">
+        <div id="page-wrapper">
             <form>
                 <div class="form-group">
                     <div class="input-group">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </form>
-            <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-hide="addOne" ng-click="addOneClick()">Add</button>
+
             <table class="table-fill" style="float: left">
                 <thead>
                     <tr>
@@ -41,18 +41,18 @@
                 <tbody class="list-tbody" ng-repeat="apt in apartments | orderBy:sortType:sortReverse | filter:searchApartment" ng-class-odd="'list-row-odd'" ng-class-even="'list-row-even'">
                     <tr class="list-hover">
                         <td>
-                            <i style="cursor: pointer" class="fa fa-minus" ng-if="apt.expanded" ng-click="apt.expanded = false;"></i>
-                            <i style="cursor: pointer" class="fa fa-plus" ng-if="!apt.expanded" ng-click="apt.expanded = true;"></i>
+                            <i style="cursor: pointer" class="fa fa-minus" ng-if="apt.expanded" ng-click="apt.expanded = false; changeEdit();"></i>
+                            <i style="cursor: pointer" class="fa fa-plus" ng-if="!apt.expanded" ng-click="apt.expanded = true;" ng-hide="isEdit"></i>
                         </td>
                         <td class="text-left">{{apt.ApartmentNumber}}</td>
                         <td class="text-left">{{apt.FloorNumber}}</td>
                         <td class="text-left">{{apt.Status}}</td>              
                     </tr>
                     <!-- DETAIL VIEW-->
-                    <tr class="details-row" ng-if="apt.expanded" ng-repeat-end="">
+                    <tr class="details-row" ng-if="apt.expanded" ng-repeat-end="" ng-hide="isEdit">
                         <td colspan="7">
-                            <div class="detailDivTable">
-                                <div class="detailDivTableBody detailLeft">
+                            <div class="detailDivTable" style="float:left">
+                                <div class="detailDivTableBody">
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Apartment Number:</div>
                                         <div class="detailDivTableCell">{{apt.ApartmentNumber}}</div>
@@ -68,19 +68,78 @@
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Unit Type:</div>
                                         <div class="detailDivTableCell">{{apt.Unit.Bedrooms}} Bedrooms</div>
-                                    </div>
+                                    </div>                             
                                 </div>
-                                <div class="detailRight">
-                                    <button type="submit" style="float:right" class="btn btn-primary" ng-click="editClick(apt.ApartmentNumber)">Edit</button>
-                                    <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(apt.ApartmentNumber)">Delete</button>
+                            </div>
+                            <button type="submit" style="float:right" class="btn btn-primary" ng-click="editClick(apt)">Edit</button>
+                        </td>
+                    </tr>
+                    <!-- END DETAIL VIEW-->
+
+                    <!-- EDIT VIEW-->
+                    <tr class="details-row" ng-if="apt.expanded" ng-repeat-end="" ng-show="isEdit">
+                        <td colspan="7">
+                            <div class="detailDivTable">
+                                <div class="detailDivTableBody">
+                                    <button type="submit" class="btn btn-primary" ng-click="cancelEdit()">Cancel</button>   
+                                    <form name="form" id="form">                                       
+                                        <div class="detailDivTableRow">
+                                            <div class="detailDivTableHeader">Floor Number:</div>
+                                            <div class="detailDivTableCell">
+                                                <input type="number" name="floorNumber_{{$index}}" id="floorNumber" class="form-control" ng-model="model.floorNumber" ng-pattern="/^[0-9]+$/" required  max="10000">
+                                                <span ng-show="form['floorNumber_' + $index].$invalid || form['floorNumber_' + $index].$error.pattern">Enter a floor number</span>
+                                            </div>
+                                        </div>
+                                        <div class="detailDivTableRow">
+                                            <div class="detailDivTableHeader">Status:</div>
+                                            <div class="detailDivTableCell">
+                                                <input type="text" name="editStatus_{{$index}}" id="editTitle" ng-model="model.status" class="form-control" maxlength="15" ng-pattern="/^[a-zA-Z]+$/" required>
+                                                <span ng-show="form['editStatus_' + $index].$invalid || form['editStatus_' + $index].$error.pattern">Enter a status - letters only</span>
+                                            </div>
+                                        </div>
+                                        <div class="detailDivTableRow">
+                                            <div class="detailDivTableHeader">Unit Type:</div>
+                                            <div class="detailDivTableCell">
+                                                <select ng-model="model.unitId" name="editUnit_{{$index}}" required>
+                                                    <option ng-repeat="unit in units" value="{{unit.Id}}">{{unit.Bedrooms}} Bedrooms</option>
+                                                </select>
+                                                <span ng-show="form['editUnit_' + $index].$invalid">Enter a unit type</span>
+                                            </div>
+                                        </div>
+                                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" style="margin-left: 124px" ng-click="editApartment(apt)">Submit</button>
+                                    </form>
                                 </div>
                             </div>
                         </td>
                     </tr>
-                    <!-- END DETAIL VIEW-->                    
+                    <!-- END EDIT VIEW-->
                 </tbody>
-            </table>           
+            </table>
            
-   </div>
+            <!-- EDIT FORM <form name="form">
+
+                <input type="number" name="aptNumber" id="aptNumber" class="form-control" placeholder="aptNumber" ng-model="aptNumber">
+
+                <input type="number" name="floorNumber" id="floorNumber" class="form-control" placeholder="floorNumber" ng-model="floorNumber">
+
+                <input type="number" name="unitId" id="unitId" class="form-control" placeholder="unitId" ng-model="unitId">
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="addApartment()">Add</button>
+                </div>
+                <input type="text" name="aptNumber" id="aptNumber" class="form-control" placeholder="Id" ng-model="aptNumber">
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="getApartment()">Get All</button>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="getApartmentById()">Get One</button>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" ng-click="editApartment()">Edit</button>
+                </div>
+               
+                </div>
+            </form> -->
+        </div>
 </body>
 </html>

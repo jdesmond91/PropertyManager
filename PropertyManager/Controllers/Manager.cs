@@ -761,21 +761,14 @@ namespace PropertyManager.Controllers
 
             return (c == null) ? null : Mapper.Map<ApartmentWithUnit>(c);
         }
-        public ApartmentWithUnit ApartmentAdd(ApartmentAdd newItem)
+        public ApartmentBase ApartmentAdd(ApartmentAdd newItem)
         {
             if (newItem == null)
             {
                 return null;
-            }         
-
+            }
             else
             {
-                var apartment = ds.Apartments.Find(newItem.ApartmentNumber);
-                if(apartment != null)
-                {
-                    return null;
-                }
-
                 // Must validate the associated object
                 var associatedUnit = ds.Units.Find(newItem.UnitId);
                 if (associatedUnit == null)
@@ -792,7 +785,7 @@ namespace PropertyManager.Controllers
                 ds.SaveChanges();
 
                 // Return the object
-                return Mapper.Map<ApartmentWithUnit>(addedItem);
+                return Mapper.Map<ApartmentBase>(addedItem);
             }
         }
 

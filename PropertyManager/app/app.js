@@ -47,10 +47,6 @@
                          controller: 'apartmentController',
                          templateUrl: 'app/Partials/Apartment/apartment.html'
                     })
-                    .when('/addapartment/:apartment_id?', {
-                        controller: 'apartmentController',
-                        templateUrl: 'app/Partials/Apartment/apartmentAdd.html'
-                    })
                     .when('/tenant/', {
                          controller: 'tenantController',
                          templateUrl: 'app/Partials/Tenant/tenant.html'

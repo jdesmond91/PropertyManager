@@ -53,21 +53,11 @@ function apartmentService($http, $q, appSettings) {
         return def.promise;
     };
 
-    this.deleteApartment = function (id) {
-        var response = $http({
-            url: appSettings.serverPath + "/api/apartments/" + id,
-            method: "DELETE",
-            //headers: authHeaders
-        });
-        return response;
-    };
-
     return {
         addApartment: this.addApartment,
         getAllApartment: this.getAllApartment,
         getByIdApartment: this.getByIdApartment,
-        editApartment: this.editApartment,
-        deleteApartment: this.deleteApartment
+        editApartment: this.editApartment
     }
 
 

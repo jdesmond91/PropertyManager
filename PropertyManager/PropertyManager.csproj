@@ -272,9 +272,7 @@
   <ItemGroup>
     <Content Include="app\Controllers\workOrderController.js" />
     <Content Include="app\Partials\Announcement\announcementAdd.html" />
-    <Content Include="app\Partials\Apartment\apartmentAdd.html" />
     <Content Include="app\Partials\Employee\employee.html" />
-    <Content Include="app\Partials\Facility\facilityAdd.html" />
     <Content Include="app\Partials\Facility\facilityBookings.html" />
     <Content Include="app\Partials\home.html" />
     <Content Include="app\Partials\Inventory\inventory.html" />
