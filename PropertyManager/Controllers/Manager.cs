@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 
@@ -76,9 +77,11 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public void AnnouncementDelete(int id)
+        public HttpResponseMessage AnnouncementDelete(int id)
         {
             var storedItem = ds.Announcements.Find(id);
+
+            var response = new HttpResponseMessage();
             if (storedItem == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -89,9 +92,14 @@ namespace PropertyManager.Controllers
                 {
                     ds.Announcements.Remove(storedItem);
                     ds.SaveChanges();
+                    response.Headers.Add("DeleteMessage", "Delete successful");
                 }
-                catch (Exception) { }
+                catch (Exception) {
+                    
+                    response.Headers.Add("DeleteMessage", "Could not delete");                   
+                }
             }
+            return response;
         }
 
         // ****************************************** EMPLOYEEE SECTION *****************************************
@@ -753,14 +761,21 @@ namespace PropertyManager.Controllers
 
             return (c == null) ? null : Mapper.Map<ApartmentWithUnit>(c);
         }
-        public ApartmentBase ApartmentAdd(ApartmentAdd newItem)
+        public ApartmentWithUnit ApartmentAdd(ApartmentAdd newItem)
         {
             if (newItem == null)
             {
                 return null;
-            }
+            }         
+
             else
             {
+                var apartment = ds.Apartments.Find(newItem.ApartmentNumber);
+                if(apartment != null)
+                {
+                    return null;
+                }
+
                 // Must validate the associated object
                 var associatedUnit = ds.Units.Find(newItem.UnitId);
                 if (associatedUnit == null)
@@ -777,7 +792,7 @@ namespace PropertyManager.Controllers
                 ds.SaveChanges();
 
                 // Return the object
-                return Mapper.Map<ApartmentBase>(addedItem);
+                return Mapper.Map<ApartmentWithUnit>(addedItem);
             }
         }
 

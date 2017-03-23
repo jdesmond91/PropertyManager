@@ -94,9 +94,10 @@ namespace PropertyManager.Controllers
         }
 
         // DELETE: api/Announcements/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
-            m.AnnouncementDelete(id);
+            var response = m.AnnouncementDelete(id);           
+            return response;
         }
     }
 }
