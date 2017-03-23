@@ -20,6 +20,13 @@ namespace PropertyManager.Controllers
         public int Id { get; set; }
         public LeaseForTenant Lease { get; set; }
     }
+
+    public class TenantForLease
+    {
+        public int Id { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+    }
     public class TenantEdit
     {
         public int Id { get; set; }

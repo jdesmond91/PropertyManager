@@ -38,6 +38,13 @@ namespace PropertyManager.Controllers
         public TenantBase Tenant { get; set; }
     }
 
+    public class LeaseWithBasicInformation : LeaseBase
+    {
+        public ApartmentForLease Apartment { get; set; }
+        public TenantForLease Tenant { get; set; }
+    }
+
+
     public class LeaseForTenant
     {
         public ApartmentBase Apartment { get; set; }

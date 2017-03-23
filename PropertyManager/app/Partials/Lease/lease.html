@@ -8,7 +8,6 @@
 <body ng-app="propertyManagerApp">
         <div ng-include='"/app/Partials/menu.html"'></div>
         <div id="page-wrapper">
-
             <form>
                 <div class="form-group">
                     <div class="input-group">
@@ -17,7 +16,7 @@
                     </div>
                 </div>
             </form>
-
+            <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-click="addOneClick()">Add</button>
             <table class="table-fill" style="float: left">
                 <thead>
                     <tr>
@@ -58,7 +57,7 @@
                     <tr class="details-row" ng-if="lease.expanded" ng-repeat-end="">
                         <td colspan="7">           
                             <div class="detailDivTable">
-                                <div class="detailDivTableBody">
+                                <div class="detailDivTableBody detailLeft">
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Apartment Number:</div>
                                         <div class="detailDivTableCell">{{lease.Apartment.ApartmentNumber}}</div>
@@ -87,6 +86,10 @@
                                         <div class="detailDivTableHeader">Terms:</div>
                                         <div class="detailDivTableCell">{{lease.Terms}}</div>
                                     </div>                                    
+                                </div>
+                                <div class="detailRight">
+                                    <button type="submit" class="btn btn-primary" style="float: right;" ng-click="editClick(lease.Id)">Edit</button>
+                                    <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(lease.Id)">Delete</button>
                                 </div>
                             </div>
                         </td>

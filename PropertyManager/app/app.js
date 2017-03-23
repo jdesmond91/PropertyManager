@@ -79,6 +79,10 @@
                          controller: 'employeeController',
                          templateUrl: 'app/Partials/Employee/employee.html'
                     })
+                    .when('/addemployee/:employee_id?', {
+                        controller: 'employeeController',
+                        templateUrl: 'app/Partials/Employee/employeeAdd.html'
+                    })
                     .when('/workorderrequest/', {
                          controller: 'workOrderController',
                          templateUrl: 'app/Partials/WorkOrder/workorderrequest.html'

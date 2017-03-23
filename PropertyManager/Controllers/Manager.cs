@@ -856,6 +856,16 @@ namespace PropertyManager.Controllers
             return tenants;
         }
 
+        public IEnumerable<TenantBase> TenantGetAllNotLease()
+        {
+            var leases = ds.Leases.OrderBy(a => a.Id);
+
+            var c = ds.Tenants.Where(p => leases.All(p2 => p2.Tenant.Id != p.Id));
+
+            return (c == null) ? null : Mapper.Map<IEnumerable<TenantBase>>(c);
+
+        }
+
         public TenantBase TenantGetById(int id)
         {
             var c = ds.Tenants.SingleOrDefault(a => a.Id == id);  
@@ -929,16 +939,17 @@ namespace PropertyManager.Controllers
 
         //************************************** LEASE SECTION ***********************************************************
 
-        public IEnumerable<LeaseWithInformation> LeaseGetAllWithInformation()
+        public IEnumerable<LeaseWithBasicInformation> LeaseGetAllWithInformation()
         {
-            var s = ds.Leases.Include("Tenant").Include("Apartment").OrderBy(j => j.Id);
-            return Mapper.Map<IEnumerable<LeaseWithInformation>>(s);
+            var s = ds.Leases.Include("Tenant").Include("Apartment").OrderBy(j => j.Id);    
+
+            return Mapper.Map<IEnumerable<LeaseWithBasicInformation>>(s);
         }
 
-        public LeaseWithInformation LeaseGetByIdWithInformation(int id)
+        public LeaseWithBasicInformation LeaseGetByIdWithInformation(int id)
         {
             var o = ds.Leases.Include("Tenant").Include("Apartment").SingleOrDefault(j => j.Id == id);
-            return (o == null) ? null : Mapper.Map<LeaseWithInformation>(o);
+            return (o == null) ? null : Mapper.Map<LeaseWithBasicInformation>(o);
         }
 
         public LeaseBase LeaseGetByAptNumber(int id)
@@ -982,7 +993,7 @@ namespace PropertyManager.Controllers
                 Lease addedItem = Mapper.Map<Lease>(newItem);
 
                 // Set its associated item identifier
-                addedItem.Apartment = associatedApartment;
+                addedItem.Apartment = associatedApartment;               
                 addedItem.Tenant = associatedTenant;
 
                 ds.Leases.Add(addedItem);

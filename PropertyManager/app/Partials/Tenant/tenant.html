@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </form>
-
+            <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-click="addOneClick()">Add</button>
             <table class="table-fill" style="float: left">
                 <thead>
                     <tr>
@@ -58,7 +58,7 @@
                     <tr class="details-row" ng-if="tenant.expanded" ng-repeat-end="">
                         <td colspan="7">
                             <div class="detailDivTable">
-                                <div class="detailDivTableBody">
+                                <div class="detailDivTableBody detailLeft">
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">First Name:</div>
                                         <div class="detailDivTableCell">{{tenant.FirstName}}</div>
@@ -86,47 +86,19 @@
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Apartment Number:</div>
                                         <div class="detailDivTableCell">{{tenant.Lease.Apartment.ApartmentNumber}}</div>
-                                    </div>                              
+                                    </div> 
+                                    <span style="margin:10px;" class="spanError" ng-show="errorMessage!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{errorMessage}}</span>                             
+                                </div>
+                                <div class="detailRight">
+                                    <button type="submit" class="btn btn-primary" style="float: right;" ng-click="editClick(tenant.Id)">Edit</button>
+                                    <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(tenant.Id)">Delete</button>
                                 </div>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            
-            <!-- EDIT FORM<form name="form">
-
-                <input type="text" name="firstName" id="firstName" class="form-control" placeholder="Name" ng-model="firstName">
-
-                <input type="text" name="lastName" id="lastName" class="form-control" placeholder="lastName" ng-model="lastName">
-
-                <input type="text" name="mobileNumber" id="mobileNumber" class="form-control" placeholder="mobileNumber" ng-model="mobileNumber">
-
-                <input type="text" name="homeNumber" id="homeNumber" class="form-control" placeholder="homeNumber" ng-model="homeNumber">
-
-                <input type="email" name="email" id="email" class="form-control" placeholder="email" ng-model="email">
-
-                <input type="date" name="birthDate" id="birthDate" class="form-control" placeholder="birth Date" ng-model="birthDate">
-
-
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="addTenant()">Add</button>
-                </div>
-                <input type="text" name="serviceId" id="serviceId" class="form-control" placeholder="Id" ng-model="tenantId">
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="getTenant()">Get All</button>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="getTenantById()">Get One</button>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="editTenant()">Edit</button>
-                </div>
-    
-                </div>
-
-            </form> -->
+                    
         </div>
 </body>
 </html>

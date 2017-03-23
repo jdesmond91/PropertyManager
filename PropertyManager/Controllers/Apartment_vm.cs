@@ -18,6 +18,10 @@ namespace PropertyManager.Controllers
     public class ApartmentBase : ApartmentAdd
     {
     }
+    public class ApartmentForLease
+    {
+        public int ApartmentNumber { get; set; }
+    }
 
     public class ApartmentEdit
     {

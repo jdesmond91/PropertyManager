@@ -112,9 +112,16 @@ namespace PropertyManager.Controllers
         }
 
         // DELETE: api/Tenants/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            var leaseInfo = m.LeaseGetByTenantId(id);
+            if (leaseInfo != null)
+            {
+                return Content(HttpStatusCode.Conflict, "Lease associated");
+            }
+
             m.TenantDelete(id);
+            return Ok();
         }
     }
 }

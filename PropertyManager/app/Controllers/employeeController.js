@@ -1,49 +1,85 @@
-﻿angular.module("propertyManagerApp").controller("employeeController", ["$scope", "$filter", "employeeService", "userProfile", employeeController]);
+﻿angular.module("propertyManagerApp").controller("employeeController", ["$scope", "$filter", '$location', "$routeParams", "employeeService", "userProfile", employeeController]);
 
-function employeeController($scope, $filter, employeeService, userProfile) {
+function employeeController($scope, $filter, $location, $routeParams, employeeService, userProfile) {
 
-    $scope.LastName = "";
-    $scope.FirstName = "";
-    $scope.Title = "";
-    $scope.BirthDate = "";
-    $scope.HireDate = "";
-    $scope.Address = "";
-    $scope.City = "";
-    $scope.State = "";
-    $scope.PostalCode = "";
-    $scope.Phone = "";
-    $scope.Fax = "";
-    $scope.Email = "";
+    $scope.editId = "";
+    $scope.isEdit = false;
+    $scope.showEditConfirmation = false;
 
-    $scope.Id = "";
+    if ($routeParams.employee_id) {
+        $scope.editId = $routeParams.employee_id;
+        $scope.isEdit = true;
+        getEmployeeById($scope.editId);
+    }
+    else {
+        getEmployee();
+    }
+
+    $scope.modelAdd = {
+        employeeId: "",
+        LastName: "",
+        FirstName: "",
+        Title: "",
+        Phone: "",
+        Email: "",
+        BirthDate: "",
+        HireDate: "",
+        Address: "",
+        City: "",
+        State: "",
+        PostalCode: ""
+    };
+
+    $scope.modelEdit = {
+        employeeId: "",
+        LastName: "",
+        FirstName: "",
+        Title: "",
+        Phone: "",
+        Email: "",
+        BirthDate: "",
+        HireDate: "",
+        Address: "",
+        City: "",
+        State: "",
+        PostalCode: ""
+    };
+
+
     $scope.employees = [];
     $scope.message = "";
     $scope.sortType = 'FirstName';
     $scope.sortReverse = false;
     $scope.searchEmployee = "";
 
+    // ADD SECTION 
+
+    $scope.addOneClick = function () {
+        $location.path('/addemployee');
+    }
+
     $scope.addEmployee = function () {
         var BirthDateFiltered = null;
         var HireDateFiltered = null;
 
-        if ($scope.BirthDate != "") {
-            BirthDateFiltered = $filter('date')($scope.BirthDate, "yyyy-MM-dd");
+        if ($scope.modelAdd.BirthDate != "") {
+            BirthDateFiltered = $filter('date')($scope.modelAdd.BirthDate, "yyyy-MM-dd");
         }
-        if ($scope.HireDate != "") {
-            HireDateFiltered = $filter('date')($scope.HireDate, "yyyy-MM-dd");
+        if ($scope.modelAdd.HireDate != "") {
+            HireDateFiltered = $filter('date')($scope.modelAdd.HireDate, "yyyy-MM-dd");
         }
 
         var employee = {
-            LastName: $scope.LastName,
-            FirstName: $scope.FirstName,
-            Title: $scope.Title,
-            Address: $scope.Address,
-            City: $scope.City,
-            State: $scope.State,
-            PostalCode: $scope.PostalCode,
-            Phone: $scope.Phone,
-            Fax: $scope.Fax,
-            Email: $scope.Email,
+            LastName: $scope.modelAdd.LastName,
+            FirstName: $scope.modelAdd.FirstName,
+            Title: $scope.modelAdd.Title,
+            Address: $scope.modelAdd.Address,
+            City: $scope.modelAdd.City,
+            State: $scope.modelAdd.State,
+            PostalCode: $scope.modelAdd.PostalCode,
+            Phone: $scope.modelAdd.Phone,
+            Fax: $scope.modelAdd.Fax,
+            Email: $scope.modelAdd.Email,
             BirthDate: BirthDateFiltered,
             HireDate: HireDateFiltered
         };
@@ -51,87 +87,140 @@ function employeeController($scope, $filter, employeeService, userProfile) {
         var addResults = employeeService.addEmployee(employee);
         addResults.then(function (response) {
             console.log(response.data);
-            $scope.Id = response.data.Id;
+            $scope.modelAdd.employeeId = response.data.Id;
+            $scope.showConfirmation = true;
+            $scope.message = "Apartment Added"
         }, function (error) {
-            $scope.message = response.statusText + " " + response.status;
+            $scope.message = error.statusText + " " + error.status;
         });
     } // close function
 
-    $scope.getEmployee = function () {
+    $scope.addAnother = function () {
+        $scope.modelAdd = {
+            employeeId: "",
+            LastName: "",
+            FirstName: "",
+            Title: "",
+            Phone: "",
+            Email: "",
+            BirthDate: "",
+            HireDate: "",
+            Address: "",
+            City: "",
+            State: "",
+            PostalCode: ""
+        };
+        $scope.message = "";
+        $scope.form.$setPristine();
+        $scope.showConfirmation = false;
+    }
+
+    //******************************************************************************************//
+
+    //GET ALL
+
+    function getEmployee() {
         var allEmployees = employeeService.getAllEmployee();
         allEmployees.then(function (response) {
             $scope.employees = response.data;
             console.log($scope.employees);
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         })
 
     } // close function
 
-    $scope.getEmployeeById = function (id) {
+    function getEmployeeById(id) {
         var employeeById = employeeService.getByIdEmployee(id);
         employeeById.then(function (response) {
 
-            $scope.LastName = response.data.LastName;
-            $scope.FirstName = response.data.FirstName;
-            $scope.Title = response.data.Title;
-            $scope.Address = response.data.Address;
-            $scope.City = response.data.City;
-            $scope.State = response.data.State;
-            $scope.PostalCode = response.data.PostalCode;
-            $scope.Phone = response.data.Phone;
-            $scope.Fax = response.data.Fax;
-            $scope.Email = response.data.Email;
+            $scope.modelEdit.LastName = response.data.LastName;
+            $scope.modelEdit.FirstName = response.data.FirstName;
+            $scope.modelEdit.Title = response.data.Title;
+            $scope.modelEdit.Address = response.data.Address;
+            $scope.modelEdit.City = response.data.City;
+            $scope.modelEdit.State = response.data.State;
+            $scope.modelEdit.PostalCode = response.data.PostalCode;
+            $scope.modelEdit.Phone = response.data.Phone;
+            $scope.modelEdit.Fax = response.data.Fax;
+            $scope.modelEdit.Email = response.data.Email;
 
             if (response.data.BirthDate != "") {
-                $scope.BirthDate = response.data.BirthDate//new Date(response.data.BirthDate.replace('T', ' ').replace('-', '/'));
+                $scope.modelEdit.BirthDate = new Date(response.data.BirthDate.replace('T', ' ').replace('-', '/'));
             }
             if (response.data.HireDate != "") {
-                $scope.HireDate = response.data.HireDate//new Date(response.data.HireDate.replace('T', ' ').replace('-', '/'));
+                $scope.modelEdit.HireDate = new Date(response.data.HireDate.replace('T', ' ').replace('-', '/'));
             }
-
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         })
 
     } // close function
+
+    // *********** EDIT SECTION ******************************************
+
+    $scope.editClick = function (id) {
+        $location.path('/addemployee/' + id);
+    }
   
     $scope.editEmployee = function () {
 
         var BirthDateFiltered = null;
         var HireDateFiltered = null;
 
-        if ($scope.BirthDate != "") {
-            BirthDateFiltered = $filter('date')($scope.BirthDate, "yyyy-MM-dd");
+        if ($scope.modelEdit.BirthDate != "") {
+            BirthDateFiltered = $filter('date')($scope.modelEdit.BirthDate, "yyyy-MM-dd");
         }
-        if ($scope.HireDate != "") {
-            HireDateFiltered = $filter('date')($scope.HireDate, "yyyy-MM-dd");
+        if ($scope.modelEdit.HireDate != "") {
+            HireDateFiltered = $filter('date')($scope.modelEdit.HireDate, "yyyy-MM-dd");
         }
 
             var employee = {
-                Id: $scope.Id,
-                LastName: $scope.LastName,
-                FirstName: $scope.FirstName,
-                Title: $scope.Title,
-                Address: $scope.Address,
-                City: $scope.City,
-                State: $scope.State,
-                PostalCode: $scope.PostalCode,
-                Phone: $scope.Phone,
-                Fax: $scope.Fax,
-                Email: $scope.Email,
+                Id: $scope.editId,
+                LastName: $scope.modelEdit.LastName,
+                FirstName: $scope.modelEdit.FirstName,
+                Title: $scope.modelEdit.Title,
+                Address: $scope.modelEdit.Address,
+                City: $scope.modelEdit.City,
+                State: $scope.modelEdit.State,
+                PostalCode: $scope.modelEdit.PostalCode,
+                Phone: $scope.modelEdit.Phone,
+                Fax: $scope.modelEdit.Fax,
+                Email: $scope.modelEdit.Email,
                 BirthDate: BirthDateFiltered,
                 HireDate: HireDateFiltered
             };
 
-        var editResults = employeeService.editEmployee(employee, $scope.Id);
+            var editResults = employeeService.editEmployee(employee, $scope.editId);
         editResults.then(function (response) {
             console.log("edit");
             console.log(response);
+            $scope.message = "Edit successful";
+            $scope.showEditConfirmation = true;
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         });
     } // close function
 
-    $scope.getEmployee();
+    //************** DELETE ************************
+    $scope.delete = function (id) {
+        $scope.errorMessage = "";
+        var deleteOne = employeeService.deleteEmployee(id);
+        deleteOne.then(function (response) {
+            $scope.message = "Delete successfull";
+            console.log(response);
+            getEmployee();
+        }, function (error) {
+             $scope.message = "Not possible";
+            
+        });
+    }
+
+    $scope.cancelAdd = function () {
+        $location.path('/employee');
+    }
+
+    $scope.goBack = function () {
+        $location.path('/employee');
+    }
 }

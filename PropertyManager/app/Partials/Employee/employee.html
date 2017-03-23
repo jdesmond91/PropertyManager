@@ -16,7 +16,7 @@
                 </div>
             </div>
         </form>
-
+        <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-click="addOneClick()">Add</button>
         <table class="table-fill" style="float: left">
             <thead>
                 <tr>
@@ -61,17 +61,9 @@
                     <td class="text-left">{{employee.HireDate | date:'MM-dd-yyyy'}}</td>
                 </tr>
                 <tr class="details-row" ng-if="employee.expanded" ng-repeat-end="">
-                    <td colspan="7">
-                        <!--
-                        <table class="details-table">
-                            <tr>
-                                <th class="details-header">First Name:</th>
-                                <td class="detail-data">{{employee.FirstName}}</td>
-                            </tr>
-                        </table>
-                            -->
+                    <td colspan="7">      
                         <div class="detailDivTable">
-                            <div class="detailDivTableBody">
+                            <div class="detailDivTableBody detailLeft">
                                 <div class="detailDivTableRow">
                                     <div class="detailDivTableHeader">First Name:</div>
                                     <div class="detailDivTableCell">{{employee.FirstName}}</div>
@@ -112,6 +104,10 @@
                                     <div class="detailDivTableHeader">Email:</div>
                                     <div class="detailDivTableCell">{{employee.Email}}</div>
                                 </div>
+                            </div>
+                            <div class="detailRight">
+                                <button type="submit" class="btn btn-primary" style="float: right;" ng-click="editClick(employee.Id)">Edit</button>
+                                <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(employee.Id)">Delete</button>
                             </div>
                         </div>
                     </td>

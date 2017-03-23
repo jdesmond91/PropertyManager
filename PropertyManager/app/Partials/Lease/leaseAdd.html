@@ -1,0 +1,131 @@
+﻿<html>
+<head>
+    <title>Lease Add</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body ng-app="propertyManagerApp">
+    <div ng-include='"/app/Partials/menu.html"'></div>
+    <div id="page-wrapper-form" ng-hide="addOne">
+
+        <!--ADD FORM-->
+        <div ng-hide="isEdit">
+            <div class="form-style-5" ng-hide="showConfirmation">
+                <form name="form" id="form">
+                    <fieldset>
+                        <legend><span class="number"></span> Add Lease <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
+
+                        <label class="control-label" for="startDate">Start Date</label>
+                        <input type="date" name="startDate" id="startDate" class="form-control" ng-model="modelAdd.startDate">
+                        <span class="spanError" ng-show="form.startDate.$invalid && !form.startDate.$pristine">Enter a valid date</span>
+
+                        <label class="control-label" for="endDate">End Date</label>
+                        <input type="date" name="endDate" id="endDate" class="form-control" ng-model="modelAdd.endDate">
+                        <span class="spanError" ng-show="form.endDate.$invalid && !form.endDate.$pristine">Enter a valid date</span>
+
+                        <label class="control-label" for="monthlyRent">Monthly Rent</label>
+                        <input type="number" name="monthlyRent" id="monthlyRent" step=0.1 ng-model="modelAdd.monthlyRent" max="10000" ng-pattern="/^([0-9]+.[0-9]{0,2})$/" class="form-control">
+                        <span class="spanError" ng-show="form.monthlyRent.$error.pattern || form.monthlyRent.$invalid && !form.monthlyRent.$pristine">Enter valid number</span>
+
+                        <label class="control-label" for="securityDeposit">Security Deposit</label>
+                        <input type="number" name="securityDeposit" id="securityDeposit" step=0.1 ng-model="modelAdd.securityDeposit" max="10000" ng-pattern="/^([0-9]+.[0-9]{0,2})$/" class="form-control">
+                        <span class="spanError" ng-show="form.securityDeposit.$error.pattern || form.securityDeposit.$invalid && !form.securityDeposit.$pristine">Enter valid number</span>
+
+                        <label class="control-label" for="aptnumber">Apartment Number</label>
+                        <input type="number" name="aptnumber" id="aptnumber" max="10000" ng-model="modelAdd.apartmentId" class="form-control" ng-pattern="/^[0-9]+$/" required>
+                        <span class="spanError" ng-show="form.aptnumber.$error.pattern || form.aptnumber.$invalid && !form.aptnumber.$pristine">Enter an apartment number</span>
+
+                        <label class="control-label" for="tenantName">Tenant</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" class="form-control" placeholder="Tenant Last Name" ng-model="searchTenant()">
+                        </div>
+           
+                     
+                    </fieldset>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addLease()">Add Lease </button>
+                    <span>{{message}}</span>
+                </form>
+            </div>
+            <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showConfirmation">
+                <div class="detailDivTableBody">
+                    <span class="messageSuccess">{{message}}</span>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Title:</div>
+                        <div class="detailDivTableCell">{{modelAdd.title}}</div>
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Start Date:</div>
+                        <div class="detailDivTableCell">{{modelAdd.startDate | date:'MM-dd-yyyy'}}</div>
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Expire Date:</div>
+                        <div class="detailDivTableCell">{{modelAdd.expireDate | date:'MM-dd-yyyy'}}</div>
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Description:</div>
+                        <div class="detailDivTableCell">{{modelAdd.description}}</div>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
+                    <button type="button" class="btn btn-primary" ng-click="addAnother()">Add another</button>
+                </div>
+            </div>
+        </div>
+        <!--ADD FORM-->
+        <!--EDIT FORM-->
+        <div ng-show="isEdit">
+            <div class="form-style-5" ng-hide="showEditConfirmation">
+                <form name="formEdit" id="formEdit">
+                    <fieldset>
+                        <legend><span class="number"></span> Edit Lease <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
+
+                        <label class="control-label" for="title">Title</label>
+                        <input type="text" name="title" id="title" ng-model="modelEdit.title" class="form-control" maxlength="40" required>
+                        <span class="spanError" ng-show="formEdit.title.$invalid && !formEdit.title.$pristine">Enter a title</span>
+
+                        <label class="control-label" for="startDate">Start Date</label>
+                        <input type="date" name="startDate" id="editstartDate" class="form-control" ng-model="modelEdit.startDate">
+                        <span class="spanError" ng-show="formEdit.startDate.$invalid && !formEdit.startDate.$pristine">Enter a valid date</span>
+
+                        <label class="control-label" for="expireDate">Expire Date</label>
+                        <input type="date" name="expireDate" id="editexpireDate" class="form-control" ng-model="modelEdit.expireDate">
+                        <span class="spanError" ng-show="formEdit.expireDate.$invalid && !formEdit.expireDate.$pristine">Enter a valid date</span>
+
+                        <label class="control-label" for="description">Description</label>
+                        <textarea id="description" name="description" ng-model="modelEdit.description" rows="6" cols="20" style="overflow:auto;resize:none" required></textarea>
+                        <br /><span class="spanError" ng-show="formEdit.description.$invalid && !formEdit.description.$pristine">Enter a description</span>
+                    </fieldset>
+                    <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editLease()">Edit Lease </button>
+                    <span>{{message}}</span>
+                </form>
+            </div>
+            <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showEditConfirmation">
+                <div class="detailDivTableBody">
+                    <span class="messageSuccess">{{message}}</span>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Title:</div>
+                        <div class="detailDivTableCell">{{modelEdit.title}}</div>
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Start Date:</div>
+                        <div class="detailDivTableCell">{{modelEdit.startDate | date:'MM-dd-yyyy'}}</div>
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Expire Date:</div>
+                        <div class="detailDivTableCell">{{modelEdit.expireDate | date:'MM-dd-yyyy'}}</div>
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Description:</div>
+                        <div class="detailDivTableCell">{{modelEdit.description}}</div>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
+                </div>
+            </div>
+        </div>
+        <!--EDIT FORM-->
+
+    </div>
+</body>
+</html>
+

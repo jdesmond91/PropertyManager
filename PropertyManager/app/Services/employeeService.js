@@ -53,11 +53,21 @@ function employeeService($http, $q, appSettings) {
         return def.promise;
     };
 
+    this.deleteEmployee = function (id) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/employees/" + id,
+            method: "DELETE",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     return {
         addEmployee: this.addEmployee,
         getAllEmployee: this.getAllEmployee,
         getByIdEmployee: this.getByIdEmployee,
-        editEmployee: this.editEmployee
+        editEmployee: this.editEmployee,
+        deleteEmployee: this.deleteEmployee
     }
 
 

@@ -62,12 +62,22 @@ function tenantService($http, $q, appSettings) {
         return def.promise;
     };
 
+    this.deleteTenant = function (id) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/tenants/" + id,
+            method: "DELETE",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     return {
         addTenant: this.addTenant,
         getAllTenant: this.getAllTenant,
         getByIdTenant: this.getByIdTenant,
         getByEmailTenant: this.getByEmailTenant,
-        editTenant: this.editTenant
+        editTenant: this.editTenant,
+        deleteTenant: this.deleteTenant
     }
 
 

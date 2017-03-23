@@ -6,8 +6,6 @@ function serviceController($scope, $filter, $location, $routeParams, serviceServ
     $scope.isEdit = false;
     $scope.showEditConfirmation = false;
 
-    console.log($routeParams.service_id);
-
     if ($routeParams.service_id) {
         $scope.editId = $routeParams.service_id;
         $scope.isEdit = true;
