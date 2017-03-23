@@ -629,5 +629,7 @@ td.text-right {
     width: 350px;
 }
 
-
+.input-group {
+    padding-top: 10px;
+}
 
