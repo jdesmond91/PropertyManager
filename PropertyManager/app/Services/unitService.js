@@ -53,11 +53,21 @@ function unitService($http, $q, appSettings) {
         return def.promise;
     };
 
+    this.deleteUnit = function (id) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/units/" + id,
+            method: "DELETE",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     return {
         addUnit: this.addUnit,
         getAllUnit: this.getAllUnit,
         getByIdUnit: this.getByIdUnit,
-        editUnit: this.editUnit
+        editUnit: this.editUnit,
+        deleteUnit: this.deleteUnit
     }
 
 

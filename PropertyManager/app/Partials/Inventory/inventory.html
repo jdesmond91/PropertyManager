@@ -18,7 +18,7 @@
                 </div>
             </div>
         </form>
-
+        <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-click="addOneClick()">Add</button>
         <table class="table-fill" style="float: left">
             <thead>
                 <tr>
@@ -53,7 +53,7 @@
                 <tr class="details-row" ng-if="inventory.expanded" ng-repeat-end="">
                     <td colspan="7">
                         <div class="detailDivTable">
-                            <div class="detailDivTableBody">
+                            <div class="detailDivTableBody detailLeft">
                                 <div class="detailDivTableRow">
                                     <div class="detailDivTableHeader">Product Name:</div>
                                     <div class="detailDivTableCell">{{inventory.ProductName}}</div>
@@ -66,6 +66,10 @@
                                     <div class="detailDivTableHeader">Quantity:</div>
                                     <div class="detailDivTableCell">{{inventory.Quantity}}</div>
                                 </div>                              
+                            </div>
+                            <div class="detailRight">
+                                <button type="submit" class="btn btn-primary" style="float: right;" ng-click="editClick(inventory.Id)">Edit</button>
+                                <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(inventory.Id)">Delete</button>
                             </div>
                         </div>
                     </td>

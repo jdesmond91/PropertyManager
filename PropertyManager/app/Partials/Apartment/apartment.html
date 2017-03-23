@@ -7,7 +7,7 @@
 
 <body ng-app="propertyManagerApp">
         <div ng-include='"/app/Partials/menu.html"'></div>
-        <div id="page-wrapper" ng-hide="addOne">
+        <div id="page-wrapper">
             <form>
                 <div class="form-group">
                     <div class="input-group">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </form>
-            <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-hide="addOne" ng-click="addOneClick()">Add</button>
+            <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-click="addOneClick()">Add</button>
             <table class="table-fill" style="float: left">
                 <thead>
                     <tr>
@@ -69,6 +69,7 @@
                                         <div class="detailDivTableHeader">Unit Type:</div>
                                         <div class="detailDivTableCell">{{apt.Unit.Bedrooms}} Bedrooms</div>
                                     </div>
+                                    <span style="margin:10px;" class="spanError" ng-show="errorMessage!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{errorMessage}}</span>
                                 </div>
                                 <div class="detailRight">
                                     <button type="submit" style="float:right" class="btn btn-primary" ng-click="editClick(apt.ApartmentNumber)">Edit</button>

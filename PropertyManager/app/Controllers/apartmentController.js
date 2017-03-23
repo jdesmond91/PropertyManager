@@ -4,6 +4,7 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
    
     $scope.unitType = "";
     $scope.message = "";
+    $scope.errorMessage = "";
     $scope.apartments = [];
     $scope.units = [];
     $scope.sortType = "ApartmentNumber";
@@ -46,7 +47,7 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
     }
 
      $scope.addApartment = function () {
-
+        $scope.errorMessage = "";
         var apartment = {
             ApartmentNumber: $scope.modelAdd.aptNumber,
             FloorNumber: $scope.modelAdd.floorNumber,
@@ -62,7 +63,10 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
             $scope.showConfirmation = true;
             $scope.message = "Apartment Added"
         }, function (error) {
-            $scope.message = response.statusText + " " + response.status;
+            console.log(error);
+            if (error.data == "Apartment Already Exists") {
+                $scope.errorMessage = "This apartment already exists in the Database";
+            }            
         });
 
      } // close function
@@ -89,7 +93,7 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
             $scope.apartments = response.data;
             console.log($scope.apartments);
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         })
 
     } // close function
@@ -104,7 +108,7 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
             $scope.modelEdit.unitId = response.data.UnitId;
             $scope.modelEdit.unitType = response.data.Unit.Bedrooms;
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         })
 
     } // close function
@@ -133,19 +137,22 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
             $scope.message = "Edit successful";
             $scope.showEditConfirmation = true;      
         }, function (error) {
-            $scope.message = response.statusText;      
+            $scope.message = error.statusText;      
         });
     } // close function
 
     //************** DELETE ************************
     $scope.delete = function (id) {
+        $scope.errorMessage = "";
         var deleteOne = apartmentService.deleteApartment(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
             console.log(response);
             getApartment();
         }, function (error) {
-            $scope.message = response.statusText;
+            if (error.data == "Lease associated") {
+                $scope.errorMessage = "There's a lease associated with this apartment.\nPlease delete the lease first.";
+            }            
         });
     }
 
@@ -163,7 +170,7 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
             $scope.units = response.data;
             console.log($scope.units);
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         })
     }
 

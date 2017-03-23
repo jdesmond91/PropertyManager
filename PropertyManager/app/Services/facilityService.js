@@ -53,11 +53,21 @@ function facilityService($http, $q, appSettings) {
         return def.promise;
     };
 
+    this.deleteFacility = function (id) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/facilities/" + id,
+            method: "DELETE",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     return {
         addFacility: this.addFacility,
         getAllFacility: this.getAllFacility,
         getByIdFacility: this.getByIdFacility,
-        editFacility: this.editFacility
+        editFacility: this.editFacility,
+        deleteFacility: this.deleteFacility
     }
 
 

@@ -88,7 +88,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
             $scope.showConfirmation = true;
             $scope.message = "Announcement Added"
         }, function (error) {
-            $scope.message = response.statusText + " " + response.status;
+            $scope.message = error.statusText + " " + error.status;
         });
     } // close function
 
@@ -115,7 +115,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
             $scope.announces = response.data;
             console.log($scope.announces);
         }, function (error){
-            $scope.message = response.statusText;       
+            $scope.message = error.statusText;       
         })
 
     } // close function
@@ -136,7 +136,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
             }
             
         }, function (error){
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         })
 
     } // close function
@@ -185,7 +185,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
             $scope.message = "Edit successful";
             $scope.showEditConfirmation = true;                      
         }, function (error) {
-            $scope.message = response.statusText;      
+            $scope.message = error.statusText;      
         });
     } // close function
 
@@ -197,7 +197,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
             console.log(response);
             getAnnouncement();
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         });
     }
 

@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </form>
-
+            <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-click="addOneClick()">Add</button>
             <table class="table-fill" style="float: left">
                 <thead>
                     <tr>
@@ -39,7 +39,7 @@
                             <span><i class="fa fa-caret-down" ng-show="sortType == 'companyPhone' && sortReverse"></i></span>
                         </th>
                         <th class="text-left" ng-click="sortType = 'companyEmail'; sortReverse = !sortReverse">
-                            Company Rmail
+                            Company Email
                             <span><i class="fa fa-caret-up" ng-show="sortType == 'companyEmail' && !sortReverse"></i></span>
                             <span><i class="fa fa-caret-down" ng-show="sortType == 'companyEmail' && sortReverse"></i></span>
                         </th>
@@ -59,7 +59,7 @@
                     <tr class="details-row" ng-if="service.expanded" ng-repeat-end="">
                         <td colspan="7">
                             <div class="detailDivTable">
-                                <div class="detailDivTableBody">
+                                <div class="detailDivTableBody detailLeft">
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Service:</div>
                                         <div class="detailDivTableCell">{{service.ServiceName}}</div>
@@ -81,42 +81,16 @@
                                         <div class="detailDivTableCell">{{service.Address}}</div>
                                     </div>                                   
                                 </div>
+                                <div class="detailRight">
+                                    <button type="submit" class="btn btn-primary" style="float: right;" ng-click="editClick(service.Id)">Edit</button>
+                                    <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(service.Id)">Delete</button>
+                                </div>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
-
-
-
-           <!-- EDIT FORM  <form name="form">
-
-                <input type="text" name="name" id="name" class="form-control" placeholder="Name" ng-model="name">
-
-                <input type="text" name="companyName" id="companyName" class="form-control" placeholder="companyName" ng-model="companyName">
-
-                <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" placeholder="phoneNumber" ng-model="phoneNumber">
-
-                <input type="email" name="email" id="email" class="form-control" placeholder="email" ng-model="email">
-
-                <input type="text" name="address" id="address" class="form-control" placeholder="address" ng-model="address">
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="addService()">Add</button>
-                </div>
-                <input type="text" name="serviceId" id="serviceId" class="form-control" placeholder="Id" ng-model="serviceId">
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="getService()">Get All</button>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="getServiceById()">Get One</button>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="editService()">Edit</button>
-                </div>        
-                </div>
-
-            </form>-->
+          
         </div>
 </body>
 </html>

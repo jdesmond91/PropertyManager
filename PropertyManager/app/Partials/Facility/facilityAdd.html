@@ -18,15 +18,15 @@
 
                         <label class="control-label" for="name">Facility Name</label>
                         <input type="text" name="name" id="name" class="form-control" ng-model="modelAdd.name" ng-pattern="/^[a-zA-Z ]+$/" required>
-                        <span ng-show="form.name.$error.pattern || form.name.$invalid && !form.name.$pristine">Enter facility name</span>
+                        <span class="spanError" ng-show="form.name.$error.pattern || form.name.$invalid && !form.name.$pristine">Enter facility name</span>
 
                         <label class="control-label" for="location">Location</label>
                         <input type="text" name="location" id="location" class="form-control" ng-model="modelAdd.location" ng-pattern="/^[a-zA-Z0-9 ]+$/" maxlength="20">
-                        <span ng-show="form.location.$error.pattern || form.location.$invalid && !form.name.$pristine">Invalid characters</span>
+                        <span class="spanError" ng-show="form.location.$error.pattern || form.location.$invalid && !form.name.$pristine">Invalid characters</span>
 
                         <label class="control-label" for="description">Description</label>
                         <input type="text" name="description" id="description" class="form-control" ng-model="modelAdd.description" ng-pattern="/^[a-zA-Z0-9 ]+$/" maxlength="30">
-                        <span ng-show="form.description.$invalid || form.description.$error.pattern">Invalid characters</span>
+                        <span class="spanError" ng-show="form.description.$invalid || form.description.$error.pattern">Invalid characters</span>
 
                         <label class="control-label" for="status">Status</label>
                         <input type="text" name="status" id="status" ng-model="modelAdd.status" class="form-control" ng-pattern="/^[a-zA-Z ]+$/">
@@ -39,10 +39,8 @@
                         <label class="control-label" for="closeTime">Open Time</label>
                         <input type="time" name="closeTime" id="closeTime" class="form-control" ng-model="modelAdd.closeTime">
                         <span class="spanError" ng-show="form.closeTime.$invalid && !form.closeTime.$pristine">Enter a valid close time</span>
-
-
                     </fieldset>
-                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="adFacility()">Add Facility </button>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addFacility()">Add Facility </button>
                     <span>{{message}}</span>
                 </form>
             </div>
@@ -63,15 +61,15 @@
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Description:</div>
-                        <div class="detailDivTableCell">{{modelAdd.description}} Bedroom</div>
+                        <div class="detailDivTableCell">{{modelAdd.description}}</div>
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Open Time:</div>
-                        <div class="detailDivTableCell">{{modelAdd.openTime | date:'hh:mm:ss a'}} Bedroom</div>
+                        <div class="detailDivTableCell">{{modelAdd.openTime | date:'hh:mm:ss a'}}</div>
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Close Time:</div>
-                        <div class="detailDivTableCell">{{modelAdd.closeTime | date:'hh:mm:ss a'}} Bedroom</div>
+                        <div class="detailDivTableCell">{{modelAdd.closeTime | date:'hh:mm:ss a'}}</div>
                     </div>
 
                     <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
@@ -80,28 +78,37 @@
             </div>
         </div>
         <!-- END ADD VIEW-->
+
         <!-- EDIT VIEW-->
         <div ng-show="isEdit">
             <div class="form-style-5" ng-hide="showEditConfirmation">
                 <form name="formEdit" id="form">
                     <fieldset>
-                        <legend><span class="number"></span> Add Apartment <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
+                        <label class="control-label" for="name">Facility Name</label>
+                        <input type="text" name="name" id="name" class="form-control" ng-model="modelEdit.name" ng-pattern="/^[a-zA-Z ]+$/" required>
+                        <span class="spanError" ng-show="formEdit.name.$error.pattern || formEdit.name.$invalid && !formEdit.name.$pristine">Enter facility name</span>
 
-                        <label class="control-label" for="floorNumber">Floor Number</label>
-                        <input type="number" name="floorNumber" id="floorNumber" class="form-control" ng-pattern="/^[0-9]{0,2}$/" ng-model="modelEdit.floorNumber">
-                        <span class="spanError" ng-show="formEdit.floorNumber.$error.pattern || formEdit.floorNumber.$invalid && !formEdit.floorNumber.$pristine">Enter a floor number</span>
+                        <label class="control-label" for="location">Location</label>
+                        <input type="text" name="location" id="location" class="form-control" ng-model="modelEdit.location" ng-pattern="/^[a-zA-Z0-9 ]+$/" maxlength="20">
+                        <span class="spanError" ng-show="formEdit.location.$error.pattern || formEdit.location.$invalid && !formEdit.name.$pristine">Invalid characters</span>
+
+                        <label class="control-label" for="description">Description</label>
+                        <input type="text" name="description" id="description" class="form-control" ng-model="modelEdit.description" ng-pattern="/^[a-zA-Z0-9 ]+$/" maxlength="30">
+                        <span class="spanError" ng-show="formEdit.description.$invalid || formEdit.description.$error.pattern">Invalid characters</span>
 
                         <label class="control-label" for="status">Status</label>
                         <input type="text" name="status" id="status" ng-model="modelEdit.status" class="form-control" ng-pattern="/^[a-zA-Z ]+$/">
                         <span class="spanError" ng-show="formEdit.status.$error.pattern || formEdit.status.$invalid && !formEdit.status.$pristine">Enter a status</span>
 
-                        <label class="control-label" for="unitId">Unit Type</label>
-                        <select ng-model="modelEdit.unitId" name="unitId" id="unitId" required>
-                            <option ng-repeat="unit in units" value="{{unit.Id}}">{{unit.Bedrooms}} Bedroom</option>
-                        </select>
-                        <span class="spanError" ng-show="formEdit.unitId.$invalid && !formEdit.unitId.$pristine">Enter a unit type</span>
+                        <label class="control-label" for="openTime">Open Time</label>
+                        <input type="time" name="openTime" id="openTime" class="form-control" ng-model="modelEdit.openTime">
+                        <span class="spanError" ng-show="formEdit.openTime.$invalid && !formEdit.openTime.$pristine">Enter valid open time</span>
+
+                        <label class="control-label" for="closeTime">Open Time</label>
+                        <input type="time" name="closeTime" id="closeTime" class="form-control" ng-model="modelEdit.closeTime">
+                        <span class="spanError" ng-show="forformEditm.closeTime.$invalid && !formEdit.closeTime.$pristine">Enter a valid close time</span>
                     </fieldset>
-                    <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editApartment()">Edit Apartment </button>
+                    <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editFacility()">Edit Facility </button>
                     <span>{{message}}</span>
                 </form>
             </div>
@@ -109,30 +116,34 @@
                 <div class="detailDivTableBody">
                     <span class="messageSuccess">{{message}}</span>
                     <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Apartment Number:</div>
-                        <div class="detailDivTableCell">{{modelEdit.aptNumber}}</div>
+                        <div class="detailDivTableHeader">Facility Name:</div>
+                        <div class="detailDivTableCell">{{modelEdit.name}}</div>
                     </div>
                     <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Floor Number:</div>
-                        <div class="detailDivTableCell">{{modelEdit.floorNumber}}</div>
+                        <div class="detailDivTableHeader">Location:</div>
+                        <div class="detailDivTableCell">{{modelEdit.location}}</div>
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Status:</div>
                         <div class="detailDivTableCell">{{modelEdit.status}}</div>
                     </div>
                     <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Unit Type:</div>
-                        <div class="detailDivTableCell">{{modelEdit.unitType}} Bedroom</div>
+                        <div class="detailDivTableHeader">Description:</div>
+                        <div class="detailDivTableCell">{{modelEdit.description}} Bedroom</div>
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Open Time:</div>
+                        <div class="detailDivTableCell">{{modelEdit.openTime | date:'hh:mm:ss a'}} Bedroom</div>
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Close Time:</div>
+                        <div class="detailDivTableCell">{{modelEdit.closeTime | date:'hh:mm:ss a'}} Bedroom</div>
                     </div>
                     <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
                 </div>
             </div>
         </div>
         <!-- END EDIT VIEW-->
-
-
-
-
 
     </div>
 </body>

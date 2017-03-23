@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </form>
-
+            <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-click="addOneClick()">Add</button>
             <table class="table-fill" style="float: left">
                 <thead>
                     <tr>
@@ -59,7 +59,7 @@
                     <tr class="details-row" ng-if="unit.expanded" ng-repeat-end="">
                         <td colspan="7">
                             <div class="detailDivTable">
-                                <div class="detailDivTableBody">
+                                <div class="detailDivTableBody detailLeft">
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Bedrooms:</div>
                                         <div class="detailDivTableCell">{{unit.Bedrooms}}</div>
@@ -89,45 +89,16 @@
                                         <div class="detailDivTableCell">{{unit.Laundry?'Yes':'No'}}</div>
                                     </div>
                                 </div>
+                                <div class="detailRight">
+                                    <button type="submit" class="btn btn-primary" style="float: right;" ng-click="editClick(unit.Id)">Edit</button>
+                                    <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(unit.Id)">Delete</button>
+                                </div>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-           <!-- EDIT  <form name="form">
-
-                <input type="number" name="bedrooms" id="bedrooms" class="form-control" placeholder="bedrooms" ng-model="bedrooms">
-
-                <input type="number" name="bathrooms" id="bathrooms" class="form-control" placeholder="bathrooms" ng-model="bathrooms">
-
-                <input type="number" name="squareft" id="squareft" step=0.01 class="form-control" ng-model="squareft">
-
-                <input type="number" name="maxOccupants" id="maxOccupants" class="form-control" placeholder="maxOccupants" ng-model="maxOccupants">
-
-                <input type="text" name="balcony" id="balcony" class="form-control" placeholder="balcony Y or N" ng-model="balcony">
-
-                <input type="text" name="dishwasher" id="dishwasher" class="form-control" placeholder="dishwasher Y or N" ng-model="dishwasher">
-
-                <input type="text" name="laundry" id="laundry" class="form-control" placeholder="laundry Y or N" ng-model="laundry">
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="addUnit()">Add</button>
-                </div>
-                <input type="text" name="serviceId" id="serviceId" class="form-control" placeholder="Id" ng-model="unitId">
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="getUnit()">Get All</button>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="getUnitById()">Get One</button>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="editUnit()">Edit</button>
-                </div>
-               
-                </div>
-
-            </form>-->
         </div>
 </body>
 </html>

@@ -1,85 +1,163 @@
-﻿angular.module("propertyManagerApp").controller("serviceController", ["$scope", "$filter", "serviceService", "userProfile", serviceController]);
+﻿angular.module("propertyManagerApp").controller("serviceController", ["$scope", "$filter", '$location', "$routeParams", "serviceService", "userProfile", serviceController]);
 
-function serviceController($scope, $filter, serviceService, userProfile) {
+function serviceController($scope, $filter, $location, $routeParams, serviceService, userProfile) {
 
-    $scope.name = "";
-    $scope.companyName = "";
-    $scope.phoneNumber = "";
-    $scope.email = "";
-    $scope.address = "";
+    $scope.editId = "";
+    $scope.isEdit = false;
+    $scope.showEditConfirmation = false;
+
+    console.log($routeParams.service_id);
+
+    if ($routeParams.service_id) {
+        $scope.editId = $routeParams.service_id;
+        $scope.isEdit = true;
+        getServiceById($scope.editId);
+    }
+    else {
+        getService();
+    }
+
+
+    $scope.modelAdd = {
+        serviceId: "",
+        name: "",
+        companyName: "",
+        phoneNumber: "",
+        email: "",
+        address: "",
+    };
+
+    $scope.modelEdit = {
+        serviceId: "",
+        name: "",
+        companyName: "",
+        phoneNumber: "",
+        email: "",
+        address: "",
+    };
+
     $scope.message = "";
     $scope.services = [];
     $scope.sortType = "name";
     $scope.sortReverse = false;
     $scope.searchService = "";
 
-    $scope.addService = function () {
+    // ADD SECTION 
+
+    $scope.addOneClick = function () {
+        $location.path('/addservice');
+    }
+
+    $scope.addService = function() {
 
         var service = {
-            ServiceName: $scope.name,
-            CompanyName: $scope.companyName,
-            PhoneNumber: $scope.phoneNumber,
-            Email: $scope.email,
-            Address: $scope.address
+            ServiceName: $scope.modelAdd.name,
+            CompanyName: $scope.modelAdd.companyName,
+            PhoneNumber: $scope.modelAdd.phoneNumber,
+            Email: $scope.modelAdd.email,
+            Address: $scope.modelAdd.address
         };
 
         var addResults = serviceService.addService(service);
         addResults.then(function (response) {
             console.log(response.data);
-            $scope.serviceId = response.data.Id;
+            $scope.modelAdd.serviceId = response.data.Id;
+            $scope.showConfirmation = true;
+            $scope.message = "Announcement Added"
         }, function (error) {
-            $scope.message = response.statusText + " " + response.status;
+            $scope.message = error.statusText + " " + error.status;
         });
 
     } // close function
 
-    $scope.getService = function () {
+    $scope.addAnother = function () {
+        $scope.modelAdd = {
+            serviceId: "",
+            name: "",
+            companyName: "",
+            phoneNumber: "",
+            email: "",
+            address: "",
+        };
+        $scope.message = "";
+        $scope.form.$setPristine();
+        $scope.showConfirmation = false;
+    }
+
+    function getService () {
         var allResults = serviceService.getAllService();
         allResults.then(function (response) {
             $scope.services = response.data;
             console.log($scope.services);
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         })
 
     } // close function
 
-    $scope.getServiceById = function () {
-        var resultById = serviceService.getByIdService($scope.serviceId);
+    function getServiceById (id) {
+        var resultById = serviceService.getByIdService(id);
         resultById.then(function (response) {
             console.log(response.data);
-            $scope.name = response.data.ServiceName;
-            $scope.companyName = response.data.CompanyName;
-            $scope.phoneNumber = response.data.PhoneNumber;
-            $scope.email = response.data.Email;
-            $scope.address = response.data.Address;
+            $scope.modelEdit.serviceId = response.data.Id;
+            $scope.modelEdit.name = response.data.ServiceName;
+            $scope.modelEdit.companyName = response.data.CompanyName;
+            $scope.modelEdit.phoneNumber = response.data.PhoneNumber;
+            $scope.modelEdit.email = response.data.Email;
+            $scope.modelEdit.address = response.data.Address;
           
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         })
 
     } // close function
+
+    // *********** EDIT SECTION ******************************************
+
+    $scope.editClick = function (id) {
+        $location.path('/addservice/' + id);
+    }
 
     $scope.editService = function () {
 
         var service = {
-            Id: $scope.serviceId,
-            ServiceName: $scope.name,
-            CompanyName: $scope.companyName,
-            PhoneNumber: $scope.phoneNumber,
-            Email: $scope.email,
-            Address: $scope.address
+            Id: $scope.editId,
+            ServiceName: $scope.modelEdit.name,
+            CompanyName: $scope.modelEdit.companyName,
+            PhoneNumber: $scope.modelEdit.phoneNumber,
+            Email: $scope.modelEdit.email,
+            Address: $scope.modelEdit.address
         };
 
-        var editResults = serviceService.editService(service, $scope.serviceId);
+        var editResults = serviceService.editService(service, service.Id);
         editResults.then(function (response) {
             console.log("edit");
             console.log(response);
+            $scope.message = "Edit successful";
+            $scope.showEditConfirmation = true;
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         });
     } // close function
 
-    $scope.getService();
+    //************** DELETE ************************
+    $scope.delete = function (id) {
+        var deleteOne = serviceService.deleteService(id);
+        deleteOne.then(function (response) {
+            $scope.message = "Delete successfull";
+            console.log(response);
+            getService();
+        }, function (error) {
+            $scope.message = error.statusText;
+        });
+    }
+
+    $scope.cancelAdd = function () {
+        $location.path('/service');
+    }
+
+    $scope.goBack = function () {
+        $location.path('/service');
+    }
 
 }

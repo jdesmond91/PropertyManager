@@ -941,6 +941,12 @@ namespace PropertyManager.Controllers
             return (o == null) ? null : Mapper.Map<LeaseWithInformation>(o);
         }
 
+        public LeaseBase LeaseGetByAptNumber(int id)
+        {
+            var o = ds.Leases.SingleOrDefault(j => j.Apartment.ApartmentNumber == id);
+            return (o == null) ? null : Mapper.Map<LeaseBase>(o);
+        }
+
         public LeaseWithInformation LeaseGetByTenantId(int? id)
         {
             var o = ds.Leases.Include("Tenant").SingleOrDefault(j => j.Tenant.Id == id);

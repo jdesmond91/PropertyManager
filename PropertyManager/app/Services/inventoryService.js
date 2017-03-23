@@ -53,11 +53,21 @@ function inventoryService($http, $q, appSettings) {
         return def.promise;
     };
 
+    this.deleteInventory = function (id) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/inventory/" + id,
+            method: "DELETE",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     return {
         addInventory: this.addInventory,
         getAllInventory: this.getAllInventory,
         getByIdInventory: this.getByIdInventory,
-        editInventory: this.editInventory
+        editInventory: this.editInventory,
+        deleteInventory: this.deleteInventory
     }
 
 

@@ -37,7 +37,8 @@ namespace PropertyManager.Controllers
 
         // POST: api/Apartments
         public IHttpActionResult Post([FromBody]ApartmentAdd newItem)
-        {
+        {          
+
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
 
             // Ensure that a "newItem" is in the entity body
@@ -45,6 +46,12 @@ namespace PropertyManager.Controllers
 
             // Ensure that we can use the incoming data
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
+
+            var leaseInfo = m.LeaseGetByAptNumber(newItem.ApartmentNumber);
+            if(leaseInfo != null)
+            {
+                return Content(HttpStatusCode.Conflict, "Apartment Already Exists");
+            }
 
             // Attempt to add the new object
             var addedItem = m.ApartmentAdd(newItem);
@@ -94,9 +101,16 @@ namespace PropertyManager.Controllers
         }
 
         // DELETE: api/Apartments/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            var leaseInfo = m.LeaseGetByAptNumber(id);
+            if (leaseInfo != null)
+            {
+                return Content(HttpStatusCode.Conflict, "Lease associated");
+            }
+
             m.ApartmentDelete(id);
+            return Ok();
         }
     }
 }

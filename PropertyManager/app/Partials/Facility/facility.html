@@ -6,7 +6,7 @@
 </head>
 <body ng-app="propertyManagerApp">
         <div ng-include='"/app/Partials/menu.html"'></div>
-        <div id="page-wrapper" ng-hide="addOne">
+        <div id="page-wrapper">
             <form>
                 <div class="form-group">
                     <div class="input-group">
@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </form>
-            <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-hide="addOne" ng-click="addOneClick()">Add</button>
+            <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-click="addOneClick()">Add</button>
            <table class="table-fill" style="float: left">
                 <thead>
                     <tr>
@@ -46,7 +46,7 @@
                     <tr class="list-hover">
                         <td>
                             <i style="cursor: pointer" class="fa fa-minus" ng-if="facility.expanded" ng-click="facility.expanded = false; changeEdit();"></i>
-                            <i style="cursor: pointer" class="fa fa-plus" ng-if="!facility.expanded" ng-click="facility.expanded = true;" ng-hide="isEdit"></i>
+                            <i style="cursor: pointer" class="fa fa-plus" ng-if="!facility.expanded" ng-click="facility.expanded = true;"></i>
                         </td>
                         <td class="text-left">{{facility.FacilityName}}</td>
                         <td class="text-left">{{facility.Location}}</td>

@@ -1,38 +1,68 @@
-﻿angular.module("propertyManagerApp").controller("facilityController", ["$scope", "$filter", "facilityService", "userProfile", facilityController]);
+﻿angular.module("propertyManagerApp").controller("facilityController", ["$scope", "$filter", '$location', "$routeParams", "facilityService", "userProfile", facilityController]);
 
-function facilityController($scope, $filter, facilityService, userProfile) {
-
-    $scope.name = "";
-    $scope.description = "";
-    $scope.location = "";
-    $scope.status = "";
-    $scope.openTime = "";
-    $scope.closeTime = "";
+function facilityController($scope, $filter, $location, $routeParams, facilityService, userProfile) {
+   
     $scope.message = "";
     $scope.facilities = [];
     $scope.sortType = "title";
     $scope.sortReverse = false;
     $scope.searchFacility = "";
 
-    getFacility();
+    $scope.editId = "";
+    $scope.isEdit = false;
+    $scope.showEditConfirmation = false;
+
+    if ($routeParams.facility_id) {
+        $scope.editId = $routeParams.facility_id;
+        $scope.isEdit = true;
+        getFacilityById($scope.editId);
+    }
+    else {
+        getFacility();
+    }
+
+    $scope.modelAdd = {
+        facilityId: "",
+        name: "",
+        description: "",
+        location: "",
+        status: "",
+        openTime: "",
+        closeTime: ""
+
+    };
+
+    $scope.modelEdit = {
+        facilityId: $scope.editId,
+        name: "",
+        description: "",
+        location: "",
+        status: "",
+        openTime: "",
+        closeTime: ""
+    };
+
+    $scope.addOneClick = function () {
+        $location.path('/addfacility');
+    }
 
     $scope.addFacility = function () {
 
         var openTimeFiltered = null;
         var expireDateFiltered = null;
 
-        if ($scope.openTime != "") {
-            openTimeFiltered = $filter('date')($scope.openTime, 'HH:mm:ss');
+        if ($scope.modelAdd.openTime != "") {
+            openTimeFiltered = $filter('date')($scope.modelAdd.openTime, 'HH:mm:ss');
         }
-        if ($scope.closeTime != "") {
-            expireDateFiltered  = $filter('date')($scope.closeTime, 'HH:mm:ss');
+        if ($scope.modelAdd.closeTime != "") {
+            expireDateFiltered = $filter('date')($scope.modelAdd.closeTime, 'HH:mm:ss');
         }
         
         var facility = {
-            FacilityName: $scope.name,
-            Description: $scope.description,
-            Location: $scope.location,
-            Status: $scope.status,
+            FacilityName: $scope.modelAdd.name,
+            Description: $scope.modelAdd.description,
+            Location: $scope.modelAdd.location,
+            Status: $scope.modelAdd.status,
             OpenTime: openTimeFiltered,
             CloseTime: expireDateFiltered
         };
@@ -40,9 +70,11 @@ function facilityController($scope, $filter, facilityService, userProfile) {
         var addResults = facilityService.addFacility(facility);
         addResults.then(function (response) {
             console.log(response.data);
-            $scope.facilityId = response.data.Id;
+            $scope.modelAdd.facilityId = response.data.Id;
+            $scope.showConfirmation = true;
+            $scope.message = "Facility Added"
         }, function (error) {
-            $scope.message = response.statusText + " " + response.status;
+            $scope.message = error.statusText + " " + error.status;
         });
 
     } // close function
@@ -53,67 +85,70 @@ function facilityController($scope, $filter, facilityService, userProfile) {
             $scope.facilities = response.data;
             console.log($scope.facilities);
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         })
-
     } // close function
 
-    $scope.getFacilityById = function () {
-        var resultById = facilityService.getByIdFacility($scope.facilityId);
+    $scope.addAnother = function () {
+        $scope.modelAdd = {
+            facilityId: "",
+            name: "",
+            description: "",
+            location: "",
+            status: "",
+            openTime: "",
+            closeTime: ""
+        };
+        $scope.message = "";
+        $scope.form.$setPristine();
+        $scope.showConfirmation = false;
+    }
+
+    function getFacilityById (id) {
+        var resultById = facilityService.getByIdFacility(id);
         resultById.then(function (response) {
             console.log(response.data);
-            $scope.name = response.data.FacilityName;
-            $scope.description = response.data.Description;
-            $scope.location = response.data.Location;
-            $scope.status = response.data.Status;
-            $scope.openTime = new Date(response.data.OpenTime.replace('T', ' ').replace('-', '/'));
-            $scope.closeTime = new Date(response.data.CloseTime.replace('T', ' ').replace('-', '/'));
+            $scope.modelEdit.name = response.data.FacilityName;
+            $scope.modelEdit.description = response.data.Description;
+            $scope.modelEdit.location = response.data.Location;
+            $scope.modelEdit.status = response.data.Status;
+            if (response.data.OpenTime != null) {
+                $scope.modelEdit.openTime = new Date(response.data.OpenTime.replace('T', ' ').replace('-', '/'));
+            }
+            if (response.data.CloseTime != null) {
+                $scope.modelEdit.closeTime = new Date(response.data.CloseTime.replace('T', ' ').replace('-', '/'));
+            }           
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         })
 
     } // close function
 
-    //EDIT SECTION
-    $scope.isEdit = false;
+    // *********** EDIT SECTION ******************************************
 
-    $scope.changeEdit = function () {
-        $scope.isEdit = false;
+    $scope.editClick = function (id) {
+        $location.path('/addfacility/' + id);
     }
 
-    $scope.cancelEdit = function () {
-        $scope.isEdit = false;
-    }
+    $scope.editFacility = function () {
 
-    $scope.editClick = function (facility) {
-        $scope.model = {
-            facilityId: facility.Id,
-            name: facility.FacilityName,
-            description: facility.Description,
-            location: facility.Location,
-            status: facility.Status,
-            openTime: new Date(facility.OpenTime.replace('T', ' ').replace('-', '/')),
-            closeTime: new Date(facility.CloseTime.replace('T', ' ').replace('-', '/'))
-        };
-        $scope.isEdit = true;
-    }
+        var openTimeFiltered = null;
+        var expireDateFiltered = null;
 
-    $scope.editFacility = function (facility) {
-
-        if ($scope.model.openTime != "") {
-            var openTimeFiltered = $filter('date')($scope.model.openTime, 'HH:mm:ss');
+        if ($scope.modelEdit.openTime != "") {
+            var openTimeFiltered = $filter('date')($scope.modelEdit.openTime, 'HH:mm:ss');
         }
         
-        if ($scope.model.closeTime != "") {
-            var expireDateFiltered = $filter('date')($scope.model.closeTime, 'HH:mm:ss');
+        if ($scope.modelEdit.closeTime != "") {
+            var expireDateFiltered = $filter('date')($scope.modelEdit.closeTime, 'HH:mm:ss');
         }
 
         var facility = {
-            Id: $scope.model.facilityId,
-            FacilityName: $scope.model.name,
-            Description: $scope.model.description,
-            Location: $scope.model.location,
-            Status: $scope.model.status,
+            Id: $scope.modelEdit.facilityId,
+            FacilityName: $scope.modelEdit.name,
+            Description: $scope.modelEdit.description,
+            Location: $scope.modelEdit.location,
+            Status: $scope.modelEdit.status,
             OpenTime: openTimeFiltered,
             CloseTime: expireDateFiltered
         };
@@ -122,18 +157,32 @@ function facilityController($scope, $filter, facilityService, userProfile) {
         editResults.then(function (response) {
             console.log("edit");
             console.log(response);
+            $scope.message = "Edit successful";
+            $scope.showEditConfirmation = true;
         }, function (error) {
-            $scope.message = response.statusText;
-        })
-         .then(function () {
-            $scope.isEdit = false;
+            $scope.message = error.statusText;
+        });         
+    } // close function
+
+    //************** DELETE ************************
+    $scope.delete = function (id) {
+        var deleteOne = facilityService.deleteFacility(id);
+        deleteOne.then(function (response) {
+            $scope.message = "Delete successfull";
+            console.log(response);
             getFacility();
         }, function (error) {
-            $scope.message = response.statusText;
-        }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         });
-    } // close function
+    }
+
+    $scope.cancelAdd = function () {
+        $location.path('/facility');
+    }
+
+    $scope.goBack = function () {
+        $location.path('/facility');
+    }
 
    
 

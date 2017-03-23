@@ -31,6 +31,10 @@
                          controller: 'facilityController',
                          templateUrl: 'app/Partials/Facility/facility.html'
                     })
+                    .when('/addfacility/:facility_id?', {
+                        controller: 'facilityController',
+                        templateUrl: 'app/Partials/Facility/facilityAdd.html'
+                    })
                      .when('/bookfacility/', {
                          controller: 'facilityBookingController',
                          templateUrl: 'app/Partials/Facility/facilityBookings.html'
@@ -39,9 +43,17 @@
                          controller: 'serviceController',
                          templateUrl: 'app/Partials/Service/service.html'
                     })
+                    .when('/addservice/:service_id?', {
+                        controller: 'serviceController',
+                        templateUrl: 'app/Partials/Service/serviceAdd.html'
+                    })
                     .when('/unit/', {
                           controller: 'unitController',
                           templateUrl: 'app/Partials/Unit/unit.html'
+                    })
+                    .when('/addunit/:unit_id?', {
+                        controller: 'unitController',
+                        templateUrl: 'app/Partials/Unit/unitAdd.html'
                     })
                     .when('/apartment/', {
                          controller: 'apartmentController',
@@ -54,6 +66,10 @@
                     .when('/tenant/', {
                          controller: 'tenantController',
                          templateUrl: 'app/Partials/Tenant/tenant.html'
+                    })
+                    .when('/addtenant/:tenant_id?', {
+                        controller: 'tenantController',
+                        templateUrl: 'app/Partials/Tenant/tenantAdd.html'
                     })
                     .when('/lease/', {
                          controller: 'leaseController',
@@ -71,6 +87,10 @@
                          controller: 'inventoryController',
                          templateUrl: 'app/Partials/Inventory/inventory.html'
                      })
+                    .when('/addinventory/:inventory_id?', {
+                        controller: 'inventoryController',
+                        templateUrl: 'app/Partials/Inventory/inventoryAdd.html'
+                    })
                       .when('/servicerequest/', {
                           controller: 'serviceRequestController',
                           templateUrl: 'app/Partials/Service/servicerequest.html'
