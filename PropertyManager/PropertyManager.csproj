@@ -271,6 +271,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\Controllers\workOrderController.js" />
+    <Content Include="app\Controllers\workOrderManagerController.js" />
     <Content Include="app\Partials\Announcement\announcementAdd.html" />
     <Content Include="app\Partials\Apartment\apartmentAdd.html" />
     <Content Include="app\Partials\Employee\employee.html" />
@@ -286,8 +287,10 @@
     <Content Include="app\Partials\Service\servicerequestAdd.html" />
     <Content Include="app\Partials\Tenant\tenantAdd.html" />
     <Content Include="app\Partials\Unit\unitAdd.html" />
+    <Content Include="app\Partials\WorkOrder\workordermanagerEdit.html" />
     <Content Include="app\Partials\WorkOrder\workorderrequest.html" />
     <Content Include="app\Partials\WorkOrder\workorderrequestAdd.html" />
+    <Content Include="app\Partials\WorkOrder\workorderrequestmanager.html" />
     <Content Include="app\Services\Directives.js" />
     <Content Include="app\Services\workOrderService.js" />
     <Content Include="app\Vendor\angular-modal-service.js" />

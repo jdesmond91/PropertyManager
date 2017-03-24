@@ -91,9 +91,17 @@
                          controller: 'workOrderController',
                          templateUrl: 'app/Partials/WorkOrder/workorderrequest.html'
                     })
+                    .when('/workorderrequestmanager/', {
+                        controller: 'workOrderManagerController',
+                        templateUrl: 'app/Partials/WorkOrder/workorderrequestmanager.html'
+                    })
                     .when('/addworkorderrequest/:workrequest_id?', {
                         controller: 'workOrderController',
                         templateUrl: 'app/Partials/WorkOrder/workorderrequestAdd.html'
+                    })
+                    .when('/editworkorderrequest/:workrequestmanager_id?', {
+                        controller: 'workOrderManagerController',
+                        templateUrl: 'app/Partials/WorkOrder/workordermanagerEdit.html'
                     })
                      .when('/inventory/', {
                          controller: 'inventoryController',

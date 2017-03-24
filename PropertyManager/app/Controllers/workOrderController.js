@@ -6,14 +6,14 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
     $scope.isEdit = false;
     $scope.showEditConfirmation = false;
 
-    if ($routeParams.workrequest_id) {
-        $scope.editId = $routeParams.workrequest_id;
-        $scope.isEdit = true;
-        getWorkOrderById($scope.editId);
+    var user = userProfile.getProfile();
+    $scope.userName = user.username;
+    $scope.userRole = user.userRole;
+
+    if ($scope.userRole == 'Tenant') {
+        getUserId();
     }
-    else {
-        getWorkOrder();
-    }
+
 
     $scope.modelAdd = {
         workOrderId: "",
@@ -40,16 +40,7 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
     $scope.sortReverse = false;
     $scope.searchWorkOrder = "";
 
-    var user = userProfile.getProfile();
-    $scope.userName = user.username;
-    $scope.userRole = user.userRole;
-
-    if ($scope.userRole == 'Tenant') {
-        getUserId();
-    }
-    else if ($scope.userRole == 'Administrator' || $scope.userRole == 'Manager') {
-        getWorkOrder();
-    }
+    
     
     function getUserId() {
         var user = tenantService.getByEmailTenant($scope.userName);
@@ -60,14 +51,22 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
             $scope.tenantId = response.data.Id;
             return response.data.Id;
         })
-           .then(function(tenantId){
-               getAllTenantOrders(tenantId);                          
+           .then(function (tenantId) {
+               if ($routeParams.workrequest_id) {
+                   $scope.editId = $routeParams.workrequest_id;
+                   $scope.isEdit = true;
+                   getWorkOrderById($scope.editId);
+               }
+               else {
+                   getAllTenantOrders(tenantId);       
+               }                                
            }, function (error) {
                $scope.message = response.statusText + " " + response.status;
            })
     }     
 
     function getAllTenantOrders(id) {
+        $scope.workOrders = [];
         var tenantOrder = workOrderService.getByTenantIdWorkOrder(id);
         tenantOrder.then(function (response) {
             $scope.workOrders = response.data;
@@ -106,8 +105,9 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
         addResults.then(function (response) {
             console.log(response.data);
             $scope.modelAdd.workOrderId = response.data.Id;
+            $scope.modelAdd.requestDate = new Date(response.data.RequestDate.replace('T', ' ').replace('-', '/'));
             $scope.showConfirmation = true;
-            $scope.message = "Announcement Added"
+            $scope.message = "Work Order Added"
         }, function (error) {
             $scope.message = error.statusText + " " + error.status;
         });
@@ -127,23 +127,12 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
         $scope.showConfirmation = false;
     }
 
-   function getWorkOrder() {
-        var allRequests = workOrderService.getAllWorkOrder();
-        allRequests.then(function (response) {
-            $scope.workOrders = response.data;
-            console.log($scope.workOrders);
-        }, function (error) {
-            $scope.message = error.statusText;
-        })
-
-    }; // close function
-
     function getWorkOrderById (id) {
         var RequestById = workOrderService.getByIdWorkOrder(id);
         RequestById.then(function (response) {
             $scope.modelEdit.description = response.data.Description;
             $scope.modelEdit.notes = response.data.Notes;
-            $scope.modelEdit.tenantId = response.data.Tenant.Id;
+            $scope.modelEdit.tenantId = response.data.TenantId;
             $scope.modelEdit.workOrderId = response.data.Id;
             if (response.data.RequestDate != null) {
                 $scope.modelEdit.requestDate = new Date(response.data.RequestDate.replace('T', ' ').replace('-', '/'));
@@ -184,10 +173,12 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
             CompletionDate: completionDateFiltered,          
         };
 
-        var editResults = workOrderService.editWorkOrder(workOrder, $scope.workOrderId);
+        var editResults = workOrderService.editWorkOrder(workOrder, workOrder.Id);
         editResults.then(function (response) {
             console.log("edit");
             console.log(response);
+            $scope.message = "Edit successful";
+            $scope.showEditConfirmation = true;
         }, function (error) {
             $scope.message = error.statusText;
         });
@@ -195,11 +186,11 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
 
     //************** DELETE ************************
     $scope.delete = function (id) {
-        var deleteOne = serviceRequestService.deleteServiceRequest(id);
+        var deleteOne = workOrderService.deleteWorkOrder(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
             console.log(response);
-            getServiceRequest();
+            getAllTenantOrders($scope.tenantId);
         }, function (error) {
             $scope.message = error.statusText;
         });

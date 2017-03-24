@@ -82,7 +82,8 @@ namespace PropertyManager
                       "~/app/Controllers/tenantController.js",
                       "~/app/Controllers/unitController.js",
                       "~/app/Controllers/unitphotoController.js",
-                      "~/app/Controllers/workOrderController.js"
+                      "~/app/Controllers/workOrderController.js",
+                      "~/app/Controllers/workOrderManagerController.js"
             ));
         }
     }

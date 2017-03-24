@@ -13,7 +13,7 @@ namespace PropertyManager.Controllers
         }
         public string Description { get; set; }
         public string Notes { get; set; }
-        public DateTime RequestDate { get; set; }
+        public DateTime? RequestDate { get; set; }
         public DateTime? CompletionDate { get; set; }
         public int TenantId { get; set; }
     }

@@ -80,14 +80,14 @@ namespace PropertyManager.Models
                 apt.ApartmentNumber = 520;
                 apt.FloorNumber = 5;
                 apt.Status = "Occupied";
-                apt.UnitId = 2;
+                apt.UnitId = 1;
 
                 m.ApartmentAdd(apt);
 
                 apt.ApartmentNumber = 603;
                 apt.FloorNumber = 6;
                 apt.Status = "Occupied";
-                apt.UnitId = 3;
+                apt.UnitId = 2;
 
                 m.ApartmentAdd(apt);
 
@@ -105,7 +105,7 @@ namespace PropertyManager.Models
 
                 tenant.FirstName = "Amanda";
                 tenant.LastName = "Marques";
-                tenant.MobilePhone = "6475357732";
+                tenant.MobilePhone = "647-535-7732";
                 tenant.HomePhone = "";
                 tenant.Email = "amanda@test.ca";
                 tenant.BirthDate = new DateTime(1988, 12, 23);
@@ -113,16 +113,16 @@ namespace PropertyManager.Models
 
                 tenant.FirstName = "Jonathan";
                 tenant.LastName = "Desmond";
-                tenant.MobilePhone = "5368596415";
-                tenant.HomePhone = "3654598752";
+                tenant.MobilePhone = "536-85-96415";
+                tenant.HomePhone = "365-459-8752";
                 tenant.Email = "jonathan@tenant.ca";
                 tenant.BirthDate = new DateTime(1990, 10, 18);
                 m.TenantAdd(tenant);
 
                 tenant.FirstName = "Arnold";
                 tenant.LastName = "Goncharenko";
-                tenant.MobilePhone = "9631254789";
-                tenant.HomePhone = "9645853658";
+                tenant.MobilePhone = "963-125-4789";
+                tenant.HomePhone = "964-585-3658";
                 tenant.Email = "arnold@tenant.ca";
                 tenant.BirthDate = new DateTime(1994, 09, 21);
                 m.TenantAdd(tenant);
@@ -137,7 +137,7 @@ namespace PropertyManager.Models
                 lease.MonthlyRent = 1050.60;
                 lease.Terms = 1;
                 lease.ApartmentNumber = 520;
-                lease.TenantId = 2;
+                lease.TenantId = 1;
 
                 m.LeaseAdd(lease);
     
@@ -147,7 +147,7 @@ namespace PropertyManager.Models
                 lease.MonthlyRent = 1400.80;
                 lease.Terms = 1;
                 lease.ApartmentNumber = 603;
-                lease.TenantId = 3;
+                lease.TenantId = 2;
 
                 m.LeaseAdd(lease);
 
@@ -157,7 +157,7 @@ namespace PropertyManager.Models
                 lease.MonthlyRent = 1400.80;
                 lease.Terms = 1;
                 lease.ApartmentNumber = 1705;
-                lease.TenantId = 4;
+                lease.TenantId = 3;
 
                 m.LeaseAdd(lease);
 
@@ -193,10 +193,9 @@ namespace PropertyManager.Models
                 employee.City = "Toronto";
                 employee.State = "ON";
                 employee.Country = "Canada";
-                employee.PostalCode = "m4x 1g5";
-                employee.Fax = "4165789654";
+                employee.PostalCode = "M4X-1G5";
                 employee.Email = "amandamc@hotmail.com";
-                employee.Phone = "6475895357";
+                employee.Phone = "647-589-5357";
                 m.EmployeeAdd(employee);
 
                 employee.LastName = "Desmond";
@@ -208,10 +207,9 @@ namespace PropertyManager.Models
                 employee.City = "Toronto";
                 employee.State = "ON";
                 employee.Country = "Canada";
-                employee.PostalCode = "m6h 18h";
-                employee.Fax = "4168547523";
+                employee.PostalCode = "M6H 1Y7";
                 employee.Email = "jonathan@hotmail.com";
-                employee.Phone = "6478965236";
+                employee.Phone = "647-896-5236";
                 m.EmployeeAdd(employee);
 
                 employee.LastName = "Capello";
@@ -223,10 +221,9 @@ namespace PropertyManager.Models
                 employee.City = "Toronto";
                 employee.State = "ON";
                 employee.Country = "Canada";
-                employee.PostalCode = "j7g 1s3";
-                employee.Fax = "416532065";
+                employee.PostalCode = "J7G 1S3";
                 employee.Email = "silvia@hotmail.com";
-                employee.Phone = "6476523105";
+                employee.Phone = "647-652-3105";
                 m.EmployeeAdd(employee);
             }
 
@@ -291,21 +288,21 @@ namespace PropertyManager.Models
                 var service = new ServiceAdd();
                 service.ServiceName = "Gardening";
                 service.CompanyName = "Gardening Express";
-                service.PhoneNumber = "4165478963";
+                service.PhoneNumber = "416-547-8963";
                 service.Email = "gardexpress@test.ca";
                 service.Address = "346 Allen Rd";
                 m.ServiceAdd(service);
 
                 service.ServiceName = "Pest Control";
                 service.CompanyName = "Pest Rock";
-                service.PhoneNumber = "6475148965";
+                service.PhoneNumber = "647-514-8965";
                 service.Email = "pest@test.ca";
                 service.Address = "1549 Dufferin St";
                 m.ServiceAdd(service);
 
                 service.ServiceName = "Cleaning";
                 service.CompanyName = "Nice Cleaning";
-                service.PhoneNumber = "9075348698";
+                service.PhoneNumber = "907-534-8698";
                 service.Email = "niceclean@test.ca";
                 service.Address = "15 Bloor St";
                 m.ServiceAdd(service);
@@ -318,19 +315,19 @@ namespace PropertyManager.Models
                 workOrder.Description = "Fixing light bulb";
                 workOrder.Notes = "In the living room";
                 workOrder.RequestDate = new DateTime(2017, 02, 26);
-                workOrder.TenantId = 2;
+                workOrder.TenantId = 1;
                 m.WorkOrderAdd(workOrder);
 
                 workOrder.Description = "Kill bugs";
                 workOrder.Notes = "Many bugs in the house";
                 workOrder.RequestDate = new DateTime(2017, 10, 05);
-                workOrder.TenantId = 3;
+                workOrder.TenantId = 2;
                 m.WorkOrderAdd(workOrder);
 
                 workOrder.Description = "Leaking in the kitchen";
                 workOrder.Notes = "My sink is full of water";
                 workOrder.RequestDate = new DateTime(2017, 05, 22);
-                workOrder.TenantId = 4;
+                workOrder.TenantId = 3;
                 m.WorkOrderAdd(workOrder);
             }
             
@@ -360,7 +357,7 @@ namespace PropertyManager.Models
                 booking.BookedDate = new DateTime(2017, 05, 22);
                 booking.StartTime = new DateTime(2017, 05, 22, 10, 30, 0);
                 booking.EndTime = new DateTime(2017, 05, 22, 17, 0, 0);
-                booking.TenantId = 2;
+                booking.TenantId = 1;
                 booking.FacilityId = 1;
                 booking.Notes = "No Notes";
                 m.FacilityBookingAdd(booking);
@@ -368,7 +365,7 @@ namespace PropertyManager.Models
                 booking.BookedDate = new DateTime(2017, 10, 01);
                 booking.StartTime = new DateTime(2017, 10, 01, 13, 0, 0);
                 booking.EndTime = new DateTime(2017, 10, 01, 14, 45, 0);
-                booking.TenantId = 3;
+                booking.TenantId = 2;
                 booking.FacilityId = 2;
                 booking.Notes = "";
                 m.FacilityBookingAdd(booking);
@@ -376,7 +373,7 @@ namespace PropertyManager.Models
                 booking.BookedDate = new DateTime(2017, 10, 01);
                 booking.StartTime = new DateTime(2017, 10, 01, 15, 0, 0);
                 booking.EndTime = new DateTime(2017, 10, 01, 18, 0, 0);
-                booking.TenantId = 4;
+                booking.TenantId = 3;
                 booking.FacilityId = 2;
                 booking.Notes = "";
                 m.FacilityBookingAdd(booking);
@@ -384,7 +381,7 @@ namespace PropertyManager.Models
                 booking.BookedDate = new DateTime(2017, 04, 05);
                 booking.StartTime = new DateTime(2017, 04, 05, 10, 0, 0);
                 booking.EndTime = new DateTime(2017, 04, 05, 13, 10, 0);
-                booking.TenantId = 2;
+                booking.TenantId = 1;
                 booking.FacilityId = 2;
                 booking.Notes = "";
                 m.FacilityBookingAdd(booking);

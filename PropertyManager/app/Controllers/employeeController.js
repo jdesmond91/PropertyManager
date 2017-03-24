@@ -77,8 +77,7 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
             City: $scope.modelAdd.City,
             State: $scope.modelAdd.State,
             PostalCode: $scope.modelAdd.PostalCode,
-            Phone: $scope.modelAdd.Phone,
-            Fax: $scope.modelAdd.Fax,
+            Phone: $scope.modelAdd.Phone,     
             Email: $scope.modelAdd.Email,
             BirthDate: BirthDateFiltered,
             HireDate: HireDateFiltered
@@ -142,7 +141,6 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
             $scope.modelEdit.State = response.data.State;
             $scope.modelEdit.PostalCode = response.data.PostalCode;
             $scope.modelEdit.Phone = response.data.Phone;
-            $scope.modelEdit.Fax = response.data.Fax;
             $scope.modelEdit.Email = response.data.Email;
 
             if (response.data.BirthDate != "") {
@@ -185,7 +183,6 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
                 State: $scope.modelEdit.State,
                 PostalCode: $scope.modelEdit.PostalCode,
                 Phone: $scope.modelEdit.Phone,
-                Fax: $scope.modelEdit.Fax,
                 Email: $scope.modelEdit.Email,
                 BirthDate: BirthDateFiltered,
                 HireDate: HireDateFiltered

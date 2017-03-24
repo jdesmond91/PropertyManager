@@ -1081,7 +1081,7 @@ namespace PropertyManager.Controllers
 
         public WorkOrderBase WorkOrderGetById(int id)
         {
-            var c = ds.WorkOrders.Include("Tenant").SingleOrDefault(a => a.Id == id);
+            var c = ds.WorkOrders.SingleOrDefault(a => a.Id == id);
 
             return (c == null) ? null : Mapper.Map<WorkOrderBase>(c);
         }
@@ -1106,9 +1106,12 @@ namespace PropertyManager.Controllers
                 return null;
             }
 
-            WorkOrder addedItem = Mapper.Map<WorkOrder>(newItem);      
-          
+            WorkOrder addedItem = Mapper.Map<WorkOrder>(newItem);  
+            
+            var today = DateTime.Now;
+
             addedItem.Tenant = associatedTenant;
+            addedItem.RequestDate = today;
 
             ds.WorkOrders.Add(addedItem);
             ds.SaveChanges();

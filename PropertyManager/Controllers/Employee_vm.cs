@@ -41,9 +41,6 @@ namespace PropertyManager.Controllers
         [StringLength(24)]
         public string Phone { get; set; }
 
-        [StringLength(24)]
-        public string Fax { get; set; }
-
         [StringLength(60)]
         public string Email { get; set; }
     }
@@ -101,9 +98,6 @@ namespace PropertyManager.Controllers
 
         [StringLength(24)]
         public string Phone { get; set; }
-
-        [StringLength(24)]
-        public string Fax { get; set; }
 
         [StringLength(60)]
         public string Email { get; set; }

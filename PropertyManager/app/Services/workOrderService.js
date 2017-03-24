@@ -62,12 +62,22 @@ function workOrderService($http, $q, appSettings) {
         return def.promise;
     };
 
+    this.deleteWorkOrder = function (id) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/WorkOrders/" + id,
+            method: "DELETE",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     return {
         addWorkOrder: this.addWorkOrder,
         getAllWorkOrder: this.getAllWorkOrder,
         getByIdWorkOrder: this.getByIdWorkOrder,
         editWorkOrder: this.editWorkOrder,
-        getByTenantIdWorkOrder: this.getByTenantIdWorkOrder
+        getByTenantIdWorkOrder: this.getByTenantIdWorkOrder,
+        deleteWorkOrder: this.deleteWorkOrder
     }
 
 
