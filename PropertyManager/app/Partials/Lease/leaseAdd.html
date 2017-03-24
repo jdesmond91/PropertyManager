@@ -7,8 +7,7 @@
 
 <body ng-app="propertyManagerApp">
     <div ng-include='"/app/Partials/menu.html"'></div>
-    <div id="page-wrapper-form" ng-hide="addOne">
-
+    <div id="page-wrapper-form">
         <!--ADD FORM-->
         <div ng-hide="isEdit">
             <div class="form-style-5" ng-hide="showConfirmation">
@@ -36,12 +35,9 @@
                         <input type="number" name="aptnumber" id="aptnumber" max="10000" ng-model="modelAdd.apartmentId" class="form-control" ng-pattern="/^[0-9]+$/" required>
                         <span class="spanError" ng-show="form.aptnumber.$error.pattern || form.aptnumber.$invalid && !form.aptnumber.$pristine">Enter an apartment number</span>
 
-                        <label class="control-label" for="tenantName">Tenant</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                            <input type="text" class="form-control" placeholder="Tenant Last Name" ng-model="searchTenant()">
-                        </div>
-           
+                        <label class="control-label" for="tenantEmail">Tenant Email</label>                    
+                        <input type="text" class="form-control" ng-model="modelAdd.tenantEmail">
+                        <span class="spanError" ng-show="form.tenantEmail.$error.pattern || form.tenantEmail.$invalid && !form.tenantEmail.$pristine">Enter a tenant email</span>                                   
                      
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addLease()">Add Lease </button>
@@ -52,21 +48,29 @@
                 <div class="detailDivTableBody">
                     <span class="messageSuccess">{{message}}</span>
                     <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Title:</div>
-                        <div class="detailDivTableCell">{{modelAdd.title}}</div>
+                        <div class="detailDivTableHeader">Apartment Number:</div>
+                        <div class="detailDivTableCell">{{modelAdd.apartmentId}}</div>
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Tenant Name:</div>
+                        <div class="detailDivTableCell">{{modelAdd.tenantName}}</div>
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Start Date:</div>
                         <div class="detailDivTableCell">{{modelAdd.startDate | date:'MM-dd-yyyy'}}</div>
                     </div>
                     <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Expire Date:</div>
-                        <div class="detailDivTableCell">{{modelAdd.expireDate | date:'MM-dd-yyyy'}}</div>
+                        <div class="detailDivTableHeader">End Date:</div>
+                        <div class="detailDivTableCell">{{modelAdd.endDate | date:'MM-dd-yyyy'}}</div>
                     </div>
                     <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Description:</div>
-                        <div class="detailDivTableCell">{{modelAdd.description}}</div>
+                        <div class="detailDivTableHeader">Monthly Rent:</div>
+                        <div class="detailDivTableCell">{{modelAdd.monthlyRent}}</div>
                     </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Security Deposit:</div>
+                        <div class="detailDivTableCell">{{modelAdd.securityDeposit}}</div>
+                    </div>                                              
                     <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
                     <button type="button" class="btn btn-primary" ng-click="addAnother()">Add another</button>
                 </div>
@@ -80,21 +84,30 @@
                     <fieldset>
                         <legend><span class="number"></span> Edit Lease <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
-                        <label class="control-label" for="title">Title</label>
-                        <input type="text" name="title" id="title" ng-model="modelEdit.title" class="form-control" maxlength="40" required>
-                        <span class="spanError" ng-show="formEdit.title.$invalid && !formEdit.title.$pristine">Enter a title</span>
+                        <label class="control-label" for="aptnumber">Apartment Number</label>
+                        <input type="number" name="aptnumber" id="aptnumber" max="10000" ng-model="modelEdit.apartmentId" class="form-control" ng-pattern="/^[0-9]+$/" readonly required>
+                        <span class="spanError" ng-show="form.aptnumber.$error.pattern || form.aptnumber.$invalid && !form.aptnumber.$pristine">Enter an apartment number</span>
+
+                        <label class="control-label" for="tenantName">Tenant Name</label>
+                        <input type="text" class="form-control" ng-model="modelEdit.tenantName" readonly>
+                        <span class="spanError" ng-show="form.tenantName.$error.pattern || form.tenantName.$invalid && !form.tenantName.$pristine">Enter a tenant name</span>                                   
 
                         <label class="control-label" for="startDate">Start Date</label>
-                        <input type="date" name="startDate" id="editstartDate" class="form-control" ng-model="modelEdit.startDate">
+                        <input type="date" name="startDate" id="startDate" class="form-control" ng-model="modelEdit.startDate">
                         <span class="spanError" ng-show="formEdit.startDate.$invalid && !formEdit.startDate.$pristine">Enter a valid date</span>
 
-                        <label class="control-label" for="expireDate">Expire Date</label>
-                        <input type="date" name="expireDate" id="editexpireDate" class="form-control" ng-model="modelEdit.expireDate">
-                        <span class="spanError" ng-show="formEdit.expireDate.$invalid && !formEdit.expireDate.$pristine">Enter a valid date</span>
+                        <label class="control-label" for="endDate">End Date</label>
+                        <input type="date" name="endDate" id="endDate" class="form-control" ng-model="modelEdit.endDate">
+                        <span class="spanError" ng-show="formEdit.endDate.$invalid && !formEdit.endDate.$pristine">Enter a valid date</span>
 
-                        <label class="control-label" for="description">Description</label>
-                        <textarea id="description" name="description" ng-model="modelEdit.description" rows="6" cols="20" style="overflow:auto;resize:none" required></textarea>
-                        <br /><span class="spanError" ng-show="formEdit.description.$invalid && !formEdit.description.$pristine">Enter a description</span>
+                        <label class="control-label" for="monthlyRent">Monthly Rent</label>
+                        <input type="number" name="monthlyRent" id="monthlyRent" step=0.1 ng-model="modelEdit.monthlyRent" max="10000" ng-pattern="/^([0-9]+.[0-9]{0,2})$/" class="form-control">
+                        <span class="spanError" ng-show="formEdit.monthlyRent.$error.pattern || formEdit.monthlyRent.$invalid && !formEdit.monthlyRent.$pristine">Enter valid number</span>
+
+                        <label class="control-label" for="securityDeposit">Security Deposit</label>
+                        <input type="number" name="securityDeposit" id="securityDeposit" step=0.1 ng-model="modelEdit.securityDeposit" max="10000" ng-pattern="/^([0-9]+.[0-9]{0,2})$/" class="form-control">
+                        <span class="spanError" ng-show="formEdit.securityDeposit.$error.pattern || formEdit.securityDeposit.$invalid && !formEdit.securityDeposit.$pristine">Enter valid number</span>
+                    
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editLease()">Edit Lease </button>
                     <span>{{message}}</span>
@@ -104,21 +117,29 @@
                 <div class="detailDivTableBody">
                     <span class="messageSuccess">{{message}}</span>
                     <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Title:</div>
-                        <div class="detailDivTableCell">{{modelEdit.title}}</div>
+                        <div class="detailDivTableHeader">Apartment Number:</div>
+                        <div class="detailDivTableCell">{{modelEdit.apartmentId}}</div>
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Tenant Name:</div>
+                        <div class="detailDivTableCell">{{modelEdit.tenantName}}</div>
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Start Date:</div>
                         <div class="detailDivTableCell">{{modelEdit.startDate | date:'MM-dd-yyyy'}}</div>
                     </div>
                     <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Expire Date:</div>
-                        <div class="detailDivTableCell">{{modelEdit.expireDate | date:'MM-dd-yyyy'}}</div>
+                        <div class="detailDivTableHeader">End Date:</div>
+                        <div class="detailDivTableCell">{{modelEdit.endDate | date:'MM-dd-yyyy'}}</div>
                     </div>
                     <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Description:</div>
-                        <div class="detailDivTableCell">{{modelEdit.description}}</div>
+                        <div class="detailDivTableHeader">Monthly Rent:</div>
+                        <div class="detailDivTableCell">{{modelEdit.monthlyRent}}</div>
                     </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Security Deposit:</div>
+                        <div class="detailDivTableCell">{{modelEdit.securityDeposit}}</div>
+                    </div>        
                     <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
                 </div>
             </div>

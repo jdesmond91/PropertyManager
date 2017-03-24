@@ -19,6 +19,13 @@ namespace PropertyManager.Controllers
         public int Id { get; set; }
     }
 
+
+    public class ServiceForServiceRequest
+    {
+        public int Id { get; set; }
+        public string ServiceName { get; set; }
+    }
+
     public class ServiceEdit
     {
         public int Id { get; set; }

@@ -53,11 +53,21 @@ function serviceRequestService($http, $q, appSettings) {
         return def.promise;
     };
 
+    this.deleteServiceRequest = function (id) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/ServiceRequests/" + id,
+            method: "DELETE",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     return {
         addServiceRequest: this.addServiceRequest,
         getAllServiceRequest: this.getAllServiceRequest,
         getByIdServiceRequest: this.getByIdServiceRequest,
-        editServiceRequest: this.editServiceRequest
+        editServiceRequest: this.editServiceRequest,
+        deleteServiceRequest: this.deleteServiceRequest
     }
 
 

@@ -1,6 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("leaseController", ["$scope", "$filter", '$location', "$routeParams", "leaseService", "userProfile", leaseController]);
+﻿angular.module("propertyManagerApp").controller("leaseController", ["$scope", "$filter", '$location', "$routeParams", "leaseService", "tenantService", "userProfile", leaseController]);
 
-function leaseController($scope, $filter, $location, $routeParams, leaseService, userProfile) {
+function leaseController($scope, $filter, $location, $routeParams, leaseService, tenantService, userProfile) {
 
     $scope.editId = "";
     $scope.isEdit = false;
@@ -27,7 +27,8 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
         terms: "",
         apartmentId: "",
         tenantId: "",
-        tenantName: ""
+        tenantName: "",
+        tenantEmail: ""
     };
 
     $scope.modelEdit = {
@@ -36,7 +37,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
         endDate: "",
         monthlyRent: "",
         securityDeposit: "",
-        terms: "",
+        terms: 0,
         apartmentId: "",
         tenantId: "",
         tenantName: ""
@@ -47,7 +48,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
     $scope.sortType = "ApartmentNumber";
     $scope.sortReverse = false;
     $scope.searchLease = "";
-    $scope.tenants = [];
+    $scope.tenantEmail = "";
     $scope.aptNumbers = [];
 
     // ADD SECTION 
@@ -85,20 +86,44 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             EndDate: endDateFiltered,
             SecurityDeposit: $scope.modelAdd.securityDeposit,
             MonthlyRent: $scope.modelAdd.monthlyRent,
-            Terms: $scope.modelAdd.terms,
+            Terms: 0,
             ApartmentNumber: $scope.modelAdd.apartmentId,
             TenantId: $scope.modelAdd.tenantId
         };
 
-        var addResults = leaseService.addLease(lease);
-        addResults.then(function (response) {
+        var tenant = tenantService.getByEmailTenant($scope.modelAdd.tenantEmail);
+        tenant.then(function (response) {
             console.log(response.data);
-            $scope.modelAdd.leaseId = response.data.Id;
-            $scope.showConfirmation = true;
-            $scope.message = "Lease Added"
+            $scope.modelAdd.tenantId = response.data.Id;
+            $scope.modelAdd.tenantName = response.data.FirstName + ' ' + response.data.LastName;
+            lease.TenantId = response.data.Id;
+            return response.data.Id;
         }, function (error) {
-            $scope.message = error.statusText + " " + error.status;
+            $scope.errorMessage = error.data;
+            console.log(error);
+        }).then(function (tenantId) {
+            if ($scope.modelAdd.tenantId != "") {
+                var addResults = leaseService.addLease(lease);
+                addResults.then(function (response) {
+                    console.log(response.data);
+                    $scope.modelAdd.leaseId = response.data.Id;
+                    $scope.showConfirmation = true;
+                    $scope.message = "Lease Added"
+                }, function (error) {
+                    $scope.errorMessage = error.data;
+                    console.log(error);
+                    $scope.modelAdd.tenantId = "";
+                    $scope.modelAdd.tenantName = "";
+                })
+            }
+            else {
+                $scope.errorMessage = "Tenant not found";
+                console.log($scope.errorMessage);
+            }
+        }, function (error) {
+            console.log(error);
         });
+                          
     } // close function
 
     $scope.addAnother = function () {
@@ -111,7 +136,8 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             terms: "",
             apartmentId: "",
             tenantId: "",
-            tenantName: ""
+            tenantName: "",
+            tenantEmail: ""
         };
         $scope.message = "";
         $scope.form.$setPristine();
@@ -128,23 +154,21 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
         })
     } // close function
 
-    $scope.getLeaseById = function () {
-        var leaseById = leaseService.getByIdLease($scope.leaseId);
-        leaseById.then(function (response) {
-            $scope.securityDeposit = response.data[0].SecurityDeposit;
-            $scope.monthlyRent = response.data[0].MonthlyRent;
-            $scope.terms = response.data[0].Terms;
-            $scope.apartmentId = response.data[0].Apartment.ApartmentNumber;
-            $scope.tenantId = response.data[0].TenantId;
-            $scope.tenantName = response.data[0].Tenant.FirstName + ' ' + response.data[0].Tenant.LastName;
+    function getLeaseById (id) {
+        var leaseById = leaseService.getByIdLease(id);
+        leaseById.then(function (response) {      
+            $scope.modelEdit.securityDeposit = response.data.SecurityDeposit;
+            $scope.modelEdit.monthlyRent = response.data.MonthlyRent;
+            $scope.modelEdit.terms = response.data.Terms;
+            $scope.modelEdit.apartmentId = response.data.Apartment.ApartmentNumber;
+            $scope.modelEdit.tenantId = response.data.TenantId;
+            $scope.modelEdit.tenantName = response.data.Tenant.FirstName + ' ' + response.data.Tenant.LastName;
             console.log(response);
-            if (response.data[0].StartDate != null) {
-                $scope.startDate = new Date(response.data[0].StartDate.replace('T', ' ').replace('-', '/'));
-                $scope.startDateDetail = $scope.startDate.toString().substring(0, 15);
+            if (response.data.StartDate != null) {
+                $scope.modelEdit.startDate = new Date(response.data.StartDate.replace('T', ' ').replace('-', '/'));   
             }
-            if (response.data[0].EndDate != null) {
-                $scope.endDate = new Date(response.data[0].EndDate.replace('T', ' ').replace('-', '/'));
-                $scope.endDateDetail = $scope.endDate.toString().substring(0, 15);
+            if (response.data.EndDate != null) {
+                $scope.modelEdit.endDate = new Date(response.data.EndDate.replace('T', ' ').replace('-', '/'));
             }
 
         }, function (error) {
@@ -153,42 +177,75 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
 
     } // close function
 
+    // *********** EDIT SECTION ******************************************
+
+    var start = document.getElementById('editstartDate');
+    var enddate = document.getElementById('endDate');
+
+    if (start != null) {
+        start.addEventListener('change', function () {
+            if (start.value)
+                enddate.min = start.value;
+        }, false);
+    }
+
+    $scope.editClick = function (id) {
+        $location.path('/addlease/' + id);
+    }
+
     $scope.editLease = function () {
 
         var startDateFiltered = null;
         var expireDateFiltered = null;
 
-        if ($scope.startDate != "") {
-            startDateFiltered = $filter('date')($scope.startDate, "yyyy-MM-dd");
+        if ($scope.modelEdit.startDate != "") {
+            startDateFiltered = $filter('date')($scope.modelEdit.startDate, "yyyy-MM-dd");
         }
-        if ($scope.endDate != "") {
-            endDateFiltered = $filter('date')($scope.endDate, "yyyy-MM-dd");
+        if ($scope.modelEdit.endDate != "") {
+            endDateFiltered = $filter('date')($scope.modelEdit.endDate, "yyyy-MM-dd");
         }
 
         var lease = {
-            Id: $scope.leaseId,
+            Id: $scope.editId,
             StartDate: startDateFiltered,
             EndDate: endDateFiltered,
-            SecurityDeposit: $scope.securityDeposit,
-            MonthlyRent: $scope.monthlyRent,
-            Terms: $scope.terms,
-            ApartmentId: $scope.apartmentId,
-            TenantId: $scope.tenantId
+            SecurityDeposit: $scope.modelEdit.securityDeposit,
+            MonthlyRent: $scope.modelEdit.monthlyRent,
+            Terms: $scope.modelEdit.terms,
+            ApartmentId: $scope.modelEdit.apartmentId,
+            TenantId: $scope.modelEdit.tenantId
         };
 
-        var editResults = leaseService.editLease(lease, $scope.leaseId);
+        var editResults = leaseService.editLease(lease, lease.Id);
         editResults.then(function (response) {
             console.log("edit");
             console.log(response);
+            $scope.message = "Edit successful";
+            $scope.showEditConfirmation = true;
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
         });
     } // close function
 
-   
-
-    $scope.searchTenant = function () {
-
+    //************** DELETE ************************
+    $scope.delete = function (id) {
+        var deleteOne = leaseService.deleteLease(id);
+        deleteOne.then(function (response) {
+            $scope.message = "Delete successfull";
+            console.log(response);
+            getLease();
+        }, function (error) {
+            $scope.message = error.statusText;
+        });
     }
+
+    $scope.cancelAdd = function () {
+        $location.path('/lease');
+    }
+
+    $scope.goBack = function () {
+        $location.path('/lease');
+    }
+
 
 }

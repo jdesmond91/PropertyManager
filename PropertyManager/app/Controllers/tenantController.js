@@ -71,7 +71,7 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
             console.log(response.data);
             $scope.modelAdd.tenantId = response.data.Id;
             $scope.showConfirmation = true;
-            $scope.message = "Announcement Added"
+            $scope.message = "Tenant Added"
         }, function (error) {
             $scope.message = error.statusText + " " + error.status;
         });

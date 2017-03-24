@@ -42,11 +42,12 @@ namespace PropertyManager.App_Start
             Mapper.CreateMap<Controllers.ServiceAdd, Models.Service>();
             Mapper.CreateMap<Models.Service, Controllers.ServiceBase>();
             Mapper.CreateMap<Models.Service, Controllers.ServiceWithServiceRequests>();
+            Mapper.CreateMap<Models.Service, Controllers.ServiceForServiceRequest>(); 
             Mapper.CreateMap<Controllers.ServiceEdit, Controllers.ServiceBase>();
 
             //Service Request
             Mapper.CreateMap<Models.ServiceRequest, Controllers.ServiceRequestBase>();
-            Mapper.CreateMap<Models.ServiceRequest, Controllers.ServiceRequestWithService>();
+            Mapper.CreateMap<Models.ServiceRequest, Controllers.ServiceRequestWithService>();         
             Mapper.CreateMap<Controllers.ServiceRequestAdd, Models.ServiceRequest>();
             Mapper.CreateMap<Controllers.ServiceRequestEdit, Controllers.ServiceRequestBase>();
 

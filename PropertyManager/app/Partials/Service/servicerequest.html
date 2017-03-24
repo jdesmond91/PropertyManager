@@ -15,6 +15,7 @@
                 </div>
             </div>
         </form>
+        <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-click="addOneClick()">Add</button>
         <table class="table-fill" style="float: left">
             <thead>
                 <tr>
@@ -49,7 +50,7 @@
                 <tr class="details-row" ng-if="request.expanded" ng-repeat-end="">
                     <td colspan="7">
                         <div class="detailDivTable">
-                            <div class="detailDivTableBody">
+                            <div class="detailDivTableBody detailLeft">
                                 <div class="detailDivTableRow">
                                     <div class="detailDivTableHeader">Service:</div>
                                     <div class="detailDivTableCell">{{request.Service.ServiceName}}</div>
@@ -70,6 +71,10 @@
                                     <div class="detailDivTableHeader">Notes:</div>
                                     <div class="detailDivTableCell">{{request.Notes}}</div>
                                 </div>
+                            </div>
+                            <div class="detailRight">
+                                <button type="submit" class="btn btn-primary" style="float: right;" ng-click="editClick(request.Id)">Edit</button>
+                                <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(request.Id)">Delete</button>
                             </div>
                         </div>
                     </td>

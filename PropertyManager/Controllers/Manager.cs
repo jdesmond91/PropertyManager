@@ -417,6 +417,12 @@ namespace PropertyManager.Controllers
             return Mapper.Map<IEnumerable<ServiceBase>>(c);
         }
 
+        public IEnumerable<ServiceForServiceRequest> ServiceGetAllForRequest()
+        {
+            var c = ds.Services.OrderBy(a => a.ServiceName);
+
+            return Mapper.Map<IEnumerable<ServiceForServiceRequest>>(c);
+        }
         public ServiceBase ServiceGetById(int id)
         {
             var c = ds.Services.SingleOrDefault(a => a.Id == id);
@@ -501,7 +507,7 @@ namespace PropertyManager.Controllers
             return (o == null) ? null : Mapper.Map<ServiceRequestWithService>(o);
         }
 
-        public ServiceRequestBase ServiceRequestAdd(ServiceRequestAdd newItem)
+        public ServiceRequestWithService ServiceRequestAdd(ServiceRequestAdd newItem)
         {
             // Ensure that we can continue
             if (newItem == null)
@@ -529,7 +535,7 @@ namespace PropertyManager.Controllers
                 ds.SaveChanges();
 
                 // Return the object
-                return Mapper.Map<ServiceRequestBase>(addedItem);
+                return Mapper.Map<ServiceRequestWithService>(addedItem);
             }
         }
 
@@ -965,41 +971,38 @@ namespace PropertyManager.Controllers
         }
 
         public LeaseBase LeaseAdd(LeaseAdd newItem)
-        {
-            // Ensure that we can continue
+        {    
             if (newItem == null)
             {
                 return null;
             }
             else
             {
-                // Must validate the associated object
+      
                 var associatedApartment = ds.Apartments.Find(newItem.ApartmentNumber);
                 if (associatedApartment == null)
                 {
                     return null;
                 }
 
-                // Must validate the associated object
                 var associatedTenant = ds.Tenants.Find(newItem.TenantId);
                 if (associatedTenant == null)
                 {
                     return null;
                 }
-
-                // Add the new object
-
-                // Build the Lease object
+       
                 Lease addedItem = Mapper.Map<Lease>(newItem);
 
-                // Set its associated item identifier
                 addedItem.Apartment = associatedApartment;               
                 addedItem.Tenant = associatedTenant;
-
                 ds.Leases.Add(addedItem);
+
+                var editedApt = Mapper.Map<ApartmentBase>(associatedApartment);
+                editedApt.Status = "Occupied";
+                ds.Entry(associatedApartment).CurrentValues.SetValues(editedApt);
+
                 ds.SaveChanges();
 
-                // Return the object
                 return Mapper.Map<LeaseBase>(addedItem);
             }
         }
@@ -1021,11 +1024,7 @@ namespace PropertyManager.Controllers
             }
             else
             {
-                // Fetch the object from the data store - ds.Entry(storedItem)
-                // Get its current values collection - .CurrentValues
-                // Set those to the edited values - .SetValues(editedItem)
                 ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
-                // The SetValues() method ignores missing properties and navigation properties
                 ds.SaveChanges();
 
                 return Mapper.Map<LeaseBase>(storedItem);
@@ -1082,7 +1081,7 @@ namespace PropertyManager.Controllers
 
         public WorkOrderBase WorkOrderGetById(int id)
         {
-            var c = ds.WorkOrders.SingleOrDefault(a => a.Id == id);
+            var c = ds.WorkOrders.Include("Tenant").SingleOrDefault(a => a.Id == id);
 
             return (c == null) ? null : Mapper.Map<WorkOrderBase>(c);
         }

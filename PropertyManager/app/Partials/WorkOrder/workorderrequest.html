@@ -18,6 +18,7 @@
             </form>
 
             <!--TENANT TABLE-->
+            <button type="submit" style="float:left; margin-bottom:20px" ng-show="userRole=='Tenant'" class="btn btn-primary" ng-click="addOneClick()">Add</button>
             <table class="table-fill" style="float: left" ng-show="userRole=='Tenant'">
                 <thead>
                     <tr>
@@ -52,7 +53,7 @@
                     <tr class="details-row" ng-if="workOrder.expanded" ng-repeat-end="">
                         <td colspan="7">
                             <div class="detailDivTable">
-                                <div class="detailDivTableBody">
+                                <div class="detailDivTableBody detailLeft">
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Description:</div>
                                         <div class="detailDivTableCell">{{workOrder.Description}}</div>
@@ -69,6 +70,10 @@
                                         <div class="detailDivTableHeader">Notes:</div>
                                         <div class="detailDivTableCell">{{workOrder.Notes}}</div>
                                     </div>  
+                                </div>
+                                <div class="detailRight">
+                                    <button type="submit" class="btn btn-primary" style="float: right;" ng-click="editClick(workOrder.Id)">Edit</button>
+                                    <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(workOrder.Id)">Delete</button>
                                 </div>
                             </div>
                         </td>
@@ -111,7 +116,7 @@
                     <tr class="details-row" ng-if="workOrder.expanded" ng-repeat-end="">
                         <td colspan="7">
                             <div class="detailDivTable">
-                                <div class="detailDivTableBody">
+                                <div class="detailDivTableBody detailLeft">
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Description:</div>
                                         <div class="detailDivTableCell">{{workOrder.Description}}</div>
@@ -136,6 +141,9 @@
                                         <div class="detailDivTableHeader">Notes:</div>
                                         <div class="detailDivTableCell">{{workOrder.Notes}}</div>
                                     </div>
+                                </div>
+                                <div class="detailRight">
+                                    <button type="submit" class="btn btn-primary" style="float: right;" ng-click="editClick(workOrder.Id)">Edit</button>                           
                                 </div>
                             </div>
                         </td>

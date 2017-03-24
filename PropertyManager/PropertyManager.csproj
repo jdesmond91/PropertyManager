@@ -283,9 +283,11 @@
     <Content Include="app\Partials\Lease\leaseAdd.html" />
     <Content Include="app\Partials\Service\serviceAdd.html" />
     <Content Include="app\Partials\Service\servicerequest.html" />
+    <Content Include="app\Partials\Service\servicerequestAdd.html" />
     <Content Include="app\Partials\Tenant\tenantAdd.html" />
     <Content Include="app\Partials\Unit\unitAdd.html" />
     <Content Include="app\Partials\WorkOrder\workorderrequest.html" />
+    <Content Include="app\Partials\WorkOrder\workorderrequestAdd.html" />
     <Content Include="app\Services\Directives.js" />
     <Content Include="app\Services\workOrderService.js" />
     <Content Include="app\Vendor\angular-modal-service.js" />

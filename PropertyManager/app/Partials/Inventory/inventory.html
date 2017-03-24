@@ -23,7 +23,7 @@
             <thead>
                 <tr>
                     <th style="width: 2%"></th>
-                    <th class="text-left" style="width: 20%" ng-click="sortType = 'productName'; sortReverse = !sortReverse">
+                    <th class="text-left"ng-click="sortType = 'productName'; sortReverse = !sortReverse">
                         Product Name
                         <span><i class="fa fa-caret-up" ng-show="sortType == 'productName' && !sortReverse"></i></span>
                         <span><i class="fa fa-caret-down" ng-show="sortType == 'productName' && sortReverse"></i></span>
@@ -33,7 +33,7 @@
                         <span><i class="fa fa-caret-up" ng-show="sortType == 'supplier' && !sortReverse"></i></span>
                         <span><i class="fa fa-caret-down" ng-show="sortType == 'supplier' && sortReverse"></i></span>
                     </th>
-                    <th class="text-left" ng-click="sortType = 'quantity'; sortReverse = !sortReverse">
+                    <th class="text-left" style="width: 20%" ng-click="sortType = 'quantity'; sortReverse = !sortReverse">
                         Quantity
                         <span><i class="fa fa-caret-up" ng-show="sortType == 'quantity' && !sortReverse"></i></span>
                         <span><i class="fa fa-caret-down" ng-show="sortType == 'quantity' && sortReverse"></i></span>
@@ -51,7 +51,7 @@
                     <td class="text-left">{{inventory.Quantity }}</td>
                 </tr>
                 <tr class="details-row" ng-if="inventory.expanded" ng-repeat-end="">
-                    <td colspan="7">
+                    <td colspan="4">
                         <div class="detailDivTable">
                             <div class="detailDivTableBody detailLeft">
                                 <div class="detailDivTableRow">

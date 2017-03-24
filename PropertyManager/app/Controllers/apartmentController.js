@@ -27,9 +27,9 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
     getUnits();
 
     $scope.modelAdd = {
-        aptNumber: 0,
-        floorNumber: 0,
-        status: "",
+        aptNumber: "",
+        floorNumber: "",
+        status: "Vacant",
         unitId: "",
         unitType: 0
     };

@@ -443,7 +443,7 @@ hr.fc-divider {
 
 .fc-row .fc-bgevent-skeleton table,
 .fc-row .fc-highlight-skeleton table {
-	height: 100%; /* stretch skeleton to bottom of row */
+	height: 60%; /* stretch skeleton to bottom of row */
 }
 
 .fc-row .fc-highlight-skeleton td,

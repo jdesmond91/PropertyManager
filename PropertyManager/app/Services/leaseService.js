@@ -62,12 +62,22 @@ function leaseService($http, $q, appSettings) {
         return def.promise;
     };
 
+    this.deleteLease = function (id) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/Leases/" + id,
+            method: "DELETE",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     return {
         addLease: this.addLease,
         getAllLease: this.getAllLease,
         getByIdLease: this.getByIdLease,
         editLease: this.editLease,
-        getLeaseByTenantId: this.getLeaseByTenantId
+        getLeaseByTenantId: this.getLeaseByTenantId,
+        deleteLease: this.deleteLease
     }
 
 

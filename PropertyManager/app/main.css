@@ -387,7 +387,7 @@ td.text-right {
 .form-style-5 input[type="url"],
 .form-style-5 textarea,
 .form-style-5 select {
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: 'Quicksand', sans-serif;
     background: rgba(255,255,255,.1);
     border: none;
     border-radius: 4px;
@@ -440,6 +440,10 @@ td.text-right {
 
 .form-style-5 textarea{
     width: 40%;
+}
+
+.form-style-5 select {
+    width: 20%;
 }
 
 .form-style-5 input[type="text"]:focus,

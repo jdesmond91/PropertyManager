@@ -7,7 +7,7 @@
 
 <body ng-app="propertyManagerApp">
     <div ng-include='"/app/Partials/menu.html"'></div>
-    <div id="page-wrapper-form" ng-hide="addOne">
+    <div id="page-wrapper-form">
 
         <!-- ADD VIEW-->
         <div ng-hide="isEdit">
@@ -22,11 +22,7 @@
 
                         <label class="control-label" for="floorNumber">Floor Number</label>
                         <input type="number" name="floorNumber" id="floorNumber" class="form-control" ng-pattern="/^[0-9]{0,2}$/" ng-model="modelAdd.floorNumber">
-                        <span class="spanError" ng-show="form.floorNumber.$error.pattern || form.floorNumber.$invalid && !form.floorNumber.$pristine">Enter a floor number</span>
-
-                        <label class="control-label" for="status">Status</label>
-                        <input type="text" name="status" id="status" ng-model="modelAdd.status" class="form-control" ng-pattern="/^[a-zA-Z ]+$/">
-                        <span class="spanError" ng-show="form.status.$error.pattern || form.status.$invalid && !form.status.$pristine">Enter a status</span>
+                        <span class="spanError" ng-show="form.floorNumber.$error.pattern || form.floorNumber.$invalid && !form.floorNumber.$pristine">Enter a floor number</span>                       
 
                         <label class="control-label" for="unitId">Unit Type</label>
                         <select ng-model="modelAdd.unitId" name="unitId" id="unitId" required>
@@ -79,7 +75,7 @@
                         <span class="spanError" ng-show="formEdit.floorNumber.$error.pattern || formEdit.floorNumber.$invalid && !formEdit.floorNumber.$pristine">Enter a floor number</span>
 
                         <label class="control-label" for="status">Status</label>
-                        <input type="text" name="status" id="status" ng-model="modelEdit.status" class="form-control" ng-pattern="/^[a-zA-Z ]+$/">
+                        <input type="text" name="status" id="status" readonly ng-model="modelEdit.status" class="form-control" ng-pattern="/^[a-zA-Z ]+$/">
                         <span class="spanError" ng-show="formEdit.status.$error.pattern || formEdit.status.$invalid && !formEdit.status.$pristine">Enter a status</span>
 
                         <label class="control-label" for="unitId">Unit Type</label>

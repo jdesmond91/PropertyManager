@@ -49,13 +49,13 @@ function announcementController($scope, $filter, $location, $routeParams, announ
     var today = new Date();
     $scope.today = today;
 
-    var start = document.getElementById('startDate');
-    var enddate = document.getElementById('expireDate');
+    var startadd = document.getElementById('startDate');
+    var enddateadd = document.getElementById('expireDate');
 
-    if (start != null) {
-        start.addEventListener('change', function () {
-            if (start.value)
-                enddate.min = start.value;
+    if (startadd != null) {
+        startadd.addEventListener('change', function () {
+            if (startadd.value)
+                enddateadd.min = startadd.value;
         }, false);
     }
     

@@ -64,6 +64,18 @@ namespace PropertyManager.Controllers
             // Ensure that we can use the incoming data
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
+            var apartment = m.ApartmentGetById(newItem.ApartmentNumber);
+            if(apartment == null)
+            {
+                return Content(HttpStatusCode.NotFound, "Apartment Number not found");
+            }
+
+            var lease = m.LeaseGetByAptNumber(newItem.ApartmentNumber);
+            if(lease != null)
+            {
+                return Content(HttpStatusCode.Conflict, "Apartment already associated with a lease");
+            }
+        
             // Attempt to add the new object
             var addedItem = m.LeaseAdd(newItem);
 

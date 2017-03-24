@@ -17,6 +17,12 @@ namespace PropertyManager.Controllers
             return Ok(m.ServiceGetAll());
         }
 
+        [Route("api/Services/allforrequest")]
+        public IHttpActionResult GetForRequest()
+        {
+            return Ok(m.ServiceGetAllForRequest());
+        }
+
         // GET: api/Services/5
         public IHttpActionResult Get(int? id)
         {

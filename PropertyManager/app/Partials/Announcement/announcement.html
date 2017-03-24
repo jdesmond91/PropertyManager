@@ -21,17 +21,17 @@
             <thead>
                 <tr>
                     <th style="width: 2%"></th>
-                    <th class="text-left" ng-click="sortType = 'title'; sortReverse = !sortReverse">
+                    <th class="text-left" style="width: 33%" ng-click="sortType = 'title'; sortReverse = !sortReverse">
                         Title
                         <span><i class="fa fa-caret-up" ng-show="sortType == 'title' && !sortReverse"></i></span>
                         <span><i class="fa fa-caret-down" ng-show="sortType == 'title' && sortReverse"></i></span>
                     </th>
-                    <th class="text-left" ng-click="sortType = 'StartDate'; sortReverse = !sortReverse">
+                    <th class="text-left" style="width: 33%" ng-click="sortType = 'StartDate'; sortReverse = !sortReverse">
                         Start Date
                         <span><i class="fa fa-caret-up" ng-show="sortType == 'StartDate' && !sortReverse"></i></span>
                         <span><i class="fa fa-caret-down" ng-show="sortType == 'StartDate' && sortReverse"></i></span>
                     </th>
-                    <th class="text-left" ng-click="sortType = 'ExpireDate'; sortReverse = !sortReverse">
+                    <th class="text-left" style="width: 32%" ng-click="sortType = 'ExpireDate'; sortReverse = !sortReverse">
                         Expire Date
                         <span><i class="fa fa-caret-up" ng-show="sortType == 'ExpireDate' && !sortReverse"></i></span>
                         <span><i class="fa fa-caret-down" ng-show="sortType == 'ExpireDate' && sortReverse"></i></span>
@@ -50,7 +50,7 @@
                 </tr>
                 <!-- DETAILS VIEW -->
                 <tr class="details-row" ng-if="announce.expanded" ng-repeat-end="">
-                    <td colspan="7">
+                    <td colspan="4">
                         <div class="detailDivTable">
                             <div class="detailDivTableBody detailLeft">
                                 <div class="detailDivTableRow">

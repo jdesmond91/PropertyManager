@@ -29,6 +29,15 @@ function serviceService($http, $q, appSettings) {
         return response;
     };
 
+    this.getAllServiceForRequest = function () {
+        var response = $http({
+            url: appSettings.serverPath + "/api/services/allforrequest",
+            method: "GET",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     this.getByIdService = function (serviceId) {
         var response = $http({
             url: appSettings.serverPath + "/api/services/" + serviceId,
@@ -67,7 +76,8 @@ function serviceService($http, $q, appSettings) {
         getAllService: this.getAllService,
         getByIdService: this.getByIdService,
         editService: this.editService,
-        deleteService: this.deleteService
+        deleteService: this.deleteService,
+        getAllServiceForRequest: this.getAllServiceForRequest
     }
 
 

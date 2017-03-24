@@ -26,7 +26,7 @@ namespace PropertyManager.Controllers
 
     public class ServiceRequestWithService : ServiceRequestBase
     {
-        public ServiceBase Service { get; set; }
+        public ServiceForServiceRequest Service { get; set; }
     }
 
     public class ServiceRequestEdit

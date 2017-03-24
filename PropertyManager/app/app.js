@@ -75,6 +75,10 @@
                          controller: 'leaseController',
                          templateUrl: 'app/Partials/Lease/lease.html'
                     })
+                    .when('/addlease/:lease_id?', {
+                        controller: 'leaseController',
+                        templateUrl: 'app/Partials/Lease/leaseAdd.html'
+                    })
                     .when('/employee/', {
                          controller: 'employeeController',
                          templateUrl: 'app/Partials/Employee/employee.html'
@@ -86,6 +90,10 @@
                     .when('/workorderrequest/', {
                          controller: 'workOrderController',
                          templateUrl: 'app/Partials/WorkOrder/workorderrequest.html'
+                    })
+                    .when('/addworkorderrequest/:workrequest_id?', {
+                        controller: 'workOrderController',
+                        templateUrl: 'app/Partials/WorkOrder/workorderrequestAdd.html'
                     })
                      .when('/inventory/', {
                          controller: 'inventoryController',
@@ -99,5 +107,9 @@
                           controller: 'serviceRequestController',
                           templateUrl: 'app/Partials/Service/servicerequest.html'
                       })
+                    .when('/addservicerequest/:servicerequest_id?', {
+                        controller: 'serviceRequestController',
+                        templateUrl: 'app/Partials/Service/servicerequestAdd.html'
+                    })
                     .otherwise({ redirectTo: '/index' });
             }]);
