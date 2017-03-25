@@ -46,6 +46,37 @@ namespace PropertyManager.Controllers
             // Ensure that we can use the incoming data
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
+            var facility = m.FacilityGetById(newItem.FacilityId);
+            if(facility != null)
+            {
+                var facilityOpenHour = facility.OpenTime.Value.Hour;
+                var facilityOpenMin = facility.OpenTime.Value.Minute;
+                var facilityCloseHour = facility.CloseTime.Value.Hour;
+                var facilityCloseMin = facility.CloseTime.Value.Minute;
+
+                var startTimeHour = newItem.StartTime.Value.Hour;
+                var startTimeMin = newItem.StartTime.Value.Minute;
+
+                var endTimeHour = newItem.EndTime.Value.Hour;
+                var endTimeMin = newItem.EndTime.Value.Minute;
+
+                if(startTimeHour < facilityOpenHour || startTimeHour > facilityCloseHour)
+                {
+                    return Content(HttpStatusCode.Conflict, "The facility is closed at this start time");
+                }
+                else if(startTimeHour == facilityOpenHour && startTimeMin < facilityOpenMin){
+                    return Content(HttpStatusCode.Conflict, "The facility is closed at this start time");
+                }    
+                else if(endTimeHour > facilityCloseHour)
+                {
+                    return Content(HttpStatusCode.Conflict, "The facility is closed at this end time");
+                }
+                else if(endTimeHour == facilityCloseHour && endTimeMin > facilityCloseMin)
+                {
+                    return Content(HttpStatusCode.Conflict, "The facility is closed at this end time");
+                }               
+            }            
+
             var booking = m.FacilityBookingGetByDate(newItem);
             if(booking != null)
             {

@@ -135,7 +135,6 @@ namespace PropertyManager.Models
                 lease.EndDate = new DateTime(2018, 01, 01);
                 lease.SecurityDeposit = 500.00;
                 lease.MonthlyRent = 1050.60;
-                lease.Terms = 1;
                 lease.ApartmentNumber = 520;
                 lease.TenantId = 1;
 
@@ -145,7 +144,6 @@ namespace PropertyManager.Models
                 lease.EndDate = new DateTime(2018, 08, 19);
                 lease.SecurityDeposit = 525.00;
                 lease.MonthlyRent = 1400.80;
-                lease.Terms = 1;
                 lease.ApartmentNumber = 603;
                 lease.TenantId = 2;
 
@@ -155,7 +153,6 @@ namespace PropertyManager.Models
                 lease.EndDate = new DateTime(2018, 08, 19);
                 lease.SecurityDeposit = 525.00;
                 lease.MonthlyRent = 1400.80;
-                lease.Terms = 1;
                 lease.ApartmentNumber = 1705;
                 lease.TenantId = 3;
 
@@ -251,15 +248,15 @@ namespace PropertyManager.Models
                 facility.Location = "40th floor";
                 facility.Status = "Open";
                 facility.OpenTime = new DateTime(2017, 01, 01, 08, 0, 0);
-                facility.CloseTime = new DateTime(2017, 01, 01, 18, 0, 0);
+                facility.CloseTime = new DateTime(2017, 02, 01, 18, 0, 0);
                 m.FacilityAdd(facility);
 
                 facility.FacilityName = "Movie Room";
                 facility.Description = "Movie Theater";
                 facility.Location = "Lobby";
                 facility.Status = "Open";
-                facility.OpenTime = new DateTime(2017, 01, 01, 10, 0, 0);
-                facility.CloseTime = new DateTime(2017, 01, 01, 20, 30, 0);
+                facility.OpenTime = new DateTime(2017, 02, 01, 10, 0, 0);
+                facility.CloseTime = new DateTime(2017, 02, 01, 20, 30, 0);
                 m.FacilityAdd(facility);
 
             }

@@ -45,9 +45,37 @@ namespace PropertyManager.Models
         public DbSet<Lease> Leases { get; set; }
         public DbSet<WorkOrder> WorkOrders { get; set; }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Service>()
+                .HasMany(e => e.ServiceRequests)
+                .WithRequired(e => e.Service)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Unit>()
+                .HasMany(e => e.Apartments)
+                .WithRequired(e => e.Unit)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<FacilityBooking>()
+                .HasRequired(e => e.Facility);
+
+            modelBuilder.Entity<FacilityBooking>()
+                .HasRequired(e => e.Tenant);
+
+            modelBuilder.Entity<WorkOrder>()
+                .HasRequired(e => e.Tenant);
+
+
+        }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+        
     }
 }

@@ -1059,8 +1059,10 @@ namespace PropertyManager.Controllers
             {
                 try
                 {
-                    // If this fails, throw an exception (as above)
-                    // This implementation just prevents an error from bubbling up
+                    var associatedApartment = ds.Apartments.Find(storedItem.Apartment.ApartmentNumber);
+                    var editedApt = Mapper.Map<ApartmentBase>(associatedApartment);
+                    editedApt.Status = "Vacant";
+                    ds.Entry(associatedApartment).CurrentValues.SetValues(editedApt);
 
                     ds.Leases.Remove(storedItem);
                     ds.SaveChanges();

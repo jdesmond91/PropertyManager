@@ -24,7 +24,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
         endDate: "",
         monthlyRent: "",
         securityDeposit: "",
-        terms: "",
         apartmentId: "",
         tenantId: "",
         tenantName: "",
@@ -37,7 +36,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
         endDate: "",
         monthlyRent: "",
         securityDeposit: "",
-        terms: 0,
         apartmentId: "",
         tenantId: "",
         tenantName: ""
@@ -86,7 +84,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             EndDate: endDateFiltered,
             SecurityDeposit: $scope.modelAdd.securityDeposit,
             MonthlyRent: $scope.modelAdd.monthlyRent,
-            Terms: 0,
             ApartmentNumber: $scope.modelAdd.apartmentId,
             TenantId: $scope.modelAdd.tenantId
         };
@@ -133,7 +130,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             endDate: "",
             monthlyRent: "",
             securityDeposit: "",
-            terms: "",
             apartmentId: "",
             tenantId: "",
             tenantName: "",
@@ -159,7 +155,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
         leaseById.then(function (response) {      
             $scope.modelEdit.securityDeposit = response.data.SecurityDeposit;
             $scope.modelEdit.monthlyRent = response.data.MonthlyRent;
-            $scope.modelEdit.terms = response.data.Terms;
             $scope.modelEdit.apartmentId = response.data.Apartment.ApartmentNumber;
             $scope.modelEdit.tenantId = response.data.TenantId;
             $scope.modelEdit.tenantName = response.data.Tenant.FirstName + ' ' + response.data.Tenant.LastName;
@@ -211,7 +206,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             EndDate: endDateFiltered,
             SecurityDeposit: $scope.modelEdit.securityDeposit,
             MonthlyRent: $scope.modelEdit.monthlyRent,
-            Terms: $scope.modelEdit.terms,
             ApartmentId: $scope.modelEdit.apartmentId,
             TenantId: $scope.modelEdit.tenantId
         };

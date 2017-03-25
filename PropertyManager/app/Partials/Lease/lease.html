@@ -81,11 +81,7 @@
                                     <div class="detailDivTableRow">
                                         <div class="detailDivTableHeader">Security Deposit:</div>
                                         <div class="detailDivTableCell">{{lease.SecurityDeposit}}</div>
-                                    </div>         
-                                    <div class="detailDivTableRow">
-                                        <div class="detailDivTableHeader">Terms:</div>
-                                        <div class="detailDivTableCell">{{lease.Terms}}</div>
-                                    </div>                                    
+                                    </div>                                                                    
                                 </div>
                                 <div class="detailRight">
                                     <button type="submit" class="btn btn-primary" style="float: right;" ng-click="editClick(lease.Id)">Edit</button>
@@ -96,38 +92,6 @@
                     </tr>
                 </tbody>
             </table>
-
-
-            <!--EDIT FORM <form name="form">
-
-                <input type="date" name="startDate" id="startDate" class="form-control" placeholder="start Date" ng-model="startDate">
-
-                <input type="date" name="endDate" id="endDate" class="form-control" placeholder="expire Date" ng-model="endDate">
-
-                <input type="number" name="securityDeposit" id="securityDeposit" step=0.01 class="form-control" ng-model="securityDeposit">
-
-                <input type="number" name="monthlyRent" id="monthlyRent" step=0.01 class="form-control" ng-model="monthlyRent">
-
-                <input type="number" name="terms" id="terms" class="form-control" placeholder="terms" ng-model="terms">
-
-                <input type="number" name="apartmentId" id="apartmentId" class="form-control" placeholder="apartmentId" ng-model="apartmentId">
-
-                <input type="number" name="tenantId" id="tenantId" class="form-control" placeholder="tenantId" ng-model="tenantId">
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="addLease()">Add</button>
-                </div>
-                <input type="text" name="leaseId" id="leaseId" class="form-control" placeholder="Id" ng-model="leaseId">
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="getLease()">Get All</button>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="getLeaseById()">Get One</button>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" ng-click="editLease()">Edit</button>
-                </div>
-                </form>-->
 
                
         </div>

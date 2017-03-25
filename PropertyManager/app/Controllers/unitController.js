@@ -66,7 +66,7 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
             console.log(response.data);
             $scope.modelAdd.unitId = response.data.Id;
             $scope.showConfirmation = true;
-            $scope.message = "Inventory Added"
+            $scope.message = "Unit Added"
         }, function (error) {
             $scope.message = error.statusText + " " + error.status;
         });

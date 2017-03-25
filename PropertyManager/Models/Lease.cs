@@ -12,7 +12,6 @@ namespace PropertyManager.Models
         public DateTime? EndDate { get; set; }
         public double SecurityDeposit { get; set; }
         public double MonthlyRent { get; set; }
-        public int Terms { get; set; }
         public virtual Tenant Tenant { get; set; }
         public virtual Apartment Apartment { get; set; }
     }

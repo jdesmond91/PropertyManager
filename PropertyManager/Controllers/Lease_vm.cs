@@ -11,7 +11,6 @@ namespace PropertyManager.Controllers
         public DateTime? EndDate { get; set; }
         public double SecurityDeposit { get; set; }
         public double MonthlyRent { get; set; }
-        public int Terms { get; set; }
         public int ApartmentNumber { get; set; }
         public int TenantId { get; set; }
 
@@ -29,7 +28,6 @@ namespace PropertyManager.Controllers
         public DateTime? EndDate { get; set; }
         public double SecurityDeposit { get; set; }
         public double MonthlyRent { get; set; }
-        public int Terms { get; set; }
     }
 
     public class LeaseWithInformation : LeaseBase

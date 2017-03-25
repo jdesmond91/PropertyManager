@@ -61,7 +61,7 @@ function serviceController($scope, $filter, $location, $routeParams, serviceServ
             console.log(response.data);
             $scope.modelAdd.serviceId = response.data.Id;
             $scope.showConfirmation = true;
-            $scope.message = "Announcement Added"
+            $scope.message = "Service Added"
         }, function (error) {
             $scope.message = error.statusText + " " + error.status;
         });
