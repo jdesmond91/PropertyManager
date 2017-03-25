@@ -17,7 +17,7 @@
                     <fieldset>
                         <legend><span class="number"></span> Add Service Request<button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
-                        <label class="control-label" for="unitId">Service</label>
+                        <label class="control-label" for="service">Service</label>
                         <select ng-model="modelAdd.ServiceId" name="service" id="service" required>
                             <option ng-repeat="service in services" value="{{service.Id}}">{{service.ServiceName}}</option>
                         </select>
@@ -41,7 +41,7 @@
 
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addServiceRequest()">Add Service Request </button>
-                    <span>{{message}}</span>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showConfirmation">
@@ -85,11 +85,11 @@
                         <span class="spanError" ng-show="formEdit.service.$error.pattern || formEdit.service.$invalid && !formEdit.service.$pristine">Enter a service request</span>
                         
                         <label class="control-label" for="requestDate">Request Date</label>
-                        <input type="date" name="requestDate" id="requestDate" class="form-control" ng-model="modelEdit.RequestDate">
+                        <input type="date" name="requestDate" id="editrequestDate" class="form-control" ng-model="modelEdit.RequestDate">
                         <span class="spanError" ng-show="formEdit.requestDate.$invalid && !formEdit.requestDate.$pristine">Enter a valid date</span>
 
                         <label class="control-label" for="completionDate">Completion Date</label>
-                        <input type="date" name="completionDate" id="completionDate" class="form-control" ng-model="modelEdit.CompletionDate">
+                        <input type="date" name="completionDate" id="editcompletionDate" class="form-control" ng-model="modelEdit.CompletionDate">
                         <span class="spanError" ng-show="formEdit.completionDate.$invalid && !formEdit.completionDate.$pristine">Enter a valid date</span>
 
                         <label class="control-label" for="description">Description</label>
@@ -101,7 +101,7 @@
                         <br /><span class="spanError" ng-show="formEdit.notes.$invalid && !formEdit.notes.$pristine">Enter notes</span>
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editServiceRequest()">Edit Service Request</button>
-                    <span>{{message}}</span>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showEditConfirmation">

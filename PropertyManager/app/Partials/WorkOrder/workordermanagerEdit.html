@@ -23,7 +23,7 @@
 
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editWorkOrder()">Edit Work Order</button>
-                    <span>{{message}}</span>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showEditConfirmation">

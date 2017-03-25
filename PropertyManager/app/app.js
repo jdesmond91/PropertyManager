@@ -38,7 +38,11 @@
                      .when('/bookfacility/', {
                          controller: 'facilityBookingController',
                          templateUrl: 'app/Partials/Facility/facilityBookings.html'
-                      })
+                     })
+                    .when('/addbookfacility/:facilitybook_id?', {
+                        controller: 'facilityBookingController',
+                        templateUrl: 'app/Partials/Facility/facilityBookingAdd.html'
+                    })
                     .when('/service/', {
                          controller: 'serviceController',
                          templateUrl: 'app/Partials/Service/service.html'

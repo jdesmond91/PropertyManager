@@ -29,8 +29,7 @@
                             <option ng-repeat="unit in units" value="{{unit.Id}}">{{unit.Bedrooms}} Bedroom</option>
                         </select>
                         <span class="spanError" ng-show="form.unitId.$invalid && !form.unitId.$pristine">Enter a unit type</span>
-
-                        
+                       
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addApartment()">Add Apartment </button>
                     <br/><span class="spanError" style="margin-top:20px;" ng-show="errorMessage!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{errorMessage}}</span>

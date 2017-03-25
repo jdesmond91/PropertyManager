@@ -144,7 +144,7 @@ function facilityController($scope, $filter, $location, $routeParams, facilitySe
         }
 
         var facility = {
-            Id: $scope.modelEdit.facilityId,
+            Id: $scope.editId,
             FacilityName: $scope.modelEdit.name,
             Description: $scope.modelEdit.description,
             Location: $scope.modelEdit.location,

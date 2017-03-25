@@ -36,6 +36,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
     $scope.startDateDetail = "";
     $scope.expireDateDetail = "";
     $scope.message = "";
+    $scope.errorMessage = "";
     $scope.announces = [];
     $scope.sortType = "name";
     $scope.sortReverse = false;
@@ -47,6 +48,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
     // ADD SECTION 
 
     var today = new Date();
+    today.setHours(0,0,0,0);
     $scope.today = today;
 
     var startadd = document.getElementById('startDate');
@@ -64,32 +66,50 @@ function announcementController($scope, $filter, $location, $routeParams, announ
     }
 
     $scope.addAnnouncement = function () {
-        var startDateFiltered = null;
-        var expireDateFiltered = null;
+        $scope.message = "";
+        var add = false;
 
-        if ($scope.modelAdd.startDate != "") {
-            startDateFiltered = $filter('date')($scope.modelAdd.startDate, "yyyy-MM-dd");
+        if ($scope.modelAdd.startDate < $scope.today) {
+            $scope.message = "Enter a date greater than today";
         }
-        if ($scope.modelAdd.expireDate != "") {
-            expireDateFiltered = $filter('date')($scope.modelAdd.expireDate, "yyyy-MM-dd");
+        else {
+            if ($scope.modelAdd.expireDate < $scope.modelAdd.startDate) {
+                $scope.message = "Enter a date greater than or equal Start Date";
+            }
+            else {
+                add = true;
+            }
         }
+        
+        if (add == true) {
 
-        var announcement = {
-            Title: $scope.modelAdd.title,
-            StartDate: startDateFiltered,
-            ExpireDate: expireDateFiltered,
-            Description: $scope.modelAdd.description
-        };
+            var startDateFiltered = null;
+            var expireDateFiltered = null;
 
-       var addResults = announcementService.addAnnouncement(announcement);
-        addResults.then(function (response) {
-            console.log(response.data);
-            $scope.modelAdd.announcementId = response.data.Id;
-            $scope.showConfirmation = true;
-            $scope.message = "Announcement Added"
-        }, function (error) {
-            $scope.message = error.statusText + " " + error.status;
-        });
+            if ($scope.modelAdd.startDate != "") {
+                startDateFiltered = $filter('date')($scope.modelAdd.startDate, "yyyy-MM-dd");
+            }
+            if ($scope.modelAdd.expireDate != "") {
+                expireDateFiltered = $filter('date')($scope.modelAdd.expireDate, "yyyy-MM-dd");
+            }
+
+            var announcement = {
+                Title: $scope.modelAdd.title,
+                StartDate: startDateFiltered,
+                ExpireDate: expireDateFiltered,
+                Description: $scope.modelAdd.description
+            };
+
+            var addResults = announcementService.addAnnouncement(announcement);
+            addResults.then(function (response) {
+                console.log(response.data);
+                $scope.modelAdd.announcementId = response.data.Id;
+                $scope.showConfirmation = true;
+                $scope.message = "Announcement Added"
+            }, function (error) {
+                $scope.message = error.statusText + " " + error.status;
+            });
+        }
     } // close function
 
     $scope.addAnother = function () {
@@ -154,39 +174,59 @@ function announcementController($scope, $filter, $location, $routeParams, announ
         }, false);
     }
 
+    
+
     $scope.editClick = function (id) {
+        $scope.message = "";
         $location.path('/addannouncement/' + id);
     }
 
     $scope.editAnnouncement = function () {
 
-        var startDateFiltered = null;
-        var expireDateFiltered = null;
+        var add = false;
 
-        if ($scope.modelEdit.startDate != "") {
-            startDateFiltered = $filter('date')($scope.modelEdit.startDate, "yyyy-MM-dd");
+        if ($scope.modelEdit.startDate < $scope.today) {
+            $scope.message = "Enter a date greater than today";
         }
-        if ($scope.modelEdit.expireDate != "") {
-            expireDateFiltered = $filter('date')($scope.modelEdit.expireDate, "yyyy-MM-dd");
+        else {
+            if ($scope.modelEdit.expireDate < $scope.modelEdit.startDate) {
+                $scope.message = "Enter a date greater than or equal Start Date";
+            }
+            else {
+                add = true;
+            }
         }
 
-        var announcement = {
-            Id: $scope.editId,
-            Title: $scope.modelEdit.title,
-            StartDate: startDateFiltered,
-            ExpireDate: expireDateFiltered,
-            Description: $scope.modelEdit.description
-        };
+        if (add == true) {
+            var startDateFiltered = null;
+            var expireDateFiltered = null;
 
-        var editResults = announcementService.editAnnouncement(announcement, announcement.Id);
-        editResults.then(function (response) {
-            console.log("edit");
-            console.log(response);
-            $scope.message = "Edit successful";
-            $scope.showEditConfirmation = true;                      
-        }, function (error) {
-            $scope.message = error.statusText;      
-        });
+            if ($scope.modelEdit.startDate != "") {
+                startDateFiltered = $filter('date')($scope.modelEdit.startDate, "yyyy-MM-dd");
+            }
+            if ($scope.modelEdit.expireDate != "") {
+                expireDateFiltered = $filter('date')($scope.modelEdit.expireDate, "yyyy-MM-dd");
+            }
+
+            var announcement = {
+                Id: $scope.editId,
+                Title: $scope.modelEdit.title,
+                StartDate: startDateFiltered,
+                ExpireDate: expireDateFiltered,
+                Description: $scope.modelEdit.description
+            };
+
+            var editResults = announcementService.editAnnouncement(announcement, announcement.Id);
+            editResults.then(function (response) {
+                console.log("edit");
+                console.log(response);
+                $scope.message = "Edit successful";
+                $scope.showEditConfirmation = true;
+            }, function (error) {
+                $scope.message = error.statusText;
+            });
+        }
+
     } // close function
 
     //************** DELETE ************************

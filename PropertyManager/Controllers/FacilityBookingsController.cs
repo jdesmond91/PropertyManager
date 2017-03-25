@@ -46,6 +46,22 @@ namespace PropertyManager.Controllers
             // Ensure that we can use the incoming data
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
+            var booking = m.FacilityBookingGetByDate(newItem);
+            if(booking != null)
+            {
+                foreach(FacilityBookingBase book in booking)
+                {
+                    if(newItem.StartTime >= book.StartTime && newItem.StartTime <= book.EndTime)
+                    {
+                        return Content(HttpStatusCode.Conflict, "There's a booking at this time");
+                    }
+                    else if(newItem.StartTime < book.StartTime && newItem.EndTime >= book.StartTime)
+                    {
+                        return Content(HttpStatusCode.Conflict, "There's a booking at this time");
+                    }
+                }
+            }
+
             // Attempt to add the new object
             var addedItem = m.FacilityBookingAdd(newItem);
 
@@ -74,6 +90,22 @@ namespace PropertyManager.Controllers
 
             if (ModelState.IsValid)
             {
+                var booking = m.FacilityBookingGetByDateEdit(editedItem);
+                if (booking != null)
+                {
+                    foreach (FacilityBookingBase book in booking)
+                    {
+                        if (editedItem.StartTime >= book.StartTime && editedItem.StartTime <= book.EndTime)
+                        {
+                            return Content(HttpStatusCode.Conflict, "There's a booking at this time");
+                        }
+                        else if (editedItem.StartTime < book.StartTime && editedItem.EndTime >= book.StartTime)
+                        {
+                            return Content(HttpStatusCode.Conflict, "There's a booking at this time");
+                        }
+                    }
+                }
+
                 var changedItem = m.FacilityBookingEdit(editedItem);
 
                 if (changedItem == null)

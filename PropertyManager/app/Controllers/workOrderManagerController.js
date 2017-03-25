@@ -31,6 +31,10 @@ function workOrderManagerController($scope, $filter, $location, $routeParams, wo
     $scope.sortReverse = false;
     $scope.searchWorkOrder = "";
 
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    $scope.today = today;
+
 
     function getWorkOrder() {
         $scope.workOrders = [];
@@ -72,33 +76,46 @@ function workOrderManagerController($scope, $filter, $location, $routeParams, wo
 
     $scope.editWorkOrder = function () {
 
-        var requestDateFiltered = null;
-        var completionDateFiltered = null;
+        $scope.message = "";
+        var add = false;
 
-        if ($scope.modelEdit.requestDate != "") {
-            requestDateFiltered = $filter('date')($scope.modelEdit.requestDate, "yyyy-MM-dd");
+        if ($scope.modelEdit.completionDate < $scope.today || $scope.modelEdit.completionDate < $scope.modelEdit.requestDate) {
+            $scope.message = "Enter a date greater than today";
         }
-        if ($scope.modelEdit.completionDate != "") {
-            completionDateFiltered = $filter('date')($scope.modelEdit.completionDate, "yyyy-MM-dd");
+        else {
+            add = true;
         }
 
-        var workOrder = {
-            Id: $scope.editId,
-            Description: $scope.modelEdit.description,
-            Notes: $scope.modelEdit.notes,
-            RequestDate: requestDateFiltered,
-            CompletionDate: completionDateFiltered,
-        };
+        if (add == true) {
+            var requestDateFiltered = null;
+            var completionDateFiltered = null;
 
-        var editResults = workOrderService.editWorkOrder(workOrder, workOrder.Id);
-        editResults.then(function (response) {
-            console.log("edit");
-            console.log(response);
-            $scope.message = "Edit successful";
-            $scope.showEditConfirmation = true;
-        }, function (error) {
-            $scope.message = error.statusText;
-        });
+            if ($scope.modelEdit.requestDate != "") {
+                requestDateFiltered = $filter('date')($scope.modelEdit.requestDate, "yyyy-MM-dd");
+            }
+            if ($scope.modelEdit.completionDate != "") {
+                completionDateFiltered = $filter('date')($scope.modelEdit.completionDate, "yyyy-MM-dd");
+            }
+
+            var workOrder = {
+                Id: $scope.editId,
+                Description: $scope.modelEdit.description,
+                Notes: $scope.modelEdit.notes,
+                RequestDate: requestDateFiltered,
+                CompletionDate: completionDateFiltered,
+            };
+
+            var editResults = workOrderService.editWorkOrder(workOrder, workOrder.Id);
+            editResults.then(function (response) {
+                console.log("edit");
+                console.log(response);
+                $scope.message = "Edit successful";
+                $scope.showEditConfirmation = true;
+            }, function (error) {
+                $scope.message = error.statusText;
+            });
+        }
+        
     } // close function
 
    

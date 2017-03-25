@@ -315,6 +315,18 @@ namespace PropertyManager.Controllers
             return (o == null) ? null : Mapper.Map<FacilityBookingBase>(o);
         }
 
+        public IEnumerable<FacilityBookingBase> FacilityBookingGetByDate(FacilityBookingAdd newItem)
+        {
+            var o = ds.FacilityBookings.Where(j => j.BookedDate == newItem.BookedDate && j.Facility.Id == newItem.FacilityId);
+            return (o == null) ? null : Mapper.Map<IEnumerable<FacilityBookingBase>>(o);
+        }
+
+        public IEnumerable<FacilityBookingBase> FacilityBookingGetByDateEdit(FacilityBookingEdit newItem)
+        {
+            var o = ds.FacilityBookings.Where(j => j.BookedDate == newItem.BookedDate && j.Facility.Id == newItem.FacilityId);
+            return (o == null) ? null : Mapper.Map<IEnumerable<FacilityBookingBase>>(o);
+        }
+
         public FacilityBookingBase FacilityBookingAdd(FacilityBookingAdd newItem)
         {
             // Ensure that we can continue

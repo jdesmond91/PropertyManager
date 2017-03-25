@@ -22,7 +22,6 @@
             </div>
         </div>
 
-
         <form>
             <div class="form-group">
                 <div class="input-group">
@@ -31,7 +30,7 @@
                 </div>
             </div>
         </form>
-
+        <button type="submit" style="float:left; margin-bottom:20px" class="btn btn-primary" ng-click="addOneClick()">Add</button>
         <table class="table-fill" style="float: left">
             <thead>
                 <tr>
@@ -72,7 +71,7 @@
                 <tr class="details-row" ng-if="bokking.expanded" ng-repeat-end="">
                     <td colspan="7">
                         <div class="detailDivTable">
-                            <div class="detailDivTableBody">
+                            <div class="detailDivTableBody detailLeft">
                                 <div class="detailDivTableRow">
                                     <div class="detailDivTableHeader">Facility:</div>
                                     <div class="detailDivTableCell">{{bokking.Facility.FacilityName}}</div>
@@ -97,6 +96,10 @@
                                     <div class="detailDivTableHeader">Tenant:</div>
                                     <div class="detailDivTableCell">{{bokking.Tenant.FirstName}} {{bokking.Tenant.LastName}}</div>
                                 </div>
+                            </div>
+                            <div class="detailRight">
+                                <button type="submit" style="float:right" class="btn btn-primary" ng-click="editClick(bokking.Id)" ng-show="bokking.TenantId == tenantId">Edit</button>
+                                <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-show="bokking.TenantId == tenantId" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(bokking.Id)">Delete</button>
                             </div>
                         </div>
                     </td>

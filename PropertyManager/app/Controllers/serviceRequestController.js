@@ -44,6 +44,20 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
     $scope.sortReverse = false;
     $scope.searchRequest = "";
 
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    $scope.today = today;
+
+    var startadd = document.getElementById('requestDate');
+    var enddateadd = document.getElementById('completionDate');
+
+    if (startadd != null) {
+        startadd.addEventListener('change', function () {
+            if (startadd.value)
+                enddateadd.min = startadd.value;
+        }, false);
+    }
+
     // ADD SECTION 
 
     $scope.addOneClick = function () {
@@ -51,35 +65,54 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
     }
 
     $scope.addServiceRequest = function () {
-        var RequestDateFiltered = null;
-        var CompletionDateFiltered = null;
 
-        if ($scope.modelAdd.RequestDate != "") {
-            RequestDateFiltered = $filter('date')($scope.modelAdd.RequestDate, "yyyy-MM-dd");
+        $scope.message = "";
+        var add = false;
+
+        if ($scope.modelAdd.RequestDate < $scope.today) {
+            $scope.message = "Enter a date greater than today";
         }
-        if ($scope.modelAdd.CompletionDate != "") {
-            CompletionDateFiltered = $filter('date')($scope.modelAdd.CompletionDate, "yyyy-MM-dd");
+        else {
+            if ($scope.modelAdd.CompletionDate < $scope.modelAdd.RequestDate) {
+                $scope.message = "Enter a date greater than or equal Start Date";
+            }
+            else {
+                add = true;
+            }
         }
 
-        var serviceRequest = {
-            ServiceId: $scope.modelAdd.ServiceId,
-            Description: $scope.modelAdd.Description,
-            Notes: $scope.modelAdd.Notes,
-            RequestDate: RequestDateFiltered,
-            CompletionDate: CompletionDateFiltered
-        };
+        if (add == true) {
+            var RequestDateFiltered = null;
+            var CompletionDateFiltered = null;
 
-        var addResults = serviceRequestService.addServiceRequest(serviceRequest);
-        addResults.then(function (response) {
-            console.log(response.data);
-            $scope.modelAdd.serviceRequestId = response.data.Id;
-            $scope.modelAdd.ServiceId = response.data.Id;
-            $scope.modelAdd.ServiceName = response.data.Service.ServiceName;
-            $scope.showConfirmation = true;
-            $scope.message = "Announcement Added"
-        }, function (error) {
-            $scope.message = error.statusText + " " + error.status;
-        });
+            if ($scope.modelAdd.RequestDate != "") {
+                RequestDateFiltered = $filter('date')($scope.modelAdd.RequestDate, "yyyy-MM-dd");
+            }
+            if ($scope.modelAdd.CompletionDate != "") {
+                CompletionDateFiltered = $filter('date')($scope.modelAdd.CompletionDate, "yyyy-MM-dd");
+            }
+
+            var serviceRequest = {
+                ServiceId: $scope.modelAdd.ServiceId,
+                Description: $scope.modelAdd.Description,
+                Notes: $scope.modelAdd.Notes,
+                RequestDate: RequestDateFiltered,
+                CompletionDate: CompletionDateFiltered
+            };
+
+            var addResults = serviceRequestService.addServiceRequest(serviceRequest);
+            addResults.then(function (response) {
+                console.log(response.data);
+                $scope.modelAdd.serviceRequestId = response.data.Id;
+                $scope.modelAdd.ServiceId = response.data.Id;
+                $scope.modelAdd.ServiceName = response.data.Service.ServiceName;
+                $scope.showConfirmation = true;
+                $scope.message = "Service Request Added"
+            }, function (error) {
+                $scope.message = error.statusText + " " + error.status;
+            });
+        }
+        
     } // close function
 
     $scope.addAnother = function () {
@@ -116,10 +149,10 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
             $scope.modelEdit.serviceRequestId = response.data.Id;
             $scope.modelEdit.ServiceName = response.data.Service.ServiceName;
             $scope.modelEdit.ServiceId = response.data.Service.Id;
-            if (response.data.RequestDate != "") {
+            if (response.data.RequestDate != null) {
                 $scope.modelEdit.RequestDate = new Date(response.data.RequestDate.replace('T', ' ').replace('-', '/'));
             }
-            if (response.data.CompletionDate != "") {
+            if (response.data.CompletionDate != null) {
                 $scope.modelEdit.CompletionDate = new Date(response.data.CompletionDate.replace('T', ' ').replace('-', '/'));
             }
 
@@ -131,41 +164,68 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
 
     // *********** EDIT SECTION ******************************************
 
+    var startedit = document.getElementById('editrequestDate');
+    var enddateedit = document.getElementById('editcompletionDate');
+
+    if (startedit != null) {
+        startedit.addEventListener('change', function () {
+            if (startedit.value)
+                enddateedit.min = startedit.value;
+        }, false);
+    }
+
     $scope.editClick = function (id) {
         $location.path('/addservicerequest/' + id);
     }
 
     $scope.editServiceRequest = function () {
 
-        var RequestDateFiltered = null;
-        var CompletionDateFiltered = null;
+        $scope.message = "";
+        var add = false;
 
-        if ($scope.modelEdit.RequestDate != "") {
-            RequestDateFiltered = $filter('date')($scope.modelEdit.RequestDate, "yyyy-MM-dd");
+        if ($scope.modelEdit.RequestDate < $scope.today) {
+            $scope.message = "Enter a date greater than today";
         }
-        if ($scope.modelEdit.CompletionDate != "") {
-            CompletionDateFiltered = $filter('date')($scope.modelEdit.CompletionDate, "yyyy-MM-dd");
+        else {
+            if ($scope.modelEdit.CompletionDate < $scope.modelEdit.RequestDate) {
+                $scope.message = "Enter a date greater than or equal Start Date";
+            }
+            else {
+                add = true;
+            }
         }
+        if (add == true) {
+            var RequestDateFiltered = null;
+            var CompletionDateFiltered = null;
 
-        var serviceRequest = {
-            Id: $scope.editId,
-            Description: $scope.modelEdit.Description,
-            Notes: $scope.modelEdit.Notes,
-            RequestDate: RequestDateFiltered,
-            CompletionDate: CompletionDateFiltered,
-            ServiceId: $scope.modelEdit.ServiceId
+            if ($scope.modelEdit.RequestDate != "") {
+                RequestDateFiltered = $filter('date')($scope.modelEdit.RequestDate, "yyyy-MM-dd");
+            }
+            if ($scope.modelEdit.CompletionDate != "") {
+                CompletionDateFiltered = $filter('date')($scope.modelEdit.CompletionDate, "yyyy-MM-dd");
+            }
 
-        };
+            var serviceRequest = {
+                Id: $scope.editId,
+                Description: $scope.modelEdit.Description,
+                Notes: $scope.modelEdit.Notes,
+                RequestDate: RequestDateFiltered,
+                CompletionDate: CompletionDateFiltered,
+                ServiceId: $scope.modelEdit.ServiceId
 
-        var editResults = serviceRequestService.editServiceRequest(serviceRequest, serviceRequest.Id);
-        editResults.then(function (response) {
-            console.log("edit");
-            console.log(response);
-            $scope.message = "Edit successful";
-            $scope.showEditConfirmation = true;
-        }, function (error) {
-            $scope.message = error.statusText;
-        });
+            };
+
+            var editResults = serviceRequestService.editServiceRequest(serviceRequest, serviceRequest.Id);
+            editResults.then(function (response) {
+                console.log("edit");
+                console.log(response);
+                $scope.message = "Edit successful";
+                $scope.showEditConfirmation = true;
+            }, function (error) {
+                $scope.message = error.statusText;
+            });
+        }
+        
     } // close function
 
     //************** DELETE ************************

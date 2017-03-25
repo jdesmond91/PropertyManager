@@ -53,11 +53,21 @@ function facilityBookingService($http, $q, appSettings) {
         return def.promise;
     };
 
+    this.deleteFacilityBooking = function (id) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/FacilityBookings/" + id,
+            method: "DELETE",
+            //headers: authHeaders
+        });
+        return response;
+    };
+
     return {
         addFacilityBooking: this.addFacilityBooking,
         getAllFacilityBooking: this.getAllFacilityBooking,
         getByIdFacilityBooking: this.getByIdFacilityBooking,
-        editFacilityBooking: this.editFacilityBooking
+        editFacilityBooking: this.editFacilityBooking,
+        deleteFacilityBooking: this.deleteFacilityBooking
     }
     
 }

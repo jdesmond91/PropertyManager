@@ -277,6 +277,7 @@
     <Content Include="app\Partials\Employee\employee.html" />
     <Content Include="app\Partials\Employee\employeeAdd.html" />
     <Content Include="app\Partials\Facility\facilityAdd.html" />
+    <Content Include="app\Partials\Facility\facilityBookingAdd.html" />
     <Content Include="app\Partials\Facility\facilityBookings.html" />
     <Content Include="app\Partials\home.html" />
     <Content Include="app\Partials\Inventory\inventory.html" />

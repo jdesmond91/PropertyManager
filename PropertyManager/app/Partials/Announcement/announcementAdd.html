@@ -25,7 +25,7 @@
                         <span class="spanError" ng-show="form.startDate.$invalid && !form.startDate.$pristine">Enter a valid date</span>
 
                         <label class="control-label" for="expireDate">Expire Date</label>
-                        <input type="date" name="expireDate" id="expireDate" class="form-control" ng-model="modelAdd.expireDate">
+                        <input type="date" name="expireDate" id="expireDate"  class="form-control" ng-model="modelAdd.expireDate">
                         <span class="spanError" ng-show="form.expireDate.$invalid && !form.expireDate.$pristine">Enter a valid date</span>
 
                         <label class="control-label" for="description">Description</label>
@@ -33,7 +33,7 @@
                         <br /><span class="spanError" ng-show="form.description.$invalid && !form.description.$pristine">Enter a description</span>
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addAnnouncement()">Add Announcement </button>
-                    <span>{{message}}</span>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showConfirmation">
@@ -86,7 +86,7 @@
                         <br /><span class="spanError" ng-show="formEdit.description.$invalid && !formEdit.description.$pristine">Enter a description</span>
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editAnnouncement()">Edit Announcement </button>
-                    <span>{{message}}</span>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showEditConfirmation">
