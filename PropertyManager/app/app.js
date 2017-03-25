@@ -19,6 +19,10 @@
                         controller: 'registerController',
                         templateUrl: 'app/Partials/Login/register.html'
                     })
+                    .when('/registermanager/', {
+                        controller: 'registerController',
+                        templateUrl: 'app/Partials/Login/registerManager.html'
+                    })
                     .when('/announcement/', {
                          controller: 'announcementController',
                          templateUrl: 'app/Partials/Announcement/announcement.html'

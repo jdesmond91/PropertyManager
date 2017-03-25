@@ -60,7 +60,7 @@ namespace PropertyManager.Models
         public string Surname { get; set; }
         public string Role { get; set; }
         public DateTime BirthDate { get; set; }
-        public int ApartmentNumber { get; set; }
+        public int? ApartmentNumber { get; set; }
     }
 
     public class RegisterExternalBindingModel

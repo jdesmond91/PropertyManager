@@ -1,9 +1,9 @@
 ﻿<script>
     $('#password').popover();
-      
+
 </script>
 <head>
-    <title>Register</title>
+    <title>Register Manager</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,13 +13,8 @@
         <div ng-include='"/app/Partials/menu.html"'></div>
         <div class="registerForm">
             <form name="form" id="formLogin">
-                <h1 id="formH1">Register</h1>
-                <fieldset id="inputs">
-                    <label class="control-label" for="apartmentNumber">Apartment Number: </label>
-                    <div ng-hide="userRole=='Administrator'" class="form-group" ng-class="{'has-error': form.apartmentNumber.$dirty && form.apartmentNumber.$error.required }">
-                        <input type="number" name="apartmentNumber" id="apartmentNumber" class="form-control" ng-model="apartmentNumber" required style="width: 100px">
-                        <span ng-show="form.apartmentNumber.$dirty && form.apartmentNumber.$error.required" class="help-block">Apartment Number is required</span>
-                    </div>
+                <h1 id="formH1">Register Manager</h1>
+                <fieldset id="inputs">                   
                     <div class="form-group" ng-class="{'has-error': form.username.$invalid && !form.username.$pristine && form.username.$error.required}">
                         <label class="control-label" for="username">Email: </label>
                         <input type="email" name="username" id="inputRegister" class="form-control" ng-model="userEmail" required />
@@ -52,16 +47,16 @@
                         <label class="control-label" for="confirm_password" id="confirm_password" toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Must contain at least 1 upper case, 1 lower case, 1 number and 1 special character. Minimum 8 characters">Confirm Password:</label>
                         <input type="password" name="confirm_password" id="inputRegister" class="form-control" ng-model="confirmPassword" compare-to="userPassword" required />
                         <span ng-show="form.confirm_password.$dirty && form.confirm_password.$invalid" class="help-block">Enter a valid password</span>
-                    </div>                    
+                    </div>
+
                 </fieldset>
                 <fieldset id="actions">
                     <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="registerUser()">
                         Register
                     </button>
-                    <br /><span class="spanError" style="margin-top:20px;" ng-show="responseData!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{responseData}}</span>
                 </fieldset>
-             
+                <div ng-show="responseData">{{responseData}}</div>
             </form>
         </div>
-     </div>
+    </div>
 </body>

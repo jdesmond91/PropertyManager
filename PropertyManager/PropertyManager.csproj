@@ -283,6 +283,7 @@
     <Content Include="app\Partials\Inventory\inventory.html" />
     <Content Include="app\Partials\Inventory\inventoryAdd.html" />
     <Content Include="app\Partials\Lease\leaseAdd.html" />
+    <Content Include="app\Partials\Login\registerManager.html" />
     <Content Include="app\Partials\Service\serviceAdd.html" />
     <Content Include="app\Partials\Service\servicerequest.html" />
     <Content Include="app\Partials\Service\servicerequestAdd.html" />

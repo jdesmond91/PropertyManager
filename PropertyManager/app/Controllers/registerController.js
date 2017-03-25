@@ -14,6 +14,9 @@ function registerController($scope, $location, $filter, loginService, userProfil
     $scope.refreshToken = "";
     $scope.isLoggedIn = false;
 
+    var userProf = userProfile.getProfile();
+    $scope.userRole = userProf.userRole;
+
     $scope.registerUser = function () {
         $scope.responseData = "";
         var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
@@ -28,6 +31,11 @@ function registerController($scope, $location, $filter, loginService, userProfil
             BirthDate: birthDateFiltered,
             ApartmentNumber: $scope.apartmentNumber
         };
+
+        if ($scope.userRole == "Administrator") {
+            userInfo.Role = "Manager";
+        }
+              
         var registerResult = loginService.register(userInfo);
         registerResult.then(function (data) {
             console.log(data);
@@ -35,7 +43,7 @@ function registerController($scope, $location, $filter, loginService, userProfil
             $scope.userPassword = "";
             $location.path('/home');
         }, function (response) {
-            $scope.responseData = response.statusText + "\r\n";
+            $scope.responseData = response.data + "\r\n";
             if (response.data.exceptionMessage) {
                 $scope.responseData += response.data.exceptionMessage;
             }

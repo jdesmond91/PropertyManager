@@ -153,18 +153,29 @@ namespace PropertyManager.Controllers
 
             IdentityUser user = UserManager.FindByEmailAsync(model.Email).Result;          
 
-            if (tenant == null || user == null)
+            if (user == null)
             {
                 return Content(HttpStatusCode.NotFound, "User not found");
             }
 
             IdentityResult passwordChangeResult = null ;
 
-            if (tenant.Email == user.Email)
+            foreach (IdentityUserClaim claim in user.Claims)
             {
-                string resetToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                passwordChangeResult = await UserManager.ResetPasswordAsync(user.Id, resetToken, model.NewPassword);
-            }
+                if (claim.ClaimValue == "Tenant")
+                {
+                    if (tenant != null && tenant.Email == user.Email)
+                    {
+                        string resetToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                        passwordChangeResult = await UserManager.ResetPasswordAsync(user.Id, resetToken, model.NewPassword);
+                    }
+                }
+                else if(claim.ClaimValue == "Manager")
+                {
+                    string resetToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                    passwordChangeResult = await UserManager.ResetPasswordAsync(user.Id, resetToken, model.NewPassword);
+                }
+            }          
 
             //IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
 
@@ -364,7 +375,11 @@ namespace PropertyManager.Controllers
                     return Content(HttpStatusCode.NotFound, "User not found");
                 }
 
-            }                      
+            }
+            else if(model.Role != "Manager")
+            {
+                return Content(HttpStatusCode.NotFound, "Cannot register");
+            }                  
 
             var user = new ApplicationUser() {
                 UserName = model.Email,
