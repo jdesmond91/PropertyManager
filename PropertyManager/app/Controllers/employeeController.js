@@ -48,6 +48,7 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
 
     $scope.employees = [];
     $scope.message = "";
+    $scope.errorMessage = "";
     $scope.sortType = 'FirstName';
     $scope.sortReverse = false;
     $scope.searchEmployee = "";
@@ -88,7 +89,7 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
             console.log(response.data);
             $scope.modelAdd.employeeId = response.data.Id;
             $scope.showConfirmation = true;
-            $scope.message = "Apartment Added"
+            $scope.message = "Employee Added"
         }, function (error) {
             $scope.message = error.statusText + " " + error.status;
         });
@@ -124,7 +125,7 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
             $scope.employees = response.data;
             console.log($scope.employees);
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = error.statusText;
         })
 
     } // close function
@@ -150,7 +151,7 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
                 $scope.modelEdit.HireDate = new Date(response.data.HireDate.replace('T', ' ').replace('-', '/'));
             }
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = error.statusText;
         })
 
     } // close function
@@ -208,7 +209,7 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
             console.log(response);
             getEmployee();
         }, function (error) {
-             $scope.message = "Not possible";
+            $scope.errorMessage = "Could not delete";
             
         });
     }

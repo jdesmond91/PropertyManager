@@ -1,17 +1,15 @@
 ﻿angular.module("common.services").factory("leaseService", ["$http", "$q", "appSettings", leaseService]);
 function leaseService($http, $q, appSettings) {
 
-    this.addLease = function (lease) {
-        var accessToken = sessionStorage.getItem('accessToken');
-        //var authHeaders = {};
-        //if (accessToken) {
-        //authHeaders.Authorization = 'Bearer ' + accessToken;
-        //}
+    var accessToken = sessionStorage.getItem('accessToken');
+
+    this.addLease = function (lease) {      
         var def = $q.defer();
         $http({
             url: appSettings.serverPath + "/api/leases",
             method: "POST",
             data: lease,
+            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -24,7 +22,7 @@ function leaseService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/Leases",
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -33,7 +31,7 @@ function leaseService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/Leases/" + leaseId,
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -42,7 +40,7 @@ function leaseService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/leases/id/" + tenantId + "/find",
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -54,6 +52,7 @@ function leaseService($http, $q, appSettings) {
             url: appSettings.serverPath + "/api/Leases/" + leaseId,
             method: "PUT",
             data: lease,
+            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -66,7 +65,7 @@ function leaseService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/Leases/" + id,
             method: "DELETE",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };

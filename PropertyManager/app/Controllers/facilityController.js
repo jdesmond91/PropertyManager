@@ -3,6 +3,7 @@
 function facilityController($scope, $filter, $location, $routeParams, facilityService, userProfile) {
    
     $scope.message = "";
+    $scope.errorMessage = "";
     $scope.facilities = [];
     $scope.sortType = "title";
     $scope.sortReverse = false;
@@ -85,7 +86,7 @@ function facilityController($scope, $filter, $location, $routeParams, facilitySe
             $scope.facilities = response.data;
             console.log($scope.facilities);
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = error.statusText;
         })
     } // close function
 
@@ -119,7 +120,7 @@ function facilityController($scope, $filter, $location, $routeParams, facilitySe
                 $scope.modelEdit.closeTime = new Date(response.data.CloseTime.replace('T', ' ').replace('-', '/'));
             }           
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = error.statusText;
         })
 
     } // close function
@@ -172,7 +173,7 @@ function facilityController($scope, $filter, $location, $routeParams, facilitySe
             console.log(response);
             getFacility();
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = "Could not delete";
         });
     }
 

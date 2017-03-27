@@ -1,17 +1,15 @@
 ﻿angular.module("common.services").factory("inventoryService", ["$http", "$q", "appSettings", inventoryService]);
 function inventoryService($http, $q, appSettings) {
 
+    var accessToken = sessionStorage.getItem('accessToken');
+
     this.addInventory = function (inventory) {
-        var accessToken = sessionStorage.getItem('accessToken');
-        //var authHeaders = {};
-        //if (accessToken) {
-        //authHeaders.Authorization = 'Bearer ' + accessToken;
-        //}
         var def = $q.defer();
         $http({
             url: appSettings.serverPath + "/api/inventory",
             method: "POST",
             data: inventory,
+            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -24,7 +22,7 @@ function inventoryService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/inventory",
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -33,7 +31,7 @@ function inventoryService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/inventory/" + inventoryId,
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -45,6 +43,7 @@ function inventoryService($http, $q, appSettings) {
             url: appSettings.serverPath + "/api/inventory/" + inventoryId,
             method: "PUT",
             data: inventory,
+            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -57,7 +56,7 @@ function inventoryService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/inventory/" + id,
             method: "DELETE",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };

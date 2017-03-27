@@ -135,7 +135,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
             $scope.announces = response.data;
             console.log($scope.announces);
         }, function (error){
-            $scope.message = error.statusText;       
+            $scope.errorMessage = error.statusText;       
         })
 
     } // close function
@@ -156,7 +156,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
             }
             
         }, function (error){
-            $scope.message = error.statusText;
+            $scope.errorMessage = error.statusText;
         })
 
     } // close function
@@ -237,7 +237,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
             console.log(response);
             getAnnouncement();
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = "Could not delete";
         });
     }
 

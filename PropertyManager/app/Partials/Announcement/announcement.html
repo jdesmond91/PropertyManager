@@ -70,6 +70,7 @@
                                     <div class="detailDivTableCell">{{announce.Description}}</div>
                                 </div>
                             </div>
+                            <span style="margin:10px;" class="spanError" ng-show="errorMessage!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{errorMessage}}</span>
                             <div class="detailRight">
                                 <button type="submit" class="btn btn-primary" style="float: right;" ng-click="editClick(announce.Id)">Edit</button>
                                 <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;"  ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(announce.Id)">Delete</button>

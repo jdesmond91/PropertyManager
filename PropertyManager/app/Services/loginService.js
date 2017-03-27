@@ -25,7 +25,7 @@ function loginService($http, appSettings) {
 
     this.getUserInfo = function (email) {
         var resp = $http({
-            url: appSettings.serverPath + "/api/units/getUser/" + email + "/find",
+            url: appSettings.serverPath + "/api/user/email/" + email + "/find",
             method: "GET",         
         });
         return resp;

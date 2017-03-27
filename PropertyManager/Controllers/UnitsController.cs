@@ -12,28 +12,15 @@ namespace PropertyManager.Controllers
         private Manager m = new Manager();
 
         // GET: api/Units
+        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get()
         {
             return Ok(m.UnitGetAll());
         }
 
-        [Route("api/units/getUser/{email}/find")]
-        [HttpGet]
-        public IHttpActionResult GetUser(string email)
-        {
-            var o = m.getByEmail(email);
-
-            if (o == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(o);
-            }
-        }
 
         // GET: api/Units/5
+        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
@@ -52,6 +39,7 @@ namespace PropertyManager.Controllers
         }
 
         // POST: api/Units
+        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Post([FromBody]UnitAdd newItem)
         {
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
@@ -76,6 +64,7 @@ namespace PropertyManager.Controllers
         }
 
         // PUT: api/Units/5
+        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Put(int id, [FromBody]UnitEdit editedItem)
         {
             if (editedItem == null)
@@ -110,9 +99,11 @@ namespace PropertyManager.Controllers
         }
 
         // DELETE: api/Units/5
-        public void Delete(int id)
+        [Authorize(Roles = "Administrator, Manager")]
+        public HttpResponseMessage Delete(int id)
         {
-            m.UnitDelete(id);
+            var response = m.UnitDelete(id);
+            return response;
         }
     }
 }

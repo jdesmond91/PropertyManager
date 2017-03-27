@@ -42,6 +42,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
     };
   
     $scope.message = "";
+    $scope.errorMessage = "";
     $scope.leases = [];
     $scope.sortType = "ApartmentNumber";
     $scope.sortReverse = false;
@@ -146,7 +147,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             $scope.leases = response.data;
             console.log($scope.leases);
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = error.statusText;
         })
     } // close function
 
@@ -167,7 +168,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             }
 
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.errorMessage = error.statusText;
         })
 
     } // close function
@@ -229,7 +230,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             console.log(response);
             getLease();
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = "Could not delete";
         });
     }
 

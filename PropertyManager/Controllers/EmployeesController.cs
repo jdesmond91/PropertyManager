@@ -12,12 +12,14 @@ namespace PropertyManager.Controllers
         private Manager m = new Manager();
 
         // GET: api/Employees
+        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Get()
         {
             return Ok(m.EmployeeGetAll());
         }
 
         // GET: api/Employees/5
+        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
@@ -36,6 +38,7 @@ namespace PropertyManager.Controllers
         }
 
         // POST: api/Employees
+        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Post([FromBody]EmployeeAdd newItem)
         {
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
@@ -60,6 +63,7 @@ namespace PropertyManager.Controllers
         }
 
         // PUT: api/Employees/5
+        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Put(int id, [FromBody]EmployeeEdit editedItem)
         {
             if (editedItem == null)
@@ -94,9 +98,11 @@ namespace PropertyManager.Controllers
         }
 
         // DELETE: api/Employees/5
-        public void Delete(int id)
+        [Authorize(Roles = "Administrator, Manager")]
+        public HttpResponseMessage Delete(int id)
         {
-            m.EmployeeDelete(id);
+            var response = m.EmployeeDelete(id);
+            return response;
         }
     }
 }

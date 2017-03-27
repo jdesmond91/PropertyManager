@@ -25,6 +25,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
     $scope.facilityBookings = [];
     $scope.facilities = [];
     $scope.message = "";
+    $scope.errorMessage = "";
     $scope.tenantId = "";
 
     getAllFacilities();
@@ -149,7 +150,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
                 });
             });
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = error.statusText;
         })
 
    } // close function
@@ -190,7 +191,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
                 $scope.modelEdit.endTime = new Date(response.data.EndTime.replace('T', ' ').replace('-', '/'));
             }
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = error.statusText;
         })
 
     } // close function
@@ -267,7 +268,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
             $scope.facilities = response.data;
             console.log($scope.facilities);
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = error.statusText;
         })
     }
 
@@ -291,7 +292,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
             console.log(response);
             getFacilityBooking();
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = "Could not delete";
         });
     }
 

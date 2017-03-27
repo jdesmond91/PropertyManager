@@ -31,7 +31,7 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
         floorNumber: "",
         status: "Vacant",
         unitId: "",
-        unitType: 0
+        unitType: ""
     };
 
     $scope.modelEdit = {
@@ -39,7 +39,7 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
         floorNumber: 0,
         status: "",
         unitId: "",
-        unitType: 0
+        unitType: ""
     };
 
     $scope.addOneClick = function () {
@@ -73,11 +73,11 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
 
      $scope.addAnother = function () {
          $scope.modelAdd = {
-             aptNumber: 0,
-             floorNumber: 0,
-             status: "",
-             unitId: 0,
-             unitType: 0
+             aptNumber: "",
+             floorNumber: "",
+             status: "Vacant",
+             unitId: "",
+             unitType: ""
          };
          $scope.message = "";
          $scope.form.$setPristine();

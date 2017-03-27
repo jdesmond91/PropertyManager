@@ -40,6 +40,7 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
     $scope.serviceRequests = [];
     $scope.services = [];
     $scope.message = "";
+    $scope.errorMessage = "";
     $scope.sortType = "requestDate";
     $scope.sortReverse = false;
     $scope.searchRequest = "";
@@ -135,7 +136,7 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
             $scope.serviceRequests = response.data;
             console.log($scope.serviceRequests);
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = error.statusText;
         })
 
     } // close function
@@ -157,7 +158,7 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
             }
 
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = error.statusText;
         })
 
     } // close function
@@ -236,7 +237,7 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
             console.log(response);
             getServiceRequest();
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = "Could not delete";
         });
     }
 

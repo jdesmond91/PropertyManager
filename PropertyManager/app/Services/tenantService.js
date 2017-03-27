@@ -1,17 +1,15 @@
 ﻿angular.module("common.services").factory("tenantService", ["$http", "$q", "appSettings", tenantService]);
 function tenantService($http, $q, appSettings) {
 
+    var accessToken = sessionStorage.getItem('accessToken');
+
     this.addTenant = function (tenant) {
-        var accessToken = sessionStorage.getItem('accessToken');
-        //var authHeaders = {};
-        //if (accessToken) {
-        //authHeaders.Authorization = 'Bearer ' + accessToken;
-        //}
         var def = $q.defer();
         $http({
             url: appSettings.serverPath + "/api/tenants",
             method: "POST",
             data: tenant,
+            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -24,7 +22,7 @@ function tenantService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/tenants",
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -33,7 +31,7 @@ function tenantService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/tenants/" + tenantId,
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -42,7 +40,7 @@ function tenantService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/tenants/email/" + tenantEmail + "/find",
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -54,6 +52,7 @@ function tenantService($http, $q, appSettings) {
             url: appSettings.serverPath + "/api/tenants/" + tenantId,
             method: "PUT",
             data: tenant,
+            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -66,7 +65,7 @@ function tenantService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/tenants/" + id,
             method: "DELETE",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };

@@ -31,6 +31,7 @@ function inventoryController($scope, $filter, $location, $routeParams, inventory
 
     $scope.inventorys = [];
     $scope.message = "";
+    $scope.errorMessage = "";
     $scope.sortType = "productName";
     $scope.sortReverse = false;
     $scope.searchInventory = "";
@@ -79,7 +80,7 @@ function inventoryController($scope, $filter, $location, $routeParams, inventory
             $scope.inventorys = response.data;
             console.log($scope.inventorys);
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.errorMessage = response.statusText;
         })
 
     } // close function
@@ -92,7 +93,7 @@ function inventoryController($scope, $filter, $location, $routeParams, inventory
             $scope.modelEdit.supplier = response.data.Supplier;
             $scope.modelEdit.quantity = response.data.Quantity;
          }, function (error) {
-            $scope.message = error.statusText;
+             $scope.errorMessage = error.statusText;
         })
 
     } // close function
@@ -131,7 +132,7 @@ function inventoryController($scope, $filter, $location, $routeParams, inventory
             console.log(response);
             getInventory();
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = "Could not delete";
         });
     }
 

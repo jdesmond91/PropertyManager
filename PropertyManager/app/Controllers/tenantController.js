@@ -103,7 +103,7 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
             $scope.tenants = response.data;
             console.log($scope.tenants);
         }, function (error) {
-            $scope.message = error.statusText;
+            $scope.errorMessage = error.statusText;
         })
 
     } // close function
@@ -118,18 +118,23 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
             $scope.modelEdit.email = response.data.Email;
             $scope.modelEdit.homeNumber = response.data.HomePhone;
             $scope.modelEdit.birthDate = new Date(response.data.BirthDate.replace('T', ' ').replace('-', '/'));
-            return response.data.Id;
+        }, function (error) {
+            $scope.errorMessage = response.statusText;
+        });
+
+
+       /*     return response.data.Id;
         }).then(function (tenantId){
             var leaseInfo = leaseService.getLeaseByTenantId(tenantId);
             leaseInfo.then(function (response) {
                 console.log(response);
                 $scope.apartmentNumber = response.data.Apartment.ApartmentNumber;
             }, function (error) {
-                $scope.error = response.statusText;
+                $scope.errorMessage = response.statusText;
             })
         }, function (error) {
-            $scope.error = response.statusText;
-        })
+            $scope.errorMessage = response.statusText;
+        })*/
 
     } // close function
 

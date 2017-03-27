@@ -142,8 +142,16 @@
                             <a href="#/workorderrequestmanager"><i class="fa fa-gavel"></i> Work Order Request</a>
                         </li>
                         <li ng-show="userRole=='Administrator'">
-                            <a href="#/registermanager"><i class="fa fa-gavel"></i> Register Manager</a>
-                        </li>
+                            <a href=""><i class="fa fa-users"></i> Users<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="active" href="#/manageuser">See Users</a>
+                                </li>
+                                <li>
+                                    <a class="active" href="#/registermanager">Register Manager</a>
+                                </li>
+                            </ul>
+                        </li>                        
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
