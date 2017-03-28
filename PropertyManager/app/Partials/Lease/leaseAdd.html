@@ -28,7 +28,7 @@
                         <span class="spanError" ng-show="form.monthlyRent.$error.pattern || form.monthlyRent.$invalid && !form.monthlyRent.$pristine">Enter valid number</span>
 
                         <label class="control-label" for="securityDeposit">Security Deposit</label>
-                        <input type="number" name="securityDeposit" id="securityDeposit" step=0.1 ng-model="modelAdd.securityDeposit" max="10000" ng-pattern="/^([0-9]+.[0-9]{0,2})$/" class="form-control">
+                        <input type="number" name="securityDeposit" id="securityDeposit" step=0.1 ng-model="modelAdd.securityDeposit" max="10000" ng-pattern="/^([0-9]+.[0-9]{0,2})$/" class="form-control" required>
                         <span class="spanError" ng-show="form.securityDeposit.$error.pattern || form.securityDeposit.$invalid && !form.securityDeposit.$pristine">Enter valid number</span>
 
                         <label class="control-label" for="aptnumber">Apartment Number</label>
@@ -105,7 +105,7 @@
                         <span class="spanError" ng-show="formEdit.monthlyRent.$error.pattern || formEdit.monthlyRent.$invalid && !formEdit.monthlyRent.$pristine">Enter valid number</span>
 
                         <label class="control-label" for="securityDeposit">Security Deposit</label>
-                        <input type="number" name="securityDeposit" id="securityDeposit" step=0.1 ng-model="modelEdit.securityDeposit" max="10000" ng-pattern="/^([0-9]+.[0-9]{0,2})$/" class="form-control">
+                        <input type="number" name="securityDeposit" id="securityDeposit" step=0.1 ng-model="modelEdit.securityDeposit" max="10000" ng-pattern="/^([0-9]+.[0-9]{0,2})$/" class="form-control" required>
                         <span class="spanError" ng-show="formEdit.securityDeposit.$error.pattern || formEdit.securityDeposit.$invalid && !formEdit.securityDeposit.$pristine">Enter valid number</span>
                     
                     </fieldset>
