@@ -98,7 +98,7 @@ namespace PropertyManager.Controllers
                 userManager.UpdateAsync(user);
                 ds.SaveChanges();
             }
-                return Mapper.Map<UserBase>(user);
+            return Mapper.Map<UserBase>(user);
         }
 
         public HttpResponseMessage UserDelete(string email)
@@ -817,30 +817,26 @@ namespace PropertyManager.Controllers
             return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
         }
 
-        public UnitPhotoWithMedia UnitPhotoGetByAptNumber(int unitId)
-        {
-            var c = ds.UnitPhotos.SingleOrDefault(a => a.UnitId == unitId);
-
-            return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
-        }
         public UnitPhotoBase UnitPhotoAdd(UnitPhotoAdd newItem)
         {
             if (newItem == null)
             {
                 return null;
             }
+          
             var associatedItem = ds.Units.Find(newItem.UnitId);
             if (associatedItem == null)
             {
                 return null;
             }
             var addedItem = Mapper.Map<UnitPhoto>(newItem);
-            addedItem.UnitId = newItem.UnitId;
+            addedItem.Unit = associatedItem;
 
             ds.UnitPhotos.Add(addedItem);
             ds.SaveChanges();
 
-            return (addedItem == null) ? null : Mapper.Map<UnitPhotoBase>(addedItem);
+            return Mapper.Map<UnitPhotoBase>(addedItem);
+
         }
 
         public UnitPhotoBase UnitPhotoEdit(UnitPhotoEdit editedItem)
@@ -864,19 +860,19 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public bool UnitPhotoSetPhoto(int id, string contentType, byte[] photo)
-        {
-            if (string.IsNullOrEmpty(contentType) | photo == null) { return false; }
+        //public bool UnitPhotoSetPhoto(int id, string contentType, byte[] photo)
+        //{
+        //    if (string.IsNullOrEmpty(contentType) | photo == null) { return false; }
 
-            var storedItem = ds.UnitPhotos.Include("Unit").SingleOrDefault(m => m.Id == id);
+        //    var storedItem = ds.UnitPhotos.Include("Unit").SingleOrDefault(m => m.Id == id);
 
-            if (storedItem == null) { return false; }
+        //    if (storedItem == null) { return false; }
 
-            storedItem.ContentType = contentType;
-            storedItem.Photo = photo;
+        //    storedItem.ContentType = contentType;
+        //    storedItem.Photo = photo;
 
-            return (ds.SaveChanges() > 0) ? true : false;
-        }
+        //    return (ds.SaveChanges() > 0) ? true : false;
+        //}
 
         public void UnitPhotoDelete(int id)
         {

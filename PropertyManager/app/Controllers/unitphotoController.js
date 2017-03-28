@@ -1,7 +1,9 @@
-﻿angular.module("propertyManagerApp").controller("unitphotoController", ["$scope", "$filter", "unitphotoService", "userProfile", unitphotoController]);
+﻿angular.module("propertyManagerApp").controller("unitphotoController", ["$http", "$scope", "$filter", "$timeout",  "unitphotoService", "userProfile", unitphotoController]);
 
-function unitphotoController($scope, $filter, unitphotoService, userProfile) {
+function unitphotoController($http, $scope, $filter, $timeout, unitphotoService, userProfile) {
 
+   
+   
     $scope.name = "";
     $scope.description = "";
     $scope.unitId = "";
@@ -31,11 +33,57 @@ function unitphotoController($scope, $filter, unitphotoService, userProfile) {
         allResults.then(function (response) {
             $scope.unitPhotos = response.data;
             console.log($scope.unitPhotos);
+          
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
+            console.log(error);
         })
 
     } // close function
+
+    $scope.files = [];
+
+    //2. a simple model that want to pass to Web API along with selected files  
+    $scope.model = {
+        UnitId: 1,
+        Description: "Multiple upload files",
+        PathName: ""
+    };
+    //3. listen for the file selected event which is raised from directive  
+    $scope.$on("seletedFile", function (event, args) {
+        $scope.$apply(function () {
+            //add the file object to the scope's files collection  
+            $scope.files.push(args.file);
+        });
+    });
+
+    //4. Post data and selected files.  
+    $scope.save = function () {
+        $http({
+            method: 'POST',
+            url: "http://localhost:24792/PostFileWithData",
+            headers: { 'Content-Type': undefined },
+
+            transformRequest: function (data) {
+                var formData = new FormData();
+                formData.append("model", angular.toJson(data.model));
+                for (var i = 0; i < data.files.length; i++) {
+                    formData.append("file" + i, data.files[i]);
+       
+                }
+                return formData;
+            },
+            data: { model: $scope.model, files: $scope.files },
+            file: $scope.files
+        }).
+        then(function (response) {            
+            console.log(response);
+        }, function (err) {           
+        });
+    };
+
+
+
 
     $scope.getUnitPhotoById = function () {
         var resultById = unitphotoService.getByIdUnitPhoto($scope.unitphotoId);
@@ -68,28 +116,5 @@ function unitphotoController($scope, $filter, unitphotoService, userProfile) {
         });
     } // close function
 
-    var fd;
-    var reader;
-    $scope.uploadFile = function (files) {
-        reader = new FileReader();
-        reader.onload = function (e) {
-            console.log("about to encode");
-            $scope.encoded_file = btoa(e.target.result.toString());
-        };
-        reader.readAsBinaryString(files[0]);
-        //fd = new FormData();
-        //fd.append("file", files[0])
-    };
-
-    $scope.addPhoto = function(){
-            var addPhoto = unitphotoService.setPhoto(reader, $scope.unitphotoId);
-            addPhoto.then(function (response) {
-                console.log("added");
-                console.log(response);
-            }, function (error) {
-                $scope.message = response.statusText;
-            });
-    }
-       
 
 }

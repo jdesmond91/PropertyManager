@@ -34,12 +34,14 @@ namespace PropertyManager
 
             bundles.Add(new ScriptBundle("~/bundles/propertymanagerapp/script").Include(
                       "~/Scripts/angular.js",
+                      "~/Scripts/ng-file-upload.js",
                       "~/Scripts/angular-route.js",
                       "~/Scripts/angular-resource.js",
                       "~/Scripts/jquery-1.10.2.js",
                       "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                       "~/Scripts/bootstrap.min.js",
                       "~/Scripts/angular-ui/ui-bootstrap.min.js",
+                      
                       "~/app/Vendor/metisMenu.js",
                       "~/app/Vendor/moment.js",
                       "~/app/Vendor/calendar.js",

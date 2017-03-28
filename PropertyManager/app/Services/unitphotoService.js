@@ -3,10 +3,6 @@ function unitphotoService($http, $q, appSettings) {
 
     this.addUnitPhoto = function (unitPhoto) {
         var accessToken = sessionStorage.getItem('accessToken');
-        //var authHeaders = {};
-        //if (accessToken) {
-        //authHeaders.Authorization = 'Bearer ' + accessToken;
-        //}
         var def = $q.defer();
         $http({
             url: appSettings.serverPath + "/api/unitphotos",
@@ -24,7 +20,6 @@ function unitphotoService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/unitphotos",
             method: "GET",
-            //headers: authHeaders
         });
         return response;
     };
