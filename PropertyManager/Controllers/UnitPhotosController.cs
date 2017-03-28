@@ -127,7 +127,7 @@ namespace PropertyManager.Controllers
             // sending any form data with your upload request
             var fileUploadObj = GetFormData<UnitPhotoBase>(result);
             var unitphoto = Mapper.Map<UnitPhotoAdd>(fileUploadObj);
-            unitphoto.PathName = "~/App_Data/Tmp/FileUploads/" + originalFileName;
+            unitphoto.PathName = "~/Album/FileUploads/" + originalFileName;
             m.UnitPhotoAdd(unitphoto);
 
 

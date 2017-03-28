@@ -11,9 +11,7 @@ namespace PropertyManager.Models
         public int Id { get; set; }
         public string PathName { get; set; }
         public string Description { get; set; }       
-        public Unit Unit { get; set; }
-        public int UnitId { get; set; }
-
+        public virtual Unit Unit { get; set; }
      
     }
 
