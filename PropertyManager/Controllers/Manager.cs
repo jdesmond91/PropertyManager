@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using PropertyManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
 
 namespace PropertyManager.Controllers
 {
@@ -80,26 +80,25 @@ namespace PropertyManager.Controllers
             return response;
         }
 
-        public HttpResponseMessage UserAddClaim(string email)
+        public UserBase UserAddClaim(string email)
         {
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
+            // Return the entire user account collection, mapped
             var user = userManager.FindByEmailAsync(email).Result;
 
             var response = new HttpResponseMessage();
             if (user == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return null;
             }
             else
             {
                 user.Role = "Tenant";
                 userManager.UpdateAsync(user);
                 ds.SaveChanges();
-                response.Headers.Add("AddClaimMessage", "Claim Added");
             }
-
-            return response;
+            return Mapper.Map<UserBase>(user);
         }
 
         public HttpResponseMessage UserDelete(string email)
@@ -114,7 +113,7 @@ namespace PropertyManager.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
-            else
+            else              
             {
                 try
                 {
@@ -806,45 +805,42 @@ namespace PropertyManager.Controllers
         //***********************************************UNITPHOTO SECTION ***********************************************
         public IEnumerable<UnitPhotoBase> UnitPhotoGetAll()
         {
-            var c = ds.UnitPhotos.OrderBy(a => a.Id);
+            var c = ds.UnitPhotos.Include("Unit").OrderBy(a => a.Id);
 
             return Mapper.Map<IEnumerable<UnitPhotoBase>>(c);
         }
 
-        public UnitPhotoBase UnitPhotoGetByUnitId(int unitId)
+        public UnitPhotoWithMedia UnitPhotoGetById(int id)
         {
-            var c = ds.UnitPhotos.FirstOrDefault(a => a.Unit.Id == unitId);
+            var c = ds.UnitPhotos.Include("Unit").SingleOrDefault(a => a.Id == id);
 
-            return Mapper.Map<UnitPhotoBase>(c);
+            return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
         }
 
-        public UnitPhotoBase UnitPhotoGetById(int id)
+        public UnitPhotoWithMedia UnitPhotoGetByAptNumber(int unitId)
         {
-            var c = ds.UnitPhotos.FirstOrDefault(a => a.Id == id);
+            var c = ds.UnitPhotos.SingleOrDefault(a => a.UnitId == unitId);
 
-            return Mapper.Map<UnitPhotoBase>(c);
+            return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
         }
-
         public UnitPhotoBase UnitPhotoAdd(UnitPhotoAdd newItem)
         {
             if (newItem == null)
             {
                 return null;
             }
-          
             var associatedItem = ds.Units.Find(newItem.UnitId);
             if (associatedItem == null)
             {
                 return null;
             }
             var addedItem = Mapper.Map<UnitPhoto>(newItem);
-            addedItem.Unit = associatedItem;
+            addedItem.UnitId = newItem.UnitId;
 
             ds.UnitPhotos.Add(addedItem);
             ds.SaveChanges();
 
-            return Mapper.Map<UnitPhotoBase>(addedItem);
-
+            return (addedItem == null) ? null : Mapper.Map<UnitPhotoBase>(addedItem);
         }
 
         public UnitPhotoBase UnitPhotoEdit(UnitPhotoEdit editedItem)
@@ -868,6 +864,19 @@ namespace PropertyManager.Controllers
             }
         }
 
+        public bool UnitPhotoSetPhoto(int id, string contentType, byte[] photo)
+        {
+            if (string.IsNullOrEmpty(contentType) | photo == null) { return false; }
+
+            var storedItem = ds.UnitPhotos.Include("Unit").SingleOrDefault(m => m.Id == id);
+
+            if (storedItem == null) { return false; }
+
+            storedItem.ContentType = contentType;
+            storedItem.Photo = photo;
+
+            return (ds.SaveChanges() > 0) ? true : false;
+        }
 
         public void UnitPhotoDelete(int id)
         {
@@ -879,13 +888,7 @@ namespace PropertyManager.Controllers
             else
             {
                 try
-                {
-                    var filePath = "~" + storedItem.PathName;
-                    if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(filePath)))
-                    {
-                        System.IO.File.Delete(HttpContext.Current.Server.MapPath(filePath));
-                    }
-
+                {              
                     ds.UnitPhotos.Remove(storedItem);
                     ds.SaveChanges();
                 }
@@ -1151,12 +1154,7 @@ namespace PropertyManager.Controllers
                 editedApt.Status = "Occupied";
                 ds.Entry(associatedApartment).CurrentValues.SetValues(editedApt);
 
-                UserBase user = new UserBase();
-                user = getByEmail(associatedTenant.Email);
-                if (user != null)
-                {
-                    UserAddClaim(user.UserName);
-                }
+                //var user = UserAddClaim(associatedTenant.Email);
 
                 ds.SaveChanges();
 
@@ -1212,7 +1210,7 @@ namespace PropertyManager.Controllers
 
                     ds.Leases.Remove(storedItem);
 
-
+                   
                     if (user != null)
                     {
                         UserRemoveClaim(user.UserName);
