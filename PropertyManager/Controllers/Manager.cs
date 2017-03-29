@@ -810,19 +810,6 @@ namespace PropertyManager.Controllers
             return Mapper.Map<IEnumerable<UnitPhotoBase>>(c);
         }
 
-        public UnitPhotoWithMedia UnitPhotoGetById(int id)
-        {
-            var c = ds.UnitPhotos.Include("Unit").SingleOrDefault(a => a.Id == id);
-
-            return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
-        }
-
-        public UnitPhotoWithMedia UnitPhotoGetByAptNumber(int unitId)
-        {
-            var c = ds.UnitPhotos.SingleOrDefault(a => a.UnitId == unitId);
-
-            return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
-        }
         public UnitPhotoBase UnitPhotoAdd(UnitPhotoAdd newItem)
         {
             if (newItem == null)
@@ -835,7 +822,7 @@ namespace PropertyManager.Controllers
                 return null;
             }
             var addedItem = Mapper.Map<UnitPhoto>(newItem);
-            addedItem.UnitId = newItem.UnitId;
+            addedItem.Unit = associatedItem;
 
             ds.UnitPhotos.Add(addedItem);
             ds.SaveChanges();
@@ -871,9 +858,6 @@ namespace PropertyManager.Controllers
             var storedItem = ds.UnitPhotos.Include("Unit").SingleOrDefault(m => m.Id == id);
 
             if (storedItem == null) { return false; }
-
-            storedItem.ContentType = contentType;
-            storedItem.Photo = photo;
 
             return (ds.SaveChanges() > 0) ? true : false;
         }
