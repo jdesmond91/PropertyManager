@@ -12,14 +12,12 @@ namespace PropertyManager.Controllers
         private Manager m = new Manager();
 
         // GET: api/Apartments
-        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get()
         {
             return Ok(m.ApartmentGetAll());
         }
 
         // GET: api/Apartments/5
-        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
@@ -38,7 +36,6 @@ namespace PropertyManager.Controllers
         }
 
         // POST: api/Apartments
-        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Post([FromBody]ApartmentAdd newItem)
         {          
 
@@ -70,7 +67,6 @@ namespace PropertyManager.Controllers
         }
 
         // PUT: api/Apartments/5
-        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Put(int id, [FromBody]ApartmentEdit editedItem)
         {
             if (editedItem == null)
@@ -105,7 +101,6 @@ namespace PropertyManager.Controllers
         }
 
         // DELETE: api/Apartments/5
-        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Delete(int id)
         {
             var leaseInfo = m.LeaseGetByAptNumber(id);

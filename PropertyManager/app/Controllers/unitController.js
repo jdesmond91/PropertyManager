@@ -43,7 +43,6 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
     };
 
     $scope.message = "";
-    $scope.errorMessage = "";
     $scope.units = [];
     $scope.sortType = "bedrooms";
     $scope.sortReverse = false;
@@ -141,7 +140,7 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
             $scope.units = response.data;
             console.log($scope.units);
         }, function (error) {
-            $scope.errorMessage = response.statusText;
+            $scope.message = response.statusText;
         })
 
     } // close function
@@ -160,7 +159,7 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
             $scope.modelEdit.laundry = response.data.Laundry;
 
         }, function (error) {
-            $scope.errorMessage = error.statusText;
+            $scope.message = error.statusText;
         })
 
     } // close function
@@ -207,7 +206,7 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
             console.log(response);
             getUnit();
         }, function (error) {
-            $scope.errorMessage = "Could not delete";
+            $scope.message = error.statusText;
         });
     }
 

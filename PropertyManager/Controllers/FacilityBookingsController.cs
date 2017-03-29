@@ -12,14 +12,12 @@ namespace PropertyManager.Controllers
         private Manager m = new Manager();
 
         // GET: api/FacilityBookings
-        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get()
         {
             return Ok(m.FacilityBookingGetAllWithFacility());
         }
 
         // GET: api/FacilityBookings/5
-        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
@@ -38,7 +36,6 @@ namespace PropertyManager.Controllers
         }
 
         // POST: api/FacilityBookings
-        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Post([FromBody]FacilityBookingAdd newItem)
         {
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
@@ -110,7 +107,6 @@ namespace PropertyManager.Controllers
         }
 
         // PUT: api/FacilityBookings/5
-        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Put(int id, [FromBody]FacilityBookingEdit editedItem)
         {
             if (editedItem == null)
@@ -161,11 +157,9 @@ namespace PropertyManager.Controllers
         }
 
         // DELETE: api/FacilityBookings/5
-        [Authorize(Roles = "Administrator, Manager, Tenant")]
-        public HttpResponseMessage Delete(int id)
+        public void Delete(int id)
         {
-            var response = m.FacilityBookingDelete(id);
-            return response;
+            m.FacilityBookingDelete(id);
         }
     }
 }

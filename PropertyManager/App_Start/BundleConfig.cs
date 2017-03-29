@@ -65,7 +65,6 @@ namespace PropertyManager
                       "~/app/Services/tenantService.js",
                       "~/app/Services/unitService.js",
                       "~/app/Services/unitphotoService.js",
-                      "~/app/Services/userService.js",
                       "~/app/Services/userProfile.js",
                       "~/app/Services/workOrderService.js",
                       //CONTROLLERS
@@ -85,7 +84,6 @@ namespace PropertyManager
                       "~/app/Controllers/tenantController.js",
                       "~/app/Controllers/unitController.js",
                       "~/app/Controllers/unitphotoController.js",
-                      "~/app/Controllers/userController.js",
                       "~/app/Controllers/workOrderController.js",
                       "~/app/Controllers/workOrderManagerController.js"
             ));

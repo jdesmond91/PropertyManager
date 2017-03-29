@@ -12,14 +12,12 @@ namespace PropertyManager.Controllers
         private Manager m = new Manager();
 
         // GET: api/Inventory
-        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Get()
         {
             return Ok(m.InventoryGetAll());
         }
 
         // GET: api/Inventory/5
-        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
@@ -38,7 +36,6 @@ namespace PropertyManager.Controllers
         }
 
         // POST: api/Inventory
-        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Post([FromBody]InventoryAdd newItem)
         {
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
@@ -63,7 +60,6 @@ namespace PropertyManager.Controllers
         }
 
         // PUT: api/Inventory/5
-        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Put(int id, [FromBody]InventoryEdit editedItem)
         {
             if (editedItem == null)
@@ -98,11 +94,9 @@ namespace PropertyManager.Controllers
         }
 
         // DELETE: api/Inventory/5
-        [Authorize(Roles = "Administrator, Manager")]
-        public HttpResponseMessage Delete(int id)
+        public void Delete(int id)
         {
-            var response =  m.InventoryDelete(id);
-            return response;
+            m.InventoryDelete(id);
         }
     }
 }

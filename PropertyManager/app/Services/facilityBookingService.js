@@ -1,15 +1,17 @@
 ﻿angular.module("common.services").factory("facilityBookingService", ["$http", "$q", "appSettings", facilityBookingService]);
 function facilityBookingService($http, $q, appSettings) {
 
-    var accessToken = sessionStorage.getItem('accessToken');
-
     this.addFacilityBooking = function (facilityBooking) {
+        var accessToken = sessionStorage.getItem('accessToken');
+        //var authHeaders = {};
+        //if (accessToken) {
+        //authHeaders.Authorization = 'Bearer ' + accessToken;
+        //}
         var def = $q.defer();
         $http({
             url: appSettings.serverPath + "/api/FacilityBookings",
             method: "POST",
             data: facilityBooking,
-            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -22,7 +24,7 @@ function facilityBookingService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/FacilityBookings",
             method: "GET",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };
@@ -31,7 +33,7 @@ function facilityBookingService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/FacilityBookings/" + facilityBookingId,
             method: "GET",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };
@@ -43,7 +45,6 @@ function facilityBookingService($http, $q, appSettings) {
             url: appSettings.serverPath + "/api/FacilityBookings/" + facilityBookingId,
             method: "PUT",
             data: facilityBooking,
-            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -56,7 +57,7 @@ function facilityBookingService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/FacilityBookings/" + id,
             method: "DELETE",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };
