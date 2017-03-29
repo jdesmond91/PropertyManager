@@ -12,12 +12,14 @@ namespace PropertyManager.Controllers
         private Manager m = new Manager();
 
         // GET: api/Leases
+        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get()
         {
             return Ok(m.LeaseGetAllWithInformation());
         }
 
         // GET: api/Leases/5
+        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
@@ -36,6 +38,7 @@ namespace PropertyManager.Controllers
         }
 
         [Route("api/leases/id/{id}/find")]
+        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult GetByEmail(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
@@ -54,6 +57,7 @@ namespace PropertyManager.Controllers
         }
 
         // POST: api/Leases
+        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Post([FromBody]LeaseAdd newItem)
         {
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
@@ -90,6 +94,7 @@ namespace PropertyManager.Controllers
         }
 
         // PUT: api/Leases/5
+        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Put(int id, [FromBody]LeaseEdit editedItem)
         {
             if (editedItem == null)
@@ -124,6 +129,7 @@ namespace PropertyManager.Controllers
         }
 
         // DELETE: api/Leases/5
+        [Authorize(Roles = "Administrator, Manager")]
         public void Delete(int id)
         {
             m.LeaseDelete(id);

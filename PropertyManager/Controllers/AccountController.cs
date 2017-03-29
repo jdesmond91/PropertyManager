@@ -151,14 +151,39 @@ namespace PropertyManager.Controllers
         [Route("userGetByEmail/{email}/find")]
         public UserBase getByEmail(string email)
         {
-            // Attempt to fetch the object
-            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
             // Attempt to locate the object
             IdentityUser user = UserManager.FindByEmailAsync(email).Result;
 
             return (user == null) ? null : Mapper.Map<UserBase>(user);
 
+        }
+
+        [AllowAnonymous]
+        [Route("userDelete/{email}/delete")]
+        public HttpResponseMessage UserDelete(string email)
+        {
+   
+            ApplicationUser user = UserManager.FindByEmailAsync(email).Result;
+
+            var response = new HttpResponseMessage();
+            if (user == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            else
+            {
+                try
+                {
+                    UserManager.DeleteAsync(user);
+                    response.Headers.Add("DeleteUserMessage", "Delete user successful");
+                }
+                catch (Exception)
+                {
+
+                    response.Headers.Add("DeleteUserMessage", "Could not delete user");
+                }
+            }
+            return response;
         }
 
         // POST api/Account/SetPassword

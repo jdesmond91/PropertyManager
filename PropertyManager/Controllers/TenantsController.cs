@@ -12,12 +12,14 @@ namespace PropertyManager.Controllers
         private Manager m = new Manager();
 
         // GET: api/Tenants
+        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get()
         {
             return Ok(m.TenantGetAll());
         }
 
         // GET: api/Tenants/5
+        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
@@ -36,6 +38,7 @@ namespace PropertyManager.Controllers
         }
 
         [Route("api/tenants/email/{email}/find")]
+        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult GetByEmail(string email)
         {
             if (email == "") { return NotFound(); }
@@ -54,6 +57,7 @@ namespace PropertyManager.Controllers
         }
 
         // POST: api/Tenants
+        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Post([FromBody]TenantAdd newItem)
         {
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
@@ -78,6 +82,7 @@ namespace PropertyManager.Controllers
         }
 
         // PUT: api/Tenants/5
+        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Put(int id, [FromBody]TenantEdit editedItem)
         {
             if (editedItem == null)
@@ -112,6 +117,7 @@ namespace PropertyManager.Controllers
         }
 
         // DELETE: api/Tenants/5
+        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Delete(int id)
         {
             var leaseInfo = m.LeaseGetByTenantId(id);

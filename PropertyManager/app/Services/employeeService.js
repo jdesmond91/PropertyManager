@@ -1,17 +1,15 @@
 ﻿angular.module("common.services").factory("employeeService", ["$http", "$q", "appSettings", employeeService]);
 function employeeService($http, $q, appSettings) {
 
+    var accessToken = sessionStorage.getItem('accessToken');
+
     this.addEmployee = function (employee) {
-        var accessToken = sessionStorage.getItem('accessToken');
-        //var authHeaders = {};
-        //if (accessToken) {
-        //authHeaders.Authorization = 'Bearer ' + accessToken;
-        //}
         var def = $q.defer();
         $http({
             url: appSettings.serverPath + "/api/employees",
             method: "POST",
             data: employee,
+            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -24,7 +22,7 @@ function employeeService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/employees",
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -33,7 +31,7 @@ function employeeService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/employees/" + employeeId,
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -45,6 +43,7 @@ function employeeService($http, $q, appSettings) {
             url: appSettings.serverPath + "/api/employees/" + employeeId,
             method: "PUT",
             data: employee,
+            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -57,7 +56,7 @@ function employeeService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/employees/" + id,
             method: "DELETE",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };

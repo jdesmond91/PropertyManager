@@ -20,7 +20,8 @@ function unitphotoService($http, $q, appSettings) {
             //data: { model: $scope.model, files: $scope.files },
             //file: $scope.files
             data: { model: model, files: uploadedFile },
-            file: uploadedFile
+            file: uploadedFile,
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -29,6 +30,7 @@ function unitphotoService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/unitphotos/getall",
             method: "GET",
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -37,7 +39,7 @@ function unitphotoService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/unitphotos/" + unitphotoId,
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -57,7 +59,8 @@ function unitphotoService($http, $q, appSettings) {
                 return formData;
             },
             data: { model: model, files: uploadedFile },
-            file: uploadedFile
+            file: uploadedFile,
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -66,7 +69,7 @@ function unitphotoService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/unitphotos/" + id,
             method: "DELETE",
-            //headers: { Authorization: 'Bearer ' + accessToken },
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };

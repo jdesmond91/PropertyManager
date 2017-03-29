@@ -12,12 +12,14 @@ namespace PropertyManager.Controllers
         private Manager m = new Manager();
 
         // GET: api/Facilities
+        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get()
         {
             return Ok(m.FacilityGetAll());
         }
 
         // GET: api/Facilities/5
+        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
@@ -36,6 +38,7 @@ namespace PropertyManager.Controllers
         }
 
         // POST: api/Facilities
+        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Post([FromBody]FacilityAdd newItem)
         {
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
@@ -60,6 +63,7 @@ namespace PropertyManager.Controllers
         }
 
         // PUT: api/Facilities/5
+        [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Put(int id, [FromBody]FacilityEdit editedItem)
         {
             if (editedItem == null)
@@ -94,6 +98,7 @@ namespace PropertyManager.Controllers
         }
 
         // DELETE: api/Facilities/5
+        [Authorize(Roles = "Administrator, Manager")]
         public void Delete(int id)
         {
             m.FacilityDelete(id);
