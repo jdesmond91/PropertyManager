@@ -1,24 +1,33 @@
 ﻿angular.module("common.services").factory("unitphotoService", ["$http", "$q", "appSettings", unitphotoService]);
 function unitphotoService($http, $q, appSettings) {
 
-    this.addUnitPhoto = function (unitPhoto) {
-        var accessToken = sessionStorage.getItem('accessToken');
-        var def = $q.defer();
-        $http({
-            url: appSettings.serverPath + "/api/unitphotos",
+    var accessToken = sessionStorage.getItem('accessToken');
+
+    this.addUnitPhoto = function (model, uploadedFile) {           
+        var response = $http({
+            url: appSettings.serverPath + "/addUnitPhoto",
             method: "POST",
-            data: unitPhoto,
-        }).then(function (response) {
-            def.resolve(response);
-        }, function (err) {
-            def.reject(err);
+            headers: { 'Content-Type': undefined },
+            transformRequest: function (data) {
+                var formData = new FormData();
+                formData.append("model", angular.toJson(data.model));
+                for (var i = 0; i < data.files.length; i++) {
+                    formData.append("file" + i, data.files[i]);
+                }
+                formData.append("file", data.files);
+                return formData;
+            },
+            //data: { model: $scope.model, files: $scope.files },
+            //file: $scope.files
+            data: { model: model, files: uploadedFile },
+            file: uploadedFile
         });
-        return def.promise;
+        return response;
     };
 
     this.getAllUnitPhoto = function () {
         var response = $http({
-            url: appSettings.serverPath + "/api/unitphotos",
+            url: appSettings.serverPath + "/api/unitphotos/getall",
             method: "GET",
         });
         return response;
@@ -33,41 +42,41 @@ function unitphotoService($http, $q, appSettings) {
         return response;
     };
 
-    this.editUnitPhoto = function (unitPhoto, unitphotoId) {
-        var def = $q.defer();
-        $http({
-            url: appSettings.serverPath + "/api/unitphotos/" + unitphotoId,
-            method: "PUT",
-            data: unitPhoto,
-        }).then(function (response) {
-            def.resolve(response);
-        }, function (err) {
-            def.reject(err);
-        });
-        return def.promise;
-    };
-
-    this.setPhoto = function (photoFile, unitphotoId) {
-      var response = 
-        $http({
-            url: appSettings.serverPath + "/api/unitphotos/" + unitphotoId + "/setphoto",
-            method: "PUT",
-            data: photoFile,
-            headers: { 'Content-Type': "image/jpeg" },
-            transformRequest: angular.identity
-        }).then(function (response) {
-            console.log(response);
-        }, function (err) {
-            console.log(err);
+    this.editUnitPhoto = function (model, uploadedFile) {
+        var response = $http({
+            url: appSettings.serverPath + "/editUnitPhoto",
+            method: "POST",
+            headers: { 'Content-Type': undefined },
+            transformRequest: function (data) {
+                var formData = new FormData();
+                formData.append("model", angular.toJson(data.model));
+                for (var i = 0; i < data.files.length; i++) {
+                    formData.append("file" + i, data.files[i]);
+                }
+                formData.append("file", data.files);
+                return formData;
+            },
+            data: { model: model, files: uploadedFile },
+            file: uploadedFile
         });
         return response;
     };
+
+    this.deleteUnitPhoto = function (id) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/unitphotos/" + id,
+            method: "DELETE",
+            //headers: { Authorization: 'Bearer ' + accessToken },
+        });
+        return response;
+    };
+
 
     return {
         addUnitPhoto: this.addUnitPhoto,
         getAllUnitPhoto: this.getAllUnitPhoto,
         getByIdUnitPhoto: this.getByIdUnitPhoto,
         editUnitPhoto: this.editUnitPhoto,
-        setPhoto: this.setPhoto
+        deleteUnitPhoto: this.deleteUnitPhoto
     }
 }
