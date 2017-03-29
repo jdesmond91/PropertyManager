@@ -30,7 +30,7 @@ namespace PropertyManager.Controllers
         {
             if (!id.HasValue) { return NotFound(); }
             // Attempt to fetch the object
-            var o = m.UnitPhotoGetByUnitId(id.GetValueOrDefault());
+            var o = m.UnitPhotoGetById(id.GetValueOrDefault());
 
             // Continue?
             if (o == null)
@@ -84,7 +84,7 @@ namespace PropertyManager.Controllers
 
         private MultipartFormDataStreamProvider GetMultipartProvider()
         {
-            var uploadFolder = "~/App_Data/Tmp/FileUploads"; // you could put this to web.config
+            var uploadFolder = "~/Album/FileUploads"; // you could put this to web.config
             var root = HttpContext.Current.Server.MapPath(uploadFolder);
             Directory.CreateDirectory(root);
             return new MultipartFormDataStreamProvider(root);
@@ -115,8 +115,6 @@ namespace PropertyManager.Controllers
         }
 
 
-
-
         // PUT: api/UnitPhotos/5
         [System.Web.Http.Route("editUnitPhoto")]
         public async Task<HttpResponseMessage> PostEdit()
@@ -143,7 +141,7 @@ namespace PropertyManager.Controllers
 
             var unitphoto = Mapper.Map<UnitPhotoBase>(fileUploadObj);
             
-            var unitphotoEdit = m.UnitPhotoGetByUnitId(unitphoto.UnitId);
+            var unitphotoEdit = m.UnitPhotoGetById(unitphoto.UnitId);
 
             var unitphoto2 = Mapper.Map<UnitPhotoAdd>(unitphotoEdit);
 
