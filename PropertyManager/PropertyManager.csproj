@@ -292,7 +292,7 @@
     <Content Include="app\Partials\Service\servicerequest.html" />
     <Content Include="app\Partials\Service\servicerequestAdd.html" />
     <Content Include="app\Partials\Tenant\tenantAdd.html" />
-    <Content Include="app\Partials\unitPhoto.html" />
+    <Content Include="app\Partials\Unit\unitPhoto.html" />
     <Content Include="app\Partials\Unit\unitAdd.html" />
     <Content Include="app\Partials\WorkOrder\workordermanagerEdit.html" />
     <Content Include="app\Partials\WorkOrder\workorderrequest.html" />

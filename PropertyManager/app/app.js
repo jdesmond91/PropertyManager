@@ -133,7 +133,7 @@
                     })
                     .when('/unitphoto/', {
                         controller: 'unitphotoController',
-                        templateUrl: 'app/Partials/unitPhoto.html'
+                        templateUrl: 'app/Partials/Unit/unitPhoto.html'
                     })
                     .otherwise({ redirectTo: '/index' });
             }]);

@@ -1,10 +1,14 @@
-﻿angular.module("propertyManagerApp").controller("unitController", ["$scope", "$filter", '$location', "$routeParams", "unitService", "userProfile", unitController]);
+﻿angular.module("propertyManagerApp").controller("unitController", ["$scope", "$filter", '$location', "$routeParams", "unitService", "unitphotoService", "userProfile", unitController]);
 
-function unitController($scope, $filter, $location, $routeParams, unitService, userProfile) {
+function unitController($scope, $filter, $location, $routeParams, unitService, unitphotoService, userProfile) {
 
     $scope.editId = "";
     $scope.isEdit = false;
     $scope.showEditConfirmation = false;
+
+    $scope.unitPhotos = [];
+    $scope.files = [];
+    $scope.file = "";
 
     if ($routeParams.unit_id) {
         $scope.editId = $routeParams.unit_id;
@@ -14,6 +18,7 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
     else {
         getUnit();
     }
+
 
     $scope.modelAdd = {
         unitId: "",
@@ -50,7 +55,31 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
         $location.path('/addunit');
     }
 
-    $scope.addUnit = function () {      
+    //$scope.addUnit = function () {      
+
+    //    var unit = {
+    //        Bedrooms: $scope.modelAdd.bedrooms,
+    //        Bathrooms: $scope.modelAdd.bathrooms,
+    //        SquareFeet: $scope.modelAdd.squareFt,
+    //        MaxOccupants: $scope.modelAdd.maxOccupants,
+    //        Balcony: $scope.modelAdd.balcony,
+    //        Dishwasher: $scope.modelAdd.dishwasher,
+    //        Laundry: $scope.modelAdd.laundry
+    //    };
+
+    //    var addResults = unitService.addUnit(unit);
+    //    addResults.then(function (response) {
+    //        console.log(response.data);
+    //        $scope.modelAdd.unitId = response.data.Id;
+    //        $scope.showConfirmation = true;
+    //        $scope.message = "Unit Added"
+    //    }, function (error) {
+    //        $scope.message = error.statusText + " " + error.status;
+    //    });
+
+    //} // close function
+
+    $scope.addUnit = function () {
 
         var unit = {
             Bedrooms: $scope.modelAdd.bedrooms,
@@ -68,6 +97,20 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
             $scope.modelAdd.unitId = response.data.Id;
             $scope.showConfirmation = true;
             $scope.message = "Unit Added"
+            return response;
+        }).then(function(response){
+            $scope.photomodel = {
+                UnitId: $scope.modelAdd.unitId,
+                Description: $scope.description,
+                PathName: ""
+            };
+            var photo = unitphotoService.addUnitPhoto($scope.photomodel, $scope.file);
+            photo.then(function (response) {
+                console.log(response);
+                $scope.photomodel.PathName = "/Album/FileUploads/" + $scope.file.name;
+            }, function (error) {
+                $scope.message = error.statusText + " " + error.status;
+            })
         }, function (error) {
             $scope.message = error.statusText + " " + error.status;
         });
@@ -175,5 +218,40 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
     $scope.goBack = function () {
         $location.path('/unit');
     }
+
+    // *************************************************** UNIT PHOTO *****************************************************
+    $scope.$on("seletedFile", function (event, args) {
+        $scope.$apply(function () {
+            //add the file object to the scope's files collection  
+            //$scope.files.push(args.file);
+            $scope.file = args.file;
+        });
+    });
+
+    $scope.addUnitPhoto = function () {
+        $scope.photomodel = {
+            UnitId: $scope.modelAdd.unitId,
+            Description: $scope.modelAdd,
+            PathName: ""
+        };
+        var photo = unitphotoService.addUnitPhoto($scope.photomodel, $scope.file);
+        photo.then(function (response) {
+            console.log(response);
+        }, function (error) {
+            console.log(error);
+        });
+    };
+
+    function getUnitPhotoById () {
+        var resultById = unitphotoService.getByIdUnitPhoto(1);
+        resultById.then(function (response) {
+            console.log(response.data);
+            $scope.imageUrl = response.data.PathName;
+            $scope.description = response.data.Description;
+            $scope.unitId = response.data.UnitId;
+        }, function (error) {
+            $scope.message = response.statusText;
+        })
+    } // close function
 
 }
