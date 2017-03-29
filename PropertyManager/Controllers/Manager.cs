@@ -1152,11 +1152,11 @@ namespace PropertyManager.Controllers
                 ds.Entry(associatedApartment).CurrentValues.SetValues(editedApt);
 
                 UserBase user = new UserBase();
-                //user = getByEmail(associatedTenant.Email);
-                //if (user != null)
-                //{
-                //    UserAddClaim(user.UserName);
-                //}
+                user = getByEmail(associatedTenant.Email);
+                if (user != null)
+                {
+                    UserAddClaim(user.UserName);
+                }
 
                 ds.SaveChanges();
 
@@ -1200,8 +1200,8 @@ namespace PropertyManager.Controllers
             }
             else
             {
-                //UserBase user = new UserBase();
-                //user = getByEmail(storedItem.Tenant.Email);
+                UserBase user = new UserBase();
+                user = getByEmail(storedItem.Tenant.Email);
                 try
                 {
                     response.Headers.Add("DeleteMessage", "Delete lease successful");
@@ -1212,11 +1212,11 @@ namespace PropertyManager.Controllers
 
                     ds.Leases.Remove(storedItem);
 
-                   
-                    //if (user != null)
-                    //{
-                    //    UserRemoveClaim(user.UserName);
-                    //}
+
+                    if (user != null)
+                    {
+                        UserRemoveClaim(user.UserName);
+                    }
 
                     ds.SaveChanges();
                 }

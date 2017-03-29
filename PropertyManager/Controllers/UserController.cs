@@ -55,12 +55,12 @@ namespace PropertyManager.Controllers
 
 
         // DELETE: api/User/5
-        //[Route("api/user/{email}/delete")]
-        //[Authorize(Roles = "Administrator, Manager, Tenant")]
-        //public HttpResponseMessage Delete(string email)
-        //{
-        //    //var response = m.UserDelete(email);
-        //    //return response;
-        //}
+        [Route("api/user/{email}/delete")]
+        [Authorize(Roles = "Administrator, Manager, Tenant")]
+        public HttpResponseMessage Delete(string email)
+        {
+            var response = m.UserDelete(email);
+            return response;
+        }
     }
 }
