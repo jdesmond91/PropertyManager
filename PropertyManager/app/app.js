@@ -131,5 +131,9 @@
                         controller: 'unitphotoController',
                         templateUrl: 'app/Partials/Unit/unitPhoto.html'
                     })
+                    .when('/manageuser/', {
+                        controller: 'userController',
+                        templateUrl: 'app/Partials/Login/userPage.html'
+                    })
                     .otherwise({ redirectTo: '/index' });
             }]);

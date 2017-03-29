@@ -141,6 +141,7 @@ namespace PropertyManager.Controllers
 
         [AllowAnonymous]
         [Route("userGetAll")]
+        [HttpGet]
         public IEnumerable<UserBase> UAGetAll()
         {
             // Return the entire user account collection, mapped
@@ -160,6 +161,7 @@ namespace PropertyManager.Controllers
 
         [AllowAnonymous]
         [Route("userDelete/{email}/delete")]
+        [HttpDelete]
         public HttpResponseMessage UserDelete(string email)
         {
    
