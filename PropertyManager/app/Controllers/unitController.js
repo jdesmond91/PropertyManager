@@ -39,7 +39,9 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
         maxOccupants: "",
         balcony: "",
         dishwasher: "",
-        laundry: ""
+        laundry: "",
+        PathName: "",
+        UnitPhotoId: ""
     };
 
     $scope.message = "";
@@ -157,6 +159,11 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
             $scope.modelEdit.balcony = response.data.Balcony;
             $scope.modelEdit.dishwasher = response.data.Dishwasher;
             $scope.modelEdit.laundry = response.data.Laundry;
+            if (response.data.UnitPhotos.length > 0) {
+                $scope.modelEdit.PathName = response.data.UnitPhotos[0].PathName;
+                $scope.modelEdit.UnitPhotoId = response.data.UnitPhotos[0].Id;
+            }
+            
 
         }, function (error) {
             $scope.message = error.statusText;
@@ -189,10 +196,55 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
             console.log(response);
             $scope.message = "Edit successful";
             $scope.showEditConfirmation = true;
+            return response;
+        }).then(function (response) {
+            if ($scope.modelEdit.UnitPhotoId != ""){
+                $scope.photomodel = {
+                    Id: $scope.modelEdit.UnitPhotoId,
+                    UnitId: $scope.modelEdit.unitId,
+                    Description: $scope.description,
+                    PathName: ""
+                };
+                var photo = unitphotoService.editUnitPhoto($scope.photomodel, $scope.file);
+                photo.then(function (response) {
+                    console.log(response);
+                    $scope.photomodel.PathName = "/Album/FileUploads/" + $scope.file.name;
+                }, function (error) {
+                    $scope.message = error.statusText + " " + error.status;
+                })
+            }
+            else {
+                addUnitPhotoInEdit();
+            }
+            
+        }, function (error) {
+            $scope.message = error.statusText + " " + error.status;
+        });
+    }
+
+    /*$scope.editUnit = function () {
+
+        var unit = {
+            Id: $scope.editId,
+            Bedrooms: $scope.modelEdit.bedrooms,
+            Bathrooms: $scope.modelEdit.bathrooms,
+            SquareFeet: $scope.modelEdit.squareFt,
+            MaxOccupants: $scope.modelEdit.maxOccupants,
+            Balcony: $scope.modelEdit.balcony,
+            Dishwasher: $scope.modelEdit.dishwasher,
+            Laundry: $scope.modelEdit.laundry
+        };
+
+        var editResults = unitService.editUnit(unit, unit.Id);
+        editResults.then(function (response) {
+            console.log("edit");
+            console.log(response);
+            $scope.message = "Edit successful";
+            $scope.showEditConfirmation = true;
         }, function (error) {
             $scope.message = error.statusText;
         });
-    } // close function
+    } // close function*/
 
     $scope.sorterFunc = function (unit) {
         return parseInt(unit.Bedrooms);
@@ -227,22 +279,23 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
         });
     });
 
-    $scope.addUnitPhoto = function () {
+    function addUnitPhotoInEdit() {
         $scope.photomodel = {
-            UnitId: $scope.modelAdd.unitId,
-            Description: $scope.modelAdd,
+            UnitId: $scope.modelEdit.unitId,
+            Description: $scope.description,
             PathName: ""
         };
         var photo = unitphotoService.addUnitPhoto($scope.photomodel, $scope.file);
         photo.then(function (response) {
             console.log(response);
+            $scope.photomodel.PathName = "/Album/FileUploads/" + $scope.file.name;
         }, function (error) {
             console.log(error);
         });
     };
 
-    function getUnitPhotoById () {
-        var resultById = unitphotoService.getByIdUnitPhoto(1);
+    function getUnitPhotoById (id) {
+        var resultById = unitphotoService.getByIdUnitPhoto(id);
         resultById.then(function (response) {
             console.log(response.data);
             $scope.imageUrl = response.data.PathName;
@@ -252,5 +305,21 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
             $scope.message = response.statusText;
         })
     } // close function
+
+    $scope.deletePicture = function (unitPhotoId) {
+        var deleteOne = unitphotoService.deleteUnitPhoto(unitPhotoId);
+        deleteOne.then(function (response) {
+            $scope.message = "Delete successfull";
+            $scope.modelEdit.PathName = "";
+            $scope.modelEdit.UnitPhotoId = "";
+            console.log(response);
+        }, function (error) {
+            $scope.errorMessage = "Could not delete";
+        });
+    }
+
+    $scope.openPic = function (pathName) {
+        window.open(pathName);
+    }
 
 }

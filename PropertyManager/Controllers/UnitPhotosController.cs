@@ -122,9 +122,7 @@ namespace PropertyManager.Controllers
             if (!Request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            }
-
-            
+            }          
 
             var uploadFolder = "~/Album/FileUploads";
             var root = HttpContext.Current.Server.MapPath(uploadFolder);
@@ -141,7 +139,7 @@ namespace PropertyManager.Controllers
 
             var unitphoto = Mapper.Map<UnitPhotoBase>(fileUploadObj);
             
-            var unitphotoEdit = m.UnitPhotoGetById(unitphoto.UnitId);
+            var unitphotoEdit = m.UnitPhotoGetById(unitphoto.Id);
 
             var unitphoto2 = Mapper.Map<UnitPhotoAdd>(unitphotoEdit);
 

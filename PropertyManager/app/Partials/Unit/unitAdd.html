@@ -53,7 +53,8 @@
                         </select>
                         <span class="spanError" ng-show="form.dishwasher.$invalid && !form.dishwasher.$pristine">Enter dishwasher</span>
 
-                        <input type="file" upload-files />                       
+                        <label class="control-label" for="dishwasher">Photo</label>
+                        <input type="file" upload-files style="margin-top: 25px;"/>                       
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addUnit()">Add Unit </button>
                     <span>{{message}}</span>
@@ -91,8 +92,8 @@
                         <div class="detailDivTableCell">{{modelAdd.laundry?'Yes':'No'}}</div>
                     </div>
                     <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Picture:</div>
-                        <div class="detailDivTableCell"><img src="{{photomodel.PathName}}" width="100" height="100" /></div>
+                        <div class="detailDivTableHeader">Photo:</div> <br/>
+                        <div class="detailDivTableCell"><img src="{{photomodel.PathName}}" width="100" height="100" ng-click="openPic(photomodel.PathName);"/></div>
                     </div>
                     <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
                     <button type="button" class="btn btn-primary" ng-click="addAnother()">Add another</button>
@@ -142,6 +143,17 @@
                             <option value=true>YES</option>
                             <option value=false>NO</option>
                         </select>
+                        <div class="detailDivTableRow" ng-show="modelEdit.PathName!=''">
+                            <div class="detailDivTableHeader">Photo:</div>
+                        </div>
+                        <div class="detailDivTableRow" ng-show="modelEdit.PathName!=''">               
+                            <div class="detailDivTableCell"><img src="{{modelEdit.PathName}}" width="100" height="100" ng-click="openPic(photomodel.PathName);" /></div>
+                            <button type="button" class="btn btn-primary" ng-click="deletePicture(modelEdit.UnitPhotoId)">Remove photo</button>
+                        </div>
+                        <div>
+                            <label class="control-label" for="photo">Photo</label>
+                            <input type="file" upload-files style="margin-top: 25px;" />
+                        </div>
                         <span class="spanError" ng-show="formEdit.dishwasher.$invalid && !formEdit.dishwasher.$pristine">Enter dishwasher</span>
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editUnit()">Edit Unit </button>
@@ -178,6 +190,12 @@
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Laundry:</div>
                         <div class="detailDivTableCell">{{modelEdit.laundry?'Yes':'No'}}</div>
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Photo:</div>
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableCell"><img src="{{photomodel.PathName}}" width="100" height="100" ng-click="openPic(photomodel.PathName);" /></div>                       
                     </div>
                     <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
                 </div>

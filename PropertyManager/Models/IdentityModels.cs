@@ -59,6 +59,11 @@ namespace PropertyManager.Models
                 .WithRequired(e => e.Unit)
                 .WillCascadeOnDelete(true);
 
+            modelBuilder.Entity<Unit>()
+                .HasMany(e => e.UnitPhotos)
+                .WithRequired(e => e.Unit)
+                .WillCascadeOnDelete(true);
+
             modelBuilder.Entity<FacilityBooking>()
                 .HasRequired(e => e.Facility);
 

@@ -609,7 +609,7 @@ namespace PropertyManager.Controllers
 
         public IEnumerable<UnitBase> UnitGetAll()
         {
-            var c = ds.Units.OrderBy(a => a.Id);
+            var c = ds.Units.Include("UnitPhotos").OrderBy(a => a.Id);
 
             return Mapper.Map<IEnumerable<UnitBase>>(c);
         }
@@ -655,15 +655,25 @@ namespace PropertyManager.Controllers
         }
         public void UnitDelete(int id)
         {
-            var storedItem = ds.Units.Find(id);
+            var storedItem = ds.Units.Include("UnitPhotos").SingleOrDefault(a => a.Id == id);
             if (storedItem == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             else
             {
-                try
+               
+                foreach(UnitPhoto unitphoto in storedItem.UnitPhotos)
                 {
+                    var filePath = "~" + unitphoto.PathName;
+                    
+                    if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(filePath)))
+                    {
+                        System.IO.File.Delete(HttpContext.Current.Server.MapPath(filePath));
+                    };
+                }
+                try
+                {                 
                     ds.Units.Remove(storedItem);
                     ds.SaveChanges();
                 }
@@ -686,7 +696,7 @@ namespace PropertyManager.Controllers
             return (c == null) ? null : Mapper.Map<UnitPhotoBase>(c);
         }
 
-        public UnitPhotoBase UnitPhotoGetByAptNumber(int unitId)
+        public UnitPhotoBase UnitPhotoGetByUnitId(int unitId)
         {
             var c = ds.UnitPhotos.SingleOrDefault(a => a.Id == unitId);
 
@@ -704,7 +714,7 @@ namespace PropertyManager.Controllers
                 return null;
             }
             var addedItem = Mapper.Map<UnitPhoto>(newItem);
-            addedItem.Id = newItem.UnitId;
+            addedItem.Unit = associatedItem;
 
             ds.UnitPhotos.Add(addedItem);
             ds.SaveChanges();
@@ -743,8 +753,14 @@ namespace PropertyManager.Controllers
             }
             else
             {
+                var filePath = "~" + storedItem.PathName;
                 try
-                {              
+                {
+                    if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(filePath)))
+                    {
+                        System.IO.File.Delete(HttpContext.Current.Server.MapPath(filePath));
+                    }
+
                     ds.UnitPhotos.Remove(storedItem);
                     ds.SaveChanges();
                 }
