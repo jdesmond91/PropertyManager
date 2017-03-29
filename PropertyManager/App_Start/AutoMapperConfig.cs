@@ -63,7 +63,7 @@ namespace PropertyManager.App_Start
             //UnitPhoto
             Mapper.CreateMap<Controllers.UnitPhotoAdd, Models.UnitPhoto>();
             Mapper.CreateMap<Models.UnitPhoto, Controllers.UnitPhotoBase>();
-            Mapper.CreateMap<Models.UnitPhoto, Controllers.UnitPhotoWithMedia>();
+            Mapper.CreateMap<Controllers.UnitPhotoBase, Controllers.UnitPhotoEdit>();
 
             //Apartment
             Mapper.CreateMap<Controllers.ApartmentAdd, Models.Apartment>();

@@ -131,5 +131,9 @@
                         controller: 'serviceRequestController',
                         templateUrl: 'app/Partials/Service/servicerequestAdd.html'
                     })
+                    .when('/unitphoto/', {
+                        controller: 'unitphotoController',
+                        templateUrl: 'app/Partials/Unit/unitPhoto.html'
+                    })
                     .otherwise({ redirectTo: '/index' });
             }]);

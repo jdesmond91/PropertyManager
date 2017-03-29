@@ -1,47 +1,61 @@
-﻿angular.module("propertyManagerApp").controller("unitphotoController", ["$scope", "$filter", "unitphotoService", "userProfile", unitphotoController]);
+﻿angular.module("propertyManagerApp").controller("unitphotoController", ["$http", "$scope", "$filter", "unitphotoService", "userProfile", unitphotoController]);
 
-function unitphotoController($scope, $filter, unitphotoService, userProfile) {
-
+function unitphotoController($http, $scope, $filter,unitphotoService, userProfile) {
+ 
     $scope.name = "";
     $scope.description = "";
     $scope.unitId = "";
     $scope.message = "";
     $scope.unitPhotos = [];
+    $scope.files = [];
+    $scope.file = "";
 
-    $scope.addUnitPhoto = function () {  
+    $scope.modelAdd = {
+        UnitId: 2,
+        Description: "Add testing",
+        PathName: ""
+    };
 
-        var unitPhoto = {
-            Name: $scope.name,
-            Description: $scope.description,
-            UnitId: $scope.unitId,
-        };
+    $scope.modelEdit = {
+        UnitId: 2,
+        Description: "Edit testing",
+        PathName: ""
+    };
 
-        var addResults = unitphotoService.addUnitPhoto(unitPhoto);
-        addResults.then(function (response) {
-            console.log(response.data);
-            $scope.unitphotoId = response.data.Id;
-        }, function (error) {
-            $scope.message = response.statusText + " " + response.status;
+    $scope.$on("seletedFile", function (event, args) {
+        $scope.$apply(function () {
+            //add the file object to the scope's files collection  
+            //$scope.files.push(args.file);
+            $scope.file = args.file;
         });
+    });
 
-    } // close function
+    $scope.addUnitPhoto = function () {
+        var photo = unitphotoService.addUnitPhoto($scope.modelAdd, $scope.file);
+        photo.then(function (response) {
+            console.log(response);
+        }, function (error) {
+            console.log(error);
+        });
+    };
 
+  
     $scope.getUnitPhoto = function () {
         var allResults = unitphotoService.getAllUnitPhoto();
         allResults.then(function (response) {
             $scope.unitPhotos = response.data;
-            console.log($scope.unitPhotos);
         }, function (error) {
-            $scope.message = response.statusText;
+            $scope.message = error.statusText;
+            console.log(error);
         })
 
-    } // close function
+    } // close function   
 
     $scope.getUnitPhotoById = function () {
-        var resultById = unitphotoService.getByIdUnitPhoto($scope.unitphotoId);
+        var resultById = unitphotoService.getByIdUnitPhoto(1);
         resultById.then(function (response) {
             console.log(response.data);
-            $scope.name = response.data.Name;
+            $scope.imageUrl = response.data.PathName;
             $scope.description = response.data.Description;
             $scope.unitId = response.data.UnitId;
         }, function (error) {
@@ -50,46 +64,24 @@ function unitphotoController($scope, $filter, unitphotoService, userProfile) {
 
     } // close function
 
-    $scope.editUnitPhoto = function () {
-  
-        var unitPhoto = {
-            Id: $scope.unitphotoId,
-            Name: $scope.name,
-            Description: $scope.description,
-            UnitId: $scope.unitId,
-        };
-
-        var editResults = unitphotoService.editUnitPhoto(unitPhoto, $scope.unitphotoId);
-        editResults.then(function (response) {
-            console.log("edit");
+    $scope.editUnitPhoto = function () {  
+        var photo = unitphotoService.editUnitPhoto($scope.modelEdit, $scope.file);
+        photo.then(function (response) {
             console.log(response);
         }, function (error) {
-            $scope.message = response.statusText;
+            console.log(error);
         });
     } // close function
 
-    var fd;
-    var reader;
-    $scope.uploadFile = function (files) {
-        reader = new FileReader();
-        reader.onload = function (e) {
-            console.log("about to encode");
-            $scope.encoded_file = btoa(e.target.result.toString());
-        };
-        reader.readAsBinaryString(files[0]);
-        //fd = new FormData();
-        //fd.append("file", files[0])
-    };
-
-    $scope.addPhoto = function(){
-            var addPhoto = unitphotoService.setPhoto(reader, $scope.unitphotoId);
-            addPhoto.then(function (response) {
-                console.log("added");
-                console.log(response);
-            }, function (error) {
-                $scope.message = response.statusText;
-            });
+    $scope.delete = function (id) {
+        var deleteOne = unitphotoService.deleteUnitPhoto(1);
+        deleteOne.then(function (response) {
+            $scope.message = "Delete successfull";
+            console.log(response);
+        }, function (error) {
+            $scope.errorMessage = "Could not delete";
+        });
     }
-       
+
 
 }

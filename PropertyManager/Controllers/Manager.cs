@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 using PropertyManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 
 namespace PropertyManager.Controllers
 {
@@ -114,7 +114,7 @@ namespace PropertyManager.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
-            else              
+            else
             {
                 try
                 {
@@ -806,42 +806,45 @@ namespace PropertyManager.Controllers
         //***********************************************UNITPHOTO SECTION ***********************************************
         public IEnumerable<UnitPhotoBase> UnitPhotoGetAll()
         {
-            var c = ds.UnitPhotos.Include("Unit").OrderBy(a => a.Id);
+            var c = ds.UnitPhotos.OrderBy(a => a.Id);
 
             return Mapper.Map<IEnumerable<UnitPhotoBase>>(c);
         }
 
-        public UnitPhotoWithMedia UnitPhotoGetById(int id)
+        public UnitPhotoBase UnitPhotoGetByUnitId(int unitId)
         {
-            var c = ds.UnitPhotos.Include("Unit").SingleOrDefault(a => a.Id == id);
+            var c = ds.UnitPhotos.FirstOrDefault(a => a.Unit.Id == unitId);
 
-            return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
+            return Mapper.Map<UnitPhotoBase>(c);
         }
 
-        public UnitPhotoWithMedia UnitPhotoGetByAptNumber(int unitId)
+        public UnitPhotoBase UnitPhotoGetById(int id)
         {
-            var c = ds.UnitPhotos.SingleOrDefault(a => a.UnitId == unitId);
+            var c = ds.UnitPhotos.FirstOrDefault(a => a.Id == id);
 
-            return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
+            return Mapper.Map<UnitPhotoBase>(c);
         }
+
         public UnitPhotoBase UnitPhotoAdd(UnitPhotoAdd newItem)
         {
             if (newItem == null)
             {
                 return null;
             }
+          
             var associatedItem = ds.Units.Find(newItem.UnitId);
             if (associatedItem == null)
             {
                 return null;
             }
             var addedItem = Mapper.Map<UnitPhoto>(newItem);
-            addedItem.UnitId = newItem.UnitId;
+            addedItem.Unit = associatedItem;
 
             ds.UnitPhotos.Add(addedItem);
             ds.SaveChanges();
 
-            return (addedItem == null) ? null : Mapper.Map<UnitPhotoBase>(addedItem);
+            return Mapper.Map<UnitPhotoBase>(addedItem);
+
         }
 
         public UnitPhotoBase UnitPhotoEdit(UnitPhotoEdit editedItem)
@@ -865,19 +868,6 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public bool UnitPhotoSetPhoto(int id, string contentType, byte[] photo)
-        {
-            if (string.IsNullOrEmpty(contentType) | photo == null) { return false; }
-
-            var storedItem = ds.UnitPhotos.Include("Unit").SingleOrDefault(m => m.Id == id);
-
-            if (storedItem == null) { return false; }
-
-            storedItem.ContentType = contentType;
-            storedItem.Photo = photo;
-
-            return (ds.SaveChanges() > 0) ? true : false;
-        }
 
         public void UnitPhotoDelete(int id)
         {
@@ -889,7 +879,13 @@ namespace PropertyManager.Controllers
             else
             {
                 try
-                {              
+                {
+                    var filePath = "~" + storedItem.PathName;
+                    if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(filePath)))
+                    {
+                        System.IO.File.Delete(HttpContext.Current.Server.MapPath(filePath));
+                    }
+
                     ds.UnitPhotos.Remove(storedItem);
                     ds.SaveChanges();
                 }
@@ -1156,11 +1152,11 @@ namespace PropertyManager.Controllers
                 ds.Entry(associatedApartment).CurrentValues.SetValues(editedApt);
 
                 UserBase user = new UserBase();
-                user = getByEmail(associatedTenant.Email);
-                if (user != null)
-                {
-                    UserAddClaim(user.UserName);
-                }
+                //user = getByEmail(associatedTenant.Email);
+                //if (user != null)
+                //{
+                //    UserAddClaim(user.UserName);
+                //}
 
                 ds.SaveChanges();
 
@@ -1204,8 +1200,8 @@ namespace PropertyManager.Controllers
             }
             else
             {
-                UserBase user = new UserBase();
-                user = getByEmail(storedItem.Tenant.Email);
+                //UserBase user = new UserBase();
+                //user = getByEmail(storedItem.Tenant.Email);
                 try
                 {
                     response.Headers.Add("DeleteMessage", "Delete lease successful");
@@ -1217,10 +1213,10 @@ namespace PropertyManager.Controllers
                     ds.Leases.Remove(storedItem);
 
                    
-                    if (user != null)
-                    {
-                        UserRemoveClaim(user.UserName);
-                    }
+                    //if (user != null)
+                    //{
+                    //    UserRemoveClaim(user.UserName);
+                    //}
 
                     ds.SaveChanges();
                 }
