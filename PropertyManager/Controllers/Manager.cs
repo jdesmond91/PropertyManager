@@ -80,25 +80,26 @@ namespace PropertyManager.Controllers
             return response;
         }
 
-        public UserBase UserAddClaim(string email)
+        public HttpResponseMessage UserAddClaim(string email)
         {
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-            // Return the entire user account collection, mapped
             var user = userManager.FindByEmailAsync(email).Result;
 
             var response = new HttpResponseMessage();
             if (user == null)
             {
-                return null;
+                throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             else
             {
                 user.Role = "Tenant";
                 userManager.UpdateAsync(user);
                 ds.SaveChanges();
+                response.Headers.Add("AddClaimMessage", "Claim Added");
             }
-                return Mapper.Map<UserBase>(user);
+
+            return response;
         }
 
         public HttpResponseMessage UserDelete(string email)
@@ -1154,7 +1155,12 @@ namespace PropertyManager.Controllers
                 editedApt.Status = "Occupied";
                 ds.Entry(associatedApartment).CurrentValues.SetValues(editedApt);
 
-                var user = UserAddClaim(associatedTenant.Email);
+                UserBase user = new UserBase();
+                user = getByEmail(associatedTenant.Email);
+                if (user != null)
+                {
+                    UserAddClaim(user.UserName);
+                }
 
                 ds.SaveChanges();
 
