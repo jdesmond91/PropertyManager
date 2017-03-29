@@ -115,8 +115,6 @@ namespace PropertyManager.Controllers
         }
 
 
-
-
         // PUT: api/UnitPhotos/5
         [System.Web.Http.Route("editUnitPhoto")]
         public async Task<HttpResponseMessage> PostEdit()
