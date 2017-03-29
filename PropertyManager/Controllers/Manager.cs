@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 using PropertyManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 
 namespace PropertyManager.Controllers
 {
@@ -98,7 +98,7 @@ namespace PropertyManager.Controllers
                 ds.SaveChanges();
                 response.Headers.Add("AddClaimMessage", "Claim Added");
             }
-            
+
             return response;
         }
 
@@ -114,7 +114,7 @@ namespace PropertyManager.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
-            else              
+            else
             {
                 try
                 {
@@ -1152,11 +1152,11 @@ namespace PropertyManager.Controllers
                 ds.Entry(associatedApartment).CurrentValues.SetValues(editedApt);
 
                 UserBase user = new UserBase();
-                user = getByEmail(associatedTenant.Email);
-                if (user != null)
-                {
-                    UserAddClaim(user.UserName);
-                }
+                //user = getByEmail(associatedTenant.Email);
+                //if (user != null)
+                //{
+                //    UserAddClaim(user.UserName);
+                //}
 
                 ds.SaveChanges();
 
@@ -1200,8 +1200,8 @@ namespace PropertyManager.Controllers
             }
             else
             {
-                UserBase user = new UserBase();
-                user = getByEmail(storedItem.Tenant.Email);
+                //UserBase user = new UserBase();
+                //user = getByEmail(storedItem.Tenant.Email);
                 try
                 {
                     response.Headers.Add("DeleteMessage", "Delete lease successful");
@@ -1213,10 +1213,10 @@ namespace PropertyManager.Controllers
                     ds.Leases.Remove(storedItem);
 
                    
-                    if (user != null)
-                    {
-                        UserRemoveClaim(user.UserName);
-                    }
+                    //if (user != null)
+                    //{
+                    //    UserRemoveClaim(user.UserName);
+                    //}
 
                     ds.SaveChanges();
                 }
