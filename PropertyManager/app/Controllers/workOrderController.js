@@ -36,7 +36,6 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
     $scope.workOrders = [];
     $scope.tenantId = "";
     $scope.message = "";
-    $scope.errorMessage = "";
     $scope.sortType = "description";
     $scope.sortReverse = false;
     $scope.searchWorkOrder = "";
@@ -61,7 +60,7 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
                    getAllTenantOrders(tenantId);       
                }                                
            }, function (error) {
-               $scope.errorMessage = error.statusText + " " + error.status;
+               $scope.message = error.statusText + " " + error.status;
            })
     }     
 
@@ -72,7 +71,7 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
             $scope.workOrders = response.data;
             console.log($scope.workOrders);
         }, function (error) {
-            $scope.errorMessage = response.statusText;
+            $scope.message = response.statusText;
         })
     }
 
@@ -144,7 +143,7 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
             }
 
         }, function (error) {
-            $scope.errorMessage = error.statusText;
+            $scope.message = error.statusText;
         })
 
     } // close function
@@ -195,7 +194,7 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
             console.log(response);
             getAllTenantOrders($scope.tenantId);
         }, function (error) {
-            $scope.errorMessage = "Cold not delete";
+            $scope.message = error.statusText;
         });
     }
 

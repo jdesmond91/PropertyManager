@@ -1,15 +1,17 @@
 ﻿angular.module("common.services").factory("apartmentService", ["$http", "$q", "appSettings", apartmentService]);
 function apartmentService($http, $q, appSettings) {
 
-    var accessToken = sessionStorage.getItem('accessToken');
-
-    this.addApartment = function (apartment) {   
+    this.addApartment = function (apartment) {
+        var accessToken = sessionStorage.getItem('accessToken');
+        //var authHeaders = {};
+        //if (accessToken) {
+        //authHeaders.Authorization = 'Bearer ' + accessToken;
+        //}
         var def = $q.defer();
         $http({
             url: appSettings.serverPath + "/api/apartments",
             method: "POST",
             data: apartment,
-            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -22,7 +24,7 @@ function apartmentService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/apartments",
             method: "GET",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };
@@ -31,18 +33,18 @@ function apartmentService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/apartments/" + apartmentId,
             method: "GET",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };
 
     this.editApartment = function (apartment, apartmentId) {
+
         var def = $q.defer();
         $http({
             url: appSettings.serverPath + "/api/apartments/" + apartmentId,
             method: "PUT",
             data: apartment,
-            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -55,7 +57,7 @@ function apartmentService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/apartments/" + id,
             method: "DELETE",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };

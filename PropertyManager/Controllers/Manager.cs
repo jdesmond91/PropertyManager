@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 
@@ -27,106 +26,6 @@ namespace PropertyManager.Controllers
 
             return (user == null) ? null : Mapper.Map<UserBase>(user);
 
-        }
-
-        public IEnumerable<UserBase> UAGetAll()
-        {
-            // Get a reference to the application's user manager
-            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
-            // Return the entire user account collection, mapped
-            return Mapper.Map<IEnumerable<UserBase>>(userManager.Users);
-        }
-
-        public HttpResponseMessage UserRemoveClaim(string email)
-        {
-            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
-            // Return the entire user account collection, mapped
-            var user = userManager.FindByEmailAsync(email).Result;
-
-            var response = new HttpResponseMessage();
-            if (user == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-            else
-            {
-                try
-                {
-                    user.Role = "Deactivated";
-                    userManager.UpdateAsync(user);
-                    ds.SaveChanges();
-
-                    //var removed = new List<Claim>();
-
-                    //foreach (IdentityUserClaim claim in user.Claims)
-                    //{
-                    //    removed.Add(new Claim(claim.ClaimType, claim.ClaimValue));              
-                    //}
-                    //foreach (Claim claim in removed)
-                    //{
-                    //    userManager.RemoveClaimAsync(user.Id, claim);
-                    //}
-
-                    response.Headers.Add("RemoveClaimMessage", "Claim Removed");
-                }
-                catch (Exception)
-                {
-
-                    response.Headers.Add("RemoveClaimMessage", "Could not remove claim");
-                }
-            }
-            return response;
-        }
-
-        public UserBase UserAddClaim(string email)
-        {
-            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
-            // Return the entire user account collection, mapped
-            var user = userManager.FindByEmailAsync(email).Result;
-
-            var response = new HttpResponseMessage();
-            if (user == null)
-            {
-                return null;
-            }
-            else
-            {
-                user.Role = "Tenant";
-                userManager.UpdateAsync(user);
-                ds.SaveChanges();
-            }
-            return Mapper.Map<UserBase>(user);
-        }
-
-        public HttpResponseMessage UserDelete(string email)
-        {
-            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
-            // Return the entire user account collection, mapped
-            var user = userManager.FindByEmailAsync(email).Result;
-
-            var response = new HttpResponseMessage();
-            if (user == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-            else              
-            {
-                try
-                {
-                    userManager.DeleteAsync(user);
-                    response.Headers.Add("DeleteUserMessage", "Delete user successful");
-                }
-                catch (Exception)
-                {
-
-                    response.Headers.Add("DeleteUserMessage", "Could not delete user");
-                }
-            }
-            return response;
         }
 
         // ****************************************** ANNOUNCEMENT SECTION *****************************************
@@ -252,10 +151,9 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public HttpResponseMessage EmployeeDelete(int id)
+        public void EmployeeDelete(int id)
         {
             var storedItem = ds.Employees.Find(id);
-            var response = new HttpResponseMessage();
             if (storedItem == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -263,17 +161,12 @@ namespace PropertyManager.Controllers
             else
             {
                 try
-                {                   
-                    response.Headers.Add("DeleteMessage", "Delete employee successful");
-
+                {
                     ds.Employees.Remove(storedItem);
                     ds.SaveChanges();
                 }
-                catch (Exception) {
-                    response.Headers.Add("DeleteMessage", "Could not delete employee");
-                }
+                catch (Exception) { }
             }
-            return response;
         }
 
         // *************************************************** INVENTORY SECTION *****************************************
@@ -324,27 +217,22 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public HttpResponseMessage InventoryDelete(int id)
+        public void InventoryDelete(int id)
         {
             var storedItem = ds.Inventory.Find(id);
-            var response = new HttpResponseMessage();
             if (storedItem == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             else
-            {              
+            {
                 try
                 {
-                    response.Headers.Add("DeleteMessage", "Delete inventory successful");
                     ds.Inventory.Remove(storedItem);
                     ds.SaveChanges();
                 }
-                catch (Exception) {
-                    response.Headers.Add("DeleteMessage", "Could not delete inventory");
-                }
+                catch (Exception) { }
             }
-            return response;
         }
 
         // *************************************************** FACILITY SECTION *****************************************
@@ -395,28 +283,22 @@ namespace PropertyManager.Controllers
                 return Mapper.Map<FacilityBase>(storedItem);
             }
         }
-        public HttpResponseMessage FacilityDelete(int id)
+        public void FacilityDelete(int id)
         {
             var storedItem = ds.Facilities.Find(id);
-            var response = new HttpResponseMessage();
             if (storedItem == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             else
             {
-                
                 try
                 {
-                    response.Headers.Add("DeleteMessage", "Delete facility successful");
                     ds.Facilities.Remove(storedItem);
                     ds.SaveChanges();
                 }
-                catch (Exception) {
-                    response.Headers.Add("DeleteMessage", "Could not delete facility");
-                }
+                catch (Exception) { }
             }
-            return response;
         }
 
         //**************************************** FACILITY BOOKING *****************************************************
@@ -512,10 +394,12 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public HttpResponseMessage FacilityBookingDelete(int id)
-        {      
+        public void FacilityBookingDelete(int id)
+        {
+            // Attempt to fetch the existing item
             var storedItem = ds.FacilityBookings.Find(id);
-            var response = new HttpResponseMessage();  
+
+            // Interim coding strategy...
 
             if (storedItem == null)
             {
@@ -523,18 +407,17 @@ namespace PropertyManager.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             else
-            {              
+            {
                 try
                 {
-                    response.Headers.Add("DeleteMessage", "Delete facility booking successful");
+                    // If this fails, throw an exception (as above)
+                    // This implementation just prevents an error from bubbling up
+
                     ds.FacilityBookings.Remove(storedItem);
                     ds.SaveChanges();
                 }
-                catch (Exception) {
-                    response.Headers.Add("DeleteMessage", "Could not delete facility booking");
-                }
+                catch (Exception) { }
             }
-            return response;
         }
 
         //**************************************** SERVICE SECTION ******************************************************
@@ -598,10 +481,9 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public HttpResponseMessage ServiceDelete(int id)
+        public void ServiceDelete(int id)
         {
             var storedItem = ds.Services.Find(id);
-            var response = new HttpResponseMessage();
             if (storedItem == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -611,14 +493,10 @@ namespace PropertyManager.Controllers
                 try
                 {
                     ds.Services.Remove(storedItem);
-                    response.Headers.Add("DeleteMessage", "Delete service successful");
                     ds.SaveChanges();
                 }
-                catch (Exception) {
-                    response.Headers.Add("DeleteMessage", "Could not delete service");
-                }
+                catch (Exception) { }
             }
-            return response;
         }
 
         //**************************************** SERVICE REQUEST SECTION ***********************************************
@@ -701,11 +579,10 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public HttpResponseMessage ServiceRequestDelete(int id)
+        public void ServiceRequestDelete(int id)
         {
             // Attempt to fetch the existing item
             var storedItem = ds.ServiceRequests.Find(id);
-            var response = new HttpResponseMessage();
 
             // Interim coding strategy...
 
@@ -720,15 +597,12 @@ namespace PropertyManager.Controllers
                 {
                     // If this fails, throw an exception (as above)
                     // This implementation just prevents an error from bubbling up
-                    response.Headers.Add("DeleteMessage", "Delete service request successful");
+
                     ds.ServiceRequests.Remove(storedItem);
                     ds.SaveChanges();
                 }
-                catch (Exception) {
-                    response.Headers.Add("DeleteMessage", "Could not delete service request");
-                }
+                catch (Exception) { }
             }
-            return response;
         }
 
         //************************************************UNIT SECTION****************************************************
@@ -779,10 +653,9 @@ namespace PropertyManager.Controllers
                 return Mapper.Map<UnitBase>(storedItem);
             }
         }
-        public HttpResponseMessage UnitDelete(int id)
+        public void UnitDelete(int id)
         {
             var storedItem = ds.Units.Find(id);
-            var response = new HttpResponseMessage();
             if (storedItem == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -791,15 +664,11 @@ namespace PropertyManager.Controllers
             {
                 try
                 {
-                    response.Headers.Add("DeleteMessage", "Delete unit successful");
                     ds.Units.Remove(storedItem);
                     ds.SaveChanges();
                 }
-                catch (Exception) {
-                    response.Headers.Add("DeleteMessage", "Could not delete unit");
-                }
+                catch (Exception) { }
             }
-            return response;
         }
 
         //***********************************************UNITPHOTO SECTION ***********************************************
@@ -810,6 +679,19 @@ namespace PropertyManager.Controllers
             return Mapper.Map<IEnumerable<UnitPhotoBase>>(c);
         }
 
+        public UnitPhotoWithMedia UnitPhotoGetById(int id)
+        {
+            var c = ds.UnitPhotos.Include("Unit").SingleOrDefault(a => a.Id == id);
+
+            return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
+        }
+
+        public UnitPhotoWithMedia UnitPhotoGetByAptNumber(int unitId)
+        {
+            var c = ds.UnitPhotos.SingleOrDefault(a => a.UnitId == unitId);
+
+            return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
+        }
         public UnitPhotoBase UnitPhotoAdd(UnitPhotoAdd newItem)
         {
             if (newItem == null)
@@ -822,7 +704,7 @@ namespace PropertyManager.Controllers
                 return null;
             }
             var addedItem = Mapper.Map<UnitPhoto>(newItem);
-            addedItem.Unit = associatedItem;
+            addedItem.UnitId = newItem.UnitId;
 
             ds.UnitPhotos.Add(addedItem);
             ds.SaveChanges();
@@ -858,6 +740,9 @@ namespace PropertyManager.Controllers
             var storedItem = ds.UnitPhotos.Include("Unit").SingleOrDefault(m => m.Id == id);
 
             if (storedItem == null) { return false; }
+
+            storedItem.ContentType = contentType;
+            storedItem.Photo = photo;
 
             return (ds.SaveChanges() > 0) ? true : false;
         }
@@ -950,10 +835,9 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public HttpResponseMessage ApartmentDelete(int id)
+        public void ApartmentDelete(int id)
         {
             var storedItem = ds.Apartments.Find(id);
-            var response = new HttpResponseMessage();
             if (storedItem == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -962,15 +846,11 @@ namespace PropertyManager.Controllers
             {
                 try
                 {
-                    response.Headers.Add("DeleteMessage", "Delete apartment successful");
                     ds.Apartments.Remove(storedItem);
                     ds.SaveChanges();
                 }
-                catch (Exception) {
-                    response.Headers.Add("DeleteMessage", "Could not apartment user");
-                }
+                catch (Exception) { }
             }
-            return response;
         }
 
         //************************************** TENANT SECTION ***********************************************************
@@ -1057,10 +937,9 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public HttpResponseMessage TenantDelete(int id)
+        public void TenantDelete(int id)
         {
             var storedItem = ds.Tenants.Find(id);
-            var response = new HttpResponseMessage();
             if (storedItem == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -1069,15 +948,11 @@ namespace PropertyManager.Controllers
             {
                 try
                 {
-                    response.Headers.Add("DeleteMessage", "Delete tenant successful");
                     ds.Tenants.Remove(storedItem);
                     ds.SaveChanges();
                 }
-                catch (Exception) {
-                    response.Headers.Add("DeleteMessage", "Could not delete tenant");
-                }
+                catch (Exception) { }
             }
-            return response;
         }
 
         //************************************** LEASE SECTION ***********************************************************
@@ -1138,8 +1013,6 @@ namespace PropertyManager.Controllers
                 editedApt.Status = "Occupied";
                 ds.Entry(associatedApartment).CurrentValues.SetValues(editedApt);
 
-                //var user = UserAddClaim(associatedTenant.Email);
-
                 ds.SaveChanges();
 
                 return Mapper.Map<LeaseBase>(addedItem);
@@ -1170,11 +1043,13 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public HttpResponseMessage LeaseDelete(int id)
+        public void LeaseDelete(int id)
         {
             // Attempt to fetch the existing item
             var storedItem = ds.Leases.Find(id);
-            var response = new HttpResponseMessage();       
+
+            // Interim coding strategy...
+
             if (storedItem == null)
             {
                 // Throw an exception
@@ -1182,31 +1057,18 @@ namespace PropertyManager.Controllers
             }
             else
             {
-                UserBase user = new UserBase();
-                user = getByEmail(storedItem.Tenant.Email);
                 try
                 {
-                    response.Headers.Add("DeleteMessage", "Delete lease successful");
                     var associatedApartment = ds.Apartments.Find(storedItem.Apartment.ApartmentNumber);
                     var editedApt = Mapper.Map<ApartmentBase>(associatedApartment);
                     editedApt.Status = "Vacant";
                     ds.Entry(associatedApartment).CurrentValues.SetValues(editedApt);
 
                     ds.Leases.Remove(storedItem);
-
-                   
-                    if (user != null)
-                    {
-                        UserRemoveClaim(user.UserName);
-                    }
-
                     ds.SaveChanges();
                 }
-                catch (Exception) {
-                    response.Headers.Add("DeleteMessage", "Could not delete lease");
-                }
+                catch (Exception) { }
             }
-            return response;
         }
 
         //****************************** WORK ORDER SECTION *******************************************************************
@@ -1293,10 +1155,9 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public HttpResponseMessage WorkOrderDelete(int id)
+        public void WorkOrderDelete(int id)
         {
             var storedItem = ds.WorkOrders.Find(id);
-            var response = new HttpResponseMessage();
             if (storedItem == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -1305,15 +1166,11 @@ namespace PropertyManager.Controllers
             {
                 try
                 {
-                    response.Headers.Add("DeleteMessage", "Delete work order successful");
                     ds.WorkOrders.Remove(storedItem);
                     ds.SaveChanges();
                 }
-                catch (Exception) {
-                    response.Headers.Add("DeleteMessage", "Could not delete work order");
-                }
+                catch (Exception) { }
             }
-            return response;
         }
 
     }

@@ -1,15 +1,17 @@
 ﻿angular.module("common.services").factory("serviceService", ["$http", "$q", "appSettings", serviceService]);
 function serviceService($http, $q, appSettings) {
 
-    var accessToken = sessionStorage.getItem('accessToken');
-
     this.addService = function (service) {
+        var accessToken = sessionStorage.getItem('accessToken');
+        //var authHeaders = {};
+        //if (accessToken) {
+        //authHeaders.Authorization = 'Bearer ' + accessToken;
+        //}
         var def = $q.defer();
         $http({
             url: appSettings.serverPath + "/api/services",
             method: "POST",
             data: service,
-            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -22,7 +24,7 @@ function serviceService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/services",
             method: "GET",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };
@@ -31,7 +33,7 @@ function serviceService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/services/allforrequest",
             method: "GET",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };
@@ -40,7 +42,7 @@ function serviceService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/services/" + serviceId,
             method: "GET",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };
@@ -52,7 +54,6 @@ function serviceService($http, $q, appSettings) {
             url: appSettings.serverPath + "/api/services/" + serviceId,
             method: "PUT",
             data: service,
-            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -65,7 +66,7 @@ function serviceService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/services/" + id,
             method: "DELETE",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };

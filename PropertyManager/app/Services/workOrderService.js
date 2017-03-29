@@ -1,15 +1,17 @@
 ﻿angular.module("common.services").factory("workOrderService", ["$http", "$q", "appSettings", workOrderService]);
 function workOrderService($http, $q, appSettings) {
 
-    var accessToken = sessionStorage.getItem('accessToken');
-
     this.addWorkOrder = function (workOrder) {
+        var accessToken = sessionStorage.getItem('accessToken');
+        //var authHeaders = {};
+        //if (accessToken) {
+        //authHeaders.Authorization = 'Bearer ' + accessToken;
+        //}
         var def = $q.defer();
         $http({
             url: appSettings.serverPath + "/api/WorkOrders",
             method: "POST",
             data: workOrder,
-            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -22,7 +24,7 @@ function workOrderService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/WorkOrders",
             method: "GET",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };
@@ -31,7 +33,7 @@ function workOrderService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/WorkOrders/" + workOrderId,
             method: "GET",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };
@@ -40,7 +42,7 @@ function workOrderService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/workorders/tenant/" + tenantId + "/find",
             method: "GET",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };
@@ -52,7 +54,6 @@ function workOrderService($http, $q, appSettings) {
             url: appSettings.serverPath + "/api/WorkOrders/" + workOrderId,
             method: "PUT",
             data: workOrder,
-            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -65,7 +66,7 @@ function workOrderService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/WorkOrders/" + id,
             method: "DELETE",
-            headers: { Authorization: 'Bearer ' + accessToken },
+            //headers: authHeaders
         });
         return response;
     };

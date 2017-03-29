@@ -17,7 +17,6 @@ function userProfile() {
         };
         return profile;
     }
-
     return {
         setProfile: setProfile,
         getProfile: getProfile,

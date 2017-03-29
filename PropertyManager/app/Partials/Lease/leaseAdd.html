@@ -41,7 +41,7 @@
                      
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addLease()">Add Lease </button>
-                    <br/><span style="margin:10px;" class="spanError" ng-show="errorMessage!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{errorMessage}}</span>                                                                   
+                    <span>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showConfirmation">

@@ -12,14 +12,12 @@ namespace PropertyManager.Controllers
         private Manager m = new Manager();
 
         // GET: api/WorkOrders
-        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get()
         {
             return Ok(m.WorkOrderGetAll());
         }
 
         // GET: api/WorkOrders/5
-        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
@@ -38,7 +36,6 @@ namespace PropertyManager.Controllers
         }
 
         [Route("api/workorders/tenant/{id}/find")]
-        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult GetByTenantId(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
@@ -57,7 +54,6 @@ namespace PropertyManager.Controllers
         }
 
         // POST: api/WorkOrders
-        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Post([FromBody]WorkOrderAdd newItem)
         {
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
@@ -82,7 +78,6 @@ namespace PropertyManager.Controllers
         }
 
         // PUT: api/WorkOrders/5
-        [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Put(int id, [FromBody]WorkOrderEdit editedItem)
         {
             if (editedItem == null)
@@ -117,11 +112,9 @@ namespace PropertyManager.Controllers
         }
 
         // DELETE: api/WorkOrders/5
-        [Authorize(Roles = "Administrator, Manager, Tenant")]
-        public HttpResponseMessage Delete(int id)
+        public void Delete(int id)
         {
-            var response = m.WorkOrderDelete(id);
-            return response;
+            m.WorkOrderDelete(id);
         }
     }
 }
