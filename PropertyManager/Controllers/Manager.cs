@@ -679,18 +679,18 @@ namespace PropertyManager.Controllers
             return Mapper.Map<IEnumerable<UnitPhotoBase>>(c);
         }
 
-        public UnitPhotoWithMedia UnitPhotoGetById(int id)
+        public UnitPhotoBase UnitPhotoGetById(int id)
         {
             var c = ds.UnitPhotos.Include("Unit").SingleOrDefault(a => a.Id == id);
 
-            return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
+            return (c == null) ? null : Mapper.Map<UnitPhotoBase>(c);
         }
 
-        public UnitPhotoWithMedia UnitPhotoGetByAptNumber(int unitId)
+        public UnitPhotoBase UnitPhotoGetByAptNumber(int unitId)
         {
-            var c = ds.UnitPhotos.SingleOrDefault(a => a.UnitId == unitId);
+            var c = ds.UnitPhotos.SingleOrDefault(a => a.Id == unitId);
 
-            return (c == null) ? null : Mapper.Map<UnitPhotoWithMedia>(c);
+            return (c == null) ? null : Mapper.Map<UnitPhotoBase>(c);
         }
         public UnitPhotoBase UnitPhotoAdd(UnitPhotoAdd newItem)
         {
@@ -704,7 +704,7 @@ namespace PropertyManager.Controllers
                 return null;
             }
             var addedItem = Mapper.Map<UnitPhoto>(newItem);
-            addedItem.UnitId = newItem.UnitId;
+            addedItem.Id = newItem.UnitId;
 
             ds.UnitPhotos.Add(addedItem);
             ds.SaveChanges();
@@ -733,19 +733,6 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public bool UnitPhotoSetPhoto(int id, string contentType, byte[] photo)
-        {
-            if (string.IsNullOrEmpty(contentType) | photo == null) { return false; }
-
-            var storedItem = ds.UnitPhotos.Include("Unit").SingleOrDefault(m => m.Id == id);
-
-            if (storedItem == null) { return false; }
-
-            storedItem.ContentType = contentType;
-            storedItem.Photo = photo;
-
-            return (ds.SaveChanges() > 0) ? true : false;
-        }
 
         public void UnitPhotoDelete(int id)
         {
