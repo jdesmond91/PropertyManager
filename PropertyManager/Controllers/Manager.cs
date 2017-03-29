@@ -98,7 +98,7 @@ namespace PropertyManager.Controllers
                 userManager.UpdateAsync(user);
                 ds.SaveChanges();
             }
-                return Mapper.Map<UserBase>(user);
+            return Mapper.Map<UserBase>(user);
         }
 
         public HttpResponseMessage UserDelete(string email)
@@ -1154,7 +1154,7 @@ namespace PropertyManager.Controllers
                 editedApt.Status = "Occupied";
                 ds.Entry(associatedApartment).CurrentValues.SetValues(editedApt);
 
-                var user = UserAddClaim(associatedTenant.Email);
+                //var user = UserAddClaim(associatedTenant.Email);
 
                 ds.SaveChanges();
 

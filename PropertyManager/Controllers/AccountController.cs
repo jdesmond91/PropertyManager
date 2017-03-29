@@ -139,6 +139,28 @@ namespace PropertyManager.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
+        [Route("userGetAll")]
+        public IEnumerable<UserBase> UAGetAll()
+        {
+            // Return the entire user account collection, mapped
+            return Mapper.Map<IEnumerable<UserBase>>(UserManager.Users);
+        }
+
+        [AllowAnonymous]
+        [Route("userGetByEmail/{email}/find")]
+        public UserBase getByEmail(string email)
+        {
+            // Attempt to fetch the object
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            // Attempt to locate the object
+            IdentityUser user = UserManager.FindByEmailAsync(email).Result;
+
+            return (user == null) ? null : Mapper.Map<UserBase>(user);
+
+        }
+
         // POST api/Account/SetPassword
         [AllowAnonymous]
         [Route("SetPassword")]
