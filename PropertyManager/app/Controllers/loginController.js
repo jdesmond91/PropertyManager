@@ -15,6 +15,7 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
     $scope.birthDate = "";
     $scope.confirmPassword = "";
     $scope.userResetPassword = "";
+    $scope.message = "";
 
 
     $scope.registerUser = function () {
@@ -28,10 +29,10 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
             userName: $scope.userEmail,
             password: $scope.userPassword
         };
-        $scope.responseData = "";
+        $scope.message = "";
         var loginResult = loginService.login(userLogin);
         loginResult.then(function (response) {
-            $scope.userName = response.data.userName;           
+            $scope.userName = response.data.userName;
             return response.data;
         }).
         then(function (data){
@@ -42,14 +43,13 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
                 $scope.isLoggedIn = true;              
                 $location.path('/home');                  
             }, function (error) {
-                $scope.responseData = response.statusText + " : \r\n";
+                $scope.message = response.statusText + " : \r\n";
                 if (error.data.error) {
-                    $scope.responseData += error.data.error_description;
+                    $scope.message += error.data.error_description;
                 }
             })            
-        }, function (response) {
-            $scope.responseData = response.statusText + " : \r\n";           
-            $scope.responseData += response.data.error_description;          
+        }, function (response) {     
+            $scope.message = response.data.error_description;
         });
     };
 
@@ -58,7 +58,7 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
     }
 
     $scope.resetPasword = function () {
-        $scope.responseData = "";
+        $scope.message = "";
 
         var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
 
@@ -72,10 +72,14 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         var resetResult = loginService.resetPassword(userInfo);
         resetResult.then(function (data) {
             console.log(data);
-            $scope.responseData = "Reset Password Successfull";
+            $scope.message = "Reset Password Successfull";
             $location.path('/home');
         }, function (response) {
-            $scope.responseData = response.statusText + "\r\n";
+            $scope.message = response.data;
         });
-    };                        
+    };
+
+    $scope.cancelReset = function () {
+        $scope.passForget = false;
+    }
 }
