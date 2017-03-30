@@ -271,6 +271,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\Controllers\unitphotoController.js" />
+    <Content Include="app\Controllers\userController.js" />
     <Content Include="app\Controllers\workOrderController.js" />
     <Content Include="app\Controllers\workOrderManagerController.js" />
     <Content Include="app\Partials\Announcement\announcementAdd.html" />
@@ -285,6 +286,7 @@
     <Content Include="app\Partials\Inventory\inventoryAdd.html" />
     <Content Include="app\Partials\Lease\leaseAdd.html" />
     <Content Include="app\Partials\Login\registerManager.html" />
+    <Content Include="app\Partials\Login\userPage.html" />
     <Content Include="app\Partials\Service\serviceAdd.html" />
     <Content Include="app\Partials\Service\servicerequest.html" />
     <Content Include="app\Partials\Service\servicerequestAdd.html" />
@@ -297,6 +299,7 @@
     <Content Include="app\Partials\WorkOrder\workorderrequestmanager.html" />
     <Content Include="app\Services\Directives.js" />
     <Content Include="app\Services\unitphotoService.js" />
+    <Content Include="app\Services\userService.js" />
     <Content Include="app\Services\workOrderService.js" />
     <Content Include="app\Vendor\angular-modal-service.js" />
     <Content Include="app\Vendor\angular-modal-service.min.js" />

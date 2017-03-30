@@ -1,17 +1,15 @@
 ﻿angular.module("common.services").factory("unitService", ["$http", "$q", "appSettings", unitService]);
 function unitService($http, $q, appSettings) {
 
+    var accessToken = sessionStorage.getItem('accessToken');
+
     this.addUnit = function (unit) {
-        var accessToken = sessionStorage.getItem('accessToken');
-        //var authHeaders = {};
-        //if (accessToken) {
-        //authHeaders.Authorization = 'Bearer ' + accessToken;
-        //}
         var def = $q.defer();
         $http({
             url: appSettings.serverPath + "/api/units",
             method: "POST",
             data: unit,
+            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -24,7 +22,7 @@ function unitService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/units",
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -33,7 +31,7 @@ function unitService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/units/" + unitId,
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -45,6 +43,7 @@ function unitService($http, $q, appSettings) {
             url: appSettings.serverPath + "/api/units/" + unitId,
             method: "PUT",
             data: unit,
+            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -57,7 +56,7 @@ function unitService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/units/" + id,
             method: "DELETE",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };

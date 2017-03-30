@@ -19,7 +19,11 @@ namespace PropertyManager.Controllers
     }
 
     public class UnitBase : UnitAdd
-    {             
+    {
+        public UnitBase()
+        {
+            UnitPhotos = new List<UnitPhotoBase>();
+        }
         public int Id { get; set; }
         public ICollection<UnitPhotoBase> UnitPhotos { get; set; }
         public ICollection<ApartmentBase> Apartments { get; set; }

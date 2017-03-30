@@ -74,7 +74,7 @@ function unitphotoController($http, $scope, $filter,unitphotoService, userProfil
     } // close function
 
     $scope.delete = function (id) {
-        var deleteOne = unitphotoService.deleteUnitPhoto(1);
+        var deleteOne = unitphotoService.deleteUnitPhoto(4);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
             console.log(response);

@@ -1,17 +1,15 @@
 ﻿angular.module("common.services").factory("serviceRequestService", ["$http", "$q", "appSettings", serviceRequestService]);
 function serviceRequestService($http, $q, appSettings) {
 
+    var accessToken = sessionStorage.getItem('accessToken');
+
     this.addServiceRequest = function (serviceRequest) {
-        var accessToken = sessionStorage.getItem('accessToken');
-        //var authHeaders = {};
-        //if (accessToken) {
-        //authHeaders.Authorization = 'Bearer ' + accessToken;
-        //}
         var def = $q.defer();
         $http({
             url: appSettings.serverPath + "/api/ServiceRequests",
             method: "POST",
             data: serviceRequest,
+            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -24,7 +22,7 @@ function serviceRequestService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/ServiceRequests",
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -33,7 +31,7 @@ function serviceRequestService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/ServiceRequests/" + serviceRequestId,
             method: "GET",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
@@ -45,6 +43,7 @@ function serviceRequestService($http, $q, appSettings) {
             url: appSettings.serverPath + "/api/ServiceRequests/" + serviceRequestId,
             method: "PUT",
             data: serviceRequest,
+            headers: { Authorization: 'Bearer ' + accessToken },
         }).then(function (response) {
             def.resolve(response);
         }, function (err) {
@@ -57,7 +56,7 @@ function serviceRequestService($http, $q, appSettings) {
         var response = $http({
             url: appSettings.serverPath + "/api/ServiceRequests/" + id,
             method: "DELETE",
-            //headers: authHeaders
+            headers: { Authorization: 'Bearer ' + accessToken },
         });
         return response;
     };
