@@ -1,6 +1,6 @@
-﻿angular.module("propertyManagerApp", ['ngRoute', 'ui.calendar', 'common.services', 'ui.bootstrap'])
-        .config(['$routeProvider', '$locationProvider',
-            function ($routeProvider, $locationProvider) {
+﻿angular.module("propertyManagerApp", ['ngRoute', 'ui.calendar', 'common.services', 'ui.bootstrap', 'ngAnimate'])
+    .config(['$routeProvider', '$locationProvider', '$animateProvider',
+        function ($routeProvider, $locationProvider, $animateProvider) {
                 $locationProvider.hashPrefix('');
                 $routeProvider
                     .when('/index', {
@@ -132,4 +132,5 @@
                         templateUrl: 'app/Partials/Unit/unitPhoto.html'
                     })
                     .otherwise({ redirectTo: '/index' });
+                $animateProvider.classNameFilter(/details-row/);
             }]);

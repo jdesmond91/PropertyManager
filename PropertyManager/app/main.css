@@ -315,6 +315,24 @@ td.text-right {
     padding: 10px;
 }
 
+.details-row.ng-enter {
+    transition: 0.5s linear all;
+    opacity: 0;
+}
+
+.details-row.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+
+.details-row.ng-leave {
+    transition: 0.3s linear all;
+    opacity: 1;
+}
+
+.details-row.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+
 /********** LOGIN FORM *************/
 .registerForm {
     margin-left: auto ;

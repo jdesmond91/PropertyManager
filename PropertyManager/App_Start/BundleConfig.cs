@@ -42,7 +42,7 @@ namespace PropertyManager
                       "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                       "~/Scripts/bootstrap.min.js",
                       "~/Scripts/angular-ui/ui-bootstrap.min.js",
-                      
+                      "~/Scripts/angular-animate.js",
                       "~/app/Vendor/metisMenu.js",
                       "~/app/Vendor/moment.js",
                       "~/app/Vendor/calendar.js",
