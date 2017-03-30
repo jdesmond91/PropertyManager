@@ -8,5 +8,6 @@ function homeController($scope, userProfile) {
     $scope.isLoggedIn = user.isLoggedIn;
     $scope.firstName = user.firstName;
     $scope.userRole = user.userRole;
+    $scope.date = new Date();
 
 }

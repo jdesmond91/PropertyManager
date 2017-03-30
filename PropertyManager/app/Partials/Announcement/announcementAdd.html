@@ -14,7 +14,7 @@
             <div class="form-style-5" ng-hide="showConfirmation">
                 <form name="form" id="form">
                     <fieldset>
-                        <legend><span class="number"></span> Add Announcement <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
+                        <legend><span><i class="fa fa-calendar-check-o" aria-hidden="true"></i></span> Add Announcement <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="title">Title</label>
                         <input type="text" name="title" id="title" ng-model="modelAdd.title" class="form-control" maxlength="40" ng-pattern="/^[a-zA-Z0-9\\.!\\?\- ]+$/" required>

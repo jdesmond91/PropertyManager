@@ -8,6 +8,12 @@
 <body ng-app="propertyManagerApp">
     <div ng-include='"/app/Partials/menu.html"'></div>
     <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header" style="margin-top: 0px;">Employees</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
         <form>
             <div class="form-group">
                 <div class="input-group">
@@ -20,28 +26,28 @@
         <table class="table-fill" style="float: left">
             <thead>
                 <tr>
-                    <th style="width: 2%"></th>
-                    <th class="text-left" ng-click="sortType = 'FirstName'; sortReverse = !sortReverse">First Name
+                    <th style="width: 1%"></th>
+                    <th style="width: 20%" class="text-left" ng-click="sortType = 'FirstName'; sortReverse = !sortReverse">First Name
                         <span><i class="fa fa-caret-up" ng-show="sortType == 'FirstName' && !sortReverse"></i></span>
                         <span><i class="fa fa-caret-down" ng-show="sortType == 'FirstName' && sortReverse"></i></span>
                     </th>
-                    <th class="text-left" ng-click="sortType = 'LastName'; sortReverse = !sortReverse">Last Name
+                    <th style="width: 5%" class="text-left" ng-click="sortType = 'LastName'; sortReverse = !sortReverse">Last Name
                         <span><i class="fa fa-caret-up" ng-show="sortType == 'LastName' && !sortReverse"></i></span>
                         <span><i class="fa fa-caret-down" ng-show="sortType == 'LastName' && sortReverse"></i></span>
                     </th>
-                    <th class="text-left" ng-click="sortType = 'Title'; sortReverse = !sortReverse">Title
+                    <th style="width: 5%" class="text-left" ng-click="sortType = 'Title'; sortReverse = !sortReverse">Title
                         <span><i class="fa fa-caret-up" ng-show="sortType == 'Title' && !sortReverse"></i></span>
                         <span><i class="fa fa-caret-down" ng-show="sortType == 'Title' && sortReverse"></i></span>    
                     </th>
-                    <th class="text-left" ng-click="sortType = 'Phone'; sortReverse = !sortReverse">Phone
+                    <th style="width: 10%" class="text-left" ng-click="sortType = 'Phone'; sortReverse = !sortReverse">Phone
                         <span><i class="fa fa-caret-up" ng-show="sortType == 'Phone' && !sortReverse"></i></span>
                         <span><i class="fa fa-caret-down" ng-show="sortType == 'Phone' && sortReverse"></i></span> 
                     </th>
-                    <th class="text-left" ng-click="sortType = 'Email'; sortReverse = !sortReverse">Email
+                    <th style="width: 20%" class="text-left" ng-click="sortType = 'Email'; sortReverse = !sortReverse">Email
                         <span><i class="fa fa-caret-up" ng-show="sortType == 'Email' && !sortReverse"></i></span>
                         <span><i class="fa fa-caret-down" ng-show="sortType == 'Email' && sortReverse"></i></span> 
                     </th>
-                    <th class="text-left" ng-click="sortType = 'HireDate'; sortReverse = !sortReverse">Hire Date
+                    <th style="width: 20%" class="text-left" ng-click="sortType = 'HireDate'; sortReverse = !sortReverse">Hire Date
                         <span><i class="fa fa-caret-up" ng-show="sortType == 'HireDate' && !sortReverse"></i></span>
                         <span><i class="fa fa-caret-down" ng-show="sortType == 'HireDate' && sortReverse"></i></span> 
                     </th>

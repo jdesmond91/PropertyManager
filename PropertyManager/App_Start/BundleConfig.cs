@@ -30,16 +30,19 @@ namespace PropertyManager
                      "~/Content/font-awesome.min.css",
                      "~/Content/fullcalendar.css",
                      "~/app/Vendor/metisMenu.css",
+                     "~/app/stylish-portfolio.css",
                      "~/app/main.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/propertymanagerapp/script").Include(
                       "~/Scripts/angular.js",
+                      "~/Scripts/ng-file-upload.js",
                       "~/Scripts/angular-route.js",
                       "~/Scripts/angular-resource.js",
                       "~/Scripts/jquery-1.10.2.js",
                       "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                       "~/Scripts/bootstrap.min.js",
-                      "~/Scripts/angular-ui/ui-bootstrap.min.js",                      
+                      "~/Scripts/angular-ui/ui-bootstrap.min.js",
+                      "~/Scripts/angular-animate.js",
                       "~/app/Vendor/metisMenu.js",
                       "~/app/Vendor/moment.js",
                       "~/app/Vendor/calendar.js",
@@ -63,7 +66,6 @@ namespace PropertyManager
                       "~/app/Services/tenantService.js",
                       "~/app/Services/unitService.js",
                       "~/app/Services/unitphotoService.js",
-                      "~/app/Services/userService.js",
                       "~/app/Services/userProfile.js",
                       "~/app/Services/workOrderService.js",
                       //CONTROLLERS
@@ -83,7 +85,6 @@ namespace PropertyManager
                       "~/app/Controllers/tenantController.js",
                       "~/app/Controllers/unitController.js",
                       "~/app/Controllers/unitphotoController.js",
-                      "~/app/Controllers/userController.js",
                       "~/app/Controllers/workOrderController.js",
                       "~/app/Controllers/workOrderManagerController.js"
             ));

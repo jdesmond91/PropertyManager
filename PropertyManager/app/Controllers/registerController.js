@@ -1,7 +1,7 @@
 ﻿angular.module("propertyManagerApp").controller("registerController", ["$scope", '$location', "$filter", "loginService", "userProfile", registerController]);
 
 function registerController($scope, $location, $filter, loginService, userProfile) {
-    $scope.responseData = "";
+    $scope.message = "";
     $scope.userName = "";
     $scope.userEmail = "";
     $scope.userPassword = "";
@@ -18,7 +18,7 @@ function registerController($scope, $location, $filter, loginService, userProfil
     $scope.userRole = userProf.userRole;
 
     $scope.registerUser = function () {
-        $scope.responseData = "";
+        $scope.message = "";
         var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
 
         var userInfo = {
@@ -39,17 +39,17 @@ function registerController($scope, $location, $filter, loginService, userProfil
         var registerResult = loginService.register(userInfo);
         registerResult.then(function (data) {
             console.log(data);
-            $scope.responseData = "User Registration Successfull";
+            $scope.message = "User Registration Successfull";
             $scope.userPassword = "";
             $location.path('/home');
         }, function (response) {
-            $scope.responseData = response.data + "\r\n";
+            $scope.message = response.data + "\r\n";
             if (response.data.exceptionMessage) {
-                $scope.responseData += response.data.exceptionMessage;
+                $scope.message += response.data.exceptionMessage;
             }
             if (response.data.modelState) {
                 for (var key in response.data.modelState) {
-                    $scope.responseData += response.data.modelState[key] + "\r\n";
+                    $scope.message += response.data.modelState[key] + "\r\n";
                 }
             }
         });

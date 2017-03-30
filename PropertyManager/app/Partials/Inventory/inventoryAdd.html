@@ -14,7 +14,7 @@
             <div class="form-style-5" ng-hide="showConfirmation">
                 <form name="form" id="form">
                     <fieldset>
-                        <legend><span class="number"></span> Add Inventory <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
+                        <legend><span><i class="fa fa-list" aria-hidden="true"></i></span> Add Inventory <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="productName">Product Name</label>
                         <input type="text" name="productName" id="productName" ng-model="modelAdd.productName" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" class="form-control" maxlength="20" required>
