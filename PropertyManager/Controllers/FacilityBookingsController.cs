@@ -82,11 +82,30 @@ namespace PropertyManager.Controllers
             {
                 foreach(FacilityBookingBase book in booking)
                 {
-                    if(newItem.StartTime >= book.StartTime && newItem.StartTime <= book.EndTime)
+                    var startTimeHour = newItem.StartTime.Value.Hour;
+                    var startTimeMin = newItem.StartTime.Value.Minute;
+                    var endTimeHour = newItem.EndTime.Value.Hour;
+                    var endTimeMin = newItem.EndTime.Value.Minute;
+
+                    var bookstartTimeHour = book.StartTime.Value.Hour;
+                    var bookstartTimeMin = book.StartTime.Value.Minute;
+                    var bookendTimeHour = book.EndTime.Value.Hour;
+                    var bookendTimeMin = book.EndTime.Value.Minute;
+
+                    if (startTimeHour >= bookstartTimeHour && startTimeHour < bookendTimeHour)
                     {
                         return Content(HttpStatusCode.Conflict, "There's a booking at this time");
                     }
-                    else if(newItem.StartTime < book.StartTime && newItem.EndTime >= book.StartTime)
+                    else if(startTimeHour < bookstartTimeHour && endTimeHour >= bookstartTimeHour)
+                    {
+                        return Content(HttpStatusCode.Conflict, "There's a booking at this time");
+                    }
+                   
+                    else if (startTimeHour < bookstartTimeHour && endTimeHour >= bookstartTimeHour)
+                    {
+                        return Content(HttpStatusCode.Conflict, "There's a booking at this time");
+                    }
+                    else if (startTimeHour >= bookendTimeHour && startTimeMin < bookendTimeMin)
                     {
                         return Content(HttpStatusCode.Conflict, "There's a booking at this time");
                     }

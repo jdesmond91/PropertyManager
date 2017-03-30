@@ -17,11 +17,11 @@
                         <legend><span class="number"></span> Add Inventory <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="productName">Product Name</label>
-                        <input type="text" name="productName" id="productName" ng-model="modelAdd.productName" ng-pattern="/^[a-zA-Z0-9 ]+$/" class="form-control" maxlength="20" required>
+                        <input type="text" name="productName" id="productName" ng-model="modelAdd.productName" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" class="form-control" maxlength="20" required>
                         <span class="spanError" ng-show="form.productName.$error.pattern || form.productName.$invalid && !form.productName.$pristine">Enter a product name</span>
 
                         <label class="control-label" for="supplier">Supplier</label>
-                        <input type="text" name="supplier" id="supplier" ng-model="modelAdd.supplier" ng-pattern="/^[a-zA-Z0-9 ]+$/" class="form-control" maxlength="20">
+                        <input type="text" name="supplier" id="supplier" ng-model="modelAdd.supplier" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" class="form-control" maxlength="20">
                         <span class="spanError" ng-show="form.supplier.$error.pattern || form.supplier.$invalid && !form.supplier.$pristine">Enter a supplier name</span>
 
                         <label class="control-label" for="quantity">Quantity</label>
@@ -29,7 +29,7 @@
                         <span class="spanError" ng-show="form.quantity.$error.pattern || form.quantity.$invalid && !form.quantity.$pristine">Enter a quantity</span>
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addInventory()">Add Inventory </button>
-                    <span>{{message}}</span>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showConfirmation">
@@ -61,19 +61,19 @@
                         <legend><span class="number"></span> Edit Inventory <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="productName">Product Name</label>
-                        <input type="text" name="productName" id="productName" ng-model="modelEdit.productName" ng-pattern="/^[a-zA-Z0-9 ]+$/" class="form-control" maxlength="20" required>
+                        <input type="text" name="productName" id="productName" ng-model="modelEdit.productName" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" class="form-control" maxlength="20" required>
                         <span class="spanError" ng-show="formEdit.productName.$error.pattern || formEdit.productName.$invalid && !formEdit.productName.$pristine">Enter a product name</span>
 
                         <label class="control-label" for="supplier">Supplier</label>
-                        <input type="text" name="supplier" id="supplier" ng-model="modelEdit.supplier" ng-pattern="/^[a-zA-Z0-9 ]+$/" class="form-control" maxlength="20">
+                        <input type="text" name="supplier" id="supplier" ng-model="modelEdit.supplier" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" class="form-control" maxlength="20">
                         <span class="spanError" ng-show="formEdit.supplier.$error.pattern || formEdit.supplier.$invalid && !formEdit.supplier.$pristine">Enter a supplier name</span>
 
                         <label class="control-label" for="quantity">Quantity</label>
-                        <input type="number" name="quantity" id="quantity" class="form-control" ng-pattern="/^[0-9]{0,5}$/" ng-model="modelEdit.quantity" required>
+                        <input type="number" name="quantity" id="quantity" class="form-control" ng-pattern="/^\d{0,5}$/" ng-model="modelEdit.quantity" required>
                         <span class="spanError" ng-show="formEdit.quantity.$error.pattern || formEdit.quantity.$invalid && !formEdit.quantity.$pristine">Enter a quantity</span>
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editInventory()">Edit Inventory </button>
-                    <span>{{message}}</span>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showEditConfirmation">

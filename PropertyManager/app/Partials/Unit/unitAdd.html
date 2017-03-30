@@ -56,7 +56,7 @@
                         <input type="file" upload-files />                       
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addUnit()">Add Unit </button>
-                    <span>{{message}}</span>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showConfirmation">
@@ -145,7 +145,7 @@
                         <span class="spanError" ng-show="formEdit.dishwasher.$invalid && !formEdit.dishwasher.$pristine">Enter dishwasher</span>
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editUnit()">Edit Unit </button>
-                    <span>{{message}}</span>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showEditConfirmation">

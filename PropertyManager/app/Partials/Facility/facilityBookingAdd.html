@@ -35,7 +35,7 @@
                         <span class="spanError" ng-show="form.endTime.$invalid && !form.endTime.$pristine">Enter a valid end time</span>
 
                         <label class="control-label" for="notes">Notes</label>
-                        <input type="text" name="notes" id="notes" ng-model="modelAdd.notes" class="form-control" ng-pattern="/^[a-zA-Z ]+$/">
+                        <input type="text" name="notes" id="notes" ng-model="modelAdd.notes" class="form-control" ng-pattern="/^[a-zA-Z\\.!\\?() ]+$/" maxlength="50">
                         <span class="spanError" ng-show="form.notes.$error.pattern || form.notes.$invalid && !form.notes.$pristine">Enter valid notes</span>
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addFacilityBooking()">Book Facility </button>
@@ -95,7 +95,7 @@
                         <span class="spanError" ng-show="formEdit.endTime.$invalid && !formEdit.endTime.$pristine">Enter a valid end time</span>
 
                         <label class="control-label" for="notes">Notes</label>
-                        <input type="text" name="notes" id="notes" ng-model="modelEdit.notes" class="form-control" ng-pattern="/^[a-zA-Z ]+$/">
+                        <input type="text" name="notes" id="notes" ng-model="modelEdit.notes" class="form-control" ng-pattern="/^[a-zA-Z\\.!\\?() ]+$/">
                         <span class="spanError" ng-show="formEdit.notes.$error.pattern || formEdit.notes.$invalid && !form.notes.$pristine">Enter valid notes</span>
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editFacilityBooking()">Edit Facility </button>

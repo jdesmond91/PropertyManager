@@ -17,7 +17,7 @@
                         <legend><span class="number"></span> Add Announcement <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="title">Title</label>
-                        <input type="text" name="title" id="title" ng-model="modelAdd.title" class="form-control" maxlength="40" required>
+                        <input type="text" name="title" id="title" ng-model="modelAdd.title" class="form-control" maxlength="40" ng-pattern="/^[a-zA-Z0-9\\.!\\?\- ]+$/" required>
                         <span class="spanError" ng-show="form.title.$invalid && !form.title.$pristine">Enter a title</span>
 
                         <label class="control-label" for="startDate">Start Date</label>
@@ -29,7 +29,7 @@
                         <span class="spanError" ng-show="form.expireDate.$invalid && !form.expireDate.$pristine">Enter a valid date</span>
 
                         <label class="control-label" for="description">Description</label>
-                        <textarea id="description" name="description" ng-model="modelAdd.description" rows="6" cols="20" style="overflow:auto;resize:none" required></textarea>
+                        <textarea id="description" name="description" ng-model="modelAdd.description" rows="6" cols="20" style="overflow:auto;resize:none" required ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():% ]+$/"></textarea>
                         <br /><span class="spanError" ng-show="form.description.$invalid && !form.description.$pristine">Enter a description</span>
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addAnnouncement()">Add Announcement </button>
@@ -70,7 +70,7 @@
                         <legend><span class="number"></span> Edit Announcement <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="title">Title</label>
-                        <input type="text" name="title" id="title" ng-model="modelEdit.title" class="form-control" maxlength="40" required>
+                        <input type="text" name="title" id="title" ng-model="modelEdit.title" class="form-control" maxlength="40" ng-pattern="/^[a-zA-Z0-9\\.!\\?\- ]+$/" required>
                         <span class="spanError" ng-show="formEdit.title.$invalid && !formEdit.title.$pristine">Enter a title</span>
 
                         <label class="control-label" for="startDate">Start Date</label>
@@ -82,7 +82,7 @@
                         <span class="spanError" ng-show="formEdit.expireDate.$invalid && !formEdit.expireDate.$pristine">Enter a valid date</span>
 
                         <label class="control-label" for="description">Description</label>
-                        <textarea id="description" name="description" ng-model="modelEdit.description" rows="6" cols="20" style="overflow:auto;resize:none" required></textarea>
+                        <textarea id="description" name="description" ng-model="modelEdit.description" rows="6" cols="20" style="overflow:auto;resize:none" ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():% ]+$/" required></textarea>
                         <br /><span class="spanError" ng-show="formEdit.description.$invalid && !formEdit.description.$pristine">Enter a description</span>
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editAnnouncement()">Edit Announcement </button>

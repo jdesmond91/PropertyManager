@@ -40,11 +40,11 @@
                         <legend><span class="number"></span> Add Employee <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="firstName">Fist Name</label>
-                        <input type="text" name="firstName" id="firstName" ng-model="modelAdd.FirstName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="20" required>
+                        <input type="text" name="firstName" id="firstName" ng-model="modelAdd.FirstName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="30" required>
                         <span class="spanError" ng-show="form.firstName.$error.pattern ||form.firstName.$invalid && !form.firstName.$pristine">Enter a first name</span>
 
                         <label class="control-label" for="lastName">Last Name</label>
-                        <input type="text" name="lastName" id="lastName" ng-model="modelAdd.LastName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="20" required>
+                        <input type="text" name="lastName" id="lastName" ng-model="modelAdd.LastName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="30" required>
                         <span class="spanError" ng-show="form.lastName.$error.pattern || form.lastName.$invalid && !form.lastName.$pristine">Enter a last name</span>
 
                         <label class="control-label" for="title">Title</label>
@@ -68,24 +68,24 @@
                         <span class="spanError" ng-show="form.hireDate.$invalid && !form.hireDate.$pristine">Enter a valid date</span>
 
                         <label class="control-label" for="title">Address</label>
-                        <input type="text" name="address" id="address" ng-model="modelAdd.Address" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="50" required>
+                        <input type="text" name="address" id="address" ng-model="modelAdd.Address" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" class="form-control" maxlength="50" required>
                         <span class="spanError" ng-show="form.address.$error.pattern || form.address.$invalid && !form.address.$pristine">Enter an address</span>
 
                         <label class="control-label" for="city">City</label>
-                        <input type="text" name="city" id="city" ng-model="modelAdd.City" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="30" required>
+                        <input type="text" name="city" id="city" ng-model="modelAdd.City" ng-pattern="/^[a-zA-Z\-\x27 ]+$/" class="form-control" maxlength="30" required>
                         <span class="spanError" ng-show="form.city.$error.pattern || form.city.$invalid && !form.city.$pristine">Enter a city</span>
 
                         <label class="control-label" for="state">State</label>
-                        <input type="text" name="state" id="state" ng-model="modelAdd.State" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="30" required>
+                        <input type="text" name="state" id="state" ng-model="modelAdd.State" ng-pattern="/^[a-zA-Z\-\x27 ]+$/" class="form-control" maxlength="30" required>
                         <span class="spanError" ng-show="form.state.$error.pattern || form.state.$invalid && !form.state.$pristine">Enter a state</span>
 
                         <label class="control-label" for="postalcode">Postal Code</label>
-                        <input type="text" name="postalcode" id="postalcode" ng-model="modelAdd.PostalCode"  placeholder="numbers only" class="form-control" maxlength="7" required>
+                        <input type="text" name="postalcode" id="postalcode" ng-model="modelAdd.PostalCode"  placeholder="numbers and letters only" class="form-control" maxlength="7" required>
                         <span class="spanError" ng-show="form.postalcode.$error.pattern || form.postalcode.$invalid && !form.postalcode.$pristine">Enter a postal code</span>
 
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addEmployee()">Add Employee </button>
-                    <span>{{message}}</span>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showConfirmation">
@@ -122,11 +122,7 @@
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Phone:</div>
                         <div class="detailDivTableCell">{{modelAdd.Phone}}</div>
-                    </div>
-                    <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Fax:</div>
-                        <div class="detailDivTableCell">{{modelAdd.Fax}}</div>
-                    </div>
+                    </div>                  
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Email:</div>
                         <div class="detailDivTableCell">{{modelAdd.Email}}</div>
@@ -173,15 +169,15 @@
                         <span class="spanError" ng-show="formEdit.hireDate.$invalid && !formEdit.hireDate.$pristine">Enter a valid date</span>
 
                         <label class="control-label" for="address">Address</label>
-                        <input type="text" name="address" id="address" ng-model="modelEdit.Address" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="50" required/>
+                        <input type="text" name="address" id="address" ng-model="modelEdit.Address" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" class="form-control" maxlength="50" required/>
                         <span class="spanError" ng-show="formEdit.address.$error.pattern || formEdit.address.$invalid && !formEdit.address.$pristine">Enter an address</span>
 
                         <label class="control-label" for="city">City</label>
-                        <input type="text" name="city" id="city" ng-model="modelEdit.City" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="30" required>
+                        <input type="text" name="city" id="city" ng-model="modelEdit.City" ng-pattern="/^[a-zA-Z\-\x27 ]+$/" class="form-control" maxlength="30" required>
                         <span class="spanError" ng-show="formEdit.city.$error.pattern || formEdit.city.$invalid && !formEdit.city.$pristine">Enter a city</span>
 
                         <label class="control-label" for="state">State</label>
-                        <input type="text" name="state" id="state" ng-model="modelEdit.State" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="30" required>
+                        <input type="text" name="state" id="state" ng-model="modelEdit.State" ng-pattern="/^[a-zA-Z\-\x27 ]+$/" class="form-control" maxlength="30" required>
                         <span class="spanError" ng-show="formEdit.state.$error.pattern || formEdit.state.$invalid && !formEdit.state.$pristine">Enter a state</span>
 
                         <label class="control-label" for="postalcode">Postal Code</label>
@@ -189,7 +185,7 @@
                         <span class="spanError" ng-show="formEdit.postalcode.$error.pattern || formEdit.postalcode.$invalid && !formEdit.postalcode.$pristine">Enter a postal code</span>
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editEmployee()">Edit Employee </button>
-                    <span>{{message}}</span>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showEditConfirmation">
@@ -226,11 +222,7 @@
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Phone:</div>
                         <div class="detailDivTableCell">{{modelEdit.Phone}}</div>
-                    </div>
-                    <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Fax:</div>
-                        <div class="detailDivTableCell">{{modelEdit.Fax}}</div>
-                    </div>
+                    </div>          
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Email:</div>
                         <div class="detailDivTableCell">{{modelEdit.Email}}</div>

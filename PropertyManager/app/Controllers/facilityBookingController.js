@@ -102,10 +102,10 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
             }
 
             if ($scope.modelAdd.startTime != "") {
-                startTimeFiltered = $filter('date')($scope.modelAdd.startTime, 'yyyy-MM-dd HH:mm:ss');
+                startTimeFiltered = $filter('date')($scope.modelAdd.startTime, 'HH:mm:ss');
             }
             if ($scope.modelAdd.endTime != "") {
-                endDateFiltered = $filter('date')($scope.modelAdd.endTime, 'yyyy-MM-dd HH:mm:ss');
+                endDateFiltered = $filter('date')($scope.modelAdd.endTime, 'HH:mm:ss');
             }
 
             var facilityBooking = {

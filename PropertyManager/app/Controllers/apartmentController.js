@@ -46,7 +46,7 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
         $location.path('/addapartment');
     }
 
-     $scope.addApartment = function () {
+    $scope.addApartment = function () {    
         $scope.errorMessage = "";
         var apartment = {
             ApartmentNumber: $scope.modelAdd.aptNumber,
@@ -61,7 +61,7 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
             $scope.modelAdd.aptNumber = response.data.ApartmentNumber;
             $scope.modelAdd.unitType = response.data.Unit.Bedrooms
             $scope.showConfirmation = true;
-            $scope.message = "Apartment Added"
+            $scope.message="Apartment Added"
         }, function (error) {
             console.log(error);
             if (error.data == "Apartment Already Exists") {

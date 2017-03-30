@@ -88,7 +88,7 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
             console.log(response.data);
             $scope.modelAdd.employeeId = response.data.Id;
             $scope.showConfirmation = true;
-            $scope.message = "Apartment Added"
+            $scope.message = "Employee Added"
         }, function (error) {
             $scope.message = error.statusText + " " + error.status;
         });

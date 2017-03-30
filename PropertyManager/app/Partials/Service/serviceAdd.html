@@ -6,7 +6,7 @@
     <script>
         $('#phoneNumber').keyup(function () {
             if ($(this).val() != null) {
-                foo = $(this).val().split("-").join(""); // remove hyphens
+                foo = $(this).val().split("-").join("");
 
                 foo = foo.match(new RegExp('.{1,4}$|.{1,3}', 'g')).join("-");
 
@@ -29,15 +29,15 @@
                         <legend><span class="number"></span> Add Service <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="name">Service Name</label>
-                        <input type="text" name="name" id="name" ng-model="modelAdd.name" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="20" required>
+                        <input type="text" name="name" id="name" ng-model="modelAdd.name" ng-pattern="/^[a-zA-Z\- ]+$/" class="form-control" maxlength="20" required>
                         <span class="spanError" ng-show="form.name.$error.pattern ||form.name.$invalid && !form.name.$pristine">Enter a name</span>
 
                         <label class="control-label" for="companyName">Company Name</label>
-                        <input type="text" name="companyName" id="companyName" ng-model="modelAdd.companyName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="20" required>
+                        <input type="text" name="companyName" id="companyName" ng-model="modelAdd.companyName" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" class="form-control" maxlength="20" required>
                         <span class="spanError" ng-show="form.companyName.$error.pattern || form.companyName.$invalid && !form.companyName.$pristine">Enter a company name</span>
 
                         <label class="control-label" for="address">Company Address</label>
-                        <input type="text" name="address" id="address" ng-model="modelAdd.address"  class="form-control" maxlength="70">
+                        <input type="text" name="address" id="address" ng-model="modelAdd.address"  class="form-control" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" maxlength="70">
                         <span class="spanError" ng-show="form.address.$error.pattern || form.address.$invalid && !form.address.$pristine">Enter a company address</span>
                   
                         <label class="control-label" for="email">Email</label>
@@ -45,12 +45,12 @@
                         <span class="help-block spanError" ng-show="form.email.$error.pattern || form.email.$invalid && !form.email.$pristine">Enter a valid email</span>
 
                         <label class="control-label" for="phone">Phone Number</label>
-                        <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" ng-model="modelAdd.phoneNumber" maxlength="12" required />
+                        <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" ng-model="modelAdd.phoneNumber" placeholder="numbers only" ng-pattern="/^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/" maxlength="12" required />
                         <span class="help-block spanError" ng-show="form.phoneNumber.$error.pattern || form.phoneNumber.$invalid && !form.phoneNumber.$pristine" >Enter a valid phone number</span>
                      
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addService()">Add Service </button>
-                    <span>{{message}}</span>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showConfirmation">
@@ -94,11 +94,11 @@
                         <span class="spanError" ng-show="formEdit.name.$error.pattern ||formEdit.name.$invalid && !formEdit.name.$pristine">Enter a name</span>
 
                         <label class="control-label" for="companyName">Company Name</label>
-                        <input type="text" name="companyName" id="companyName" ng-model="modelEdit.companyName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="20" required>
+                        <input type="text" name="companyName" id="companyName" ng-model="modelEdit.companyName" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" class="form-control" maxlength="20" required>
                         <span class="spanError" ng-show="formEdit.companyName.$error.pattern || formEdit.companyName.$invalid && !formEdit.companyName.$pristine">Enter a company name</span>
 
                         <label class="control-label" for="address">Company Address</label>
-                        <input type="text" name="address" id="address" ng-model="modelEdit.address" class="form-control" maxlength="70">
+                        <input type="text" name="address" id="address" ng-model="modelEdit.address" class="form-control" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" maxlength="70">
                         <span class="spanError" ng-show="formEdit.address.$error.pattern || formEdit.address.$invalid && !formEdit.address.$pristine">Enter a company address</span>
 
                         <label class="control-label" for="email">Email</label>
@@ -106,11 +106,11 @@
                         <span class="spanError" ng-show="formEdit.email.$error.pattern || formEdit.email.$invalid && !formEdit.email.$pristine">Enter a valid email</span>
 
                         <label class="control-label" for="phone">Phone Number</label>
-                        <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" ng-model="modelEdit.phoneNumber" maxlength="12" required />
-                        <span class="spanError" ng-show="formEdit.phoneNumber.$error.pattern || formEdit.phoneNumber.$invalid && !formEdit.phoneNumber.$pristine" class="help-block">Enter a valid phone number</span>
+                        <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" ng-model="modelEdit.phoneNumber" placeholder="numbers only" ng-pattern="/^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/" maxlength="12" required />
+                        <span class="help-block spanError" ng-show="formEdit.phoneNumber.$error.pattern || formEdit.phoneNumber.$invalid && !formEdit.phoneNumber.$pristine">Enter a valid phone number</span>
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editService()">Edit Service </button>
-                    <span>{{message}}</span>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showEditConfirmation">
