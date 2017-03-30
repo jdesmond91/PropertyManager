@@ -37,7 +37,7 @@
             <div class="form-style-5" ng-hide="showConfirmation">
                 <form name="form" id="form">
                     <fieldset>
-                        <legend><span class="number"></span> Add Employee <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
+                        <legend><span><i class="fa fa-address-book" aria-hidden="true"></i></span> Add Employee <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="firstName">Fist Name</label>
                         <input type="text" name="firstName" id="firstName" ng-model="modelAdd.FirstName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="20" required>

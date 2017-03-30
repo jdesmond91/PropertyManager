@@ -14,7 +14,7 @@
             <div class="form-style-5" ng-hide="showConfirmation">
                 <form name="form" id="form">
                     <fieldset>
-                        <legend><span class="number"></span> Add Apartment <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
+                        <legend><span><i class="fa fa-bed" aria-hidden="true"></i></span> Add Apartment <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="aptnumber">Apartment Number</label>
                         <input type="number" name="aptnumber" id="aptnumber" max="10000" ng-model="modelAdd.aptNumber" class="form-control" ng-pattern="/^[0-9]+$/" required>
