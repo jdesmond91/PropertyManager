@@ -4,13 +4,17 @@
                 $locationProvider.hashPrefix('');
                 $routeProvider
                     .when('/index', {
-                        controller: 'homeController',
+                        controller: "",
                         templateUrl: 'app/Index.html'
                     })
                     .when('/home', {
                         controller: 'homeController',
                         templateUrl: 'app/Partials/home.html'
-                     })
+                    })
+                    .when('/tenanthome', {
+                        controller: 'homeController',
+                        templateUrl: 'app/Partials/tenanthome.html'
+                    })
                     .when('/login', {
                         controller: 'loginController',
                         templateUrl: 'app/Partials/Login/login.html'

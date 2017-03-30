@@ -18,7 +18,7 @@
 
                         <label class="control-label" for="facilityId">Facility</label>
                         <select ng-model="modelAdd.facilityId" name="facilityId" id="facilityId" required>
-                            <option ng-repeat="facility in facilities" value="{{facility.Id}}">{{facility.FacilityName}}</option>
+                            <option ng-repeat="facility in facilities" value="{{facility.Id}}">{{facility.FacilityName}} - {{facility.OpenTime | date:'hh:mm:ss a'}} - {{facility.CloseTime | date:'hh:mm:ss a'}}</option>
                         </select>
                         <span class="spanError" ng-show="form.facilityId.$invalid && !form.facilityId.$pristine">Enter a facility</span>   
                         

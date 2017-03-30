@@ -294,6 +294,7 @@
     <Content Include="app\Partials\Service\serviceAdd.html" />
     <Content Include="app\Partials\Service\servicerequest.html" />
     <Content Include="app\Partials\Service\servicerequestAdd.html" />
+    <Content Include="app\Partials\tenanthome.html" />
     <Content Include="app\Partials\Tenant\tenantAdd.html" />
     <Content Include="app\Partials\Unit\unitAdd.html" />
     <Content Include="app\Partials\Unit\unitPhoto.html" />
@@ -333,7 +334,6 @@
     <Content Include="app\Partials\Announcement\announcement.html" />
     <Content Include="app\Partials\Apartment\apartment.html" />
     <Content Include="app\Partials\Facility\facility.html" />
-    <Content Include="app\Partials\header.html" />
     <Content Include="app\Partials\Lease\lease.html" />
     <Content Include="app\Partials\Login\login.html" />
     <Content Include="app\Partials\menu.html" />

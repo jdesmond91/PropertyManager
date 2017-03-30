@@ -154,6 +154,8 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
 
    } // close function
 
+    
+
     $scope.addAnother = function () {
         $scope.modelAdd = {
             facilityBookId: "",
@@ -311,7 +313,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
             editable: false,
             displayEventTime: false,
             header: {
-                left: 'month basicWeek basicDay agendaWeek agendaDay',
+                left: 'month agendaWeek',
                 center: 'title',
                 right: 'today prev,next'
             },

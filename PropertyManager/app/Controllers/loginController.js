@@ -40,8 +40,13 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
             getUserResult.then(function (response) {
                 console.log(response);               
                 userProfile.setProfile(response.data.UserName, data.access_token, response.data.Role, response.data.GivenName);
-                $scope.isLoggedIn = true;              
-                $location.path('/home');                  
+                $scope.isLoggedIn = true;
+                if (response.data.Role == "Tenant") {
+                    $location.path('/tenanthome');
+                }
+                else {
+                    $location.path('/home');
+                }                                  
             }, function (error) {
                 $scope.message = response.statusText + " : \r\n";
                 if (error.data.error) {
