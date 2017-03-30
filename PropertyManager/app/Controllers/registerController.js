@@ -43,15 +43,9 @@ function registerController($scope, $location, $filter, loginService, userProfil
             $scope.userPassword = "";
             $location.path('/home');
         }, function (response) {
-            $scope.message = response.data + "\r\n";
-            if (response.data.exceptionMessage) {
-                $scope.message += response.data.exceptionMessage;
-            }
-            if (response.data.modelState) {
-                for (var key in response.data.modelState) {
-                    $scope.message += response.data.modelState[key] + "\r\n";
-                }
-            }
+            $scope.message = "Registration failed. Please try again." //response.data + "\r\n";
+            
+            
         });
     };
    

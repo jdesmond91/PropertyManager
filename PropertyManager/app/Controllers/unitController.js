@@ -282,7 +282,7 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
     function addUnitPhotoInEdit() {
         $scope.photomodel = {
             UnitId: $scope.modelEdit.unitId,
-            Description: $scope.description,
+            Description: "",
             PathName: ""
         };
         var photo = unitphotoService.addUnitPhoto($scope.photomodel, $scope.file);
