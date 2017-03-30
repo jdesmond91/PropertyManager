@@ -14,7 +14,7 @@
   #page-wrapper {
     position: inherit;
     margin: 0 0 0 250px;
-    padding: 0 30px;
+    padding: 10 30px;
     border-left: 1px solid #e7e7e7;
   }
 
@@ -53,6 +53,7 @@
 .navbar-top-links li a {
   padding: 15px;
   min-height: 50px;
+  color: gold;
 }
 .navbar-top-links .dropdown-menu li {
   display: block;
@@ -499,5 +500,53 @@ td.text-right {
     background: #109177;
 }
 
+#formH1 {
+    margin: 0;
+}
 
+.help-block {
+    color: red;
+}
 
+.panel-green {
+  border-color: #5cb85c;
+}
+.panel-green > .panel-heading {
+  border-color: #5cb85c;
+  color: white;
+  background-color: #5cb85c;
+}
+.panel-green > a {
+  color: #5cb85c;
+}
+.panel-green > a:hover {
+  color: #3d8b3d;
+}
+.panel-red {
+  border-color: #d9534f;
+}
+.panel-red > .panel-heading {
+  border-color: #d9534f;
+  color: white;
+  background-color: #d9534f;
+}
+.panel-red > a {
+  color: #d9534f;
+}
+.panel-red > a:hover {
+  color: #b52b27;
+}
+.panel-lightblue {
+    border-color: #337ab7;
+}
+.panel-lightblue > .panel-heading {
+    border-color: #337ab7;
+    color: white;
+    background-color: #337ab7;
+}
+.panel-lightblue > a {
+    color: #337ab7;
+}
+.panel-lightblue > a:hover {
+    color: #337ab7;
+}

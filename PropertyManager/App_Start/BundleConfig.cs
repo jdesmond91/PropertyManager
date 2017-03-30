@@ -30,6 +30,7 @@ namespace PropertyManager
                      "~/Content/font-awesome.min.css",
                      "~/Content/fullcalendar.css",
                      "~/app/Vendor/metisMenu.css",
+                     "~/app/stylish-portfolio.css",
                      "~/app/main.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/propertymanagerapp/script").Include(
