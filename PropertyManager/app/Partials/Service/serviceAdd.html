@@ -37,7 +37,7 @@
                         <span class="spanError" ng-show="form.companyName.$error.pattern || form.companyName.$invalid && !form.companyName.$pristine">Enter a company name</span>
 
                         <label class="control-label" for="address">Company Address</label>
-                        <input type="text" name="address" id="address" ng-model="modelAdd.address"  class="form-control" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" maxlength="70">
+                        <input type="text" name="address" id="address" ng-model="modelAdd.address"  class="form-control" ng-pattern="/^[a-zA-Z0-9\-\\.\x27 ]+$/" maxlength="70">
                         <span class="spanError" ng-show="form.address.$error.pattern || form.address.$invalid && !form.address.$pristine">Enter a company address</span>
                   
                         <label class="control-label" for="email">Email</label>
@@ -87,7 +87,7 @@
             <div class="form-style-5" ng-hide="showEditConfirmation">
                 <form name="formEdit" id="formEdit">
                     <fieldset>
-                        <legend><span class="number"></span> Edit Service <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
+                        <legend><span><i class="fa fa-paint-brush" aria-hidden="true"></i></span> Edit Service <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="name">Service Name</label>
                         <input type="text" name="name" id="name" ng-model="modelEdit.name" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="20" required>
@@ -98,7 +98,7 @@
                         <span class="spanError" ng-show="formEdit.companyName.$error.pattern || formEdit.companyName.$invalid && !formEdit.companyName.$pristine">Enter a company name</span>
 
                         <label class="control-label" for="address">Company Address</label>
-                        <input type="text" name="address" id="address" ng-model="modelEdit.address" class="form-control" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" maxlength="70">
+                        <input type="text" name="address" id="address" ng-model="modelEdit.address" class="form-control" ng-pattern="/^[a-zA-Z0-9\-\\.\x27 ]+$/" maxlength="70">
                         <span class="spanError" ng-show="formEdit.address.$error.pattern || formEdit.address.$invalid && !formEdit.address.$pristine">Enter a company address</span>
 
                         <label class="control-label" for="email">Email</label>

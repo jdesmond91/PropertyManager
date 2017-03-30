@@ -15,7 +15,7 @@
             <div class="form-style-5" ng-hide="showConfirmation">
                 <form name="form" id="form">
                     <fieldset>
-                        <legend><span class="number"></span>Request Work Order<button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
+                        <legend><span><i class="fa fa-wrench" aria-hidden="true"></i></span>Request Work Order<button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="description">Description</label>
                         <textarea id="description" name="description" ng-model="modelAdd.description" rows="6" cols="20" style="overflow:auto;resize:none" maxlength="200" ng-pattern="/^[a-zA-Z0-9\\.!\\?\- ]+$/" required></textarea>
@@ -56,7 +56,7 @@
             <div class="form-style-5" ng-hide="showEditConfirmation">
                 <form name="formEdit" id="formEdit">
                     <fieldset>
-                        <legend><span class="number"></span> Edit Service Request <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
+                        <legend><span><i class="fa fa-wrench" aria-hidden="true"></i></span> Edit Work Order <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="description">Description</label>
                         <textarea id="description" name="description" ng-model="modelEdit.description" rows="6" cols="20" style="overflow:auto;resize:none" maxlength="200" required ng-pattern="/^[a-zA-Z0-9\\.!\\?\- ]+$/"></textarea>

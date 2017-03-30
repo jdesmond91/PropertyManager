@@ -82,7 +82,7 @@
             <div class="form-style-5" ng-hide="showEditConfirmation">
                 <form name="formEdit" id="formEdit">
                     <fieldset>
-                        <legend><span class="number"></span> Edit Lease <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
+                        <legend><span><i class="fa fa-handshake-o" aria-hidden="true"></i></span> Edit Lease <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="aptnumber">Apartment Number</label>
                         <input type="number" name="aptnumber" id="aptnumber" max="10000" ng-model="modelEdit.apartmentId" class="form-control" ng-pattern="/^\d+$/" readonly required>

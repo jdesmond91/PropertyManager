@@ -9,12 +9,12 @@
 
 </head>
 <body ng-app="propertyManagerApp">
-    <div id="wrapper">
         <div ng-include='"/app/Partials/menu.html"'></div>
-        <div class="registerForm">
+    <div id="page-wrapper-form">
+        <div class="form-style-5">
             <form name="form" id="formLogin">
                 <h1 id="formH1">Register Manager</h1>
-                <fieldset id="inputs">                   
+                <fieldset id="inputs">
                     <div class="form-group" ng-class="{'has-error': form.username.$invalid && !form.username.$pristine && form.username.$error.required}">
                         <label class="control-label" for="username">Email: </label>
                         <input type="email" name="username" id="inputRegister" class="form-control" ng-model="userEmail" required />
@@ -58,5 +58,5 @@
                 <div ng-show="responseData">{{responseData}}</div>
             </form>
         </div>
-    </div>
+        </div>
 </body>
