@@ -63,10 +63,8 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
             $scope.showConfirmation = true;
             $scope.message="Apartment Added"
         }, function (error) {
-            console.log(error);
-            if (error.data == "Apartment Already Exists") {
-                $scope.errorMessage = "This apartment already exists in the Database";
-            }            
+            console.log(error);            
+           $scope.errorMessage = "This apartment already exists in the Database";                     
         });
 
      } // close function

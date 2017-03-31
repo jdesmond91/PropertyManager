@@ -20,16 +20,17 @@
                         <input type="email" name="username" id="inputRegister" class="form-control" ng-model="userEmail" required />
                         <span ng-show="form.username.$invalid && !form.username.$pristine" class="help-block">Enter a valid email</span>
                     </div>
-                    <label class="control-label" for="firstName">First Name: </label>
+                    
                     <div class="form-group" ng-class="{'has-error': !form.firstName.$pristine && form.firstName.$error.required && form.firstName.$invalid }">
-                        <input type="text" name="firstName" id="inputRegister" class="form-control" ng-model="userFirstName" pattern="[A-Za-z]+" minlength="3" maxlength="30" title="First name should only contain letters" required />
-                        <span ng-show="!form.firstName.$pristine && form.firstName.$invalid && form.firstName.$error.required" class="help-block">First name is required</span>
+                        <label class="control-label" for="firstName">First Name: </label>
+                        <input type="text" name="firstName" id="inputRegister" class="form-control" ng-model="userFirstName" ng-pattern="/^[a-zA-Z ]+$/" minlength="3" maxlength="30" title="First name should only contain letters" required />
+                        <span class="spanError" ng-show="form.firstName.$error.pattern ||form.firstName.$invalid && !form.firstName.$pristine">First name is required</span>
                     </div>
 
                     <div class="form-group" ng-class="{'has-error': form.lastName.$dirty && form.lastName.$error.required && form.lastName.$invalid}">
                         <label class="control-label" for="lastName">Last Name: </label>
-                        <input type="text" name="lastName" id="inputRegister" class="form-control" ng-model="userLastName" pattern="[A-Za-z]+" minlength="3" maxlength="30" title="Last name should only contain letters" required />
-                        <span ng-show="form.lastName.$dirty && form.lastName.$error.required && form.lastName.$invalid" class="help-block">Last name is required</span>
+                        <input type="text" name="lastName" id="inputRegister" class="form-control" ng-model="userLastName" ng-pattern="/^[a-zA-Z ]+$/" minlength="3" maxlength="30" title="Last name should only contain letters" required />
+                        <span class="spanError" ng-show="form.lastName.$error.pattern || form.lastName.$invalid && !form.lastName.$pristine">Last name is required</span>
                     </div>
 
                     <div class="form-group" ng-class="{ 'has-error': form.birthDate.$dirty && form.birthDate.$error.required }">

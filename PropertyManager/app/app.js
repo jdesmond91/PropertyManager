@@ -141,4 +141,5 @@
                     })
                     .otherwise({ redirectTo: '/index' });
                 $animateProvider.classNameFilter(/details-row/);
+
             }]);
