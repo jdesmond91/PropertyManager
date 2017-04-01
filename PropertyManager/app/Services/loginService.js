@@ -40,10 +40,20 @@ function loginService($http, appSettings) {
         return resp;
     };
 
+    this.forgetPassword = function (userInfo) {
+        var resp = $http({
+            url: appSettings.serverPath + "/api/account/ForgetPassword",
+            method: "POST",
+            data: userInfo,
+        });
+        return resp;
+    };
+
     return {
         register: this.register,
         login: this.login,
         getUserInfo: this.getUserInfo,
-        resetPassword: this.resetPassword
+        resetPassword: this.resetPassword,
+        forgetPassword: this.forgetPassword
     }
 }

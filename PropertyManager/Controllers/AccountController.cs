@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -16,10 +15,11 @@ using Microsoft.Owin.Security.OAuth;
 using PropertyManager.Models;
 using PropertyManager.Providers;
 using PropertyManager.Results;
-using System.Net.Mail;
 using System.Net;
 using AutoMapper;
 using System.Linq;
+using System.Web.Http.Routing;
+using System.Web.Routing;
 
 namespace PropertyManager.Controllers
 {
@@ -27,9 +27,11 @@ namespace PropertyManager.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
+
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
         private ApplicationDbContext ds = new ApplicationDbContext();
+        private Manager m = new Manager();
 
         public AccountController()
         {
@@ -153,7 +155,7 @@ namespace PropertyManager.Controllers
         public UserBase getByEmail(string email)
         {
             // Attempt to locate the object
-            IdentityUser user = UserManager.FindByEmailAsync(email).Result;
+            IdentityUser user = UserManager.FindByEmailAsync(email).Result;    
 
             return (user == null) ? null : Mapper.Map<UserBase>(user);
 
@@ -198,7 +200,7 @@ namespace PropertyManager.Controllers
                 return BadRequest(ModelState);
             }
 
-            var tenant = ds.Tenants.SingleOrDefault(a => a.BirthDate == model.BirthDate && a.Email == model.Email && a.LastName == model.Surname);
+            //var tenant = ds.Tenants.SingleOrDefault(a => a.BirthDate == model.BirthDate && a.Email == model.Email && a.LastName == model.Surname);
 
             IdentityUser user = UserManager.FindByEmailAsync(model.Email).Result;          
 
@@ -209,24 +211,62 @@ namespace PropertyManager.Controllers
 
             IdentityResult passwordChangeResult = null ;
 
-            foreach (IdentityUserClaim claim in user.Claims)
-            {
-                if (claim.ClaimValue == "Tenant")
-                {
-                    if (tenant != null && tenant.Email == user.Email)
-                    {
-                        string resetToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                        passwordChangeResult = await UserManager.ResetPasswordAsync(user.Id, resetToken, model.NewPassword);
-                    }
-                }
-                else if(claim.ClaimValue == "Manager")
-                {
-                    string resetToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                    passwordChangeResult = await UserManager.ResetPasswordAsync(user.Id, resetToken, model.NewPassword);
-                }
-            }          
+            //foreach (IdentityUserClaim claim in user.Claims)
+            //{
+            //    if (claim.ClaimValue == "Tenant")
+            //    {
+            //        if (tenant != null && tenant.Email == user.Email)
+            //        {
+            //            string resetToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            //            passwordChangeResult = await UserManager.ResetPasswordAsync(user.Id, resetToken, model.NewPassword);
+            //        }
+            //    }
+            //    else if(claim.ClaimValue == "Manager")
+            //    {
+            //        string resetToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            //        passwordChangeResult = await UserManager.ResetPasswordAsync(user.Id, resetToken, model.NewPassword);
+            //    }
+            //}          
 
             //IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+
+            string resetToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            passwordChangeResult = await UserManager.ResetPasswordAsync(user.Id, resetToken, model.NewPassword);
+
+            if (!passwordChangeResult.Succeeded)
+            {
+                return GetErrorResult(passwordChangeResult);
+            }
+
+            return Ok();
+        }
+
+        // POST api/Account/ForgetPassword
+        [AllowAnonymous]
+        [Route("ForgetPassword")]
+        public async Task<IHttpActionResult> ForgetPassword(RegisterExternalBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            IdentityUser user = UserManager.FindByEmailAsync(model.Email).Result;
+
+            if (user == null)
+            {
+                return Content(HttpStatusCode.NotFound, "User not found");
+            }
+
+            string strNewPassword = m.GeneratePassword().ToString();
+            strNewPassword += "Bf!6";
+
+            await UserManager.SendEmailAsync(user.Id, "Your password", "Here is your temporary password: <b>" + strNewPassword + " </b>. \nPlease login and reset your password.");
+
+            IdentityResult passwordChangeResult = null;
+
+            string resetToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            passwordChangeResult = await UserManager.ResetPasswordAsync(user.Id, resetToken, strNewPassword);
 
             if (!passwordChangeResult.Succeeded)
             {
@@ -414,21 +454,24 @@ namespace PropertyManager.Controllers
             }
 
             var tenant = ds.Tenants.SingleOrDefault(a => a.BirthDate == model.BirthDate && a.Email == model.Email && a.LastName == model.Surname);
-          
 
-            if(tenant != null)
-            {
-                var lease = ds.Leases.Include("Tenant").Include("Apartment").FirstOrDefault(j => j.Tenant.Id == tenant.Id && j.Apartment.ApartmentNumber == model.ApartmentNumber);
-                if (tenant == null || lease == null)
-                {
-                    return Content(HttpStatusCode.NotFound, "User not found");
-                }
 
-            }
-            else if(model.Role != "Manager")
-            {
-                return Content(HttpStatusCode.NotFound, "Cannot register");
-            }                  
+            //if(tenant != null)
+            //{
+            //    var lease = ds.Leases.Include("Tenant").Include("Apartment").FirstOrDefault(j => j.Tenant.Id == tenant.Id && j.Apartment.ApartmentNumber == model.ApartmentNumber);
+            //    if (tenant == null || lease == null)
+            //    {
+            //        return Content(HttpStatusCode.NotFound, "User not found");
+            //    }
+
+            //}
+            //else if(model.Role != "Manager")
+            //{
+            //    return Content(HttpStatusCode.NotFound, "Cannot register");
+            //}       
+
+            string strNewPassword = m.GeneratePassword().ToString();
+            strNewPassword += "Ad4!";
 
             var user = new ApplicationUser() {
                 UserName = model.Email,
@@ -438,12 +481,21 @@ namespace PropertyManager.Controllers
                 Role = model.Role
             };
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            IdentityResult result = await UserManager.CreateAsync(user, strNewPassword);
 
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
+
+            // var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);        
+
+            // var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code }));
+            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+            
+
+            
+            await UserManager.SendEmailAsync(user.Id, "Your password", "Here is your temporary password: <b>" + strNewPassword  + " </b>. \nPlease login and reset your password.");
 
             await UserManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, model.Role));
 
@@ -457,6 +509,29 @@ namespace PropertyManager.Controllers
             var userMapped = Mapper.Map<UserBase>(userFound);
 
             return Ok(userMapped);
+        }
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
+        public async Task<IHttpActionResult> ConfirmEmail(string userId = "", string code = "")
+        {
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))
+            {
+                ModelState.AddModelError("", "User Id and Code are required");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await UserManager.ConfirmEmailAsync(userId, code);
+
+            if (result.Succeeded)
+            {
+
+                return Ok();
+            }
+            else
+            {
+                return GetErrorResult(result);
+            }
         }
 
         // POST api/Account/RegisterExternal

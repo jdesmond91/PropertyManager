@@ -16,6 +16,8 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
     $scope.confirmPassword = "";
     $scope.userResetPassword = "";
     $scope.message = "";
+    $scope.errorMessage = "";
+    $scope.forgetMessage = "";
 
 
     $scope.registerUser = function () {
@@ -65,26 +67,49 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
     $scope.resetPasword = function () {
         $scope.message = "";
 
-        var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
+        //var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
+        var user = userProfile.getProfile();
 
         var userInfo = {
             NewPassword: $scope.userResetPassword,
             ConfirmPassword: $scope.userResetPassword,
-            Surname: $scope.userLastName,
-            Email: $scope.userEmail,
-            BirthDate: birthDateFiltered
+            //Surname: $scope.userLastName,
+            Email: user.username,
+           // BirthDate: birthDateFiltered
         };
         var resetResult = loginService.resetPassword(userInfo);
         resetResult.then(function (data) {
             console.log(data);
-            $scope.message = "Reset Password Successfull";
-            $location.path('/home');
+            $scope.forgetMessage = "Reset Password Successfull";
+            $scope.formReset.$setPristine();
+            $scope.userResetPassword = "";
+            $scope.confirmPassword = "";
         }, function (response) {
-            $scope.message = response.data;
+            $scope.errorMessage = response.data;
         });
     };
 
     $scope.cancelReset = function () {
         $scope.passForget = false;
     }
+
+
+    $scope.forgetPasword = function () {
+        $scope.errorMessage = "";
+        $scope.message = "";
+
+        var userInfo = {           
+            Email: $scope.userEmail
+        };
+        var resetResult = loginService.forgetPassword(userInfo);
+        resetResult.then(function (data) {
+            console.log(data);
+            $scope.message = "Reset Password Successfull";
+            $scope.formReset.$setPristine();
+            $scope.userEmail = "";
+            $scope.passForget = false;
+        }, function (response) {
+            $scope.errorMessage = response.data;
+        });
+    };
 }

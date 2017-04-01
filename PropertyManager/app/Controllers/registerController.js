@@ -13,6 +13,7 @@ function registerController($scope, $location, $filter, loginService, userProfil
     $scope.accessToken = "";
     $scope.refreshToken = "";
     $scope.isLoggedIn = false;
+    $scope.errorMessage = "";
 
     var userProf = userProfile.getProfile();
     $scope.userRole = userProf.userRole;
@@ -23,29 +24,55 @@ function registerController($scope, $location, $filter, loginService, userProfil
 
         var userInfo = {
             Email: $scope.userEmail,
-            Password: $scope.userPassword,
-            ConfirmPassword: $scope.userPassword,
+            //Password: $scope.userPassword,
+            //ConfirmPassword: $scope.userPassword,
             GivenName: $scope.userFirstName,
             Surname: $scope.userLastName,
             Role: "Tenant",
             BirthDate: birthDateFiltered,
             ApartmentNumber: $scope.apartmentNumber
         };
-
-        if ($scope.userRole == "Administrator") {
-            userInfo.Role = "Manager";
-        }
               
         var registerResult = loginService.register(userInfo);
         registerResult.then(function (data) {
             console.log(data);
             $scope.message = "User Registration Successfull";
             $scope.userPassword = "";
-            $location.path('/home');
+            $location.path('/login');
         }, function (response) {
-            $scope.message = "Registration failed. Please try again." //response.data + "\r\n";
+            $scope.message = "Registration failed. Please try again." 
             
             
+        });
+    };
+
+    $scope.registerManager = function () {
+        $scope.message = "";
+        var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
+
+        var userInfo = {
+            Email: $scope.userEmail,
+            //Password: $scope.userPassword,
+            //ConfirmPassword: $scope.userPassword,
+            GivenName: $scope.userFirstName,
+            Surname: $scope.userLastName,
+            Role: "Manager",
+            BirthDate: birthDateFiltered,
+            ApartmentNumber: $scope.apartmentNumber
+        };
+        var registerResult = loginService.register(userInfo);
+        registerResult.then(function (data) {
+            console.log(data);
+            $scope.message = "User Registration Successfull";
+            $scope.userEmail = "";
+            $scope.userFirstName = "";
+            $scope.userLastName = "";
+            $scope.birthDate = "";
+            $scope.form.$setPristine();
+        }, function (response) {
+            $scope.errorMessage = "Registration failed. Please try again."
+
+
         });
     };
    

@@ -23,6 +23,10 @@
                         controller: 'registerController',
                         templateUrl: 'app/Partials/Login/register.html'
                     })
+                    .when('/resetPassword/', {
+                        controller: 'loginController',
+                        templateUrl: 'app/Partials/Login/resetPassword.html'
+                    })
                     .when('/registermanager/', {
                         controller: 'registerController',
                         templateUrl: 'app/Partials/Login/registerManager.html'

@@ -14,7 +14,7 @@
         <div class="form-style-5">
             <form name="form" id="formLogin">
                 <h1 id="formH1">Register Manager</h1>
-                <fieldset id="inputs">
+                
                     <div class="form-group" ng-class="{'has-error': form.username.$invalid && !form.username.$pristine && form.username.$error.required}">
                         <label class="control-label" for="username">Email: </label>
                         <input type="email" name="username" id="inputRegister" class="form-control" ng-model="userEmail" required />
@@ -39,7 +39,7 @@
                         <span ng-show="form.birthDate.$dirty && form.birthDate.$error.required" class="help-block">Birth Date is required</span>
                     </div>
 
-                    <div class="form-group" ng-class="{'has-error': form.password.$dirty && form.password.$error.required && form.password.$invalid}">
+                    <!--<div class="form-group" ng-class="{'has-error': form.password.$dirty && form.password.$error.required && form.password.$invalid}">
                         <label class="control-label" for="password" id="password" toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Must contain at least 1 upper case, 1 lower case, 1 number and 1 special character. Minimum 8 characters">Password: <i class="fa fa-exclamation-circle" aria-hidden="true"></i></label>
                         <input type="password" name="password" id="inputRegister" class="form-control" ng-model="userPassword" ng-pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/" required />
                         <span ng-show="form.password.$dirty && form.password.$invalid" class="help-block">Enter a valid password</span>
@@ -48,15 +48,14 @@
                         <label class="control-label" for="confirm_password" id="confirm_password" toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Must contain at least 1 upper case, 1 lower case, 1 number and 1 special character. Minimum 8 characters">Confirm Password:</label>
                         <input type="password" name="confirm_password" id="inputRegister" class="form-control" ng-model="confirmPassword" compare-to="userPassword" required />
                         <span ng-show="form.confirm_password.$dirty && form.confirm_password.$invalid" class="help-block">Enter a valid password</span>
-                    </div>
-
-                </fieldset>
-                <fieldset id="actions">
-                    <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="registerUser()">
+                    </div> -->        
+                <div class="form-actions">
+                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="registerManager()">
                         Register
                     </button>
-                </fieldset>
-                <div ng-show="responseData">{{responseData}}</div>
+               </div>
+                <br /><span class="spanError" style="margin-top:20px;" ng-show="errorMessage!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{errorMessage}}</span>
+                <br /><span class="messageSuccess" style="margin-top:20px;" ng-show="message!=''">{{message}}</span>
             </form>
         </div>
         </div>
