@@ -143,6 +143,14 @@
                         controller: 'userController',
                         templateUrl: 'app/Partials/Login/userPage.html'
                     })
+                    .when('/occupant/', {
+                        controller: 'occupantController',
+                        templateUrl: 'app/Partials/Occupant/occupant.html'
+                    })
+                    .when('/addoccupant/:occupant_id?', {
+                        controller: 'occupantController',
+                        templateUrl: 'app/Partials/Occupant/occupantAdd.html'
+                    })
                     .otherwise({ redirectTo: '/index' });
                 $animateProvider.classNameFilter(/details-row/);
 

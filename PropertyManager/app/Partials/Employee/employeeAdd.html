@@ -39,47 +39,47 @@
                     <fieldset>
                         <legend><span><i class="fa fa-address-book" aria-hidden="true"></i></span> Add Employee <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
-                        <label class="control-label" for="firstName">Fist Name</label>
+                        <label class="control-label" for="firstName">First Name*</label>
                         <input type="text" name="firstName" id="firstName" ng-model="modelAdd.FirstName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="30" required>
-                        <span class="spanError" ng-show="form.firstName.$error.pattern ||form.firstName.$invalid && !form.firstName.$pristine">Enter a first name</span>
+                        <span class="spanError" ng-show="form.firstName.$error.pattern ||form.firstName.$invalid && !form.firstName.$pristine">Enter a valid first name</span>
 
-                        <label class="control-label" for="lastName">Last Name</label>
+                        <label class="control-label" for="lastName">Last Name*</label>
                         <input type="text" name="lastName" id="lastName" ng-model="modelAdd.LastName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="30" required>
-                        <span class="spanError" ng-show="form.lastName.$error.pattern || form.lastName.$invalid && !form.lastName.$pristine">Enter a last name</span>
+                        <span class="spanError" ng-show="form.lastName.$error.pattern || form.lastName.$invalid && !form.lastName.$pristine">Enter a valid last name</span>
 
-                        <label class="control-label" for="title">Title</label>
-                        <input type="text" name="title" id="title" ng-model="modelAdd.Title" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="30" required>
-                        <span class="spanError" ng-show="form.title.$error.pattern || form.title.$invalid && !form.title.$pristine">Enter a title</span>
+                        <label class="control-label" for="title">Title*</label>
+                        <input type="text" name="title" id="title" ng-model="modelAdd.Title" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="20" required>
+                        <span class="spanError" ng-show="form.title.$error.pattern || form.title.$invalid && !form.title.$pristine">Enter a valid title</span>
 
                         <label class="control-label" for="mobileNumber">Phone Number</label>
                         <input type="text" name="mobileNumber" id="mobileNumber" ng-model="modelAdd.Phone" placeholder="numbers only" ng-pattern="/^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/" class="form-control" maxlength="12">
                         <span class="spanError" ng-show="form.mobileNumber.$error.pattern || form.mobileNumber.$invalid && !form.mobileNumber.$pristine">Enter a phone number</span>                      
 
-                        <label class="control-label" for="email">Email</label>
+                        <label class="control-label" for="email">Email*</label>
                         <input type="email" name="email" id="email" class="form-control" ng-model="modelAdd.Email" maxlength="30" required />
                         <span class="help-block spanError" ng-show="form.email.$error.pattern || form.email.$invalid && !form.email.$pristine">Enter a valid email</span>
 
-                        <label class="control-label" for="birthDate">Birth Date</label>
+                        <label class="control-label" for="birthDate">Birth Date*</label>
                         <input type="date" name="birthDate" id="birthDate" class="form-control" ng-model="modelAdd.BirthDate" required>
                         <span class="spanError" ng-show="form.birthDate.$invalid && !form.birthDate.$pristine">Enter a valid date</span>
 
-                        <label class="control-label" for="hireDate">Hire Date</label>
+                        <label class="control-label" for="hireDate">Hire Date*</label>
                         <input type="date" name="hireDate" id="hireDate" class="form-control" ng-model="modelAdd.HireDate" required>
                         <span class="spanError" ng-show="form.hireDate.$invalid && !form.hireDate.$pristine">Enter a valid date</span>
 
-                        <label class="control-label" for="title">Address</label>
-                        <input type="text" name="address" id="address" ng-model="modelAdd.Address" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" class="form-control" maxlength="50" required>
-                        <span class="spanError" ng-show="form.address.$error.pattern || form.address.$invalid && !form.address.$pristine">Enter an address</span>
+                        <label class="control-label" for="title">Address*</label>
+                        <input type="text" name="address" id="address" ng-model="modelAdd.Address" ng-pattern="/^[a-zA-Z0-9\-\\.\x27 ]+$/" class="form-control" maxlength="50" required>
+                        <span class="spanError" ng-show="form.address.$error.pattern || form.address.$invalid && !form.address.$pristine">Enter a valid address</span>
 
-                        <label class="control-label" for="city">City</label>
+                        <label class="control-label" for="city">City*</label>
                         <input type="text" name="city" id="city" ng-model="modelAdd.City" ng-pattern="/^[a-zA-Z\-\x27 ]+$/" class="form-control" maxlength="30" required>
-                        <span class="spanError" ng-show="form.city.$error.pattern || form.city.$invalid && !form.city.$pristine">Enter a city</span>
+                        <span class="spanError" ng-show="form.city.$error.pattern || form.city.$invalid && !form.city.$pristine">Enter a valid city</span>
 
-                        <label class="control-label" for="state">State</label>
+                        <label class="control-label" for="state">State*</label>
                         <input type="text" name="state" id="state" ng-model="modelAdd.State" ng-pattern="/^[a-zA-Z\-\x27 ]+$/" class="form-control" maxlength="30" required>
-                        <span class="spanError" ng-show="form.state.$error.pattern || form.state.$invalid && !form.state.$pristine">Enter a state</span>
+                        <span class="spanError" ng-show="form.state.$error.pattern || form.state.$invalid && !form.state.$pristine">Enter a valid state</span>
 
-                        <label class="control-label" for="postalcode">Postal Code</label>
+                        <label class="control-label" for="postalcode">Postal Code*</label>
                         <input type="text" name="postalcode" id="postalcode" ng-model="modelAdd.PostalCode"  placeholder="numbers and letters only" class="form-control" maxlength="7" required>
                         <span class="spanError" ng-show="form.postalcode.$error.pattern || form.postalcode.$invalid && !form.postalcode.$pristine">Enter a postal code</span>
 
@@ -140,17 +140,17 @@
                     <fieldset>
                         <legend><span><i class="fa fa-address-book" aria-hidden="true"></i></span> Edit Employee <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
-                        <label class="control-label" for="firstName">Fist Name</label>
-                        <input type="text" name="firstName" id="firstName" ng-model="modelEdit.FirstName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="20" required>
-                        <span class="spanError" ng-show="formEdit.firstName.$error.pattern ||formEdit.firstName.$invalid && !formEdit.firstName.$pristine">Enter a first name</span>
+                        <label class="control-label" for="firstName">First Name*</label>
+                        <input type="text" name="firstName" id="firstName" ng-model="modelEdit.FirstName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="30" required>
+                        <span class="spanError" ng-show="formEdit.firstName.$error.pattern ||formEdit.firstName.$invalid && !formEdit.firstName.$pristine">Enter a valid first name</span>
 
-                        <label class="control-label" for="lastName">Last Name</label>
-                        <input type="text" name="lastName" id="lastName" ng-model="modelEdit.LastName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="20" required>
-                        <span class="spanError" ng-show="formEdit.lastName.$error.pattern || formEdit.lastName.$invalid && !formEdit.lastName.$pristine">Enter a last name</span>
+                        <label class="control-label" for="lastName">Last Name*</label>
+                        <input type="text" name="lastName" id="lastName" ng-model="modelEdit.LastName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="30" required>
+                        <span class="spanError" ng-show="formEdit.lastName.$error.pattern || formEdit.lastName.$invalid && !formEdit.lastName.$pristine">Enter a valid last name</span>
 
                         <label class="control-label" for="title">Title</label>
-                        <input type="text" name="title" id="title" ng-model="modelEdit.Title" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="30" required>
-                        <span class="spanError" ng-show="formEdit.title.$error.pattern || formEdit.title.$invalid && !formEdit.title.$pristine">Enter a title</span>
+                        <input type="text" name="title" id="title" ng-model="modelEdit.Title" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="20" required>
+                        <span class="spanError" ng-show="formEdit.title.$error.pattern || formEdit.title.$invalid && !formEdit.title.$pristine">Enter a valid title</span>
 
                         <label class="control-label" for="mobileNumber">Phone Number</label>
                         <input type="text" name="mobileNumber" id="mobileNumber" ng-model="modelEdit.Phone" placeholder="numbers only" ng-pattern="/^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/" class="form-control" maxlength="12">
@@ -169,16 +169,16 @@
                         <span class="spanError" ng-show="formEdit.hireDate.$invalid && !formEdit.hireDate.$pristine">Enter a valid date</span>
 
                         <label class="control-label" for="address">Address</label>
-                        <input type="text" name="address" id="address" ng-model="modelEdit.Address" ng-pattern="/^[a-zA-Z\-\\.\x27 ]+$/" class="form-control" maxlength="50" required/>
-                        <span class="spanError" ng-show="formEdit.address.$error.pattern || formEdit.address.$invalid && !formEdit.address.$pristine">Enter an address</span>
+                        <input type="text" name="address" id="address" ng-model="modelEdit.Address" ng-pattern="/^[a-zA-Z0-9\-\\.\x27 ]+$/" class="form-control" maxlength="50" required/>
+                        <span class="spanError" ng-show="formEdit.address.$error.pattern || formEdit.address.$invalid && !formEdit.address.$pristine">Enter a valid address</span>
 
                         <label class="control-label" for="city">City</label>
                         <input type="text" name="city" id="city" ng-model="modelEdit.City" ng-pattern="/^[a-zA-Z\-\x27 ]+$/" class="form-control" maxlength="30" required>
-                        <span class="spanError" ng-show="formEdit.city.$error.pattern || formEdit.city.$invalid && !formEdit.city.$pristine">Enter a city</span>
+                        <span class="spanError" ng-show="formEdit.city.$error.pattern || formEdit.city.$invalid && !formEdit.city.$pristine">Enter a valid city</span>
 
                         <label class="control-label" for="state">State</label>
                         <input type="text" name="state" id="state" ng-model="modelEdit.State" ng-pattern="/^[a-zA-Z\-\x27 ]+$/" class="form-control" maxlength="30" required>
-                        <span class="spanError" ng-show="formEdit.state.$error.pattern || formEdit.state.$invalid && !formEdit.state.$pristine">Enter a state</span>
+                        <span class="spanError" ng-show="formEdit.state.$error.pattern || formEdit.state.$invalid && !formEdit.state.$pristine">Enter a valid state</span>
 
                         <label class="control-label" for="postalcode">Postal Code</label>
                         <input type="text" name="postalcode" id="postalcode" placeholder="numbers only" ng-model="modelEdit.PostalCode" class="form-control" maxlength="7" required>

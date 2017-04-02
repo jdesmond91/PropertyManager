@@ -73,7 +73,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
             $scope.message = "Enter a date greater than today";
         }
         else {
-            if ($scope.modelAdd.expireDate < $scope.modelAdd.startDate) {
+            if ($scope.modelAdd.expireDate != "" && $scope.modelAdd.expireDate < $scope.modelAdd.startDate) {
                 $scope.message = "Enter a date greater than or equal Start Date";
             }
             else {
@@ -102,7 +102,6 @@ function announcementController($scope, $filter, $location, $routeParams, announ
 
             var addResults = announcementService.addAnnouncement(announcement);
             addResults.then(function (response) {
-                console.log(response.data);
                 $scope.modelAdd.announcementId = response.data.Id;
                 $scope.showConfirmation = true;
                 $scope.message = "Announcement Added"
@@ -133,7 +132,6 @@ function announcementController($scope, $filter, $location, $routeParams, announ
         var allAnnounces = announcementService.getAllAnnouncement();
         allAnnounces.then(function (response) {
             $scope.announces = response.data;
-            console.log($scope.announces);
         }, function (error){
             $scope.message = error.statusText;       
         })
@@ -143,7 +141,6 @@ function announcementController($scope, $filter, $location, $routeParams, announ
     function getAnnouncementById(id) {
         var announceById = announcementService.getByIdAnnouncement(id);
         announceById.then(function (response) {
-            console.log(response.data);
             $scope.modelEdit.title = response.data.Title;
             $scope.modelEdit.description = response.data.Description;
             if (response.data.StartDate != null) {              
@@ -189,7 +186,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
             $scope.message = "Enter a date greater than today";
         }
         else {
-            if ($scope.modelEdit.expireDate < $scope.modelEdit.startDate) {
+            if ($scope.modelAdd.expireDate != "" && $scope.modelEdit.expireDate < $scope.modelEdit.startDate) {
                 $scope.message = "Enter a date greater than or equal Start Date";
             }
             else {
@@ -218,8 +215,6 @@ function announcementController($scope, $filter, $location, $routeParams, announ
 
             var editResults = announcementService.editAnnouncement(announcement, announcement.Id);
             editResults.then(function (response) {
-                console.log("edit");
-                console.log(response);
                 $scope.message = "Edit successful";
                 $scope.showEditConfirmation = true;
             }, function (error) {
@@ -234,7 +229,6 @@ function announcementController($scope, $filter, $location, $routeParams, announ
         var deleteOne = announcementService.deleteAnnouncement(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
-            console.log(response);
             getAnnouncement();
         }, function (error) {
             $scope.message = error.statusText;

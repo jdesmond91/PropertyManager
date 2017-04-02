@@ -44,6 +44,7 @@ namespace PropertyManager.Models
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Lease> Leases { get; set; }
         public DbSet<WorkOrder> WorkOrders { get; set; }
+        public DbSet<Occupant> Occupants { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -72,6 +73,9 @@ namespace PropertyManager.Models
 
             modelBuilder.Entity<WorkOrder>()
                 .HasRequired(e => e.Tenant);
+
+            modelBuilder.Entity<Occupant>()
+                 .HasRequired(e => e.Tenant);
 
 
         }

@@ -92,6 +92,11 @@ namespace PropertyManager.App_Start
             Mapper.CreateMap<Models.WorkOrder, Controllers.WorkOrderWithTenant>();
             Mapper.CreateMap<Controllers.WorkOrderEdit, Controllers.WorkOrderBase>();
 
+            //Occupant
+            Mapper.CreateMap<Controllers.OccupantAdd, Models.Occupant>();
+            Mapper.CreateMap<Models.Occupant, Controllers.OccupantBase>();
+            Mapper.CreateMap<Controllers.OccupantEdit, Controllers.OccupantBase>();
+
 #pragma warning restore CS0618
         }
     }

@@ -1208,5 +1208,102 @@ namespace PropertyManager.Controllers
             }
         }
 
+        // ******************** OCCUPANTS SECTION *********************************************************************
+        public IEnumerable<OccupantBase> OccupantGetAll()
+        {
+            var c = ds.Occupants.OrderBy(a => a.ApartmentNumber);
+
+            //var occupants = Mapper.Map<IEnumerable<OccupantBase>>(c);
+
+            //foreach (OccupantBase occupant in occupants)
+            //{
+            //    var aptInfo = ds.Leases.Include("Apartment").SingleOrDefault(a => a.Tenant.Id == occupant.TenantId);
+                
+            //    if (aptInfo != null)
+            //    {
+            //        occupant.ApartmentNumber = aptInfo.Apartment.ApartmentNumber;
+            //    }
+            //}
+
+            //return occupants;
+
+            return Mapper.Map<IEnumerable<OccupantBase>>(c);
+        }
+
+        public OccupantBase OccupantGetById(int id)
+        {
+            var c = ds.Occupants.SingleOrDefault(a => a.Id == id);         
+
+            return (c == null) ? null : Mapper.Map<OccupantBase>(c);
+        }
+
+        public OccupantBase OccupantAdd(OccupantAdd newItem)
+        {
+            if (newItem == null)
+            {
+                return null;
+            }
+
+            var associatedTenant = ds.Tenants.Find(newItem.TenantId);
+            if (associatedTenant == null)
+            {
+                return null;
+            }
+
+            var associatedApartment = ds.Apartments.Find(newItem.ApartmentNumber);
+            if (associatedApartment == null)
+            {
+                return null;
+            }
+
+            Occupant addedItem = Mapper.Map<Occupant>(newItem);
+
+            addedItem.Tenant = associatedTenant; 
+
+            ds.Occupants.Add(addedItem);
+            ds.SaveChanges();
+   
+            return (addedItem == null) ? null : Mapper.Map<OccupantBase>(addedItem);
+        }
+
+        public OccupantBase OccupantEdit(OccupantEdit editedItem)
+        {
+            if (editedItem == null)
+            {
+                return null;
+            }
+            var storedItem = ds.Occupants.SingleOrDefault(e => e.Id == editedItem.Id);
+
+            if (storedItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
+                ds.SaveChanges();
+
+                return Mapper.Map<OccupantBase>(storedItem);
+            }
+        }
+
+        public void OccupantDelete(int id)
+        {
+            var storedItem = ds.Occupants.Find(id);
+            if (storedItem == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            else
+            {
+                try
+                {
+                    ds.Occupants.Remove(storedItem);
+                    ds.SaveChanges();
+                }
+                catch (Exception) { }
+            }
+        }
+
     }
 }

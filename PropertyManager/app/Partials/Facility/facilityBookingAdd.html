@@ -22,21 +22,21 @@
                         </select>
                         <span class="spanError" ng-show="form.facilityId.$invalid && !form.facilityId.$pristine">Enter a facility</span>   
                         
-                        <label class="control-label" for="bookedDate">Book Date</label>
+                        <label class="control-label" for="bookedDate">Book Date*</label>
                         <input type="date" name="bookedDate" id="bookedDate" class="form-control" ng-model="modelAdd.bookedDate" required>
-                        <span class="spanError" ng-show="form.bookedDate.$invalid && !form.bookedDate.$pristine">Enter valid book date</span>            
+                        <span class="spanError" ng-show="form.bookedDate.$invalid && !form.bookedDate.$pristine">Enter a book date</span>            
 
-                        <label class="control-label" for="startTime">Start Time</label>
+                        <label class="control-label" for="startTime">Start Time*</label>
                         <input type="time" name="startTime" id="startTime" class="form-control" ng-model="modelAdd.startTime" required>
-                        <span class="spanError" ng-show="form.startTime.$invalid && !form.startTime.$pristine">Enter valid start time</span>
+                        <span class="spanError" ng-show="form.startTime.$invalid && !form.startTime.$pristine">Enter a start time</span>
 
-                        <label class="control-label" for="endTime">End Time</label>
+                        <label class="control-label" for="endTime">End Time*</label>
                         <input type="time" name="endTime" id="endTime" class="form-control" ng-model="modelAdd.endTime" required>
-                        <span class="spanError" ng-show="form.endTime.$invalid && !form.endTime.$pristine">Enter a valid end time</span>
+                        <span class="spanError" ng-show="form.endTime.$invalid && !form.endTime.$pristine">Enter a end time</span>
 
                         <label class="control-label" for="notes">Notes</label>
                         <input type="text" name="notes" id="notes" ng-model="modelAdd.notes" class="form-control" ng-pattern="/^[a-zA-Z\\.!\\?() ]+$/" maxlength="50">
-                        <span class="spanError" ng-show="form.notes.$error.pattern || form.notes.$invalid && !form.notes.$pristine">Enter valid notes</span>
+                        <span class="spanError" ng-show="form.notes.$error.pattern || form.notes.$invalid && !form.notes.$pristine">Enter valid characters</span>
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addFacilityBooking()">Book Facility </button>
                     <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
@@ -82,17 +82,17 @@
                     <fieldset>
                         <legend><span><i class="fa fa-tv" aria-hidden="true"></i></span> Add Facility <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
-                        <label class="control-label" for="bookedDate">Book Date</label>
+                        <label class="control-label" for="bookedDate">Book Date*</label>
                         <input type="date" name="bookedDate" id="bookedDate" class="form-control" ng-model="modelEdit.bookedDate" required>
-                        <span class="spanError" ng-show="formEdit.bookedDate.$invalid && !formEdit.bookedDate.$pristine">Enter valid book date</span>
+                        <span class="spanError" ng-show="formEdit.bookedDate.$invalid && !formEdit.bookedDate.$pristine">Enter a book date</span>
 
-                        <label class="control-label" for="startTime">Start Time</label>
+                        <label class="control-label" for="startTime">Start Time*</label>
                         <input type="time" name="startTime" id="startTime" class="form-control" ng-model="modelEdit.startTime" required>
-                        <span class="spanError" ng-show="formEdit.startTime.$invalid && !formEdit.startTime.$pristine">Enter valid start time</span>
+                        <span class="spanError" ng-show="formEdit.startTime.$invalid && !formEdit.startTime.$pristine">Enter a start time</span>
 
-                        <label class="control-label" for="endTime">End Time</label>
+                        <label class="control-label" for="endTime">End Time*</label>
                         <input type="time" name="endTime" id="endTime" class="form-control" ng-model="modelEdit.endTime" required>
-                        <span class="spanError" ng-show="formEdit.endTime.$invalid && !formEdit.endTime.$pristine">Enter a valid end time</span>
+                        <span class="spanError" ng-show="formEdit.endTime.$invalid && !formEdit.endTime.$pristine">Enter a end time</span>
 
                         <label class="control-label" for="notes">Notes</label>
                         <input type="text" name="notes" id="notes" ng-model="modelEdit.notes" class="form-control" ng-pattern="/^[a-zA-Z\\.!\\?() ]+$/">
