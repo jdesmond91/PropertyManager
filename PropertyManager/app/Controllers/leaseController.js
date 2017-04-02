@@ -5,6 +5,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
     $scope.editId = "";
     $scope.isEdit = false;
     $scope.showEditConfirmation = false;
+    $scope.editMonthlyRent = false;
 
     console.log($routeParams.lease_id);
 
@@ -42,6 +43,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
     };
   
     $scope.message = "";
+    $scope.errorMessage = "";
     $scope.leases = [];
     $scope.sortType = "ApartmentNumber";
     $scope.sortReverse = false;
@@ -164,6 +166,9 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             }
             if (response.data.EndDate != null) {
                 $scope.modelEdit.endDate = new Date(response.data.EndDate.replace('T', ' ').replace('-', '/'));
+                if ($scope.modelEdit.endDate < $scope.today) {
+                    $scope.editMonthlyRent = true;
+                }
             }
 
         }, function (error) {

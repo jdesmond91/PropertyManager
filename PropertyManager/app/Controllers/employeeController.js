@@ -85,7 +85,6 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
 
         var addResults = employeeService.addEmployee(employee);
         addResults.then(function (response) {
-            console.log(response.data);
             $scope.modelAdd.employeeId = response.data.Id;
             $scope.showConfirmation = true;
             $scope.message = "Employee Added"
@@ -122,7 +121,6 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
         var allEmployees = employeeService.getAllEmployee();
         allEmployees.then(function (response) {
             $scope.employees = response.data;
-            console.log($scope.employees);
         }, function (error) {
             $scope.message = error.statusText;
         })
@@ -190,8 +188,6 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
 
             var editResults = employeeService.editEmployee(employee, $scope.editId);
         editResults.then(function (response) {
-            console.log("edit");
-            console.log(response);
             $scope.message = "Edit successful";
             $scope.showEditConfirmation = true;
         }, function (error) {
@@ -205,7 +201,6 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
         var deleteOne = employeeService.deleteEmployee(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
-            console.log(response);
             getEmployee();
         }, function (error) {
              $scope.message = "Not possible";

@@ -119,7 +119,6 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
 
             var addResults = facilityBookingService.addFacilityBooking(facilityBooking);
             addResults.then(function (response) {
-                console.log(response.data);
                 $scope.modelAdd.facilityBookId = response.data.Id;
                 $scope.modelAdd.facilityId = response.data.FacilityId;
                 $scope.modelAdd.facilityName = response.data.Facility.FacilityName;
@@ -136,8 +135,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
     function getFacilityBooking() {
         var allFacilityBookings = facilityBookingService.getAllFacilityBooking();
         allFacilityBookings.then(function (response) {
-            $scope.facilityBookings = response.data;
-            console.log($scope.facilityBookings);            
+            $scope.facilityBookings = response.data;        
             $scope.events.slice(0, $scope.events.length);
             angular.forEach($scope.facilityBookings, function (value) {        
                 $scope.events.push({
@@ -252,8 +250,6 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
 
             var editResults = facilityBookingService.editFacilityBooking(facilityBooking, facilityBooking.Id);
             editResults.then(function (response) {
-                console.log("edit");
-                console.log(response);
                 $scope.message = "Edit successful";
                 $scope.showEditConfirmation = true;
             }, function (error) {
@@ -267,7 +263,6 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         var facility = facilityService.getAllFacility();
         facility.then(function (response) {
             $scope.facilities = response.data;
-            console.log($scope.facilities);
         }, function (error) {
             $scope.message = error.statusText;
         })
@@ -276,8 +271,6 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
     function getUserId() {
         var user = tenantService.getByEmailTenant($scope.userName);
         user.then(function (response) {
-            console.log("user Id:");
-            console.log(response.data);
             $scope.modelAdd.tenantId = response.data.Id;
             $scope.tenantId = response.data.Id;
         }, function (error) {
@@ -290,7 +283,6 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         var deleteOne = facilityBookingService.deleteFacilityBooking(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
-            console.log(response);
             getFacilityBooking();
         }, function (error) {
             $scope.message = error.statusText;
