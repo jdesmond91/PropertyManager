@@ -230,6 +230,8 @@
     <Compile Include="Controllers\LeasesController.cs" />
     <Compile Include="Controllers\Lease_vm.cs" />
     <Compile Include="Controllers\Manager.cs" />
+    <Compile Include="Controllers\OccupantsController.cs" />
+    <Compile Include="Controllers\Occupant_vm.cs" />
     <Compile Include="Controllers\ServiceRequestsController.cs" />
     <Compile Include="Controllers\ServiceRequest_vm.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
@@ -259,6 +261,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Inventory.cs" />
     <Compile Include="Models\Lease.cs" />
+    <Compile Include="Models\Occupant.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\ServiceRequest.cs" />
     <Compile Include="Models\Tenant.cs" />
@@ -272,6 +275,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\Controllers\occupantController.js" />
     <Content Include="app\Controllers\unitphotoController.js" />
     <Content Include="app\Controllers\userController.js" />
     <Content Include="app\Controllers\workOrderController.js" />
@@ -291,6 +295,8 @@
     <Content Include="app\Partials\Lease\leaseAdd.html" />
     <Content Include="app\Partials\Login\registerManager.html" />
     <Content Include="app\Partials\Login\userPage.html" />
+    <Content Include="app\Partials\Occupant\occupant.html" />
+    <Content Include="app\Partials\Occupant\occupantAdd.html" />
     <Content Include="app\Partials\Service\serviceAdd.html" />
     <Content Include="app\Partials\Service\servicerequest.html" />
     <Content Include="app\Partials\Service\servicerequestAdd.html" />
@@ -303,6 +309,7 @@
     <Content Include="app\Partials\WorkOrder\workorderrequestAdd.html" />
     <Content Include="app\Partials\WorkOrder\workorderrequestmanager.html" />
     <Content Include="app\Services\Directives.js" />
+    <Content Include="app\Services\occupantService.js" />
     <Content Include="app\Services\unitphotoService.js" />
     <Content Include="app\Services\userService.js" />
     <Content Include="app\Services\workOrderService.js" />

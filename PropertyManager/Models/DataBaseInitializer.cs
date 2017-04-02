@@ -382,7 +382,64 @@ namespace PropertyManager.Models
                 booking.FacilityId = 2;
                 booking.Notes = "";
                 m.FacilityBookingAdd(booking);
-            }    
+            }
+
+            if (m.OccupantGetAll().Count() == 0)
+            {
+                var occupant = new OccupantAdd();
+
+                occupant.FirstName = "Silvia";
+                occupant.LastName = "Capello";
+                occupant.MobilePhone = "647-415-8957";
+                occupant.WorkPhone = "416-548-9569";
+                occupant.Email = "silvia@test.ca";
+                occupant.BirthDate = new DateTime(1958, 01, 09);
+                occupant.ApartmentNumber = 520;
+                occupant.TenantId = 1;
+                m.OccupantAdd(occupant);
+
+                occupant.FirstName = "Renan";
+                occupant.LastName = "Marques";
+                occupant.MobilePhone = "647-485-9874";
+                occupant.WorkPhone = "416-123-5647";
+                occupant.Email = "renan@test.ca";
+                occupant.BirthDate = new DateTime(1990, 07, 02);
+                occupant.ApartmentNumber = 520;
+                occupant.TenantId = 1;
+                m.OccupantAdd(occupant);
+
+                occupant.FirstName = "Jennifer";
+                occupant.LastName = "Aniston";
+                occupant.MobilePhone = "905-452-7415";
+                occupant.WorkPhone = "416-987-4256";
+                occupant.Email = "jennifer@test.ca";
+                occupant.BirthDate = new DateTime(1992, 03, 20);
+                occupant.ApartmentNumber = 603;
+                occupant.TenantId = 2;
+                m.OccupantAdd(occupant);
+
+                occupant.FirstName = "Mayra";
+                occupant.LastName = "Borne";
+                occupant.MobilePhone = "905-471-3589";
+                occupant.WorkPhone = "416-416-8526";
+                occupant.Email = "mayra@test.ca";
+                occupant.BirthDate = new DateTime(2000, 05, 21);
+                occupant.ApartmentNumber = 603;
+                occupant.TenantId = 2;
+                m.OccupantAdd(occupant);
+
+                occupant.FirstName = "Tania";
+                occupant.LastName = "Goncharenko";
+                occupant.MobilePhone = "905-965-7854";
+                occupant.WorkPhone = "364-654-5984";
+                occupant.Email = "tania@test.ca";
+                occupant.BirthDate = new DateTime(1960, 03, 27);
+                occupant.ApartmentNumber = 1705;
+                occupant.TenantId = 3;
+                m.OccupantAdd(occupant);
+
+
+            }
         }
     }
 }

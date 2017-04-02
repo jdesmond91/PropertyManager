@@ -1,12 +1,12 @@
 ﻿<html>
 <head>
-    <title>Tenant Add</title>
+    <title>Occupant Add</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
         $('#mobileNumber').keyup(function () {
             if ($(this).val() != null) {
-                foo = $(this).val().split("-").join(""); 
+                foo = $(this).val().split("-").join("");
 
                 foo = foo.match(new RegExp('.{1,4}$|.{1,3}', 'g')).join("-");
 
@@ -14,9 +14,9 @@
             }
 
         });
-        $('#homeNumber').keyup(function () {
+        $('#workNumber').keyup(function () {
             if ($(this).val() != null) {
-                foo = $(this).val().split("-").join(""); 
+                foo = $(this).val().split("-").join("");
 
                 foo = foo.match(new RegExp('.{1,4}$|.{1,3}', 'g')).join("-");
 
@@ -36,7 +36,7 @@
             <div class="form-style-5" ng-hide="showConfirmation">
                 <form name="form" id="form">
                     <fieldset>
-                        <legend><span><i class="fa fa-users" aria-hidden="true"></i></span> Add Tenant <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
+                        <legend><span><i class="fa fa-users" aria-hidden="true"></i></span> Add Occupant <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="firstName">First Name</label>
                         <input type="text" name="firstName" id="firstName" ng-model="modelAdd.firstName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="20" required>
@@ -50,9 +50,9 @@
                         <input type="text" name="mobileNumber" id="mobileNumber" ng-model="modelAdd.mobileNumber" class="form-control" placeholder="numbers only" ng-pattern="/^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/" maxlength="12">
                         <span class="spanError" ng-show="form.mobileNumber.$error.pattern || form.mobileNumber.$invalid && !form.mobileNumber.$pristine">Enter a mobile number</span>
 
-                        <label class="control-label" for="phone">Home Number</label>
-                        <input type="text" name="homeNumber" id="homeNumber" class="form-control" ng-model="modelAdd.homeNumber" placeholder="numbers only" ng-pattern="/^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/" maxlength="12" required />
-                        <span class="help-block spanError" ng-show="form.homeNumber.$error.pattern || form.homeNumber.$invalid && !form.homeNumber.$pristine">Enter a valid phone number</span>
+                        <label class="control-label" for="phone">Work Number</label>
+                        <input type="text" name="workNumber" id="workNumber" class="form-control" ng-model="modelAdd.workNumber" placeholder="numbers only" ng-pattern="/^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/" maxlength="12" required />
+                        <span class="help-block spanError" ng-show="form.workNumber.$error.pattern || form.workNumber.$invalid && !form.workNumber.$pristine">Enter a valid phone number</span>
 
                         <label class="control-label" for="email">Email</label>
                         <input type="email" name="email" id="email" class="form-control" ng-model="modelAdd.email" maxlength="30" required />
@@ -60,10 +60,18 @@
 
                         <label class="control-label" for="birthDate">Birth Date</label>
                         <input type="date" name="birthDate" id="birthDate" class="form-control" ng-model="modelAdd.birthDate" required>
-                        <span class="spanError" ng-show="form.birthDate.$invalid && !form.birthDate.$pristine">Enter a valid date</span>                       
+                        <span class="spanError" ng-show="form.birthDate.$invalid && !form.birthDate.$pristine">Enter a valid date</span>
+
+                        <label class="control-label" for="email">Tenant Email</label>
+                        <input type="email" name="tenantemail" id="tenantemail" class="form-control" ng-model="modelAdd.tenantEmail" maxlength="30" required />
+                        <span class="help-block spanError" ng-show="form.tenantemail.$error.pattern || form.tenantemail.$invalid && !form.tenantemail.$pristine">Enter a valid email</span>
+
+                        <label class="control-label" for="aptnumber">Apartment Number</label>
+                        <input type="number" name="aptnumber" id="aptnumber" max="10000" ng-model="modelAdd.apartmentNumber" class="form-control" ng-pattern="/^\d+$/" required>
+                        <span class="spanError" ng-show="form.aptnumber.$error.pattern || form.aptnumber.$invalid && !form.aptnumber.$pristine">Enter an apartment number</span>
 
                     </fieldset>
-                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addTenant()">Add Tenant </button>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addOccupant()">Add Occupant </button>
                     <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
@@ -83,8 +91,8 @@
                         <div class="detailDivTableCell">{{modelAdd.mobileNumber}}</div>
                     </div>
                     <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Home Phone:</div>
-                        <div class="detailDivTableCell">{{modelAdd.homeNumber}}</div>
+                        <div class="detailDivTableHeader">Work Phone:</div>
+                        <div class="detailDivTableCell">{{modelAdd.workNumber}}</div>
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Email:</div>
@@ -93,7 +101,12 @@
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Birth Date:</div>
                         <div class="detailDivTableCell">{{modelAdd.birthDate | date:'MM-dd-yyyy'}}</div>
-                    </div>                                    
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Apartment Number:</div>
+                        <div class="detailDivTableCell">{{modelAdd.apartmentNumber}}</div>
+                    </div>
+
                     <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
                     <button type="button" class="btn btn-primary" ng-click="addAnother()">Add another</button>
                 </div>
@@ -105,7 +118,7 @@
             <div class="form-style-5" ng-hide="showEditConfirmation">
                 <form name="formEdit" id="formEdit">
                     <fieldset>
-                        <legend><span><i class="fa fa-users" aria-hidden="true"></i></span> Edit Tenant <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
+                        <legend><span><i class="fa fa-users" aria-hidden="true"></i></span> Edit Occupant <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="firstName">First Name</label>
                         <input type="text" name="firstName" id="firstName" ng-model="modelEdit.firstName" ng-pattern="/^[a-zA-Z ]+$/" class="form-control" maxlength="10" required>
@@ -119,9 +132,9 @@
                         <input type="text" name="mobileNumber" id="mobileNumber" ng-model="modelEdit.mobileNumber" placeholder="numbers only" ng-pattern="/^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/" class="form-control" maxlength="12">
                         <span class="spanError" ng-show="formEdit.mobileNumber.$error.pattern || formEdit.mobileNumber.$invalid && !formEdit.mobileNumber.$pristine">Enter a mobile number</span>
 
-                        <label class="control-label" for="phone">Home Number</label>
-                        <input type="text" name="homeNumber" id="homeNumber" class="form-control" ng-model="modelEdit.homeNumber" placeholder="numbers only" ng-pattern="/^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/" maxlength="12"/>
-                        <span class="help-block spanError" ng-show="formEdit.homeNumber.$error.pattern || formEdit.homeNumber.$invalid && !formEdit.homeNumber.$pristine">Enter a valid phone number</span>
+                        <label class="control-label" for="phone">Work Number</label>
+                        <input type="text" name="workNumber" id="workNumber" class="form-control" ng-model="modelEdit.workNumber" placeholder="numbers only" ng-pattern="/^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/" maxlength="12" />
+                        <span class="help-block spanError" ng-show="formEdit.workNumber.$error.pattern || formEdit.workNumber.$invalid && !formEdit.workNumber.$pristine">Enter a valid phone number</span>
 
                         <label class="control-label" for="email">Email</label>
                         <input type="email" name="email" id="email" class="form-control" ng-model="modelEdit.email" maxlength="30" required />
@@ -130,8 +143,13 @@
                         <label class="control-label" for="birthDate">Birth Date</label>
                         <input type="date" name="birthDate" id="birthDate" class="form-control" ng-model="modelEdit.birthDate" required>
                         <span class="spanError" ng-show="formEdit.birthDate.$invalid && !formEdit.birthDate.$pristine">Enter a valid date</span>
+
+                        <label class="control-label" for="aptnumber">Apartment Number</label>
+                        <input type="number" name="aptnumber" id="aptnumber" max="10000" ng-model="modelEdit.apartmentNumber" class="form-control" ng-pattern="/^\d+$/" readonly>
+                        <span class="spanError" ng-show="formEdit.aptnumber.$error.pattern || formEdit.aptnumber.$invalid && !formEdit.aptnumber.$pristine">Enter an apartment number</span>
+
                     </fieldset>
-                    <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editTenant()">Edit Tenant </button>
+                    <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editOccupant()">Edit Occupant </button>
                     <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
@@ -151,8 +169,8 @@
                         <div class="detailDivTableCell">{{modelEdit.mobileNumber}}</div>
                     </div>
                     <div class="detailDivTableRow">
-                        <div class="detailDivTableHeader">Home Phone:</div>
-                        <div class="detailDivTableCell">{{modelEdit.homeNumber}}</div>
+                        <div class="detailDivTableHeader">Work Phone:</div>
+                        <div class="detailDivTableCell">{{modelEdit.workNumber}}</div>
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Email:</div>
@@ -161,7 +179,12 @@
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Birth Date:</div>
                         <div class="detailDivTableCell">{{modelEdit.birthDate | date:'MM-dd-yyyy'}}</div>
-                    </div>                                    
+                    </div>
+                    <div class="detailDivTableRow">
+                        <div class="detailDivTableHeader">Apartment Number:</div>
+                        <div class="detailDivTableCell">{{modelEdit.apartmentNumber}}</div>
+                    </div>
+
                     <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
                 </div>
             </div>

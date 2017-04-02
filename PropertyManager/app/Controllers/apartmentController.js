@@ -105,6 +105,7 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
             $scope.modelEdit.status = response.data.Status;
             $scope.modelEdit.unitId = response.data.UnitId;
             $scope.modelEdit.unitType = response.data.Unit.Bedrooms;
+            $scope.selectUnit = response.data.UnitId;;
         }, function (error) {
             $scope.message = error.statusText;
         })
