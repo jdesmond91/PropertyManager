@@ -57,13 +57,11 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
 
         var addResults = apartmentService.addApartment(apartment);
         addResults.then(function (response) {
-            console.log(response.data);
             $scope.modelAdd.aptNumber = response.data.ApartmentNumber;
             $scope.modelAdd.unitType = response.data.Unit.Bedrooms
             $scope.showConfirmation = true;
             $scope.message="Apartment Added"
-        }, function (error) {
-            console.log(error);            
+        }, function (error) {        
            $scope.errorMessage = "This apartment already exists in the Database";                     
         });
 
@@ -89,7 +87,6 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
         var allResults = apartmentService.getAllApartment();
         allResults.then(function (response) {
             $scope.apartments = response.data;
-            console.log($scope.apartments);
         }, function (error) {
             $scope.message = error.statusText;
         })
@@ -99,13 +96,11 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
     function getApartmentById (id) {
         var resultById = apartmentService.getByIdApartment(id);
         resultById.then(function (response) {
-            console.log(response.data);
             $scope.modelEdit.aptNumber = response.data.ApartmentNumber;
             $scope.modelEdit.floorNumber = response.data.FloorNumber;
             $scope.modelEdit.status = response.data.Status;
             $scope.modelEdit.unitId = response.data.UnitId;
             $scope.modelEdit.unitType = response.data.Unit.Bedrooms;
-            $scope.selectUnit = response.data.UnitId;;
         }, function (error) {
             $scope.message = error.statusText;
         })
@@ -131,8 +126,6 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
 
         var editResults = apartmentService.editApartment(apartment, $scope.modelEdit.aptNumber);
         editResults.then(function (response) {
-            console.log("edit");
-            console.log(response);
             $scope.message = "Edit successful";
             $scope.showEditConfirmation = true;      
         }, function (error) {
@@ -146,7 +139,6 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
         var deleteOne = apartmentService.deleteApartment(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
-            console.log(response);
             getApartment();
         }, function (error) {
             if (error.data == "Lease associated") {
@@ -167,7 +159,6 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
         var allResults = unitService.getAllUnit();
         allResults.then(function (response) {
             $scope.units = response.data;
-            console.log($scope.units);
         }, function (error) {
             $scope.message = error.statusText;
         })

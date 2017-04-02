@@ -3,6 +3,25 @@
     <title>Apartment</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+    function check(e,value){
+        var unicode=e.charCode? e.charCode : e.keyCode;
+        if (value.indexOf(".") != -1)if( unicode == 46 )return false;
+        if (unicode!=8)if((unicode<48||unicode>57))return false;
+    }
+    function checkLength(len,ele){
+    var fieldLength = ele.value.length;
+        if(fieldLength <= len){
+            return true;
+        }
+        else
+        {
+            var str = ele.value;
+            str = str.substring(0, str.length - 1);
+        ele.value = str;
+        }
+    }
+    </script>
 </head>
 
 <body ng-app="propertyManagerApp">
@@ -16,15 +35,15 @@
                     <fieldset>
                         <legend><span><i class="fa fa-bed" aria-hidden="true"></i></span> Add Apartment <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
-                        <label class="control-label" for="aptnumber">Apartment Number</label>
-                        <input type="number" name="aptnumber" id="aptnumber" max="10000" ng-model="modelAdd.aptNumber" class="form-control" ng-pattern="/^\d+$/" required>
-                        <span class="spanError" ng-show="form.aptnumber.$error.pattern || form.aptnumber.$invalid && !form.aptnumber.$pristine">Enter an apartment number</span>
+                        <label class="control-label" for="aptnumber">Apartment Number*</label>
+                        <input type="number" name="aptnumber" id="aptnumber"  max="100000" ng-model="modelAdd.aptNumber" class="form-control" ng-pattern="/^\d+$/" onKeyPress="return check(event,value)" onInput="checkLength(5,this)" required>
+                        <span class="spanError" ng-show="!form.aptnumber.$pristine && form.aptnumber.$invalid">Enter an apartment number</span>                
 
-                        <label class="control-label" for="floorNumber">Floor Number</label>
-                        <input type="number" name="floorNumber" id="floorNumber" class="form-control" ng-pattern="/^\d{0,2}$/" ng-model="modelAdd.floorNumber" required>
+                        <label class="control-label" for="floorNumber">Floor Number*</label>
+                        <input type="number" name="floorNumber" id="floorNumber" class="form-control" ng-pattern="/^\d{0,2}$/" ng-model="modelAdd.floorNumber" onKeyPress="return check(event,value)" onInput="checkLength(2,this)" required>
                         <span class="spanError" ng-show="form.floorNumber.$error.pattern || form.floorNumber.$invalid && !form.floorNumber.$pristine">Enter a floor number</span>                       
 
-                        <label class="control-label" for="unitId">Unit Type</label>
+                        <label class="control-label" for="unitId">Unit Type*</label>
                         <select ng-model="modelAdd.unitId" name="unitId" id="unitId" required>
                             <option ng-repeat="unit in units" value="{{unit.Id}}">{{unit.Bedrooms}} Bedroom</option>
                         </select>
@@ -69,15 +88,15 @@
                     <fieldset>
                         <legend><span><i class="fa fa-bed" aria-hidden="true"></i></span> Edit Apartment <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
-                        <label class="control-label" for="floorNumber">Floor Number</label>
-                        <input type="number" name="floorNumber" id="floorNumber"  class="form-control" ng-pattern="/^\d+$/" ng-model="modelEdit.floorNumber">
-                        <span class="spanError" ng-show="formEdit.floorNumber.$error.pattern || formEdit.floorNumber.$invalid && !formEdit.floorNumber.$pristine">Enter a floor number</span>
+                        <label class="control-label" for="floorNumber">Floor Number*</label>
+                        <input type="number" name="floorNumber" id="floorNumber"  maxlength="5" class="form-control" ng-pattern="/^\d+$/" ng-model="modelEdit.floorNumber" onKeyPress="return check(event,value)" onInput="checkLength(2,this)">
+                        <span class="spanError" ng-show="!formEdit.floorNumber.$pristine && (formEdit.floorNumber.$error.pattern || formEdit.floorNumber.$invalid) ">Enter a floor number</span>                   
 
                         <label class="control-label" for="status">Status</label>
                         <input type="text" name="status" id="status" readonly ng-model="modelEdit.status" class="form-control" ng-pattern="/^[a-zA-Z ]+$/">
                         <span class="spanError" ng-show="formEdit.status.$error.pattern || formEdit.status.$invalid && !formEdit.status.$pristine">Enter a status</span>
 
-                        <label class="control-label" for="unitId">Unit Type</label>
+                        <label class="control-label" for="unitId">Unit Type*</label>
                         <select ng-model="modelEdit.unitId" name="unitId" id="unitId" required>
                             <option ng-repeat="unit in units" value="{{unit.Id}}">{{unit.Bedrooms}} Bedroom</option>
                         </select>
