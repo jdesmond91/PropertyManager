@@ -41,7 +41,6 @@ function workOrderManagerController($scope, $filter, $location, $routeParams, wo
         var allRequests = workOrderService.getAllWorkOrder();
         allRequests.then(function (response) {
             $scope.workOrders = response.data;
-            console.log($scope.workOrders);
         }, function (error) {
             $scope.message = error.statusText;
         })
@@ -107,8 +106,6 @@ function workOrderManagerController($scope, $filter, $location, $routeParams, wo
 
             var editResults = workOrderService.editWorkOrder(workOrder, workOrder.Id);
             editResults.then(function (response) {
-                console.log("edit");
-                console.log(response);
                 $scope.message = "Edit successful";
                 $scope.showEditConfirmation = true;
             }, function (error) {

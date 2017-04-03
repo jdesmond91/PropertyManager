@@ -51,7 +51,6 @@ function inventoryController($scope, $filter, $location, $routeParams, inventory
 
         var addResults = inventoryService.addInventory(inventory);
         addResults.then(function (response) {
-            console.log(response.data);
             $scope.modelAdd.inventoryId = response.data.Id;
             $scope.showConfirmation = true;
             $scope.message = "Inventory Added"
@@ -77,7 +76,6 @@ function inventoryController($scope, $filter, $location, $routeParams, inventory
         var allResults = inventoryService.getAllInventory();
         allResults.then(function (response) {
             $scope.inventorys = response.data;
-            console.log($scope.inventorys);
         }, function (error) {
             $scope.message = response.statusText;
         })
@@ -87,7 +85,6 @@ function inventoryController($scope, $filter, $location, $routeParams, inventory
     function getInventoryById (id) {
         var resultById = inventoryService.getByIdInventory(id);
         resultById.then(function (response) {
-            console.log(response.data);
             $scope.modelEdit.productName = response.data.ProductName;
             $scope.modelEdit.supplier = response.data.Supplier;
             $scope.modelEdit.quantity = response.data.Quantity;
@@ -114,8 +111,6 @@ function inventoryController($scope, $filter, $location, $routeParams, inventory
 
         var editResults = inventoryService.editInventory(inventory, inventory.Id);
         editResults.then(function (response) {
-            console.log("edit");
-            console.log(response);
             $scope.message = "Edit successful";
             $scope.showEditConfirmation = true;
         }, function (error) {
@@ -128,7 +123,6 @@ function inventoryController($scope, $filter, $location, $routeParams, inventory
         var deleteOne = inventoryService.deleteInventory(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
-            console.log(response);
             getInventory();
         }, function (error) {
             $scope.message = error.statusText;

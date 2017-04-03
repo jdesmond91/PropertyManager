@@ -92,35 +92,29 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
 
         var tenant = tenantService.getByEmailTenant($scope.modelAdd.tenantEmail);
         tenant.then(function (response) {
-            console.log(response.data);
             $scope.modelAdd.tenantId = response.data.Id;
             $scope.modelAdd.tenantName = response.data.FirstName + ' ' + response.data.LastName;
             lease.TenantId = response.data.Id;
             return response.data.Id;
         }, function (error) {
             $scope.errorMessage = error.data;
-            console.log(error);
         }).then(function (tenantId) {
             if ($scope.modelAdd.tenantId != "") {
                 var addResults = leaseService.addLease(lease);
                 addResults.then(function (response) {
-                    console.log(response.data);
                     $scope.modelAdd.leaseId = response.data.Id;
                     $scope.showConfirmation = true;
                     $scope.message = "Lease Added"
                 }, function (error) {
                     $scope.errorMessage = error.data;
-                    console.log(error);
                     $scope.modelAdd.tenantId = "";
                     $scope.modelAdd.tenantName = "";
                 })
             }
             else {
                 $scope.errorMessage = "Tenant not found";
-                console.log($scope.errorMessage);
             }
         }, function (error) {
-            console.log(error);
         });
                           
     } // close function
@@ -146,7 +140,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
         var allLeases = leaseService.getAllLease();
         allLeases.then(function (response) {
             $scope.leases = response.data;
-            console.log($scope.leases);
         }, function (error) {
             $scope.message = error.statusText;
         })
@@ -160,7 +153,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             $scope.modelEdit.apartmentId = response.data.Apartment.ApartmentNumber;
             $scope.modelEdit.tenantId = response.data.TenantId;
             $scope.modelEdit.tenantName = response.data.Tenant.FirstName + ' ' + response.data.Tenant.LastName;
-            console.log(response);
             if (response.data.StartDate != null) {
                 $scope.modelEdit.startDate = new Date(response.data.StartDate.replace('T', ' ').replace('-', '/'));   
             }
@@ -217,8 +209,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
 
         var editResults = leaseService.editLease(lease, lease.Id);
         editResults.then(function (response) {
-            console.log("edit");
-            console.log(response);
             $scope.message = "Edit successful";
             $scope.showEditConfirmation = true;
         }, function (error) {
@@ -231,7 +221,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
         var deleteOne = leaseService.deleteLease(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
-            console.log(response);
             getLease();
         }, function (error) {
             $scope.message = error.statusText;

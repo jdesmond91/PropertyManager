@@ -94,7 +94,6 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
 
         var addResults = unitService.addUnit(unit);
         addResults.then(function (response) {
-            console.log(response.data);
             $scope.modelAdd.unitId = response.data.Id;
             $scope.showConfirmation = true;
             $scope.modelAdd.balcony = response.data.Balcony;
@@ -110,7 +109,6 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
             };
             var photo = unitphotoService.addUnitPhoto($scope.photomodel, $scope.file);
             photo.then(function (response) {
-                console.log(response);
                 $scope.photomodel.PathName = "/Album/FileUploads/" + $scope.file.name;
             }, function (error) {
                 $scope.message = error.statusText + " " + error.status;
@@ -143,7 +141,6 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
         var allResults = unitService.getAllUnit();
         allResults.then(function (response) {
             $scope.units = response.data;
-            console.log($scope.units);
         }, function (error) {
             $scope.message = response.statusText;
         })
@@ -153,7 +150,6 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
     function getUnitById (id) {
         var resultById = unitService.getByIdUnit(id);
         resultById.then(function (response) {
-            console.log(response.data);
             $scope.modelEdit.unitId = response.data.Id;
             $scope.modelEdit.bedrooms = response.data.Bedrooms;
             $scope.modelEdit.bathrooms = response.data.Bathrooms;
@@ -195,8 +191,6 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
 
         var editResults = unitService.editUnit(unit, unit.Id);
         editResults.then(function (response) {
-            console.log("edit");
-            console.log(response);
             $scope.message = "Edit successful";
             $scope.showEditConfirmation = true;
             return response;
@@ -210,7 +204,6 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
                 };
                 var photo = unitphotoService.editUnitPhoto($scope.photomodel, $scope.file);
                 photo.then(function (response) {
-                    console.log(response);
                     $scope.photomodel.PathName = "/Album/FileUploads/" + $scope.file.name;
                 }, function (error) {
                     $scope.message = error.statusText + " " + error.status;
@@ -258,7 +251,6 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
         var deleteOne = unitService.deleteUnit(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
-            console.log(response);
             getUnit();
         }, function (error) {
             $scope.message = error.statusText;
@@ -290,17 +282,14 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
         };
         var photo = unitphotoService.addUnitPhoto($scope.photomodel, $scope.file);
         photo.then(function (response) {
-            console.log(response);
             $scope.photomodel.PathName = "/Album/FileUploads/" + $scope.file.name;
         }, function (error) {
-            console.log(error);
         });
     };
 
     function getUnitPhotoById (id) {
         var resultById = unitphotoService.getByIdUnitPhoto(id);
         resultById.then(function (response) {
-            console.log(response.data);
             $scope.imageUrl = response.data.PathName;
             $scope.description = response.data.Description;
             $scope.unitId = response.data.UnitId;
@@ -315,7 +304,6 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
             $scope.message = "Delete successfull";
             $scope.modelEdit.PathName = "";
             $scope.modelEdit.UnitPhotoId = "";
-            console.log(response);
         }, function (error) {
             $scope.errorMessage = "Could not delete";
         });

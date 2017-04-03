@@ -18,7 +18,6 @@ function userController($scope, $filter, $location, $routeParams, userService, u
         var allUsers = userService.getAllUser();
         allUsers.then(function (response) {
             $scope.users = response.data;
-            console.log($scope.users);
         }, function (error) {
             $scope.errorMessage = error.data;
         })
@@ -31,7 +30,6 @@ function userController($scope, $filter, $location, $routeParams, userService, u
         var deleteOne = userService.deleteUser(email);
         deleteOne.then(function (response) {
             $scope.errorMessage = "Delete successfull";
-            console.log(response);
             getUserAll();
         }, function (error) {
             $scope.errorMessage = error.statusText;

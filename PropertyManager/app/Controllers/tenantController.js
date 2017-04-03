@@ -68,7 +68,6 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
 
         var addResults = tenantService.addTenant(tenant);
         addResults.then(function (response) {
-            console.log(response.data);
             $scope.modelAdd.tenantId = response.data.Id;
             $scope.showConfirmation = true;
             $scope.message = "Tenant Added"
@@ -101,7 +100,6 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
         var allResults = tenantService.getAllTenant();
         allResults.then(function (response) {
             $scope.tenants = response.data;
-            console.log($scope.tenants);
         }, function (error) {
             $scope.message = error.statusText;
         })
@@ -111,7 +109,6 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
     function getTenantById(id) {
         var resultById = tenantService.getByIdTenant(id);
         resultById.then(function (response) {
-            console.log(response.data);
             $scope.modelEdit.firstName = response.data.FirstName;
             $scope.modelEdit.lastName = response.data.LastName;
             $scope.modelEdit.mobileNumber = response.data.MobilePhone;
@@ -122,7 +119,6 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
         }).then(function (tenantId){
             var leaseInfo = leaseService.getLeaseByTenantId(tenantId);
             leaseInfo.then(function (response) {
-                console.log(response);
                 $scope.apartmentNumber = response.data.Apartment.ApartmentNumber;
             }, function (error) {
                 $scope.error = response.statusText;
@@ -159,8 +155,6 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
 
         var editResults = tenantService.editTenant(tenant, tenant.Id);
         editResults.then(function (response) {
-            console.log("edit");
-            console.log(response);
             $scope.message = "Edit successful";
             $scope.showEditConfirmation = true;
         }, function (error) {
@@ -174,7 +168,6 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
         var deleteOne = tenantService.deleteTenant(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
-            console.log(response);
             getTenant();
         }, function (error) {
             if (error.data == "Lease associated") {

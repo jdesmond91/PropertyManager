@@ -58,7 +58,6 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
 
         var findTenant = tenantService.getByEmailTenant($scope.modelAdd.tenantEmail);
         findTenant.then(function (response) {
-            console.log(response.data);
             $scope.modelAdd.tenantId = response.data.Id; 
             return response.data.Id;      
         }).then(function (tenantId) {
@@ -101,7 +100,6 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
         };
         var addResults = occupantService.addOccupant(occupant);
         addResults.then(function (response) {
-            console.log(response.data);
             $scope.modelAdd.occupantId = response.data.Id;
             $scope.showConfirmation = true;
             $scope.message = "Occupant Added"
@@ -136,7 +134,6 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
         var allResults = occupantService.getAllOccupant();
         allResults.then(function (response) {
             $scope.occupants = response.data;
-            console.log($scope.occupants);
         }, function (error) {
             $scope.message = error.statusText;
         })
@@ -146,7 +143,6 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
     function getOccupantById(id) {
         var resultById = occupantService.getByIdOccupant(id);
         resultById.then(function (response) {
-            console.log(response.data);
             $scope.modelEdit.firstName = response.data.FirstName;
             $scope.modelEdit.lastName = response.data.LastName;
             $scope.modelEdit.mobileNumber = response.data.MobilePhone;
@@ -187,8 +183,6 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
 
         var editResults = occupantService.editOccupant(occupant, occupant.Id);
         editResults.then(function (response) {
-            console.log("edit");
-            console.log(response);
             $scope.message = "Edit successful";
             $scope.showEditConfirmation = true;
         }, function (error) {
@@ -202,7 +196,6 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
         var deleteOne = occupantService.deleteOccupant(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
-            console.log(response);
             getOccupant();
         }, function (error) {
             $scope.errorMessage = error.statusText;

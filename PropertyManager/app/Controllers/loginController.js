@@ -79,7 +79,6 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         };
         var resetResult = loginService.resetPassword(userInfo);
         resetResult.then(function (data) {
-            console.log(data);
             $scope.forgetMessage = "Reset Password Successfull";
             $scope.formReset.$setPristine();
             $scope.userResetPassword = "";
@@ -103,7 +102,6 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         };
         var resetResult = loginService.forgetPassword(userInfo);
         resetResult.then(function (data) {
-            console.log(data);
             $scope.message = "Password sent to email";
             $scope.formReset.$setPristine();
             $scope.userEmail = "";

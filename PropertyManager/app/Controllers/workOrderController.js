@@ -44,8 +44,6 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
     function getUserId() {
         var user = tenantService.getByEmailTenant($scope.userName);
         user.then(function (response) {
-            console.log("user Id:");
-            console.log(response.data);
             $scope.modelAdd.tenantId = response.data.Id;
             $scope.tenantId = response.data.Id;
             return response.data.Id;
@@ -69,7 +67,6 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
         var tenantOrder = workOrderService.getByTenantIdWorkOrder(id);
         tenantOrder.then(function (response) {
             $scope.workOrders = response.data;
-            console.log($scope.workOrders);
         }, function (error) {
             $scope.message = response.statusText;
         })
@@ -104,7 +101,6 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
 
         var addResults = workOrderService.addWorkOrder(workOrder);
         addResults.then(function (response) {
-            console.log(response.data);
             $scope.modelAdd.workOrderId = response.data.Id;
             $scope.modelAdd.requestDate = new Date(response.data.RequestDate.replace('T', ' ').replace('-', '/'));
             $scope.showConfirmation = true;
@@ -176,8 +172,6 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
 
     var editResults = workOrderService.editWorkOrder(workOrder, workOrder.Id);
     editResults.then(function (response) {
-        console.log("edit");
-        console.log(response);
         $scope.message = "Edit successful";
         $scope.showEditConfirmation = true;
     }, function (error) {
@@ -191,7 +185,6 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
         var deleteOne = workOrderService.deleteWorkOrder(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
-            console.log(response);
             getAllTenantOrders($scope.tenantId);
         }, function (error) {
             $scope.message = error.statusText;

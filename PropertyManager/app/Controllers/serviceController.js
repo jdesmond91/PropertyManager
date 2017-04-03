@@ -58,7 +58,6 @@ function serviceController($scope, $filter, $location, $routeParams, serviceServ
 
         var addResults = serviceService.addService(service);
         addResults.then(function (response) {
-            console.log(response.data);
             $scope.modelAdd.serviceId = response.data.Id;
             $scope.showConfirmation = true;
             $scope.message = "Service Added"
@@ -86,7 +85,6 @@ function serviceController($scope, $filter, $location, $routeParams, serviceServ
         var allResults = serviceService.getAllService();
         allResults.then(function (response) {
             $scope.services = response.data;
-            console.log($scope.services);
         }, function (error) {
             $scope.message = error.statusText;
         })
@@ -96,7 +94,6 @@ function serviceController($scope, $filter, $location, $routeParams, serviceServ
     function getServiceById (id) {
         var resultById = serviceService.getByIdService(id);
         resultById.then(function (response) {
-            console.log(response.data);
             $scope.modelEdit.serviceId = response.data.Id;
             $scope.modelEdit.name = response.data.ServiceName;
             $scope.modelEdit.companyName = response.data.CompanyName;
@@ -129,8 +126,6 @@ function serviceController($scope, $filter, $location, $routeParams, serviceServ
 
         var editResults = serviceService.editService(service, service.Id);
         editResults.then(function (response) {
-            console.log("edit");
-            console.log(response);
             $scope.message = "Edit successful";
             $scope.showEditConfirmation = true;
         }, function (error) {
@@ -143,7 +138,6 @@ function serviceController($scope, $filter, $location, $routeParams, serviceServ
         var deleteOne = serviceService.deleteService(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
-            console.log(response);
             getService();
         }, function (error) {
             $scope.message = error.statusText;

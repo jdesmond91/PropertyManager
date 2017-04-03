@@ -102,7 +102,6 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
 
             var addResults = serviceRequestService.addServiceRequest(serviceRequest);
             addResults.then(function (response) {
-                console.log(response.data);
                 $scope.modelAdd.serviceRequestId = response.data.Id;
                 $scope.modelAdd.ServiceId = response.data.Id;
                 $scope.modelAdd.ServiceName = response.data.Service.ServiceName;
@@ -134,7 +133,6 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
         var allServiceRequests = serviceRequestService.getAllServiceRequest();
         allServiceRequests.then(function (response) {
             $scope.serviceRequests = response.data;
-            console.log($scope.serviceRequests);
         }, function (error) {
             $scope.message = error.statusText;
         })
@@ -221,8 +219,6 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
 
             var editResults = serviceRequestService.editServiceRequest(serviceRequest, serviceRequest.Id);
             editResults.then(function (response) {
-                console.log("edit");
-                console.log(response);
                 $scope.message = "Edit successful";
                 $scope.showEditConfirmation = true;
             }, function (error) {
@@ -237,7 +233,6 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
         var deleteOne = serviceRequestService.deleteServiceRequest(id);
         deleteOne.then(function (response) {
             $scope.message = "Delete successfull";
-            console.log(response);
             getServiceRequest();
         }, function (error) {
             $scope.message = error.statusText;
@@ -256,7 +251,6 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
         var services = serviceService.getAllServiceForRequest();
         services.then(function (response) {
             $scope.services = response.data;
-            console.log(response);
         }, function (error) {
             $scope.message = error.statusText;
         });
