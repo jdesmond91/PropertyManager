@@ -37,17 +37,17 @@
 
                         <label class="control-label" for="aptnumber">Apartment Number*</label>
                         <input type="number" name="aptnumber" id="aptnumber"  max="100000" ng-model="modelAdd.aptNumber" class="form-control" ng-pattern="/^\d+$/" onKeyPress="return check(event,value)" onInput="checkLength(5,this)" required>
-                        <span class="spanError" ng-show="!form.aptnumber.$pristine && form.aptnumber.$invalid">Enter an apartment number</span>                
+                        <span class="spanError" ng-show="!form.aptnumber.$pristine && form.aptnumber.$invalid">Apartment number is required</span>                
 
                         <label class="control-label" for="floorNumber">Floor Number*</label>
                         <input type="number" name="floorNumber" id="floorNumber" class="form-control" ng-pattern="/^\d{0,2}$/" ng-model="modelAdd.floorNumber" onKeyPress="return check(event,value)" onInput="checkLength(2,this)" required>
-                        <span class="spanError" ng-show="form.floorNumber.$error.pattern || form.floorNumber.$invalid && !form.floorNumber.$pristine">Enter a floor number</span>                       
+                        <span class="spanError" ng-show="form.floorNumber.$error.pattern || form.floorNumber.$invalid && !form.floorNumber.$pristine">Floor number is required</span>                       
 
                         <label class="control-label" for="unitId">Unit Type*</label>
                         <select ng-model="modelAdd.unitId" name="unitId" id="unitId" required>
                             <option ng-repeat="unit in units" value="{{unit.Id}}">{{unit.Bedrooms}} Bedroom</option>
                         </select>
-                        <span class="spanError" ng-show="form.unitId.$invalid && !form.unitId.$pristine">Enter a unit type</span>
+                        <span class="spanError" ng-show="form.unitId.$invalid && !form.unitId.$pristine">Unit type is required</span>
                        
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addApartment()">Add Apartment </button>

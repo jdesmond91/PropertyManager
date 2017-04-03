@@ -69,11 +69,11 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
         $scope.message = "";
         var add = false;
 
-        if ($scope.modelAdd.RequestDate < $scope.today) {
+        if ($scope.modelAdd.RequestDate != "" && $scope.modelAdd.RequestDate < $scope.today) {
             $scope.message = "Enter a date greater than today";
         }
         else {
-            if ($scope.modelAdd.CompletionDate < $scope.modelAdd.RequestDate) {
+            if ($scope.modelAdd.CompletionDate != "" && $scope.modelAdd.CompletionDate < $scope.modelAdd.RequestDate) {
                 $scope.message = "Enter a date greater than or equal Start Date";
             }
             else {
@@ -106,6 +106,7 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
                 $scope.modelAdd.serviceRequestId = response.data.Id;
                 $scope.modelAdd.ServiceId = response.data.Id;
                 $scope.modelAdd.ServiceName = response.data.Service.ServiceName;
+                $scope.modelAdd.RequestDate = new Date(response.data.RequestDate.replace('T', ' ').replace('-', '/'));
                 $scope.showConfirmation = true;
                 $scope.message = "Service Request Added"
             }, function (error) {
@@ -183,13 +184,16 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
         $scope.message = "";
         var add = false;
 
-        if ($scope.modelEdit.RequestDate < $scope.today) {
+        if ($scope.modelEdit.RequestDate != "" && $scope.modelEdit.RequestDate  < $scope.today) {
             $scope.message = "Enter a date greater than today";
         }
         else {
-            if ($scope.modelEdit.CompletionDate < $scope.modelEdit.RequestDate) {
-                $scope.message = "Enter a date greater than or equal Start Date";
+            if ($scope.modelEdit.CompletionDate != null) {
+                if ($scope.modelEdit.CompletionDate != "" && $scope.modelEdit.CompletionDate < $scope.modelEdit.RequestDate) {
+                    $scope.message = "Enter a date greater than or equal Start Date";
+                }
             }
+            
             else {
                 add = true;
             }

@@ -9,7 +9,7 @@ namespace PropertyManager.Controllers
     {
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public double SecurityDeposit { get; set; }
+        public double? SecurityDeposit { get; set; }
         public double MonthlyRent { get; set; }
         public int ApartmentNumber { get; set; }
         public int TenantId { get; set; }
@@ -26,7 +26,7 @@ namespace PropertyManager.Controllers
         public int Id { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public double SecurityDeposit { get; set; }
+        public double? SecurityDeposit { get; set; }
         public double MonthlyRent { get; set; }
     }
 

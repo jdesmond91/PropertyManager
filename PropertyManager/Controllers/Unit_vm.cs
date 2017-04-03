@@ -12,7 +12,7 @@ namespace PropertyManager.Controllers
         public int Bedrooms { get; set; }
         public int Bathrooms { get; set; }
         public double SquareFeet { get; set; }
-        public int MaxOccupants { get; set; }
+        public int? MaxOccupants { get; set; }
         public bool Balcony { get; set; }
         public bool Dishwasher { get; set; }
         public bool Laundry { get; set; }
@@ -36,7 +36,7 @@ namespace PropertyManager.Controllers
         public int Bedrooms { get; set; }
         public int Bathrooms { get; set; }
         public double SquareFeet { get; set; }
-        public int MaxOccupants { get; set; }
+        public int? MaxOccupants { get; set; }
         public bool Balcony { get; set; }
         public bool Dishwasher { get; set; }
         public bool Laundry { get; set; }

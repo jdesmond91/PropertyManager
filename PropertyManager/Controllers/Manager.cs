@@ -567,13 +567,19 @@ namespace PropertyManager.Controllers
                     return null;
                 }
 
-                // Add the new object
+                var today = DateTime.Now;
 
                 // Build the ServiceRequest object
                 ServiceRequest addedItem = Mapper.Map<ServiceRequest>(newItem);
 
                 // Set its associated item identifier
                 addedItem.Service = associatedItem;
+
+                if(newItem.RequestDate == null)
+                {
+                    addedItem.RequestDate = today;
+                }
+                
 
                 ds.ServiceRequests.Add(addedItem);
                 ds.SaveChanges();
@@ -600,9 +606,13 @@ namespace PropertyManager.Controllers
             }
             else
             {
-                // Fetch the object from the data store - ds.Entry(storedItem)
-                // Get its current values collection - .CurrentValues
-                // Set those to the edited values - .SetValues(editedItem)
+                if(editedItem.RequestDate == null && storedItem.RequestDate == null)
+                {
+                    var today = DateTime.Now;
+                    storedItem.RequestDate = today;
+                }
+                
+
                 ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
                 // The SetValues() method ignores missing properties and navigation properties
                 ds.SaveChanges();
@@ -1212,20 +1222,6 @@ namespace PropertyManager.Controllers
         public IEnumerable<OccupantBase> OccupantGetAll()
         {
             var c = ds.Occupants.OrderBy(a => a.ApartmentNumber);
-
-            //var occupants = Mapper.Map<IEnumerable<OccupantBase>>(c);
-
-            //foreach (OccupantBase occupant in occupants)
-            //{
-            //    var aptInfo = ds.Leases.Include("Apartment").SingleOrDefault(a => a.Tenant.Id == occupant.TenantId);
-                
-            //    if (aptInfo != null)
-            //    {
-            //        occupant.ApartmentNumber = aptInfo.Apartment.ApartmentNumber;
-            //    }
-            //}
-
-            //return occupants;
 
             return Mapper.Map<IEnumerable<OccupantBase>>(c);
         }
