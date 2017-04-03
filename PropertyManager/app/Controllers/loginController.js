@@ -104,7 +104,7 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         var resetResult = loginService.forgetPassword(userInfo);
         resetResult.then(function (data) {
             console.log(data);
-            $scope.message = "Reset Password Successfull";
+            $scope.message = "Password sent to email";
             $scope.formReset.$setPristine();
             $scope.userEmail = "";
             $scope.passForget = false;

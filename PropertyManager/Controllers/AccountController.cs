@@ -146,7 +146,6 @@ namespace PropertyManager.Controllers
         [HttpGet]
         public IEnumerable<UserBase> UAGetAll()
         {
-            // Return the entire user account collection, mapped
             return Mapper.Map<IEnumerable<UserBase>>(UserManager.Users);
         }
 
@@ -154,7 +153,6 @@ namespace PropertyManager.Controllers
         [Route("userGetByEmail/{email}/find")]
         public UserBase getByEmail(string email)
         {
-            // Attempt to locate the object
             IdentityUser user = UserManager.FindByEmailAsync(email).Result;    
 
             return (user == null) ? null : Mapper.Map<UserBase>(user);
@@ -456,19 +454,19 @@ namespace PropertyManager.Controllers
             var tenant = ds.Tenants.SingleOrDefault(a => a.BirthDate == model.BirthDate && a.Email == model.Email && a.LastName == model.Surname);
 
 
-            //if(tenant != null)
-            //{
-            //    var lease = ds.Leases.Include("Tenant").Include("Apartment").FirstOrDefault(j => j.Tenant.Id == tenant.Id && j.Apartment.ApartmentNumber == model.ApartmentNumber);
-            //    if (tenant == null || lease == null)
-            //    {
-            //        return Content(HttpStatusCode.NotFound, "User not found");
-            //    }
+            if (tenant != null)
+            {
+                var lease = ds.Leases.Include("Tenant").Include("Apartment").FirstOrDefault(j => j.Tenant.Id == tenant.Id && j.Apartment.ApartmentNumber == model.ApartmentNumber);
+                if (tenant == null || lease == null)
+                {
+                    return Content(HttpStatusCode.NotFound, "User not found");
+                }
 
-            //}
-            //else if(model.Role != "Manager")
-            //{
-            //    return Content(HttpStatusCode.NotFound, "Cannot register");
-            //}       
+            }
+            else if (model.Role != "Manager")
+            {
+                return Content(HttpStatusCode.NotFound, "Cannot register");
+            }
 
             string strNewPassword = m.GeneratePassword().ToString();
             strNewPassword += "Ad4!";

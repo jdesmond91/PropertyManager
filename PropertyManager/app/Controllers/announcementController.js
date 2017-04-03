@@ -73,9 +73,14 @@ function announcementController($scope, $filter, $location, $routeParams, announ
             $scope.message = "Enter a date greater than today";
         }
         else {
-            if ($scope.modelAdd.expireDate != "" && $scope.modelAdd.expireDate < $scope.modelAdd.startDate) {
+            if ($scope.modelAdd.expireDate != null) {
+                if ($scope.modelAdd.expireDate != "" && $scope.modelAdd.expireDate < $scope.modelAdd.startDate) {
                 $scope.message = "Enter a date greater than or equal Start Date";
-            }
+                }
+                else {
+                    add = true;
+                }
+            }           
             else {
                 add = true;
             }

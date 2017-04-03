@@ -97,6 +97,9 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
             console.log(response.data);
             $scope.modelAdd.unitId = response.data.Id;
             $scope.showConfirmation = true;
+            $scope.modelAdd.balcony = response.data.Balcony;
+            $scope.modelAdd.dishwasher = response.data.Dishwasher;
+            $scope.modelAdd.laundry = response.data.Laundry;
             $scope.message = "Unit Added"
             return response;
         }).then(function(response){
