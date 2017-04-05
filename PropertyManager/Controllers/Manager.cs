@@ -69,6 +69,15 @@ namespace PropertyManager.Controllers
             return Mapper.Map<IEnumerable<AnnouncementBase>>(c);
         }
 
+        public IEnumerable<AnnouncementBase> AnnouncementGetAllActive()
+        {
+            var today = DateTime.Now;
+
+            var c = ds.Announcements.Where(a => a.ExpireDate < today).OrderBy(a => a.Title);
+
+            return Mapper.Map<IEnumerable<AnnouncementBase>>(c);
+        }
+
         public AnnouncementBase AnnouncementGetById(int id)
         {
             var c = ds.Announcements.SingleOrDefault(a => a.Id == id);
@@ -341,6 +350,14 @@ namespace PropertyManager.Controllers
             return Mapper.Map<IEnumerable<FacilityBookingBase>>(s);
         }
 
+        public IEnumerable<FacilityBookingBase> FacilityBookingGetAllActiveWithFacility()
+        {
+            var today = DateTime.Now;
+
+            var s = ds.FacilityBookings.Include("Facility").Where(a => a.BookedDate < today).OrderBy(j => j.Id);
+            return Mapper.Map<IEnumerable<FacilityBookingBase>>(s);
+        }
+
         public FacilityBookingBase FacilityBookingGetByIdWithFacility(int id)
         {
             var o = ds.FacilityBookings.Include("Facility").SingleOrDefault(j => j.Id == id);
@@ -461,6 +478,7 @@ namespace PropertyManager.Controllers
             return Mapper.Map<IEnumerable<ServiceBase>>(c);
         }
 
+
         public IEnumerable<ServiceForServiceRequest> ServiceGetAllForRequest()
         {
             var c = ds.Services.OrderBy(a => a.ServiceName);
@@ -542,6 +560,14 @@ namespace PropertyManager.Controllers
         public IEnumerable<ServiceRequestWithService> ServiceRequestGetAllWithService()
         {
             var s = ds.ServiceRequests.Include("Service").OrderBy(j => j.Id);
+            return Mapper.Map<IEnumerable<ServiceRequestWithService>>(s);
+        }
+
+        public IEnumerable<ServiceRequestWithService> ServiceRequestGetAllActiveWithService()
+        {
+            var today = DateTime.Now;
+
+            var s = ds.ServiceRequests.Include("Service").Where(j => j.CompletionDate < today).OrderBy(j => j.Id);
             return Mapper.Map<IEnumerable<ServiceRequestWithService>>(s);
         }
 

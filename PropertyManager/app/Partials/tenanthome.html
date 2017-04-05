@@ -22,7 +22,7 @@
                     <!-- .panel-heading -->
                     <div class="panel-body">
                         <div class="panel-group" id="accordion" ng-controller="announcementController">
-                            <div class="panel panel-default" ng-repeat="announce in announces">
+                            <div class="panel panel-default" ng-repeat="announce in announces | filter: greaterThan(announce)">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a>{{announce.Title}}</a>

@@ -48,7 +48,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody class="list-tbody" ng-repeat="bokking in facilityBookings | orderBy:sortType:sortReverse | filter:searchBooking" ng-class-odd="'list-row-odd'" ng-class-even="'list-row-even'">
+            <tbody class="list-tbody" ng-repeat="bokking in facilityBookings | orderBy:sortType:sortReverse | filter:searchBooking | filter: (userRole=='Tenant'? greaterThan(bokking) : '')" ng-class-odd="'list-row-odd'" ng-class-even="'list-row-even'">
                 <tr class="list-hover">
                     <td>
                         <i style="cursor: pointer" class="fa fa-minus" ng-if="bokking.expanded" ng-click="bokking.expanded = false"></i>

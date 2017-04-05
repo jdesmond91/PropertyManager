@@ -3,6 +3,7 @@ function headerController($scope, $location, userProfile) {
   
     $scope.Message = "";
     $scope.status;
+    $scope.isLoggedIn = "";
 
     var user = userProfile.getProfile();
 
@@ -18,7 +19,7 @@ function headerController($scope, $location, userProfile) {
         sessionStorage.removeItem('userName');
         sessionStorage.removeItem('userRole');
         sessionStorage.removeItem('firstName');
-        $scope.isLoggedIn = false;
+        $scope.isLoggedIn = "";
         $scope.firstName = "";
         $location.path('/index');
     };

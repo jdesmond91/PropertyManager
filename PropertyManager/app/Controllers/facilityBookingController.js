@@ -322,4 +322,25 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         }
     };
 
+    $scope.greaterThan = function (item) {
+        return function (item) {
+            var bookdate = new Date(item.BookedDate.replace('T', ' ').replace('-', '/'));
+            return bookdate >= $scope.today;
+        }
+    }
+
+    /*$scope.greaterThan = function (items) {
+        var filtered = [];
+        var today2 = new Date();
+        console.log(today2);
+        angular.forEach(items, function (item) {
+            console.log(item);
+            if (item.BookedDate <= today2) {
+                filtered.push(item);
+            }
+        });
+        console.log(filtered);
+        return filtered;
+    }*/
+
 }

@@ -70,7 +70,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
         var add = false;
 
         if ($scope.modelAdd.startDate < $scope.today) {
-            $scope.message = "Enter a date greater than today";
+            $scope.message = "Enter a date greater or equal than today";
         }
         else {
             if ($scope.modelAdd.expireDate != null) {
@@ -246,6 +246,18 @@ function announcementController($scope, $filter, $location, $routeParams, announ
 
     $scope.goBack = function () {
         $location.path('/announcement');
+    }
+
+    $scope.greaterThan = function (item) {
+        return function (item) {
+            if (item.ExpireDate != null) {
+                var announceDate = new Date(item.ExpireDate.replace('T', ' ').replace('-', '/'));
+                return announceDate >= $scope.today;
+            }
+            else {
+                return item;
+            }
+        }
     }
     
 }
