@@ -120,7 +120,7 @@
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Photo:</div> <br/>
-                        <div class="detailDivTableCell"><img src="{{photomodel.PathName}}" width="100" height="100"  style="cursor: pointer" ng-click="openPic(photomodel.PathName);"/></div>
+                        <div class="detailDivTableCell" ng-show="photomodel.PathName!=''"><img src="{{photomodel.PathName}}" width="100" height="100"  style="cursor: pointer" ng-click="openPic(photomodel.PathName);"/></div>
                     </div>
                     <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
                     <button type="button" class="btn btn-primary" ng-click="addAnother()">Add another</button>
@@ -152,17 +152,17 @@
                         <input type="number" name="maxOccupants" id="maxOccupants" ng-model="modelEdit.maxOccupants" ng-pattern="/^[0-9]{0,2}$/" class="form-control" onKeyPress="return check(event,value)" onInput="checkLength(2,this)">
                         <span class="spanError" ng-show="formEdit.maxOccupants.$error.pattern || formEdit.maxOccupants.$invalid && !formEdit.maxOccupants.$pristine">Enter a valid number</span>
 
-                        <label class="control-label" for="balcony">Balcony</label>
+                       <label class="control-label" for="balcony">Balcony</label>
                         <select ng-model="modelEdit.balcony" name="balcony" id="balcony">
                             <option value=true>YES</option>
                             <option value=false>NO</option>
                         </select>
                         <span class="spanError" ng-show="formEdit.balcony.$invalid && !formEdit.balcony.$pristine">Enter balcony</span>
 
-                        <label class="control-label" for="laundry">Laundry</label>
+                      <label class="control-label" for="laundry">Laundry</label>
                         <select ng-model="modelEdit.laundry" name="laundry" id="laundry">
-                            <option value=true>YES</option>
-                            <option value=false>NO</option>
+                            <option value=true >YES</option>
+                            <option value=false >NO</option>
                         </select>
                         <span class="spanError" ng-show="formEdit.laundry.$invalid && !formEdit.laundry.$pristine">Enter laundry</span>
 
@@ -222,8 +222,8 @@
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Photo:</div>
                     </div>
-                    <div class="detailDivTableRow">
-                        <div class="detailDivTableCell"><img src="{{photomodel.PathName}}" width="100" height="100" style="cursor: pointer" ng-click="openPic(photomodel.PathName);" /></div>
+                    <div class="detailDivTableRow" ng-show="photomodelEdit.PathName!=''">
+                        <div class="detailDivTableCell"><img src="{{photomodelEdit.PathName}}" width="100" height="100" style="cursor: pointer" ng-click="openPic(photomodelEdit.PathName);" /></div>
                     </div>
                     <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
                 </div>

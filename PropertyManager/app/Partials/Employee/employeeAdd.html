@@ -91,7 +91,8 @@
 
                         <label class="control-label" for="mobileNumber">Phone Number</label>
                         <input type="text" name="mobileNumber" id="mobileNumber" ng-model="modelAdd.Phone" placeholder="numbers only" ng-pattern="/^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/" class="form-control" maxlength="12" onKeyPress="return check(event,value)">  
-                        <span class="spanError" ng-show="form.mobileNumber.$error.maxlength && !form.mobileNumber.$pristine">Phone number is required</span>                    
+                        <span class="spanError" ng-show="form.mobileNumber.$error.maxlength && !form.mobileNumber.$pristine">Phone number is too big</span> 
+                                       
 
                         <label class="control-label" for="email">Email*</label>
                         <input type="email" name="email" id="email" class="form-control" ng-model="modelAdd.Email" maxlength="30" required />

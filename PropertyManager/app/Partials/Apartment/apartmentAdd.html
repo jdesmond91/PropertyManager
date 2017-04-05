@@ -45,7 +45,7 @@
 
                         <label class="control-label" for="unitId">Unit Type*</label>
                         <select ng-model="modelAdd.unitId" name="unitId" id="unitId" required>
-                            <option ng-repeat="unit in units" value="{{unit.Id}}">{{unit.Bedrooms}} Bedroom</option>
+                            <option ng-repeat="unit in units"  value="{{unit.Id}}">{{unit.Bedrooms}} Bedroom</option>
                         </select>
                         <span class="spanError" ng-show="form.unitId.$invalid && !form.unitId.$pristine">Unit type is required</span>
                        
@@ -98,7 +98,7 @@
 
                         <label class="control-label" for="unitId">Unit Type*</label>
                         <select ng-model="modelEdit.unitId" name="unitId" id="unitId" required>
-                            <option ng-repeat="unit in units" value="{{unit.Id}}">{{unit.Bedrooms}} Bedroom</option>
+                            <option ng-repeat="unit in units"  ng-selected="unit.Id == modelEdit.unitId" value="{{unit.Id}}">{{unit.Bedrooms}} Bedroom</option>
                         </select>
                         <span class="spanError" ng-show="formEdit.unitId.$invalid && !formEdit.unitId.$pristine">Enter a unit type</span>
                     </fieldset>
