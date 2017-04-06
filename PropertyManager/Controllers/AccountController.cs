@@ -18,7 +18,6 @@ using PropertyManager.Results;
 using System.Net;
 using AutoMapper;
 using System.Linq;
-using System.Web.Http.Routing;
 using System.Web.Routing;
 
 namespace PropertyManager.Controllers
@@ -451,26 +450,30 @@ namespace PropertyManager.Controllers
                 return BadRequest(ModelState);
             }
 
-            var tenant = ds.Tenants.SingleOrDefault(a => a.BirthDate == model.BirthDate && a.Email == model.Email && a.LastName == model.Surname);
+            // var tenant = ds.Tenants.SingleOrDefault(a => a.BirthDate == model.BirthDate && a.Email == model.Email && a.LastName == model.Surname);
+
+            var tenant = ds.Tenants.SingleOrDefault(a => a.Email == model.Email);
 
 
             if (tenant != null)
             {
-                var lease = ds.Leases.Include("Tenant").Include("Apartment").FirstOrDefault(j => j.Tenant.Id == tenant.Id && j.Apartment.ApartmentNumber == model.ApartmentNumber);
-                if (tenant == null || lease == null)
+                //var lease = ds.Leases.Include("Tenant").Include("Apartment").FirstOrDefault(j => j.Tenant.Id == tenant.Id && j.Apartment.ApartmentNumber == model.ApartmentNumber);
+                //if (tenant == null || lease == null)
+                //{
+                //    return Content(HttpStatusCode.NotFound, "User not found");
+                //}
+                if(tenant.ActivationCode != model.ActivationCode)
                 {
-                    return Content(HttpStatusCode.NotFound, "User not found");
+                    return Content(HttpStatusCode.NotFound, "Wrong activation code");
                 }
 
             }
             else if (model.Role != "Manager")
             {
-                return Content(HttpStatusCode.NotFound, "Cannot register");
+                return Content(HttpStatusCode.NotFound, "Email not found");
             }
 
-            string strNewPassword = m.GeneratePassword().ToString();
-            strNewPassword += "Ad4!";
-
+           
             var user = new ApplicationUser() {
                 UserName = model.Email,
                 Email = model.Email,
@@ -479,7 +482,20 @@ namespace PropertyManager.Controllers
                 Role = model.Role
             };
 
-            IdentityResult result = await UserManager.CreateAsync(user, strNewPassword);
+            IdentityResult result = null;
+
+            if (model.Role == "Manager")
+            {
+                string strNewPassword = m.GeneratePassword().ToString();
+                strNewPassword += "Ad4!";
+
+                result = await UserManager.CreateAsync(user, strNewPassword);
+                await UserManager.SendEmailAsync(user.Id, "Your password", "Here is your temporary password: <b>" + strNewPassword + " </b>. \nPlease login and reset your password.");
+            }
+            else if(model.Role == "Tenant")
+            {
+                result = await UserManager.CreateAsync(user, model.Password);
+            }          
 
             if (!result.Succeeded)
             {
@@ -490,10 +506,7 @@ namespace PropertyManager.Controllers
 
             // var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code }));
             // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-            
-
-            
-            await UserManager.SendEmailAsync(user.Id, "Your password", "Here is your temporary password: <b>" + strNewPassword  + " </b>. \nPlease login and reset your password.");
+                      
 
             await UserManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, model.Role));
 

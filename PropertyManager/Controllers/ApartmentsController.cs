@@ -23,10 +23,9 @@ namespace PropertyManager.Controllers
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
-            // Attempt to fetch the object
+
             var o = m.ApartmentGetById(id.GetValueOrDefault());
 
-            // Continue?
             if (o == null)
             {
                 return NotFound();
@@ -44,10 +43,8 @@ namespace PropertyManager.Controllers
 
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
 
-            // Ensure that a "newItem" is in the entity body
             if (newItem == null) { return BadRequest("Must send an entity body with the request"); }
 
-            // Ensure that we can use the incoming data
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
             var leaseInfo = m.LeaseGetByAptNumber(newItem.ApartmentNumber);
@@ -56,14 +53,11 @@ namespace PropertyManager.Controllers
                 return Content(HttpStatusCode.Conflict, "Apartment Already Exists");
             }
 
-            // Attempt to add the new object
             var addedItem = m.ApartmentAdd(newItem);
 
-            // Continue?
             if (addedItem == null) { return BadRequest("Cannot add the object"); }            
 
-            // HTTP 201 with the new object in the entity body
-            // Notice how to create the URI for the Location header
+            // HTTP 201 
             var uri = Url.Link("DefaultApi", new { id = addedItem.ApartmentNumber });
 
             return Created(uri, addedItem);
@@ -94,7 +88,7 @@ namespace PropertyManager.Controllers
                 }
                 else
                 {
-                    // HTTP 200 with the changed item in the entity body
+                    // HTTP 200
                     return Ok(changedItem);
                 }
             }

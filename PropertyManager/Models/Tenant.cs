@@ -14,5 +14,6 @@ namespace PropertyManager.Models
         public string HomePhone { get; set; }
         public string Email { get; set; }
         public DateTime BirthDate { get; set; }
+        public string ActivationCode { get; set; }
     }
 }

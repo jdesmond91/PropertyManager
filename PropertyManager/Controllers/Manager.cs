@@ -17,11 +17,9 @@ namespace PropertyManager.Controllers
         private ApplicationDbContext ds = new ApplicationDbContext();
 
         public UserBase getByEmail(string email)
-        {
-            // Attempt to fetch the object
+        {           
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-            // Attempt to locate the object
             var user = userManager.FindByEmailAsync(email).Result;
 
             return (user == null) ? null : Mapper.Map<UserBase>(user);
@@ -378,14 +376,12 @@ namespace PropertyManager.Controllers
 
         public FacilityBookingBase FacilityBookingAdd(FacilityBookingAdd newItem)
         {
-            // Ensure that we can continue
             if (newItem == null)
             {
                 return null;
             }
             else
             {
-                // Must validate the associated object
                 var associatedItem = ds.Facilities.Find(newItem.FacilityId);
                 if (associatedItem == null)
                 {
@@ -398,32 +394,25 @@ namespace PropertyManager.Controllers
                     return null;
                 }
 
-                // Add the new object
-
-                // Build the FacilityBooking object
                 FacilityBooking addedItem = Mapper.Map<FacilityBooking>(newItem);
 
-                // Set its associated item identifier
                 addedItem.Facility = associatedItem;
                 addedItem.Tenant = associatedTenant;
 
                 ds.FacilityBookings.Add(addedItem);
                 ds.SaveChanges();
 
-                // Return the object
                 return Mapper.Map<FacilityBookingBase>(addedItem);
             }
         }
 
         public FacilityBookingBase FacilityBookingEdit(FacilityBookingEdit editedItem)
         {
-            // Ensure that we can continue
             if (editedItem == null)
             {
                 return null;
             }
 
-            // Attempt to fetch the underlying object
             var storedItem = ds.FacilityBookings.Find(editedItem.Id);
 
             if (storedItem == null)
@@ -431,12 +420,8 @@ namespace PropertyManager.Controllers
                 return null;
             }
             else
-            {
-                // Fetch the object from the data store - ds.Entry(storedItem)
-                // Get its current values collection - .CurrentValues
-                // Set those to the edited values - .SetValues(editedItem)
+            {                
                 ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
-                // The SetValues() method ignores missing properties and navigation properties
                 ds.SaveChanges();
 
                 return Mapper.Map<FacilityBookingBase>(storedItem);
@@ -445,23 +430,16 @@ namespace PropertyManager.Controllers
 
         public void FacilityBookingDelete(int id)
         {
-            // Attempt to fetch the existing item
             var storedItem = ds.FacilityBookings.Find(id);
-
-            // Interim coding strategy...
 
             if (storedItem == null)
             {
-                // Throw an exception
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             else
             {
                 try
                 {
-                    // If this fails, throw an exception (as above)
-                    // This implementation just prevents an error from bubbling up
-
                     ds.FacilityBookings.Remove(storedItem);
                     ds.SaveChanges();
                 }
@@ -579,14 +557,12 @@ namespace PropertyManager.Controllers
 
         public ServiceRequestWithService ServiceRequestAdd(ServiceRequestAdd newItem)
         {
-            // Ensure that we can continue
             if (newItem == null)
             {
                 return null;
             }
             else
             {
-                // Must validate the associated object
                 var associatedItem = ds.Services.Find(newItem.ServiceId);
                 if (associatedItem == null)
                 {
@@ -595,10 +571,8 @@ namespace PropertyManager.Controllers
 
                 var today = DateTime.Now;
 
-                // Build the ServiceRequest object
                 ServiceRequest addedItem = Mapper.Map<ServiceRequest>(newItem);
 
-                // Set its associated item identifier
                 addedItem.Service = associatedItem;
 
                 if(newItem.RequestDate == null)
@@ -610,20 +584,17 @@ namespace PropertyManager.Controllers
                 ds.ServiceRequests.Add(addedItem);
                 ds.SaveChanges();
 
-                // Return the object
                 return Mapper.Map<ServiceRequestWithService>(addedItem);
             }
         }
 
         public ServiceRequestBase ServiceRequestEdit(ServiceRequestEdit editedItem)
         {
-            // Ensure that we can continue
             if (editedItem == null)
             {
                 return null;
             }
 
-            // Attempt to fetch the underlying object
             var storedItem = ds.ServiceRequests.Find(editedItem.Id);
 
             if (storedItem == null)
@@ -640,7 +611,6 @@ namespace PropertyManager.Controllers
                 
 
                 ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
-                // The SetValues() method ignores missing properties and navigation properties
                 ds.SaveChanges();
 
                 return Mapper.Map<ServiceRequestBase>(storedItem);
@@ -649,23 +619,16 @@ namespace PropertyManager.Controllers
 
         public void ServiceRequestDelete(int id)
         {
-            // Attempt to fetch the existing item
             var storedItem = ds.ServiceRequests.Find(id);
-
-            // Interim coding strategy...
 
             if (storedItem == null)
             {
-                // Throw an exception
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             else
             {
                 try
                 {
-                    // If this fails, throw an exception (as above)
-                    // This implementation just prevents an error from bubbling up
-
                     ds.ServiceRequests.Remove(storedItem);
                     ds.SaveChanges();
                 }
@@ -865,7 +828,6 @@ namespace PropertyManager.Controllers
                     return null;
                 }
 
-                // Must validate the associated object
                 var associatedUnit = ds.Units.Find(newItem.UnitId);
                 if (associatedUnit == null)
                 {
@@ -874,13 +836,11 @@ namespace PropertyManager.Controllers
                
                 Apartment addedItem = Mapper.Map<Apartment>(newItem);
 
-                // Set its associated item identifier
                 addedItem.Unit = associatedUnit;
 
                 ds.Apartments.Add(addedItem);
                 ds.SaveChanges();
 
-                // Return the object
                 return Mapper.Map<ApartmentWithUnit>(addedItem);
             }
         }
@@ -966,6 +926,19 @@ namespace PropertyManager.Controllers
             newTenant.Lease = leaseMap;
 
             return (c == null) ? null : newTenant;
+        }
+
+        public string TenantAddCode(int id)
+        {
+            var c = ds.Tenants.SingleOrDefault(a => a.Id == id);
+
+            var hashPassword = GeneratePassword();
+
+            c.ActivationCode = hashPassword;
+
+            ds.SaveChanges();
+
+            return (c == null) ? null : hashPassword;
         }
 
         public TenantBase TenantGetByEmail(string email)
@@ -1092,13 +1065,11 @@ namespace PropertyManager.Controllers
 
         public LeaseBase LeaseEdit(LeaseEdit editedItem)
         {
-            // Ensure that we can continue
             if (editedItem == null)
             {
                 return null;
             }
 
-            // Attempt to fetch the underlying object
             var storedItem = ds.Leases.Find(editedItem.Id);
 
             if (storedItem == null)
@@ -1116,14 +1087,10 @@ namespace PropertyManager.Controllers
 
         public void LeaseDelete(int id)
         {
-            // Attempt to fetch the existing item
             var storedItem = ds.Leases.Find(id);
-
-            // Interim coding strategy...
 
             if (storedItem == null)
             {
-                // Throw an exception
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             else
@@ -1201,7 +1168,6 @@ namespace PropertyManager.Controllers
             ds.WorkOrders.Add(addedItem);
             ds.SaveChanges();
 
-            // Return the object
             return Mapper.Map<WorkOrderBase>(addedItem);
         }
 

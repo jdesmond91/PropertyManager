@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace PropertyManager.Controllers
@@ -23,10 +24,9 @@ namespace PropertyManager.Controllers
         public IHttpActionResult Get(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
-            // Attempt to fetch the object
+  
             var o = m.LeaseGetByIdWithInformation(id.GetValueOrDefault());
 
-            // Continue?
             if (o == null)
             {
                 return NotFound();
@@ -42,10 +42,9 @@ namespace PropertyManager.Controllers
         public IHttpActionResult GetByEmail(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
-            // Attempt to fetch the object
+ 
             var o = m.LeaseGetByTenantId(id);
 
-            // Continue?
             if (o == null)
             {
                 return NotFound();
@@ -58,39 +57,58 @@ namespace PropertyManager.Controllers
 
         // POST: api/Leases
         [Authorize(Roles = "Administrator, Manager")]
-        public IHttpActionResult Post([FromBody]LeaseAdd newItem)
+        public async Task<IHttpActionResult> Post([FromBody]LeaseAdd newItem)
         {
             if (Request.GetRouteData().Values["id"] != null) { return BadRequest("Invalid request URI"); }
 
-            // Ensure that a "newItem" is in the entity body
             if (newItem == null) { return BadRequest("Must send an entity body with the request"); }
 
-            // Ensure that we can use the incoming data
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
             var apartment = m.ApartmentGetById(newItem.ApartmentNumber);
-            if(apartment == null)
+            if (apartment == null)
             {
                 return Content(HttpStatusCode.NotFound, "Apartment Number not found");
             }
 
             var lease = m.LeaseGetByAptNumber(newItem.ApartmentNumber);
-            if(lease != null)
+            if (lease != null)
             {
                 return Content(HttpStatusCode.Conflict, "Apartment already associated with a lease");
             }
-        
-            // Attempt to add the new object
+
             var addedItem = m.LeaseAdd(newItem);
 
-            // Continue?
             if (addedItem == null) { return BadRequest("Cannot add the object"); }
 
-            // HTTP 201 with the new object in the entity body
-            // Notice how to create the URI for the Location header
+
             var uri = Url.Link("DefaultApi", new { id = addedItem.Id });
 
+            // ADD ACTIVATION CODE TO TENANT
+            var hashPassword = m.TenantAddCode(addedItem.TenantId);
+
+            var tenant = m.TenantGetById(addedItem.TenantId);
+
+            await sendEmail(hashPassword, tenant.Email);
+
             return Created(uri, addedItem);
+        }
+
+        public async Task<IHttpActionResult> sendEmail(string hashPassword, string email)
+        {
+
+            EmailService sendemail = new EmailService();
+
+            Microsoft.AspNet.Identity.IdentityMessage message = new Microsoft.AspNet.Identity.IdentityMessage();
+
+            message.Subject = "Your Activation Code";
+            message.Destination = email;
+            message.Body = "Here is your activation code: <b>" + hashPassword + " </b>. <br/>Please use this to register for an account with Property Cloud by clicking <a href='http://localhost:24792/#/register'> HERE </a> or access http://localhost:24792/#/register . ";
+          
+
+            await sendemail.SendAsync(message);
+
+            return Ok();
         }
 
         // PUT: api/Leases/5
@@ -118,7 +136,7 @@ namespace PropertyManager.Controllers
                 }
                 else
                 {
-                    // HTTP 200 with the changed item in the entity body
+                    // HTTP 200
                     return Ok(changedItem);
                 }
             }

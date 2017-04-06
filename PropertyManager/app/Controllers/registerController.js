@@ -14,6 +14,7 @@ function registerController($scope, $location, $filter, loginService, userProfil
     $scope.refreshToken = "";
     $scope.isLoggedIn = false;
     $scope.errorMessage = "";
+    $scope.activationCode = "";
 
     var userProf = userProfile.getProfile();
     $scope.userRole = userProf.userRole;
@@ -24,13 +25,14 @@ function registerController($scope, $location, $filter, loginService, userProfil
 
         var userInfo = {
             Email: $scope.userEmail,
-            //Password: $scope.userPassword,
-            //ConfirmPassword: $scope.userPassword,
+            Password: $scope.userPassword,
+            ConfirmPassword: $scope.userPassword,
             GivenName: $scope.userFirstName,
             Surname: $scope.userLastName,
             Role: "Tenant",
             BirthDate: birthDateFiltered,
-            ApartmentNumber: $scope.apartmentNumber
+            ApartmentNumber: $scope.apartmentNumber,
+            ActivationCode: $scope.activationCode
         };
               
         var registerResult = loginService.register(userInfo);
@@ -40,14 +42,17 @@ function registerController($scope, $location, $filter, loginService, userProfil
             $scope.userPassword = "";
             $location.path('/login');
         }, function (response) {
-            $scope.message = "Registration failed. Please try again." 
-            
+            $scope.message = response.data;
+            if (response.status == 400) {
+                $scope.message = "This email is already registered."
+            }
             
         });
     };
 
     $scope.registerManager = function () {
         $scope.message = "";
+        $scope.errorMessage = "";
         var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
 
         var userInfo = {

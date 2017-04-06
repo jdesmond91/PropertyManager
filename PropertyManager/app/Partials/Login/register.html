@@ -1,6 +1,8 @@
 ﻿<script>
     $('#password1').popover();
 
+    $('#activationCode').popover();
+
     function check(e, value) {
         var unicode = e.charCode ? e.charCode : e.keyCode;
         if (value.indexOf(".") != -1) if (unicode == 46) return false;
@@ -34,10 +36,16 @@
             <fieldset id="inputs">
                 <br/>
 
-                <span><i class="fa fa-info" aria-hidden="true"></i> Please enter your information in the fields below. 
+                <!--<span><i class="fa fa-info" aria-hidden="true"></i> Please enter your information in the fields below. 
                 <br/> You will receive an email with a temporary password after you register. <br/>
                 You can change the password after loggin in for the first time.
+                </span>-->
+
+                <span><i class="fa fa-info" aria-hidden="true"></i> Please enter your information in the fields below.
+                <br/> The activation code will be sent to the email provided to the property manager when the lease was signed. <br/>
+                 Please use the same email to register.
                 </span>
+
                 
                 <div class="form-group" ng-class="{'has-error': form.apartmentNumber.$dirty && (form.apartmentNumber.$error.required || form.apartmentNumber.$invalid)}">
                     <label class="control-label" for="apartmentNumber">Apartment Number*</label>
@@ -71,16 +79,24 @@
                     <span ng-show="form.birthDate.$dirty && form.birthDate.$error.required" class="help-block">Birth Date is required</span>
                 </div>
 
-               <!-- <div class="form-group" ng-class="{'has-error': form.password.$dirty && form.password.$error.required && form.password.$invalid}">
-                    <label class="control-label" for="password" id="password">Password <i class="fa fa-exclamation-circle" toggle="popover" id="password1" data-trigger="hover" data-placement="bottom" data-content="Must contain at least 1 upper case, 1 lower case, 1 number and 1 special character. Minimum 8 characters" aria-hidden="true"></i></label>
+               <div class="form-group" ng-class="{'has-error': form.password.$dirty && form.password.$error.required && form.password.$invalid}">
+                    <label class="control-label" for="password" id="password">Password* <i class="fa fa-exclamation-circle" toggle="popover" id="password1" data-trigger="hover" data-placement="bottom" data-content="Must contain at least 1 upper case, 1 lower case, 1 number and 1 special character. Minimum 8 characters" aria-hidden="true"></i></label>
                     <input type="password" name="password" id="inputRegister" class="form-control" ng-model="userPassword" ng-pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/" required />
-                    <span ng-show="form.password.$dirty && form.password.$invalid" class="help-block">Enter a valid password</span>
+                    <span ng-show="form.password.$dirty && form.password.$error.pattern" class="spanError">Enter a valid password</span>
+                    <span ng-show="form.password.$dirty && form.password.$error.required" class="spanError">Password is required</span>
                 </div>
                 <div class="form-group" ng-class="{'has-error': form.confirm_password.$dirty && form.confirm_password.$error.required && form.confirm_password.$invalid}">
-                    <label class="control-label" for="confirm_password" id="confirm_password">Confirm Password</label>
+                    <label class="control-label" for="confirm_password" id="confirm_password">Confirm Password*</label>
                     <input type="password" name="confirm_password" id="inputRegister" class="form-control" ng-model="confirmPassword" compare-to="userPassword" required />
-                    <br/><br/><span ng-show="form.confirm_password.$dirty && form.confirm_password.$invalid" class="help-block">Enter a valid password</span>
-                </div>   -->                
+                    <span ng-show="form.confirm_password.$dirty && form.confirm_password.$error.pattern" class="spanError">Enter a valid password</span>
+                    <span ng-show="form.confirm_password.$dirty && form.confirm_password.$error.required" class="spanError">Confirm password is required</span>
+                </div>   
+                <div class="form-group" ng-class="{'has-error': form.activationCode.$dirty && (form.activationCode.$error.required || form.activationCode.$invalid)}">
+                    <label class="control-label" for="activationCode">Activation Code* <i class="fa fa-exclamation-circle" toggle="popover" id="activationCode" data-trigger="hover" data-placement="bottom" data-content="The activation code was sent to the email provided to the property manager. Please use the same email to register" aria-hidden="true"></i></label>
+                    <input type="text" name="activationCode" id="inputRegister" class="form-control" ng-model="activationCode"  maxlength="30" required />
+                    <span class="spanError" ng-show="form.activationCode.$error.pattern && !form.activationCode.$pristine">Enter valid characters</span>
+                    <span class="spanError" ng-show="form.activationCode.$error.required && !form.activationCode.$pristine">Actvation code is required</span>
+                </div>        
             </fieldset>
             <fieldset id="actions">
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary"  ng-click="registerUser()">

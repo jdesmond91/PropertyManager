@@ -15,6 +15,7 @@ function userController($scope, $filter, $location, $routeParams, userService, u
 
     //GET ALL
     function getUserAll() {
+        $scope.errorMessage = "";
         var allUsers = userService.getAllUser();
         allUsers.then(function (response) {
             $scope.users = response.data;
