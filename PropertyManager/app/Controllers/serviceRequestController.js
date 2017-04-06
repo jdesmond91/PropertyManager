@@ -43,6 +43,7 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
     $scope.sortType = "requestDate";
     $scope.sortReverse = false;
     $scope.searchRequest = "";
+    $scope.activeRequests = "";
 
     var today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -133,6 +134,11 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
         var allServiceRequests = serviceRequestService.getAllServiceRequest();
         allServiceRequests.then(function (response) {
             $scope.serviceRequests = response.data;
+            angular.forEach($scope.serviceRequests, function (value) {
+                if (value.CompletionDate == null) {
+                    $scope.activeRequests++;
+                }
+            });
         }, function (error) {
             $scope.message = error.statusText;
         })
@@ -189,6 +195,9 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
             if ($scope.modelEdit.CompletionDate != null) {
                 if ($scope.modelEdit.CompletionDate != "" && $scope.modelEdit.CompletionDate < $scope.modelEdit.RequestDate) {
                     $scope.message = "Enter a date greater than or equal Start Date";
+                }
+                else {
+                    add = true;
                 }
             }
             

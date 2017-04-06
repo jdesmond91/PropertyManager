@@ -30,6 +30,7 @@ function workOrderManagerController($scope, $filter, $location, $routeParams, wo
     $scope.sortType = "description";
     $scope.sortReverse = false;
     $scope.searchWorkOrder = "";
+    $scope.activeWorkOrders = "";
 
     var today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -41,6 +42,11 @@ function workOrderManagerController($scope, $filter, $location, $routeParams, wo
         var allRequests = workOrderService.getAllWorkOrder();
         allRequests.then(function (response) {
             $scope.workOrders = response.data;
+            angular.forEach($scope.workOrders, function (value) {
+                if (value.CompletionDate == null) {
+                    $scope.activeWorkOrders++;
+                }
+            });
         }, function (error) {
             $scope.message = error.statusText;
         })

@@ -67,7 +67,7 @@ function homeController($scope, uiCalendarConfig, facilityBookingService, servic
                         title: value.Description,
                         description: value.Notes,
                         start: new Date(value.RequestDate.replace('T', ' ').replace('-', '/')),
-                        end: completionDate,
+                        end: "",
                         stick: true
                     });
                 });
