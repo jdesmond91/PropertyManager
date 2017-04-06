@@ -1,4 +1,4 @@
-﻿angular.module("propertyManagerApp", ['ngRoute', 'ui.calendar', 'common.services', 'ui.bootstrap', 'ngAnimate'])
+﻿angular.module("propertyManagerApp", ['ngRoute', 'ui.calendar', 'common.services', 'ui.bootstrap', 'ngAnimate', "chart.js"])
     .config(['$routeProvider', '$locationProvider', '$animateProvider',
         function ($routeProvider, $locationProvider, $animateProvider) {
             $locationProvider.hashPrefix('');

@@ -49,6 +49,8 @@ namespace PropertyManager
                       "~/app/Vendor/fullcalendar.js",
                       "~/app/Vendor/gcal.js",                      
                       "~/app/Vendor/angular-modal-service.min.js",
+                      "~/app/Vendor/Chart.min.js",
+                      "~/app/Vendor/angular-chart.min.js",
                       "~/app/app.js",
                       //SERVICES
                       "~/app/Services/common.services.js",

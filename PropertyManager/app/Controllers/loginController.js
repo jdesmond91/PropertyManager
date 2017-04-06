@@ -39,8 +39,7 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         }).
         then(function (data){
             var getUserResult = loginService.getUserInfo(data.userName);
-            getUserResult.then(function (response) {
-                console.log(response);               
+            getUserResult.then(function (response) {              
                 userProfile.setProfile(response.data.UserName, data.access_token, response.data.Role, response.data.GivenName);
                 $scope.isLoggedIn = true;
                 if (response.data.Role == "Tenant") {

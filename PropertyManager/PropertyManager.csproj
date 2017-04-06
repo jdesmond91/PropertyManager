@@ -315,6 +315,7 @@
     <Content Include="app\Services\userService.js" />
     <Content Include="app\Services\workOrderService.js" />
     <Content Include="app\stylish-portfolio.css" />
+    <Content Include="app\Vendor\angular-chart.min.js" />
     <Content Include="app\Vendor\angular-modal-service.js" />
     <Content Include="app\Vendor\angular-modal-service.min.js" />
     <Content Include="app\Controllers\announcementController.js" />
@@ -335,6 +336,7 @@
     <Content Include="app\Index.html" />
     <Content Include="app\main.css" />
     <Content Include="app\Vendor\calendar.js" />
+    <Content Include="app\Vendor\Chart.min.js" />
     <Content Include="app\Vendor\fullcalendar.js" />
     <Content Include="app\Vendor\gcal.js" />
     <Content Include="app\Vendor\metisMenu.css" />

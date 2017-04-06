@@ -14,6 +14,8 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
     $scope.editId = "";
     $scope.isEdit = false;
     $scope.showEditConfirmation = false;
+    $scope.occupied = "";
+    $scope.vaccant = "";
 
     if ($routeParams.apartment_id) {
         $scope.editId = $routeParams.apartment_id;
@@ -87,11 +89,23 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
         var allResults = apartmentService.getAllApartment();
         allResults.then(function (response) {
             $scope.apartments = response.data;
+            angular.forEach($scope.apartments, function (value) {
+                if (value.Status == "Occupied") {
+                    $scope.occupied++;
+                }
+                else {
+                    $scope.vaccant++;
+                }
+            });
+            $scope.labels = ["Vacant", "Occupied"];
+            $scope.data = [$scope.vaccant, $scope.occupied];
         }, function (error) {
             $scope.message = error.statusText;
         })
 
     } // close function
+
+    $scope.colors = ["rgb(30,247,35)", "rgb(241,15,3)"];
 
     function getApartmentById (id) {
         var resultById = apartmentService.getByIdApartment(id);
@@ -162,6 +176,24 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
         })
     }
 
+    $scope.options = {
+       /* title: {
+            display: true,
+            text: 'Apartments'
+        },*/
+        maintainAspectRatio: false,
+        legend: {
+            display: false,
+            labels: {
+                fontColor: 'rgb(255, 99, 132)',
+                position: 'right'
+            }
+        },
+        tooltip: {
+            position: 'nearest'
+        }
+
+    };
     
 
 }
