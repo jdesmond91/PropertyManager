@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("serviceRequestController", ["$scope", "$filter", '$location', "$routeParams", "serviceRequestService", "serviceService", "userProfile", serviceRequestController]);
+﻿//Made by Jonathan Desmond
+
+angular.module("propertyManagerApp").controller("serviceRequestController", ["$scope", "$filter", '$location', "$routeParams", "serviceRequestService", "serviceService", "userProfile", serviceRequestController]);
 
 function serviceRequestController($scope, $filter, $location, $routeParams, serviceRequestService, serviceService, userProfile) {
 

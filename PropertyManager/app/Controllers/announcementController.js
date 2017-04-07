@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("announcementController", ["$scope", "$filter", '$location', "$routeParams", "announcementService", "userProfile", announcementController]);
+﻿//Made by Amanda Marques
+
+angular.module("propertyManagerApp").controller("announcementController", ["$scope", "$filter", '$location', "$routeParams", "announcementService", "userProfile", announcementController]);
 
 function announcementController($scope, $filter, $location, $routeParams, announcementService, userProfile) {
     $scope.editId = "";

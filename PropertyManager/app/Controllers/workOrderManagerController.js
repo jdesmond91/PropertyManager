@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("workOrderManagerController", ["$scope", "$filter", '$location', "$routeParams", "workOrderService", "userProfile", "tenantService", workOrderManagerController]);
+﻿//Made by Jonathan Desmond
+
+angular.module("propertyManagerApp").controller("workOrderManagerController", ["$scope", "$filter", '$location', "$routeParams", "workOrderService", "userProfile", "tenantService", workOrderManagerController]);
 
 function workOrderManagerController($scope, $filter, $location, $routeParams, workOrderService, userProfile, tenantService) {
 

@@ -1,4 +1,6 @@
-﻿using PropertyManager.Models;
+﻿//Made by Jonathan Desmond
+
+using PropertyManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

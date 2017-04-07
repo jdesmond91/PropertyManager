@@ -1,4 +1,6 @@
-﻿angular.module("common.services").factory("facilityService", ["$http", "$q", "appSettings", facilityService]);
+﻿//Made by Amanda Marques
+
+angular.module("common.services").factory("facilityService", ["$http", "$q", "appSettings", facilityService]);
 function facilityService($http, $q, appSettings) {
 
     var accessToken = sessionStorage.getItem('accessToken');

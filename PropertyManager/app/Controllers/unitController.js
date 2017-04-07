@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("unitController", ["$scope", "$filter", '$location', "$routeParams", "unitService", "unitphotoService", "userProfile", unitController]);
+﻿//Made by Amanda Marques
+
+angular.module("propertyManagerApp").controller("unitController", ["$scope", "$filter", '$location', "$routeParams", "unitService", "unitphotoService", "userProfile", unitController]);
 
 function unitController($scope, $filter, $location, $routeParams, unitService, unitphotoService, userProfile) {
 

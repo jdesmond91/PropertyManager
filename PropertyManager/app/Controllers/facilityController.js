@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("facilityController", ["$scope", "$filter", '$location', "$routeParams", "facilityService", "userProfile", facilityController]);
+﻿//Made by Amanda Marques
+
+angular.module("propertyManagerApp").controller("facilityController", ["$scope", "$filter", '$location', "$routeParams", "facilityService", "userProfile", facilityController]);
 
 function facilityController($scope, $filter, $location, $routeParams, facilityService, userProfile) {
    

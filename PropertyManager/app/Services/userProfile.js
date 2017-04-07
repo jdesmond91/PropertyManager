@@ -1,4 +1,6 @@
-﻿angular.module("common.services").factory("userProfile", userProfile);
+﻿//Made by Amanda Marques
+
+angular.module("common.services").factory("userProfile", userProfile);
 function userProfile() {
     var setProfile = function (username, token, role, firstName) {
         sessionStorage.setItem('userName', username);

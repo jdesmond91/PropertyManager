@@ -1,4 +1,6 @@
-﻿angular.module("common.services").factory("facilityBookingService", ["$http", "$q", "appSettings", facilityBookingService]);
+﻿//Made by Jonathan Desmond
+
+angular.module("common.services").factory("facilityBookingService", ["$http", "$q", "appSettings", facilityBookingService]);
 function facilityBookingService($http, $q, appSettings) {
 
     var accessToken = sessionStorage.getItem('accessToken');

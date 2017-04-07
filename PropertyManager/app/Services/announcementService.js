@@ -1,4 +1,6 @@
-﻿angular.module("common.services").factory("announcementService", ["$http", "$q", "appSettings", announcementService]);
+﻿//Made by Amanda Marques
+
+angular.module("common.services").factory("announcementService", ["$http", "$q", "appSettings", announcementService]);
 function announcementService($http, $q, appSettings) {
 
     var accessToken = sessionStorage.getItem('accessToken');

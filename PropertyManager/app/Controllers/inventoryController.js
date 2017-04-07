@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("inventoryController", ["$scope", "$filter", '$location', "$routeParams", "inventoryService", "userProfile", inventoryController]);
+﻿//Made by Jonathan Desmond
+
+angular.module("propertyManagerApp").controller("inventoryController", ["$scope", "$filter", '$location', "$routeParams", "inventoryService", "userProfile", inventoryController]);
 
 function inventoryController($scope, $filter, $location, $routeParams, inventoryService, userProfile) {
 

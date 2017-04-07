@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Made by Amanda Marques
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;

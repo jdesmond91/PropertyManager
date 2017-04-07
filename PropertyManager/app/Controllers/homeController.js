@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("homeController", ["$scope", 'uiCalendarConfig', "facilityBookingService", "serviceRequestService", "workOrderService", "userProfile", homeController]);
+﻿//Made by Jonathan Desmond
+
+angular.module("propertyManagerApp").controller("homeController", ["$scope", 'uiCalendarConfig', "facilityBookingService", "serviceRequestService", "workOrderService", "userProfile", homeController]);
 
 function homeController($scope, uiCalendarConfig, facilityBookingService, serviceRequestService, workOrderService, userProfile) {
 

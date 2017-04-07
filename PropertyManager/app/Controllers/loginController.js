@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("loginController", ["$scope", '$location', "$filter", "loginService", "userProfile", loginController]);
+﻿//Made by Amanda Marques
+
+angular.module("propertyManagerApp").controller("loginController", ["$scope", '$location', "$filter", "loginService", "userProfile", loginController]);
 
 function loginController($scope, $location, $filter, loginService, userProfile) {
     $scope.responseData = "";

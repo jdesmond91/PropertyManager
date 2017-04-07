@@ -1,4 +1,6 @@
-﻿angular.module("common.services").factory("employeeService", ["$http", "$q", "appSettings", employeeService]);
+﻿//Made by Jonathan Desmond
+
+angular.module("common.services").factory("employeeService", ["$http", "$q", "appSettings", employeeService]);
 function employeeService($http, $q, appSettings) {
 
     var accessToken = sessionStorage.getItem('accessToken');

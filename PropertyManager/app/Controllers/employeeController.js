@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("employeeController", ["$scope", "$filter", '$location', "$routeParams", "employeeService", "userProfile", employeeController]);
+﻿//Made by Jonathan Desmond
+
+angular.module("propertyManagerApp").controller("employeeController", ["$scope", "$filter", '$location', "$routeParams", "employeeService", "userProfile", employeeController]);
 
 function employeeController($scope, $filter, $location, $routeParams, employeeService, userProfile) {
 

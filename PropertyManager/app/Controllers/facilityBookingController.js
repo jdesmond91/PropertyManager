@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("facilityBookingController", ["$scope", "$filter", '$location', "$routeParams", 'uiCalendarConfig', "facilityBookingService", "facilityService", "tenantService", "userProfile", facilityBookingController]);
+﻿//Made by Jonathan Desmond
+
+angular.module("propertyManagerApp").controller("facilityBookingController", ["$scope", "$filter", '$location', "$routeParams", 'uiCalendarConfig', "facilityBookingService", "facilityService", "tenantService", "userProfile", facilityBookingController]);
 
 function facilityBookingController($scope, $filter, $location, $routeParams, uiCalendarConfig, facilityBookingService, facilityService, tenantService, userProfile) {
 

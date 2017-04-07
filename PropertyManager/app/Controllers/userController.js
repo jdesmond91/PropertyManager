@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("userController", ["$scope", "$filter", '$location', "$routeParams", "userService", "userProfile", userController]);
+﻿//Made by Jonathan Desmond
+
+angular.module("propertyManagerApp").controller("userController", ["$scope", "$filter", '$location', "$routeParams", "userService", "userProfile", userController]);
 
 function userController($scope, $filter, $location, $routeParams, userService, userProfile) {
 

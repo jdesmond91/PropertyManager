@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("leaseController", ["$scope", "$filter", '$location', "$routeParams", "leaseService", "tenantService", "userProfile", leaseController]);
+﻿//Made by Jonathan Desmond
+
+angular.module("propertyManagerApp").controller("leaseController", ["$scope", "$filter", '$location', "$routeParams", "leaseService", "tenantService", "userProfile", leaseController]);
 
 function leaseController($scope, $filter, $location, $routeParams, leaseService, tenantService, userProfile) {
 

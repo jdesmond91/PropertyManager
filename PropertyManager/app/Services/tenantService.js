@@ -1,4 +1,6 @@
-﻿angular.module("common.services").factory("tenantService", ["$http", "$q", "appSettings", tenantService]);
+﻿//Made by Amanda Marques
+
+angular.module("common.services").factory("tenantService", ["$http", "$q", "appSettings", tenantService]);
 function tenantService($http, $q, appSettings) {
 
     var accessToken = sessionStorage.getItem('accessToken');

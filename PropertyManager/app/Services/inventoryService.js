@@ -1,4 +1,6 @@
-﻿angular.module("common.services").factory("inventoryService", ["$http", "$q", "appSettings", inventoryService]);
+﻿//Made by Jonathan Desmond
+
+angular.module("common.services").factory("inventoryService", ["$http", "$q", "appSettings", inventoryService]);
 function inventoryService($http, $q, appSettings) {
 
     var accessToken = sessionStorage.getItem('accessToken');

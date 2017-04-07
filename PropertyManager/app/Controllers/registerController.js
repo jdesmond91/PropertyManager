@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("registerController", ["$scope", '$location', "$filter", "loginService", "userProfile", registerController]);
+﻿//Made by Amanda Marques
+
+angular.module("propertyManagerApp").controller("registerController", ["$scope", '$location', "$filter", "loginService", "userProfile", registerController]);
 
 function registerController($scope, $location, $filter, loginService, userProfile) {
     $scope.message = "";

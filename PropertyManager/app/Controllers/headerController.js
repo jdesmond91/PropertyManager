@@ -1,4 +1,6 @@
-﻿angular.module("propertyManagerApp").controller("headerController", ["$scope", "$location", "userProfile", headerController]);
+﻿//Made by Amanda Marques
+
+angular.module("propertyManagerApp").controller("headerController", ["$scope", "$location", "userProfile", headerController]);
 function headerController($scope, $location, userProfile) {
   
     $scope.Message = "";

@@ -1,4 +1,6 @@
-﻿angular.module('propertyManagerApp')
+﻿//Made by Jonathan Desmond
+
+angular.module('propertyManagerApp')
     .directive('compareTo', function () {
         return {
             require: "ngModel",

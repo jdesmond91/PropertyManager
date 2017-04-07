@@ -1,4 +1,6 @@
-﻿angular.module("common.services").factory("leaseService", ["$http", "$q", "appSettings", leaseService]);
+﻿//Made by Jonathan Desmond
+
+angular.module("common.services").factory("leaseService", ["$http", "$q", "appSettings", leaseService]);
 function leaseService($http, $q, appSettings) {
     
     var accessToken = sessionStorage.getItem('accessToken');
