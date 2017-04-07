@@ -90,7 +90,7 @@
                             </div>
                             <div class="detailRight">
                                 <button type="submit" style="float:right" class="btn btn-primary" ng-click="editClick(bokking.Id)" ng-show="bokking.TenantId == tenantId">Edit</button>
-                                <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-show="bokking.TenantId == tenantId" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(bokking.Id)">Delete</button>
+                                <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-show="bokking.TenantId == tenantId || userRole=='Administrator'" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(bokking.Id)">Delete</button>
                             </div>
                         </div>
                     </td>

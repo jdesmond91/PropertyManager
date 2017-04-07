@@ -39,11 +39,29 @@ namespace PropertyManager.Controllers
 
         [Route("api/leases/id/{id}/find")]
         [Authorize(Roles = "Administrator, Manager, Tenant")]
-        public IHttpActionResult GetByEmail(int? id)
+        public IHttpActionResult GetByTenantId(int? id)
         {
             if (!id.HasValue) { return NotFound(); }
  
             var o = m.LeaseGetByTenantId(id);
+
+            if (o == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(o);
+            }
+        }
+
+        [Route("api/leases/email/{email}/find")]
+        [Authorize(Roles = "Administrator, Manager, Tenant")]
+        public IHttpActionResult GetByTenantEmail(string email)
+        {
+            if (email == "") { return NotFound(); }
+
+            var o = m.LeaseGetByTenantEmail(email);
 
             if (o == null)
             {

@@ -9,13 +9,22 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
 
     console.log($routeParams.lease_id);
 
+    var user = userProfile.getProfile();
+    $scope.userName = user.username;
+    $scope.userRole = user.userRole;
+
     if ($routeParams.lease_id) {
         $scope.editId = $routeParams.lease_id;
         $scope.isEdit = true;
         getLeaseById($scope.editId);
     }
     else {
-        getLease();
+        if ($scope.userRole == 'Tenant') {
+            getLeaseByEmail();
+        }
+        else {
+            getLease();
+        }       
     }
 
 
@@ -168,6 +177,19 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
         })
 
     } // close function
+
+    function getLeaseByEmail() {
+        var leases = leaseService.getLeaseByTenantEmail($scope.userName);
+        leases.then(function (response) {
+            $scope.leaseStartDate = response.data.StartDate;
+            $scope.leaseEndDate = response.data.EndDate;
+            $scope.leaseSecurityDep = response.data.SecurityDeposit;
+            $scope.leaseMonthlyRent = response.data.MonthlyRent;
+            $scope.leaseAptNumber = response.data.Apartment.ApartmentNumber;
+        }, function (error) {
+            $scope.message = error.statusText;
+        })
+    }
 
     // *********** EDIT SECTION ******************************************
 

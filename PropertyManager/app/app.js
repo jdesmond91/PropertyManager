@@ -95,6 +95,10 @@
                     controller: 'leaseController',
                     templateUrl: 'app/Partials/Lease/leaseAdd.html'
                 })
+                .when('/tenantlease/', {
+                    controller: 'leaseController',
+                    templateUrl: 'app/Partials/Lease/tenantLease.html'
+                })
                 .when('/employee/', {
                     controller: 'employeeController',
                     templateUrl: 'app/Partials/Employee/employee.html'

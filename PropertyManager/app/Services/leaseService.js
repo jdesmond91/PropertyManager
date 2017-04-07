@@ -45,6 +45,15 @@ function leaseService($http, $q, appSettings) {
         return response;
     };
 
+    this.getLeaseByTenantEmail = function (email) {
+        var response = $http({
+            url: appSettings.serverPath + "/api/leases/email/" + email + "/find",
+            method: "GET",
+            headers: { Authorization: 'Bearer ' + accessToken },
+        });
+        return response;
+    };
+
     this.editLease = function (lease, leaseId) {
 
         var def = $q.defer();
@@ -76,7 +85,8 @@ function leaseService($http, $q, appSettings) {
         getByIdLease: this.getByIdLease,
         editLease: this.editLease,
         getLeaseByTenantId: this.getLeaseByTenantId,
-        deleteLease: this.deleteLease
+        deleteLease: this.deleteLease,
+        getLeaseByTenantEmail: this.getLeaseByTenantEmail
     }
 
 

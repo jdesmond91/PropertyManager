@@ -25,10 +25,25 @@ namespace PropertyManager.Models
                     Surname = "Adm",
                     Role = "Administrator"
                 };
+
                 var result = await userManager.CreateAsync(user, "PropertyApp123");
                 if (result.Succeeded)
-                {                             
+                {
                     await userManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "Administrator"));
+                }
+
+                var manager = new ApplicationUser
+                {
+                    UserName = "amarquesdacruz@myseneca.ca",
+                    Email = "amarquesdacruz@myseneca.ca",
+                    GivenName = "Amanda",
+                    Surname = "Cruz",
+                    Role = "Manager"
+                };
+                var result2 = await userManager.CreateAsync(manager, "PropertyApp123");
+                if (result2.Succeeded)
+                {
+                    await userManager.AddClaimAsync(manager.Id, new Claim(ClaimTypes.Role, "Manager"));
                 }
             }
         }
@@ -103,7 +118,7 @@ namespace PropertyManager.Models
                 tenant.LastName = "Marques";
                 tenant.MobilePhone = "647-535-7732";
                 tenant.HomePhone = "";
-                tenant.Email = "amanda@test.ca";
+                tenant.Email = "amanda.mc4@hotmail.com";
                 tenant.BirthDate = new DateTime(1988, 12, 23);
                 m.TenantAdd(tenant);
 
@@ -111,15 +126,15 @@ namespace PropertyManager.Models
                 tenant.LastName = "Desmond";
                 tenant.MobilePhone = "536-85-96415";
                 tenant.HomePhone = "365-459-8752";
-                tenant.Email = "jonathan@tenant.ca";
+                tenant.Email = "jonathandesmond91@gmail.com";
                 tenant.BirthDate = new DateTime(1990, 10, 18);
                 m.TenantAdd(tenant);
 
-                tenant.FirstName = "Arnold";
-                tenant.LastName = "Goncharenko";
+                tenant.FirstName = "Carlos";
+                tenant.LastName = "Wellinton";
                 tenant.MobilePhone = "963-125-4789";
                 tenant.HomePhone = "964-585-3658";
-                tenant.Email = "arnold@tenant.ca";
+                tenant.Email = "carlos@tenant.ca";
                 tenant.BirthDate = new DateTime(1994, 09, 21);
                 m.TenantAdd(tenant);
             }
@@ -138,15 +153,15 @@ namespace PropertyManager.Models
     
                 lease.StartDate = new DateTime(2017, 08, 20);
                 lease.EndDate = new DateTime(2018, 08, 19);
-                lease.SecurityDeposit = 525.00;
-                lease.MonthlyRent = 1400.80;
+                lease.SecurityDeposit = 430.00;
+                lease.MonthlyRent = 1200.50;
                 lease.ApartmentNumber = 603;
                 lease.TenantId = 2;
 
                 m.LeaseAdd(lease);
 
-                lease.StartDate = new DateTime(2017, 08, 20);
-                lease.EndDate = new DateTime(2018, 08, 19);
+                lease.StartDate = new DateTime(2016, 04, 01);
+                lease.EndDate = new DateTime(2017, 04, 01);
                 lease.SecurityDeposit = 525.00;
                 lease.MonthlyRent = 1400.80;
                 lease.ApartmentNumber = 1705;
@@ -156,8 +171,8 @@ namespace PropertyManager.Models
 
                 var user = new ApplicationUser
                 {
-                    UserName = "amanda@test.ca",
-                    Email = "amanda@test.ca",
+                    UserName = "amanda.mc4@hotmail.com",
+                    Email = "amanda.mc4@hotmail.com",
                     GivenName = "Amanda",
                     Surname = "Marques",
                     Role = "Tenant"
@@ -233,6 +248,12 @@ namespace PropertyManager.Models
                 announce.StartDate = new DateTime(2017, 04, 20);
                 announce.ExpireDate = new DateTime(2017, 04, 22);
                 announce.Description = "The carpet will be cleaned on the upcoming weekend";
+                m.AnnouncementAdd(announce);
+
+                announce.Title = "New Recycle Bins";
+                announce.StartDate = new DateTime(2017, 03, 10);
+                announce.ExpireDate = new DateTime(2017, 03, 11);
+                announce.Description = "The apartments will be receiving new recycle bins starting next week";
                 m.AnnouncementAdd(announce);
             }
 
@@ -313,7 +334,7 @@ namespace PropertyManager.Models
 
                 workOrder.Description = "Kill bugs";
                 workOrder.Notes = "Many bugs in the house";
-                workOrder.RequestDate = new DateTime(2017, 10, 05);
+                workOrder.RequestDate = new DateTime(2017, 04, 05);
                 workOrder.TenantId = 2;
                 m.WorkOrderAdd(workOrder);
 
@@ -425,7 +446,7 @@ namespace PropertyManager.Models
                 m.OccupantAdd(occupant);
 
                 occupant.FirstName = "Tania";
-                occupant.LastName = "Goncharenko";
+                occupant.LastName = "Wellinton";
                 occupant.MobilePhone = "905-965-7854";
                 occupant.WorkPhone = "364-654-5984";
                 occupant.Email = "tania@test.ca";

@@ -1033,6 +1033,12 @@ namespace PropertyManager.Controllers
             return (o == null) ? null : Mapper.Map<LeaseWithInformation>(o);
         }
 
+        public LeaseWithBasicInformation LeaseGetByTenantEmail(string email)
+        {
+            var o = ds.Leases.Include("Apartment").SingleOrDefault(j => j.Tenant.Email == email);
+            return (o == null) ? null : Mapper.Map<LeaseWithBasicInformation>(o);
+        }
+
         public LeaseBase LeaseAdd(LeaseAdd newItem)
         {    
             if (newItem == null)

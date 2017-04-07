@@ -15,7 +15,7 @@
 }
 
 body .fc { /* extra precedence to overcome jqui */
-	font-size: 1em;
+	font-size: 0.8em;
 }
 
 
@@ -1015,6 +1015,10 @@ be a descendant of the grid when it is being dragged.
 .fc-time-grid-event .fc-time,
 .fc-time-grid-event .fc-title {
 	padding: 0 1px;
+}
+
+h2{
+    font-size: 1.7em;
 }
 
 .fc-time-grid-event .fc-time {
