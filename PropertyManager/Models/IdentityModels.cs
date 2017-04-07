@@ -76,6 +76,11 @@ namespace PropertyManager.Models
             modelBuilder.Entity<Occupant>()
                  .HasRequired(e => e.Tenant);
 
+            modelBuilder.Entity<Lease>()
+                .HasRequired(e => e.Tenant);
+
+            modelBuilder.Entity<Lease>()
+               .HasRequired(e => e.Apartment);
 
         }
 
