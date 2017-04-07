@@ -49,11 +49,20 @@ function loginService($http, appSettings) {
         return resp;
     };
 
+    this.sendCode = function (email) {
+        var resp = $http({
+            url: appSettings.serverPath + "/api/tenants/" + email + "/sendActivation",
+            method: "POST"
+        });
+        return resp;
+    };
+
     return {
         register: this.register,
         login: this.login,
         getUserInfo: this.getUserInfo,
         resetPassword: this.resetPassword,
-        forgetPassword: this.forgetPassword
+        forgetPassword: this.forgetPassword,
+        sendCode: this.sendCode
     }
 }

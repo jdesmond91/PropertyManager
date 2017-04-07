@@ -21,6 +21,7 @@ function registerController($scope, $location, $filter, loginService, userProfil
 
     $scope.registerUser = function () {
         $scope.message = "";
+        $scope.errorMessage = "";
         var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
 
         var userInfo = {
@@ -44,7 +45,7 @@ function registerController($scope, $location, $filter, loginService, userProfil
         }, function (response) {
             $scope.message = response.data;
             if (response.status == 400) {
-                $scope.message = "This email is already registered."
+                $scope.errorMessage = "This email is already registered."
             }
             
         });
@@ -76,9 +77,25 @@ function registerController($scope, $location, $filter, loginService, userProfil
             $scope.form.$setPristine();
         }, function (response) {
             $scope.errorMessage = "Registration failed. Please try again."
-
-
         });
     };
+
+    $scope.sendCode = function () {
+        $scope.message = "";
+        $scope.errorMessage = "";
+        var sendCodeActive = loginService.sendCode($scope.userEmail);
+        sendCodeActive.then(function (data) {
+            console.log(data);
+            $scope.message = "Activation code sent to email.";
+            $scope.userEmail = "";
+            $scope.userFirstName = "";
+            $scope.userLastName = "";
+            $scope.birthDate = "";
+            $scope.form.$setPristine();
+        }, function (response) {
+            console.log(response);
+            $scope.errorMessage = response.data;
+        });
+    }
    
 }

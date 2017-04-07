@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace PropertyManager.Controllers
@@ -72,6 +73,33 @@ namespace PropertyManager.Controllers
             var uri = Url.Link("DefaultApi", new { id = addedItem.Id });
 
             return Created(uri, addedItem);
+        }
+
+        
+        [Route("api/tenants/{email}/sendActivation")]
+        [HttpPost]
+        public async Task<IHttpActionResult> sendEmail(string email)
+        {
+            var hashPassword = m.TenantGetActivationCode(email);
+
+            if(hashPassword == null)
+            {
+                return Content(HttpStatusCode.NotFound, "Tenant not found");
+            }
+
+
+            EmailService sendemail = new EmailService();
+
+            Microsoft.AspNet.Identity.IdentityMessage message = new Microsoft.AspNet.Identity.IdentityMessage();
+
+            message.Subject = "Your Activation Code";
+            message.Destination = email;
+            message.Body = "Here is your activation code: <b>" + hashPassword + " </b>. <br/>Please use this to register for an account with Property Cloud by clicking <a href='http://localhost:24792/#/register'> HERE </a> or access http://localhost:24792/#/register . ";
+
+
+            await sendemail.SendAsync(message);
+
+            return Ok();
         }
 
         // PUT: api/Tenants/5

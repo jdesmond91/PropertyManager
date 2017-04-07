@@ -948,6 +948,13 @@ namespace PropertyManager.Controllers
             return (c == null) ? null : Mapper.Map<TenantBase>(c);
         }
 
+        public string TenantGetActivationCode(string email)
+        {
+            var c = ds.Tenants.SingleOrDefault(a => a.Email == email);
+
+            return (c == null) ? null : c.ActivationCode;
+        }
+
         public TenantBase TenantAdd(TenantAdd newItem)
         {
             if (newItem == null)
