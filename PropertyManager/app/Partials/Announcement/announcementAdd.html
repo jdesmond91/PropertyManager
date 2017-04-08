@@ -24,25 +24,26 @@
                         <span class="spanError" ng-show="form.title.$error.required && !form.title.$pristine">Title is required</span>
 
                         <label class="control-label" for="startDate">Start Date*</label>
-                        <!--<input type="date" name="startDate" id="startDate" class="form-control" ng-model="modelAdd.startDate" required> -->
-                        <input type="text" class="text-date form-control" name="startDate" id="startDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelAdd.startDate" is-open="popup1.opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="open1()" placeholder="mm/dd/yyyy"/>
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
-                        <span class="spanError" ng-show="form.startDate.$invalid && !form.startDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        <div>
+                            <input style="float: left" type="text" class="text-date form-control" name="startDate" id="startDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelAdd.startDate" is-open="popup1.opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="open1()" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="form.startDate.$invalid && !form.startDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
 
-                        <label class="control-label" for="expireDate">Expire Date</label>
-                        <input type="text" class="text-date form-control" name="expireDate" id="expireDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelAdd.expireDate" is-open="popup2.opened"  close-text="Close" alt-input-formats="altInputFormats" ng-click="open2()" placeholder="mm/dd/yyyy"/>
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
-                        <span class="spanError" ng-show="form.expireDate.$invalid && !form.expireDate.$pristine">Enter a valid date</span>
+                            <label class="control-label" for="expireDate">Expire Date</label>
+                            <input type="text" class="text-date form-control" name="expireDate" id="expireDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelAdd.expireDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" ng-click="open2()" placeholder="mm/dd/yyyy" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="form.expireDate.$invalid && !form.expireDate.$pristine">Enter a valid date</span>
 
-                        <label class="control-label" for="description">Description*</label>
-                        <textarea id="description" name="description" ng-model="modelAdd.description" rows="6" cols="20" style="overflow:auto;resize:none" required ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():% ]+$/"></textarea>
-                        <br /><span class="spanError" ng-show="form.description.$error.pattern && !form.description.$pristine">Enter valid characters</span>
-                        <span class="spanError" ng-show="form.description.$error.required && !form.description.$pristine">Description is required</span>
-                    </fieldset>
+                            <label class="control-label" for="description">Description*</label>
+                            <textarea id="description" name="description" ng-model="modelAdd.description" rows="6" cols="20" style="overflow:auto;resize:none" required ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():% ]+$/"></textarea>
+                            <br /><span class="spanError" ng-show="form.description.$error.pattern && !form.description.$pristine">Enter valid characters</span>
+                            <span class="spanError" ng-show="form.description.$error.required && !form.description.$pristine">Description is required</span>
+</fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addAnnouncement()">Add Announcement </button>
                     <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
