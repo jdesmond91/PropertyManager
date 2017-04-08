@@ -100,13 +100,24 @@
                         <span class="spanError" ng-show="form.email.$error.pattern  && !form.email.$pristine">Enter valid characters</span>
                         <span class="spanError" ng-show="form.email.$error.required && !form.email.$pristine">Email is required</span>
 
-                        <label class="control-label" for="birthDate">Birth Date*</label>
-                        <input type="date" name="birthDate" id="birthDate" class="form-control" ng-model="modelAdd.BirthDate" required>
-                        <span class="spanError" ng-show="form.birthDate.$invalid && !form.birthDate.$pristine">Enter a valid date</span>
+                        <label class="control-label" for="birthDate">Birth Date*</label>                      
+                        <div>
+                            <input style="float: left" type="text" name="birthDate" id="birthDate" class="text-date form-control" uib-datepicker-popup="MM/dd/yyyy" ng-required="true" ng-model="modelAdd.BirthDate" is-open="popup1.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="form.birthDate.$invalid && !form.birthDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
 
                         <label class="control-label" for="hireDate">Hire Date*</label>
-                        <input type="date" name="hireDate" id="hireDate" class="form-control" ng-model="modelAdd.HireDate" required>
-                        <span class="spanError" ng-show="form.hireDate.$invalid && !form.hireDate.$pristine">Enter a valid date</span>
+                        <div>
+                            <input style="float: left" type="text" name="hireDate" id="hireDate" class="text-date form-control" uib-datepicker-popup="MM/dd/yyyy" ng-required="true" ng-model="modelAdd.HireDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="form.hireDate.$invalid && !form.hireDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
+                        
 
                         <label class="control-label" for="title">Address*</label>
                         <input type="text" name="address" id="address" ng-model="modelAdd.Address" ng-pattern="/^[a-zA-Z0-9\-\\.\x27 ]+$/" class="form-control" maxlength="50" required>
@@ -210,35 +221,45 @@
                         <span class="spanError" ng-show="formEdit.email.$error.required && !formEdit.email.$pristine">Email is required</span>
 
                         <label class="control-label" for="birthDate">Birth Date*</label>
-                        <input type="date" name="birthDate" id="birthDate" class="form-control" ng-model="modelEdit.BirthDate" required>
-                        <span class="spanError" ng-show="formEdit.birthDate.$invalid && !formEdit.birthDate.$pristine">Enter a valid date</span>
+                        <div>
+                            <input style="float: left" type="text" name="birthDate" id="birthDate" class="text-date form-control" ng-required="true" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelEdit.BirthDate" is-open="popup1.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="formEdit.birthDate.$invalid && !formEdit.birthDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
+                        
 
                         <label class="control-label" for="hireDate">Hire Date*</label>
-                        <input type="date" name="hireDate" id="hireDate" class="form-control" ng-model="modelEdit.HireDate" required>
-                        <span class="spanError" ng-show="formEdit.hireDate.$invalid && !formEdit.hireDate.$pristine">Enter a valid date</span>
+                        <div>
+                            <input style="float: left" type="text" name="hireDate" id="hireDate" class="text-date form-control" ng-required="true" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelEdit.HireDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="formEdit.hireDate.$invalid && !formEdit.hireDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                       </div>
+                            <label class="control-label" for="address">Address*</label>
+                            <input type="text" name="address" id="address" ng-model="modelEdit.Address" ng-pattern="/^[a-zA-Z0-9\-\\.\x27 ]+$/" class="form-control" maxlength="50" required />
+                            <span class="spanError" ng-show="formEdit.address.$error.pattern && !formEdit.address.$pristine">Enter valid characters</span>
+                            <span class="spanError" ng-show="formEdit.address.$error.required && !formEdit.address.$pristine">Address is required</span>
 
-                        <label class="control-label" for="address">Address*</label>
-                        <input type="text" name="address" id="address" ng-model="modelEdit.Address" ng-pattern="/^[a-zA-Z0-9\-\\.\x27 ]+$/" class="form-control" maxlength="50" required/>
-                        <span class="spanError" ng-show="formEdit.address.$error.pattern && !formEdit.address.$pristine">Enter valid characters</span>
-                        <span class="spanError" ng-show="formEdit.address.$error.required && !formEdit.address.$pristine">Address is required</span>
 
+                            <label class="control-label" for="city">City*</label>
+                            <input type="text" name="city" id="city" ng-model="modelEdit.City" ng-pattern="/^[a-zA-Z\-\x27 ]+$/" class="form-control" maxlength="30" required>
+                            <span class="spanError" ng-show="formEdit.city.$error.pattern && !formEdit.city.$pristine">Enter valid characters</span>
+                            <span class="spanError" ng-show="formEdit.city.$error.required && !formEdit.city.$pristine">City is required</span>
 
-                        <label class="control-label" for="city">City*</label>
-                        <input type="text" name="city" id="city" ng-model="modelEdit.City" ng-pattern="/^[a-zA-Z\-\x27 ]+$/" class="form-control" maxlength="30" required>
-                        <span class="spanError" ng-show="formEdit.city.$error.pattern && !formEdit.city.$pristine">Enter valid characters</span>
-                        <span class="spanError" ng-show="formEdit.city.$error.required && !formEdit.city.$pristine">City is required</span>
+                            <label class="control-label" for="state">State*</label>
+                            <input type="text" name="state" id="state" ng-model="modelEdit.State" ng-pattern="/^[a-zA-Z\-\x27 ]+$/" class="form-control" maxlength="30" required>
+                            <span class="spanError" ng-show="formEdit.state.$error.pattern  && !formEdit.state.$pristine">Enter valid characters</span>
+                            <span class="spanError" ng-show="formEdit.state.$error.required && !formEdit.state.$pristine">State is required</span>
 
-                        <label class="control-label" for="state">State*</label>
-                        <input type="text" name="state" id="state" ng-model="modelEdit.State" ng-pattern="/^[a-zA-Z\-\x27 ]+$/" class="form-control" maxlength="30" required>
-                        <span class="spanError" ng-show="formEdit.state.$error.pattern  && !formEdit.state.$pristine">Enter valid characters</span>
-                        <span class="spanError" ng-show="formEdit.state.$error.required && !formEdit.state.$pristine">State is required</span>
+                            <label class="control-label" for="postalcode">Postal Code*</label>
+                            <input type="text" name="postalcode2" id="postalcode2" placeholder="letters and numbers only" ng-model="modelEdit.PostalCode" class="form-control" ng-pattern="/^[A-Za-z]{1}[0-9]{1}[A-Za-z]{1}[-]{1}[0-9]{1}[A-Za-z]{1}[0-9]{1}$/" maxlength="7" required onKeyPress="return checkPostal(event,value)">
+                            <span class="spanError" ng-show="formEdit.postalcode2.$error.required && !formEdit.postalcode2.$pristine">Postal code is required</span>
+                            <span class="spanError" ng-show="formEdit.postalcode2.$error.pattern && !formEdit.postalcode2.$pristine">Enter valid characters</span>
 
-                        <label class="control-label" for="postalcode">Postal Code*</label>
-                        <input type="text" name="postalcode2" id="postalcode2" placeholder="letters and numbers only" ng-model="modelEdit.PostalCode" class="form-control" ng-pattern="/^[A-Za-z]{1}[0-9]{1}[A-Za-z]{1}[-]{1}[0-9]{1}[A-Za-z]{1}[0-9]{1}$/" maxlength="7" required onKeyPress="return checkPostal(event,value)">
-                        <span class="spanError" ng-show="formEdit.postalcode2.$error.required && !formEdit.postalcode2.$pristine">Postal code is required</span>
-                        <span class="spanError" ng-show="formEdit.postalcode2.$error.pattern && !formEdit.postalcode2.$pristine">Enter valid characters</span>
-
-                    </fieldset>
+</fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editEmployee()">Edit Employee </button>
                     <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>

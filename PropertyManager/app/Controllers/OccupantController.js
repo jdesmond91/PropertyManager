@@ -212,4 +212,16 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
         $location.path('/occupant');
     }
 
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
+    $scope.format = $scope.formats[4];
+    $scope.altInputFormats = ['M!/d!/yyyy'];
+
+    $scope.popup1 = {
+        opened: false
+    };
+
+
+    $scope.open1 = function () {
+        $scope.popup1.opened = true;
+    };
 }

@@ -24,15 +24,20 @@
                         <span class="spanError" ng-show="form.facilityId.$invalid && !form.facilityId.$pristine">Facility is required</span>   
                         
                         <label class="control-label" for="bookedDate">Book Date*</label>
-                        <input type="date" name="bookedDate" id="bookedDate" class="form-control" ng-model="modelAdd.bookedDate" required>
-                        <span class="spanError" ng-show="form.bookedDate.$invalid && !form.bookedDate.$pristine">Book date is required</span>            
+                        <div>
+                            <input style="float: left" type="text" name="bookedDate" id="bookedDate" class="text-date form-control" uib-datepicker-popup="MM/dd/yyyy" ng-required="true" ng-model="modelAdd.bookedDate" is-open="popup1.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="form.bookedDate.$invalid && !form.bookedDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
 
                         <label class="control-label" for="startTime">Start Time*</label>
-                        <input type="time" name="startTime" id="startTime" class="form-control" ng-model="modelAdd.startTime" required>
+                        <div uib-timepicker  name="startTime" class="form-control" id="startTime" ng-model="modelAdd.startTime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></div>
                         <span class="spanError" ng-show="form.startTime.$invalid && !form.startTime.$pristine">Start time is required</span>
 
                         <label class="control-label" for="endTime">End Time*</label>
-                        <input type="time" name="endTime" id="endTime" class="form-control" ng-model="modelAdd.endTime" required>
+                        <div uib-timepicker name="endTime" class="form-control" id="endTime" ng-model="modelAdd.endTime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></div>
                         <span class="spanError" ng-show="form.endTime.$invalid && !form.endTime.$pristine">End time is required</span>
 
                         <label class="control-label" for="notes">Notes</label>

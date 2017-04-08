@@ -25,12 +25,22 @@
                         <span class="spanError" ng-show="form.service.$invalid && !form.service.$pristine">Service is required</span>
 
                         <label class="control-label" for="requestDate">Request Date</label>
-                        <input type="date" name="requestDate" id="requestDate" class="form-control" ng-model="modelAdd.RequestDate">
-                        <span class="spanError" ng-show="form.requestDate.$invalid && !form.requestDate.$pristine">Enter a valid date</span>
+                        <div>
+                            <input style="float: left" type="text" class="text-date form-control" name="requestDate" id="requestDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelAdd.RequestDate" is-open="popup1.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="form.requestDate.$invalid && !form.requestDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
 
                         <label class="control-label" for="completionDate">Completion Date</label>
-                        <input type="date" name="completionDate" id="completionDate" class="form-control" ng-model="modelAdd.CompletionDate">
-                        <span class="spanError" ng-show="form.completionDate.$invalid && !form.completionDate.$pristine">Enter a valid date</span>
+                        <div>
+                            <input style="float: left" type="text" class="text-date form-control" name="completionDate" id="completionDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelAdd.CompletionDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="form.completionDate.$invalid && !form.completionDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
 
                         <label class="control-label" for="description">Description</label>
                         <textarea id="description" name="description" ng-model="modelAdd.Description" rows="6" cols="20" style="overflow:auto;resize:none" maxlength="200" ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():% ]+$/"></textarea>
@@ -86,12 +96,22 @@
                         <span class="spanError" ng-show="formEdit.service.$error.required || formEdit.service.$invalid && !formEdit.service.$pristine">Service is required</span>
                         
                         <label class="control-label" for="requestDate">Request Date</label>
-                        <input type="date" name="requestDate" id="editrequestDate" class="form-control" ng-model="modelEdit.RequestDate">
-                        <span class="spanError" ng-show="formEdit.requestDate.$invalid && !formEdit.requestDate.$pristine">Enter a valid date</span>
+                        <div>
+                            <input style="float: left" type="text" class="text-date form-control" name="requestDate" id="requestDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelEdit.RequestDate" is-open="popup1.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="formEdit.requestDate.$invalid && !formEdit.requestDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
 
                         <label class="control-label" for="completionDate">Completion Date</label>
-                        <input type="date" name="completionDate" id="editcompletionDate" class="form-control" ng-model="modelEdit.CompletionDate">
-                        <span class="spanError" ng-show="formEdit.completionDate.$invalid && !formEdit.completionDate.$pristine">Enter a valid date</span>
+                        <div>
+                            <input style="float: left" type="text" class="text-date form-control" name="completionDate" id="completionDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelEdit.CompletionDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="formEdit.completionDate.$invalid && !formEdit.completionDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
 
                         <label class="control-label" for="description">Description</label>
                         <textarea id="description" name="description" ng-model="modelEdit.Description" rows="6" cols="20" style="overflow:auto;resize:none" maxlength="200" ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():% ]+$/"></textarea>

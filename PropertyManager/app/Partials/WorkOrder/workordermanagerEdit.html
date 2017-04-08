@@ -18,9 +18,14 @@
                     <fieldset>
                         <legend><span><i class="fa fa-wrench" aria-hidden="true"></i></span> Edit Work Order <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
-                        <label class="control-label" for="completionDate">Completion Date</label>
-                        <input type="date" name="completionDate" id="completionDate" class="form-control" ng-model="modelEdit.completionDate" required>
-                        <span class="spanError" ng-show="formEdit.completionDate.$invalid && !formEdit.completionDate.$pristine">Enter a valid date</span>
+                        <label class="control-label" for="completionDate">Completion Date*</label>
+                        <div>
+                            <input style="float: left" type="text" class="text-date form-control" name="completionDate" id="completionDate" ng-required="true" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelEdit.completionDate" is-open="popup1.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="formEdit.completionDate.$invalid && !formEdit.completionDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
 
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editWorkOrder()">Edit Work Order</button>

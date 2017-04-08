@@ -179,8 +179,13 @@ function facilityController($scope, $filter, $location, $routeParams, facilitySe
     $scope.goBack = function () {
         $location.path('/facility');
     }
-
    
+    $scope.hstep = 1;
+    $scope.mstep = 1;
 
+    $scope.ismeridian = true;
+    $scope.toggleMode = function () {
+        $scope.ismeridian = !$scope.ismeridian;
+    };
 
 }

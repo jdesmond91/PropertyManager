@@ -217,4 +217,25 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
     $scope.goBack = function () {
         $location.path('/employee');
     }
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
+    $scope.format = $scope.formats[4];
+    $scope.altInputFormats = ['M!/d!/yyyy'];
+
+    $scope.popup1 = {
+        opened: false
+    };
+
+
+    $scope.open1 = function () {
+        $scope.popup1.opened = true;
+    };
+
+    $scope.popup2 = {
+        opened: false
+    };
+    
+    $scope.open2 = function () {
+        $scope.popup2.opened = true;
+    };
 }

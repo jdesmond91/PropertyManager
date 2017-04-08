@@ -67,16 +67,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
     var today = new Date();
     $scope.today = today;
 
-    var start = document.getElementById('startDate');
-    var enddate = document.getElementById('endDate');
-
-    if (start != null) {
-        start.addEventListener('change', function () {
-            if (start.value)
-                enddate.min = start.value;
-        }, false);
-    }
-
     $scope.addOneClick = function () {
         $location.path('/addlease');
     }
@@ -258,6 +248,27 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
     $scope.goBack = function () {
         $location.path('/lease');
     }
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
+    $scope.format = $scope.formats[4];
+    $scope.altInputFormats = ['M!/d!/yyyy'];
+
+    $scope.popup1 = {
+        opened: false
+    };
+
+    $scope.popup2 = {
+        opened: false
+    };
+
+
+    $scope.open1 = function () {
+        $scope.popup1.opened = true;
+    };
+
+    $scope.open2 = function () {
+        $scope.popup2.opened = true;
+    };
 
 
 }

@@ -51,16 +51,6 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
     today.setHours(0, 0, 0, 0);
     $scope.today = today;
 
-    var startadd = document.getElementById('requestDate');
-    var enddateadd = document.getElementById('completionDate');
-
-    if (startadd != null) {
-        startadd.addEventListener('change', function () {
-            if (startadd.value)
-                enddateadd.min = startadd.value;
-        }, false);
-    }
-
     // ADD SECTION 
 
     $scope.addOneClick = function () {
@@ -266,6 +256,27 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
             $scope.message = error.statusText;
         });
     }
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
+    $scope.format = $scope.formats[4];
+    $scope.altInputFormats = ['M!/d!/yyyy'];
+
+    $scope.popup1 = {
+        opened: false
+    };
+
+    $scope.popup2 = {
+        opened: false
+    };
+
+
+    $scope.open1 = function () {
+        $scope.popup1.opened = true;
+    };
+
+    $scope.open2 = function () {
+        $scope.popup2.opened = true;
+    };
 
 
 }

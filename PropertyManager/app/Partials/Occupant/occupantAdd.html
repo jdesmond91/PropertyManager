@@ -106,8 +106,13 @@
                         <span class="spanError" ng-show="form.email.$invalid && !form.email.$pristine">Email is required</span>
 
                         <label class="control-label" for="birthDate">Birth Date*</label>
-                        <input type="date" name="birthDate" id="birthDate" class="form-control" ng-model="modelAdd.birthDate" required>
-                        <span class="spanError" ng-show="form.birthDate.$invalid && !form.birthDate.$pristine">Birth Date is required</span>
+                        <div>
+                            <input style="float: left" type="text" name="birthDate" id="birthDate" class="text-date form-control" uib-datepicker-popup="MM/dd/yyyy" ng-required="true" ng-model="modelAdd.birthDate" is-open="popup1.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="form.birthDate.$invalid && !form.birthDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
 
                         <label class="control-label" for="email">Tenant Email*</label>
                         <input type="email" name="tenantemail" id="tenantemail" class="form-control" ng-model="modelAdd.tenantEmail" maxlength="30" required />
@@ -191,8 +196,13 @@
                         <span class="spanError" ng-show="formEdit.email.$invalid && !formEdit.email.$pristine">Email is required</span>
 
                         <label class="control-label" for="birthDate">Birth Date*</label>
-                        <input type="date" name="birthDate" id="birthDate" class="form-control" ng-model="modelEdit.birthDate" required>
-                        <span class="spanError" ng-show="formEdit.birthDate.$invalid && !formEdit.birthDate.$pristine">Birth date is required</span>
+                        <div>
+                            <input style="float: left" type="text" name="birthDate" id="birthDate" class="text-date form-control" uib-datepicker-popup="MM/dd/yyyy" ng-required="true" ng-model="modelEdit.birthDate" is-open="popup1.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="formEdit.birthDate.$invalid && !formEdit.birthDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
 
                         <label class="control-label" for="aptnumber">Apartment Number*</label>
                         <input type="number" name="aptnumber" id="aptnumber" max="10000" ng-model="modelEdit.apartmentNumber" class="form-control" ng-pattern="/^\d+$/" readonly>

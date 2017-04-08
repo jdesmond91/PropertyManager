@@ -133,4 +133,17 @@ function workOrderManagerController($scope, $filter, $location, $routeParams, wo
         $location.path('/workorderrequestmanager');
     }
 
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
+    $scope.format = $scope.formats[4];
+    $scope.altInputFormats = ['M!/d!/yyyy'];
+
+    $scope.popup1 = {
+        opened: false
+    };
+   
+    $scope.open1 = function () {
+        $scope.popup1.opened = true;
+    };
+
+
 }

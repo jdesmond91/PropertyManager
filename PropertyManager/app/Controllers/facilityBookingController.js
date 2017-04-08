@@ -345,4 +345,24 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         return filtered;
     }*/
 
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
+    $scope.format = $scope.formats[4];
+    $scope.altInputFormats = ['M!/d!/yyyy'];
+
+    $scope.popup1 = {
+        opened: false
+    };
+
+    $scope.open1 = function () {
+        $scope.popup1.opened = true;
+    };
+
+    $scope.hstep = 1;
+    $scope.mstep = 1;
+
+    $scope.ismeridian = true;
+    $scope.toggleMode = function () {
+        $scope.ismeridian = !$scope.ismeridian;
+    };
+
 }

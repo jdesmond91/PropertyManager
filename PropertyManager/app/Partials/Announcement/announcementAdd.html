@@ -25,7 +25,7 @@
 
                         <label class="control-label" for="startDate">Start Date*</label>
                         <div>
-                            <input style="float: left" type="text" class="text-date form-control" name="startDate" id="startDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelAdd.startDate" is-open="popup1.opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="open1()" placeholder="mm/dd/yyyy" />
+                            <input style="float: left" type="text" class="text-date form-control" name="startDate" id="startDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelAdd.startDate" is-open="popup1.opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
                             <span style="padding-left: 5px;" class="input-group-btn">
                                 <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                             </span>
@@ -33,18 +33,20 @@
                         </div>
 
                             <label class="control-label" for="expireDate">Expire Date</label>
-                            <input type="text" class="text-date form-control" name="expireDate" id="expireDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelAdd.expireDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" ng-click="open2()" placeholder="mm/dd/yyyy" />
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            <div>
+                            <input style="float: left" type="text" class="text-date form-control" name="expireDate" id="expireDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelAdd.expireDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button  style="height: 34px;" type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                             </span>
-                            <span class="spanError" ng-show="form.expireDate.$invalid && !form.expireDate.$pristine">Enter a valid date</span>
+                            <span class="spanError" ng-show="form.expireDate.$invalid && !form.expireDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                            </div>
 
                             <label class="control-label" for="description">Description*</label>
                             <textarea id="description" name="description" ng-model="modelAdd.description" rows="6" cols="20" style="overflow:auto;resize:none" required ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():% ]+$/"></textarea>
                             <br /><span class="spanError" ng-show="form.description.$error.pattern && !form.description.$pristine">Enter valid characters</span>
                             <span class="spanError" ng-show="form.description.$error.required && !form.description.$pristine">Description is required</span>
-</fieldset>
-                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addAnnouncement()">Add Announcement </button>
+                    </fieldset>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addAnnouncement()" style="width: 200px;">Add Announcement </button>
                     <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>
             </div>
@@ -86,20 +88,21 @@
                         <span class="spanError" ng-show="formEdit.title.$invalid && !formEdit.title.$pristine">Enter a valid title</span>
 
                         <label class="control-label" for="startDate">Start Date*</label>
-                        <input type="text" class="form-control" name="startDate" id="editstartDate" uib-datepicker-popup="MM/dd/yyyy"" ng-model="modelEdit.startDate" is-open="popup1.opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="open1()" placeholder="mm/dd/yyyy"/>
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
-                        <span class="spanError" ng-show="formEdit.startDate.$invalid && !formEdit.startDate.$pristine">Enter a valid date</span>
+                        <div>
+                            <input style="float: left" type="text" class="form-control" name="startDate" id="editstartDate" uib-datepicker-popup="MM/dd/yyyy" " ng-model="modelEdit.startDate" is-open="popup1.opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="open1()" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="formEdit.startDate.$invalid && !formEdit.startDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
+                            <label class="control-label" for="expireDate">Expire Date</label>
+                            <input type="text" class="form-control" name="expireDate" id="editexpireDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelEdit.expireDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" ng-click="open2()" placeholder="mm/dd/yyyy" />
+                            <span class="spanError" ng-show="formEdit.expireDate.$invalid && !formEdit.expireDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
 
-                        <label class="control-label" for="expireDate">Expire Date</label>
-                        <input type="text" class="form-control" name="expireDate" id="editexpireDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelEdit.expireDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" ng-click="open2()" placeholder="mm/dd/yyyy" />
-                        <span class="spanError" ng-show="formEdit.expireDate.$invalid && !formEdit.expireDate.$pristine">Enter a valid date</span>
-
-                        <label class="control-label" for="description">Description*</label>
-                        <textarea id="description" name="description" ng-model="modelEdit.description" rows="6" cols="20" style="overflow:auto;resize:none" ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():% ]+$/" required></textarea>
-                        <br /><span class="spanError" ng-show="formEdit.description.$invalid && !formEdit.description.$pristine">Enter a valid description</span>
-                    </fieldset>
+                            <label class="control-label" for="description">Description*</label>
+                            <textarea id="description" name="description" ng-model="modelEdit.description" rows="6" cols="20" style="overflow:auto;resize:none" ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():% ]+$/" required></textarea>
+                            <br /><span class="spanError" ng-show="formEdit.description.$invalid && !formEdit.description.$pristine">Enter a valid description</span>
+</fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editAnnouncement()">Edit Announcement </button>
                     <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </form>

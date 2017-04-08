@@ -43,12 +43,22 @@
                         <legend><span><i class="fa fa-handshake-o" aria-hidden="true"></i></span> Add Lease <button type="button" class="btn btn-primary cancelAddButton" ng-click="cancelAdd()">Cancel</button></legend>
 
                         <label class="control-label" for="startDate">Start Date*</label>
-                        <input type="date" name="startDate" id="startDate" class="form-control" ng-model="modelAdd.startDate" required>
-                        <span class="spanError" ng-show="form.startDate.$invalid && !form.startDate.$pristine">Start date is required</span>
+                        <div>
+                            <input style="float: left" type="text" class="text-date form-control" name="startDate" id="startDate" uib-datepicker-popup="MM/dd/yyyy" ng-required="true" ng-model="modelAdd.startDate" is-open="popup1.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="form.startDate.$invalid && !form.startDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
 
                         <label class="control-label" for="endDate">End Date*</label>
-                        <input type="date" name="endDate" id="endDate" class="form-control" ng-model="modelAdd.endDate" required>
-                        <span class="spanError" ng-show="form.endDate.$invalid && !form.endDate.$pristine">End date is required</span>
+                        <div>
+                            <input style="float: left" type="text" class="text-date form-control" name="endDate" id="endDate" uib-datepicker-popup="MM/dd/yyyy" ng-required="true" ng-model="modelAdd.endDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="form.endDate.$invalid && !form.endDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>                      
 
                         <label class="control-label" for="monthlyRent">Monthly Rent*</label>
                         <input type="number" name="monthlyRent" id="monthlyRent"  ng-model="modelAdd.monthlyRent" max="10000" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-control" onKeyPress="return checkDigit(event, value)" onInput="checkLength(9, this)" required>
@@ -123,12 +133,22 @@
                         <span class="spanError" ng-show="form.tenantName.$error.pattern || form.tenantName.$invalid && !form.tenantName.$pristine">Enter a tenant name</span>                                   
 
                         <label class="control-label" for="startDate">Start Date*</label>
-                        <input type="date" name="startDate" id="startDate" class="form-control" ng-model="modelEdit.startDate" required>
-                        <span class="spanError" ng-show="formEdit.startDate.$invalid && !formEdit.startDate.$pristine">Start date is required</span>
+                        <div>
+                            <input style="float: left" type="text" class="text-date form-control" name="startDate" id="startDate" uib-datepicker-popup="MM/dd/yyyy" ng-required="true" ng-model="modelEdit.startDate" is-open="popup1.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="formEdit.startDate.$invalid && !formEdit.startDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>
 
                         <label class="control-label" for="endDate">End Date*</label>
-                        <input type="date" name="endDate" id="endDate" class="form-control" ng-model="modelEdit.endDate" required>
-                        <span class="spanError" ng-show="formEdit.endDate.$invalid && !formEdit.endDate.$pristine">End date is required</span>
+                        <div>
+                            <input style="float: left" type="text" class="text-date form-control" name="endDate" id="endDate" uib-datepicker-popup="MM/dd/yyyy" ng-required="true" ng-model="modelAdd.endDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="formEdit.endDate.$invalid && !formEdit.endDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        </div>             
 
                         <label class="control-label" for="monthlyRent" ng-show="editMonthlyRent">Monthly Rent*</label>
                         <input type="number" name="monthlyRent" id="monthlyRent" ng-model="modelEdit.monthlyRent" max="10000" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-control" onKeyPress="return checkDigit(event, value)" onInput="checkLength(9, this)" ng-show="editMonthlyRent" required>

@@ -257,7 +257,6 @@ function announcementController($scope, $filter, $location, $routeParams, announ
         }
     }
 
-
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
     $scope.format = $scope.formats[4];
     $scope.altInputFormats = ['M!/d!/yyyy'];
