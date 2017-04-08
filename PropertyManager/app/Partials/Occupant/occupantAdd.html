@@ -98,7 +98,7 @@
                         <span class="spanError" ng-show="form.mobileNumber2.$error.required && !form.mobileNumber2.$pristine">Phone number is required</span>  
 
                         <label class="control-label" for="phone">Work Number</label>
-                        <input type="text" name="workNumber2" id="workNumber2" class="form-control" ng-model="modelAdd.workNumber" placeholder="numbers only" ng-pattern="/^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/" maxlength="12" required onKeyPress="return check(event,value)"/>
+                        <input type="text" name="workNumber2" id="workNumber2" class="form-control" ng-model="modelAdd.workNumber" placeholder="numbers only" ng-pattern="/^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/" maxlength="12" onKeyPress="return check(event,value)"/>
                         <span class="spanError" ng-show="form.workNumber2.$error.maxlength && !form.workNumber2.$pristine">The phone is too big</span>
 
                         <label class="control-label" for="email">Email*</label>

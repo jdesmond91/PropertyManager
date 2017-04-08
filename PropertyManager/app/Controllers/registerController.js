@@ -45,7 +45,7 @@ function registerController($scope, $location, $filter, loginService, userProfil
             $scope.userPassword = "";
             $location.path('/login');
         }, function (response) {
-            $scope.message = response.data;
+            $scope.errorMessage = response.data;
             if (response.status == 400) {
                 $scope.errorMessage = "This email is already registered."
             }

@@ -66,9 +66,14 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
             $scope.message = "Enter a date greater than today";
         }
         else {
-            if ($scope.modelAdd.CompletionDate != "" && $scope.modelAdd.CompletionDate < $scope.modelAdd.RequestDate) {
-                $scope.message = "Enter a date greater than or equal Start Date";
-            }
+            if ($scope.modelAdd.CompletionDate != null) {
+                if ($scope.modelAdd.CompletionDate != "" && $scope.modelAdd.CompletionDate < $scope.modelAdd.RequestDate) {
+                    $scope.message = "Enter a date greater than or equal Start Date";
+                }
+                else {
+                    add = true;
+                }
+            }           
             else {
                 add = true;
             }

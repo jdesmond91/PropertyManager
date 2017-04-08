@@ -104,10 +104,10 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
             }
 
             if ($scope.modelAdd.startTime != "") {
-                startTimeFiltered = $filter('date')($scope.modelAdd.startTime, 'HH:mm:ss');
+                startTimeFiltered = $filter('date')($scope.modelAdd.startTime, 'HH:mm');
             }
             if ($scope.modelAdd.endTime != "") {
-                endDateFiltered = $filter('date')($scope.modelAdd.endTime, 'HH:mm:ss');
+                endDateFiltered = $filter('date')($scope.modelAdd.endTime, 'HH:mm');
             }
 
             var facilityBooking = {
@@ -255,7 +255,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
                 $scope.message = "Edit successful";
                 $scope.showEditConfirmation = true;
             }, function (error) {
-                $scope.message = response.statusText;
+                $scope.message = error.data;
             });
         }
         

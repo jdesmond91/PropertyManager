@@ -54,10 +54,10 @@ function facilityController($scope, $filter, $location, $routeParams, facilitySe
         var expireDateFiltered = null;
 
         if ($scope.modelAdd.openTime != "") {
-            openTimeFiltered = $filter('date')($scope.modelAdd.openTime, 'HH:mm:ss');
+            openTimeFiltered = $filter('date')($scope.modelAdd.openTime, 'HH:mm');
         }
         if ($scope.modelAdd.closeTime != "") {
-            expireDateFiltered = $filter('date')($scope.modelAdd.closeTime, 'HH:mm:ss');
+            expireDateFiltered = $filter('date')($scope.modelAdd.closeTime, 'HH:mm');
         }
         
         var facility = {

@@ -72,8 +72,21 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
     }
 
     $scope.addLease = function () {
+        $scope.errorMessage = "";
+        var add = false;
         var startDateFiltered = null;
         var endDateFiltered = null;
+       
+      
+       if ($scope.modelAdd.endDate != "" && $scope.modelAdd.endDate < $scope.modelAdd.startDate) {
+           $scope.errorMessage = "Enter a date greater than or equal Start Date";
+       }
+       else {
+            add = true;
+       }              
+    
+
+    if(add == true){
 
         if ($scope.modelAdd.startDate != "") {
             startDateFiltered = $filter('date')($scope.modelAdd.startDate, "yyyy-MM-dd");
@@ -117,6 +130,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             }
         }, function (error) {
         });
+    }
                           
     } // close function
 
@@ -200,9 +214,17 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
     }
 
     $scope.editLease = function () {
-
+        $scope.errorMessage = "";
+        var add = false;
         var startDateFiltered = null;
         var expireDateFiltered = null;
+
+        if ($scope.modelEdit.endDate != "" && $scope.modelEdit.endDate < $scope.modelEdit.startDate) {
+            $scope.errorMessage = "Enter a date greater than or equal Start Date";
+        }
+        else {
+            add = true;
+        }
 
         if ($scope.modelEdit.startDate != "") {
             startDateFiltered = $filter('date')($scope.modelEdit.startDate, "yyyy-MM-dd");
@@ -211,23 +233,25 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             endDateFiltered = $filter('date')($scope.modelEdit.endDate, "yyyy-MM-dd");
         }
 
-        var lease = {
-            Id: $scope.editId,
-            StartDate: startDateFiltered,
-            EndDate: endDateFiltered,
-            SecurityDeposit: $scope.modelEdit.securityDeposit,
-            MonthlyRent: $scope.modelEdit.monthlyRent,
-            ApartmentId: $scope.modelEdit.apartmentId,
-            TenantId: $scope.modelEdit.tenantId
-        };
+        if (add == true) {
+            var lease = {
+                Id: $scope.editId,
+                StartDate: startDateFiltered,
+                EndDate: endDateFiltered,
+                SecurityDeposit: $scope.modelEdit.securityDeposit,
+                MonthlyRent: $scope.modelEdit.monthlyRent,
+                ApartmentId: $scope.modelEdit.apartmentId,
+                TenantId: $scope.modelEdit.tenantId
+            };
 
-        var editResults = leaseService.editLease(lease, lease.Id);
-        editResults.then(function (response) {
-            $scope.message = "Edit successful";
-            $scope.showEditConfirmation = true;
-        }, function (error) {
-            $scope.message = error.statusText;
-        });
+            var editResults = leaseService.editLease(lease, lease.Id);
+            editResults.then(function (response) {
+                $scope.message = "Edit successful";
+                $scope.showEditConfirmation = true;
+            }, function (error) {
+                $scope.message = error.statusText;
+            });
+        }
     } // close function
 
     //************** DELETE ************************

@@ -143,7 +143,7 @@
 
                         <label class="control-label" for="endDate">End Date*</label>
                         <div>
-                            <input style="float: left" type="text" class="text-date form-control" name="endDate" id="endDate" uib-datepicker-popup="MM/dd/yyyy" ng-required="true" ng-model="modelAdd.endDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                            <input style="float: left" type="text" class="text-date form-control" name="endDate" id="endDate" uib-datepicker-popup="MM/dd/yyyy" ng-required="true" ng-model="modelEdit.endDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
                             <span style="padding-left: 5px;" class="input-group-btn">
                                 <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                             </span>
@@ -168,7 +168,7 @@
                         </div>
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editLease()">Edit Lease </button>
-                    <span>{{message}}</span>
+                    <br /><span style="margin:10px;" class="spanError" ng-show="errorMessage!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{errorMessage}}</span>
                 </form>
             </div>
             <div class="detailDivTable addSuccessfull" style="float:left" ng-show="showEditConfirmation">

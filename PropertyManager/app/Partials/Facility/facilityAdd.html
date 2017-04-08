@@ -35,11 +35,11 @@
                         <span class="spanError" ng-show="form.status.$error.pattern && !form.status.$pristine">Enter valid characters</span>
 
                         <label class="control-label" for="openTime">Open Time*</label>
-                        <div uib-timepicker name="openTime" class="form-control" id="openTime" ng-model="modelAdd.openTime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></div>
+                        <div uib-timepicker name="openTime" id="openTime" ng-model="modelAdd.openTime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></div>
                         <span class="spanError" ng-show="form.openTime.$invalid && !form.openTime.$pristine">Enter a open time</span>
 
                         <label class="control-label" for="closeTime">Close Time*</label>
-                        <div uib-timepicker name="closeTime" class="form-control" id="closeTime" ng-model="modelAdd.closeTime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></div>
+                        <div uib-timepicker name="closeTime" id="closeTime" ng-model="modelAdd.closeTime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></div>
                         <span class="spanError" ng-show="form.closeTime.$invalid && !form.closeTime.$pristine">Enter a close time</span>
                     </fieldset>
                     <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submitForm" ng-click="addFacility()">Add Facility </button>
@@ -67,11 +67,11 @@
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Open Time:</div>
-                        <div class="detailDivTableCell">{{modelAdd.openTime | date:'hh:mm:ss a'}}</div>
+                        <div class="detailDivTableCell">{{modelAdd.openTime | date:'hh:mm a'}}</div>
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Close Time:</div>
-                        <div class="detailDivTableCell">{{modelAdd.closeTime | date:'hh:mm:ss a'}}</div>
+                        <div class="detailDivTableCell">{{modelAdd.closeTime | date:'hh:mm a'}}</div>
                     </div>
 
                     <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
@@ -138,11 +138,11 @@
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Open Time:</div>
-                        <div class="detailDivTableCell">{{modelEdit.openTime | date:'hh:mm:ss a'}}</div>
+                        <div class="detailDivTableCell">{{modelEdit.openTime | date:'hh:mm a'}}</div>
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Close Time:</div>
-                        <div class="detailDivTableCell">{{modelEdit.closeTime | date:'hh:mm:ss a'}}</div>
+                        <div class="detailDivTableCell">{{modelEdit.closeTime | date:'hh:mm a'}}</div>
                     </div>
                     <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
                 </div>

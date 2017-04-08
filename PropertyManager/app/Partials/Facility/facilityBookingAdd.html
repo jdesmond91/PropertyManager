@@ -61,11 +61,11 @@
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Start Time:</div>
-                        <div class="detailDivTableCell">{{modelAdd.startTime | date:'hh:mm:ss a' }}</div>
+                        <div class="detailDivTableCell">{{modelAdd.startTime | date:'hh:mm a' }}</div>
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">End Time:</div>
-                        <div class="detailDivTableCell">{{modelAdd.endTime | date:'hh:mm:ss a' }}</div>
+                        <div class="detailDivTableCell">{{modelAdd.endTime | date:'hh:mm a' }}</div>
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Notes:</div>
@@ -93,11 +93,11 @@
                         <span class="spanError" ng-show="formEdit.bookedDate.$invalid && !formEdit.bookedDate.$pristine">Book date is required</span>
 
                         <label class="control-label" for="startTime">Start Time*</label>
-                        <input type="time" name="startTime" id="startTime" class="form-control" ng-model="modelEdit.startTime" required>
+                        <div uib-timepicker name="startTime" class="form-control" id="startTime" ng-model="modelEdit.startTime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></div>
                         <span class="spanError" ng-show="formEdit.startTime.$invalid && !formEdit.startTime.$pristine">Start time is required</span>
 
                         <label class="control-label" for="endTime">End Time*</label>
-                        <input type="time" name="endTime" id="endTime" class="form-control" ng-model="modelEdit.endTime" required>
+                        <div uib-timepicker name="endTime" class="form-control" id="endTime" ng-model="modelEdit.endTime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></div>
                         <span class="spanError" ng-show="formEdit.endTime.$invalid && !formEdit.endTime.$pristine">End time is required</span>
 
                         <label class="control-label" for="notes">Notes</label>
@@ -121,11 +121,11 @@
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Start Time:</div>
-                        <div class="detailDivTableCell">{{modelEdit.startTime | date:'hh:mm:ss a' }}</div>
+                        <div class="detailDivTableCell">{{modelEdit.startTime | date:'hh:mm a' }}</div>
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">End Time:</div>
-                        <div class="detailDivTableCell">{{modelEdit.endTime | date:'hh:mm:ss a' }}</div>
+                        <div class="detailDivTableCell">{{modelEdit.endTime | date:'hh:mm a' }}</div>
                     </div>
                     <div class="detailDivTableRow">
                         <div class="detailDivTableHeader">Notes:</div>
@@ -136,6 +136,7 @@
                         <div class="detailDivTableCell">{{modelEdit.tenantName}}</div>
                     </div>
                     <button type="button" class="btn btn-primary" ng-click="goBack()">Back</button>
+                    <br /><span class="spanError" style="margin-top:20px;" ng-show="message!=''"><i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{message}}</span>
                 </div>
             </div>
         </div>
