@@ -96,7 +96,7 @@ namespace PropertyManager.Controllers
 
             message.Subject = "Your Activation Code";
             message.Destination = email;
-            message.Body = "Here is your activation code: <b>" + hashPassword + " </b>. <br/>Please use this to register for an account with Property Cloud by clicking <a href='http://localhost:24792/#/register'> HERE </a> or access http://localhost:24792/#/register . ";
+            message.Body = "Here is your activation code: <b>" + hashPassword + " </b>. <br/>Please use this to register for an account with Property Cloud by clicking <a href='http://propertycloud1.azurewebsites.net/#/register'> HERE </a> or access http://propertycloud1.azurewebsites.net/#/register . ";
 
 
             await sendemail.SendAsync(message);

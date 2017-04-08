@@ -103,35 +103,11 @@
                     </a>
                 </div>
             </div>
-          <!--  <div class="col-lg-3 col-md-6" ng-controller="apartmentController">
-                <div class="panel panel-lightblue">
-                    <div class="panel-heading">
-                        <div class="row" style="width: 100%">
-                            <div style="float:left;">
-                                <canvas class="chart chart-doughnut" style="height: 70px; width: 70px; float: left;"
-                                        id="doughnut" chart-data="data" chart-labels="labels" chart-colors="colors" chart-options="options"></canvas>
-                            </div>
-                            <div style="float:right; margin-left:20px;">
-                                <div>Apartments</div>
-                                <div>Occupied: {{occupied}}</div>
-                                <div>Vaccant: &nbsp &nbsp{{vaccant}}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#/apartment">
-                        <div class="panel-footer">
-                            <span class="pull-left">View Details</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
-                </div>
-            </div> -->
         </div>
         <div class="row">
             <div class="col-lg-12" style="height: 300px; overflow: scroll;">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
+                    <div class="panel-heading" style="font-size: 20px;">
                         Announcements
                     </div>
                     <!-- .panel-heading -->
@@ -140,7 +116,7 @@
                             <div class="panel panel-default" ng-repeat="announce in announces | filter: greaterThan(announce)">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a>{{announce.Title}}</a>
+                                        {{announce.Title}}
                                     </h4>
                                 </div>
                                 <div>
@@ -149,7 +125,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <!-- .panel-body -->
@@ -159,40 +134,34 @@
             <!-- /.col-lg-12 -->
         </div>
         <br />
-        <div style="width:100%">
-            <div style="width:75%; float: left">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header" style="margin-top: 0px;">Events</h1>
-                    </div>
-                    <!-- /.col-lg-12 -->
+        <div class="row">
+            <div class="col-md-8" style="width: 50%;">
+                <h1 class="page-header" style="margin-top: 0px; float: left;">Events</h1>
+            </div>
+            <div class="col-md-8" style="width: 50%;">
+                <h1 class="page-header" style="margin-top: 0px; float: left;">Apartment Vacancies</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row" ng-controller="homeController">
+            <div class="col-md-8" style="width: 50%; float: left;">
+                <div id="calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="myCalendar"></div>
+            </div>
+            <div>
+                <div class="col-md-8" style="width: 50%; float: left" ng-controller="apartmentController">
+                    <canvas class="chart chart-doughnut" id="doughnut" chart-data="data" chart-labels="labels" chart-colors="colors" chart-options="options"></canvas>
                 </div>
-                <div class="row" ng-controller="homeController">
-                    <div class="col-md-8" style="width: 50%; float: left;">
-                        <div id="calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="myCalendar"></div>
-                    </div>
-                    <div class="col-md-4">
-                        <div ng-show="SelectedEvent" class="alert alert-success" style="margin-top:50px; width:60%">
-                            <p style="margin-top:0px"><b>Selected Event:</b></p>
-                            <p style="color:#A9A50E">{{SelectedEvent.title}}</p>
-                            <p>{{SelectedEvent.description}}</p>
-                        </div>
+                <div class="col-md-4">
+                    <div ng-show="SelectedEvent" class="alert alert-success" style="margin-top:50px; width:60%">
+                        <p style="margin-top:0px"><b>Selected Event:</b></p>
+                        <p style="color:#A9A50E">{{SelectedEvent.title}}</p>
+                        <p>{{SelectedEvent.description}}</p>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header" style="margin-top: 0px;">Apartments</h1>
-                </div>
-  
-            </div>
-            <div style="width:25%; float: right" ng-controller="apartmentController">
-                <canvas class="chart chart-doughnut" style="height: 50px; width: 50px; margin-top: 40px;"
-                        id="doughnut" chart-data="data" chart-labels="labels" chart-colors="colors" chart-options="options"></canvas>
-            </div>
-            </div>
-  
-
+        </div>
     </div>
+
+
 </body>
 </html>

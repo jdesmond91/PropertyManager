@@ -19,6 +19,8 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
     $scope.occupied = "";
     $scope.vaccant = "";
 
+    $scope.colors = ["rgb(255,215,0)", "rgb(51,122,183)"];
+
     if ($routeParams.apartment_id) {
         $scope.editId = $routeParams.apartment_id;
         $scope.isEdit = true;
@@ -106,8 +108,6 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
         })
 
     } // close function
-
-    $scope.colors = ["rgb(30,247,35)", "rgb(241,15,3)"];
 
     function getApartmentById (id) {
         var resultById = apartmentService.getByIdApartment(id);
