@@ -254,7 +254,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
         return function (item) {
             if (item.ExpireDate != null) {
                 var announceDate = new Date(item.ExpireDate.replace('T', ' ').replace('-', '/'));
-                return announceDate >= $scope.today;
+                return announceDate <= $scope.today;
             }
             else {
                 return item;
