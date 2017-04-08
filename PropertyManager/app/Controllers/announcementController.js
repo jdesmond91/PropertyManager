@@ -52,16 +52,6 @@ function announcementController($scope, $filter, $location, $routeParams, announ
     var today = new Date();
     today.setHours(0,0,0,0);
     $scope.today = today;
-
-    var startadd = document.getElementById('startDate');
-    var enddateadd = document.getElementById('expireDate');
-
-    if (startadd != null) {
-        startadd.addEventListener('change', function () {
-            if (startadd.value)
-                enddateadd.min = startadd.value;
-        }, false);
-    }
     
     $scope.addOneClick = function () {
         $location.path('/addannouncement');
@@ -193,9 +183,14 @@ function announcementController($scope, $filter, $location, $routeParams, announ
             $scope.message = "Enter a date greater than today";
         }
         else {
-            if ($scope.modelAdd.expireDate != "" && $scope.modelEdit.expireDate < $scope.modelEdit.startDate) {
-                $scope.message = "Enter a date greater than or equal Start Date";
-            }
+            if ($scope.modelEdit.expireDate != null) {
+                if ($scope.modelEdit.expireDate != "" && $scope.modelEdit.expireDate < $scope.modelEdit.startDate) {
+                    $scope.message = "Enter a date greater than or equal Start Date";
+                }
+                else {
+                    add = true;
+                }
+            }           
             else {
                 add = true;
             }
@@ -271,22 +266,17 @@ function announcementController($scope, $filter, $location, $routeParams, announ
         opened: false
     };
 
-    $scope.dateOptions = {
-        dateDisabled: disabled,
-        formatYear: 'yy',
-        maxDate: new Date(2020, 5, 22),
-        minDate: new Date(),
-        startingDay: 1
+    $scope.popup2 = {
+        opened: false
     };
 
-    function disabled(data) {
-        var date = data.date,
-          mode = data.mode;
-        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-    }
 
     $scope.open1 = function () {
         $scope.popup1.opened = true;
+    };
+
+    $scope.open2 = function () {
+        $scope.popup2.opened = true;
     };
     
 }

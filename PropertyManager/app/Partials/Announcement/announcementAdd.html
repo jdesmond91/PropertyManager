@@ -25,14 +25,17 @@
 
                         <label class="control-label" for="startDate">Start Date*</label>
                         <!--<input type="date" name="startDate" id="startDate" class="form-control" ng-model="modelAdd.startDate" required> -->
-                        <input type="text" class="text-date form-control" uib-datepicker-popup="{{format}}" ng-model="modelAdd.startDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <input type="text" class="text-date form-control" name="startDate" id="startDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelAdd.startDate" is-open="popup1.opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="open1()" placeholder="mm/dd/yyyy"/>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
-                        <span class="spanError" ng-show="form.startDate.$invalid && !form.startDate.$pristine">Enter a valid date</span>
+                        <span class="spanError" ng-show="form.startDate.$invalid && !form.startDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
 
                         <label class="control-label" for="expireDate">Expire Date</label>
-                        <input type="date" name="expireDate" id="expireDate"  class="form-control" ng-model="modelAdd.expireDate">
+                        <input type="text" class="text-date form-control" name="expireDate" id="expireDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelAdd.expireDate" is-open="popup2.opened"  close-text="Close" alt-input-formats="altInputFormats" ng-click="open2()" placeholder="mm/dd/yyyy"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
                         <span class="spanError" ng-show="form.expireDate.$invalid && !form.expireDate.$pristine">Enter a valid date</span>
 
                         <label class="control-label" for="description">Description*</label>
@@ -82,15 +85,14 @@
                         <span class="spanError" ng-show="formEdit.title.$invalid && !formEdit.title.$pristine">Enter a valid title</span>
 
                         <label class="control-label" for="startDate">Start Date*</label>
-                        <input type="date" name="startDate" id="editstartDate" class="form-control" ng-model="modelEdit.startDate" required>
-                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="modelEdit.startDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <input type="text" class="form-control" name="startDate" id="editstartDate" uib-datepicker-popup="MM/dd/yyyy"" ng-model="modelEdit.startDate" is-open="popup1.opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-click="open1()" placeholder="mm/dd/yyyy"/>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
                         <span class="spanError" ng-show="formEdit.startDate.$invalid && !formEdit.startDate.$pristine">Enter a valid date</span>
 
                         <label class="control-label" for="expireDate">Expire Date</label>
-                        <input type="date" name="expireDate" id="editexpireDate" class="form-control" ng-model="modelEdit.expireDate">
+                        <input type="text" class="form-control" name="expireDate" id="editexpireDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelEdit.expireDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" ng-click="open2()" placeholder="mm/dd/yyyy" />
                         <span class="spanError" ng-show="formEdit.expireDate.$invalid && !formEdit.expireDate.$pristine">Enter a valid date</span>
 
                         <label class="control-label" for="description">Description*</label>
