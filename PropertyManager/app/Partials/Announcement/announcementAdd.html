@@ -25,11 +25,13 @@
 
                         <label class="control-label" for="startDate">Start Date*</label>
                         <!--<input type="date" name="startDate" id="startDate" class="form-control" ng-model="modelAdd.startDate" required> -->
-                        <input type="text" class="text-date form-control" uib-datepicker-popup="{{format}}" ng-model="modelAdd.startDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
-                        <span class="spanError" ng-show="form.startDate.$invalid && !form.startDate.$pristine">Enter a valid date</span>
+                        <div>
+                            <input style="float: left" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="modelAdd.startDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                            <span style="padding-left: 5px;" class="input-group-btn">
+                                <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                            <span class="spanError" ng-show="form.startDate.$invalid && !form.startDate.$pristine">Enter a valid date</span>
+                        </div>
 
                         <label class="control-label" for="expireDate">Expire Date</label>
                         <input type="date" name="expireDate" id="expireDate"  class="form-control" ng-model="modelAdd.expireDate">
