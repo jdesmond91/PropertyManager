@@ -96,8 +96,11 @@
                             <span class="spanError" ng-show="formEdit.startDate.$invalid && !formEdit.startDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
                         </div>
                             <label class="control-label" for="expireDate">Expire Date</label>
-                            <input type="text" class="form-control" name="expireDate" id="editexpireDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelEdit.expireDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" ng-click="open2()" placeholder="mm/dd/yyyy" />
-                            <span class="spanError" ng-show="formEdit.expireDate.$invalid && !formEdit.expireDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
+                        <input style="float: left" type="text" class="form-control" name="expireDate" id="editexpireDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="modelEdit.expireDate" is-open="popup2.opened" close-text="Close" alt-input-formats="altInputFormats" placeholder="mm/dd/yyyy" />
+                        <span style="padding-left: 5px;" class="input-group-btn">
+                            <button style="height: 34px;" type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                        <span class="spanError" ng-show="formEdit.expireDate.$invalid && !formEdit.expireDate.$pristine">Enter a date in the format mm/dd/yyyy</span>
 
                             <label class="control-label" for="description">Description*</label>
                             <textarea id="description" name="description" ng-model="modelEdit.description" rows="6" cols="20" style="overflow:auto;resize:none" ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():% ]+$/" required></textarea>
