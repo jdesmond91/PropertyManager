@@ -140,18 +140,53 @@ namespace PropertyManager.Controllers
 
             if (ModelState.IsValid)
             {
+                var facility = m.FacilityGetById(editedItem.FacilityId);
+                if (facility != null)
+                {
+                    var facilityOpenHour = facility.OpenTime.Value.Hour;
+                    var facilityOpenMin = facility.OpenTime.Value.Minute;
+                    var facilityCloseHour = facility.CloseTime.Value.Hour;
+                    var facilityCloseMin = facility.CloseTime.Value.Minute;
+
+                    var startTimeHour = editedItem.StartTime.Value.Hour;
+                    var startTimeMin = editedItem.StartTime.Value.Minute;
+
+                    var endTimeHour = editedItem.EndTime.Value.Hour;
+                    var endTimeMin = editedItem.EndTime.Value.Minute;
+
+                    if (startTimeHour < facilityOpenHour || startTimeHour > facilityCloseHour)
+                    {
+                        return Content(HttpStatusCode.Conflict, "The facility is closed at this start time");
+                    }
+                    else if (startTimeHour == facilityOpenHour && startTimeMin < facilityOpenMin)
+                    {
+                        return Content(HttpStatusCode.Conflict, "The facility is closed at this start time");
+                    }
+                    else if (endTimeHour > facilityCloseHour)
+                    {
+                        return Content(HttpStatusCode.Conflict, "The facility is closed at this end time");
+                    }
+                    else if (endTimeHour == facilityCloseHour && endTimeMin > facilityCloseMin)
+                    {
+                        return Content(HttpStatusCode.Conflict, "The facility is closed at this end time");
+                    }
+                }
+
                 var booking = m.FacilityBookingGetByDateEdit(editedItem);
                 if (booking != null)
                 {
                     foreach (FacilityBookingBase book in booking)
                     {
-                        if (editedItem.StartTime >= book.StartTime && editedItem.StartTime <= book.EndTime)
+                        if (book.Id != editedItem.Id)
                         {
-                            return Content(HttpStatusCode.Conflict, "There's a booking at this time");
-                        }
-                        else if (editedItem.StartTime < book.StartTime && editedItem.EndTime >= book.StartTime)
-                        {
-                            return Content(HttpStatusCode.Conflict, "There's a booking at this time");
+                            if (editedItem.StartTime >= book.StartTime && editedItem.StartTime <= book.EndTime)
+                            {
+                                return Content(HttpStatusCode.Conflict, "There's a booking at this time");
+                            }
+                            else if (editedItem.StartTime < book.StartTime && editedItem.EndTime >= book.StartTime)
+                            {
+                                return Content(HttpStatusCode.Conflict, "There's a booking at this time");
+                            }
                         }
                     }
                 }

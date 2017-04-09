@@ -4,8 +4,6 @@ angular.module("common.services").factory("loginService", ["$http", "appSettings
 function loginService($http, appSettings) {
 
     this.register = function (userInfo) {
-        console.log("login service");
-        console.log(userInfo);
         var resp = $http({
             url: appSettings.serverPath + "/api/account/register",
             method: "POST",
@@ -15,7 +13,6 @@ function loginService($http, appSettings) {
     };
 
     this.login = function (userLogin) {
-        console.log(userLogin);
         var resp = $http({
             url: appSettings.serverPath + "/TOKEN",
             method: "POST",

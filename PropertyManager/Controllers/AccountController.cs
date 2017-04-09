@@ -163,7 +163,7 @@ namespace PropertyManager.Controllers
         [AllowAnonymous]
         [Route("userDelete/{email}/delete")]
         [HttpDelete]
-        public HttpResponseMessage UserDelete(string email)
+        public async Task<IHttpActionResult> UserDelete(string email)
         {
    
             ApplicationUser user = UserManager.FindByEmailAsync(email).Result;
@@ -177,8 +177,9 @@ namespace PropertyManager.Controllers
             {
                 try
                 {
-                    UserManager.DeleteAsync(user);
+                    await UserManager.DeleteAsync(user);
                     response.Headers.Add("DeleteUserMessage", "Delete user successful");
+                    ds.SaveChanges();
                 }
                 catch (Exception)
                 {
@@ -186,7 +187,7 @@ namespace PropertyManager.Controllers
                     response.Headers.Add("DeleteUserMessage", "Could not delete user");
                 }
             }
-            return response;
+            return Ok("Deleted");
         }
 
         // POST api/Account/SetPassword

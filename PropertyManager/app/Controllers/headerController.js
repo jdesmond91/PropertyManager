@@ -13,9 +13,6 @@ function headerController($scope, $location, userProfile) {
     $scope.firstName = user.firstName;
     $scope.userRole = user.userRole;
 
-    console.log($scope.isLoggedIn);
-    console.log($scope.userRole);
-
     $scope.logout = function () {
         sessionStorage.removeItem('accessToken');
         sessionStorage.removeItem('userName');

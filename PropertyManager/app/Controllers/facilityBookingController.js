@@ -222,9 +222,6 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
 
         if (add == true) {
 
-            $scope.modelEdit.startTime.setFullYear(2000, 1, 1);
-            $scope.modelEdit.endTime.setFullYear(2000, 1, 1);
-
             var bookedDateFiltered = null;
             var startTimeFiltered = null;
             var endDateFiltered = null;
