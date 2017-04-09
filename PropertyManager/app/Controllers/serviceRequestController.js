@@ -62,6 +62,7 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
         $scope.message = "";
         var add = false;
 
+        // VALIDATE DATE
         if ($scope.modelAdd.RequestDate != "" && $scope.modelAdd.RequestDate < $scope.today) {
             $scope.message = "Enter a date greater than today";
         }
@@ -127,6 +128,7 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
         $scope.showConfirmation = false;
     }
 
+    // ****** GET ALL 
     function getServiceRequest() {
         var allServiceRequests = serviceRequestService.getAllServiceRequest();
         allServiceRequests.then(function (response) {
@@ -185,6 +187,7 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
         $scope.message = "";
         var add = false;
 
+        //VALIDATE DATE
         if ($scope.modelEdit.RequestDate != "" && $scope.modelEdit.RequestDate  < $scope.today) {
             $scope.message = "Enter a date greater than today";
         }
@@ -196,8 +199,7 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
                 else {
                     add = true;
                 }
-            }
-            
+            }            
             else {
                 add = true;
             }
@@ -253,6 +255,7 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
         $location.path('/servicerequest');
     }
 
+    // GET SERVICES FOR DROPDOWN MENU
     function getAllServices() {
         var services = serviceService.getAllServiceForRequest();
         services.then(function (response) {
@@ -262,6 +265,7 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
         });
     }
 
+    //DATE PICKER
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
     $scope.format = $scope.formats[4];
     $scope.altInputFormats = ['M!/d!/yyyy'];
@@ -273,7 +277,6 @@ function serviceRequestController($scope, $filter, $location, $routeParams, serv
     $scope.popup2 = {
         opened: false
     };
-
 
     $scope.open1 = function () {
         $scope.popup1.opened = true;

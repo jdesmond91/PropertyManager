@@ -9,8 +9,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
     $scope.showEditConfirmation = false;
     $scope.editMonthlyRent = false;
 
-    console.log($routeParams.lease_id);
-
     var user = userProfile.getProfile();
     $scope.userName = user.username;
     $scope.userRole = user.userRole;
@@ -77,7 +75,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
         var startDateFiltered = null;
         var endDateFiltered = null;
        
-      
+        // VALIDATE DATE
        if ($scope.modelAdd.endDate != "" && $scope.modelAdd.endDate < $scope.modelAdd.startDate) {
            $scope.errorMessage = "Enter a date greater than or equal Start Date";
        }
@@ -85,7 +83,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             add = true;
        }              
     
-
     if(add == true){
 
         if ($scope.modelAdd.startDate != "") {
@@ -104,6 +101,9 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
             TenantId: $scope.modelAdd.tenantId
         };
 
+        // CHECKS IF TENANT EXISTS
+        //IF SUCCESSFULL, ADD LEASE FOR THAT TENANT
+        //IF NOT, RETURN ERROR MESSAGE
         var tenant = tenantService.getByEmailTenant($scope.modelAdd.tenantEmail);
         tenant.then(function (response) {
             $scope.modelAdd.tenantId = response.data.Id;
@@ -151,6 +151,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
         $scope.showConfirmation = false;
     }
 
+    // GET ALL
     function getLease() {
         var allLeases = leaseService.getAllLease();
         allLeases.then(function (response) {
@@ -184,6 +185,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
 
     } // close function
 
+    // GET LEASE INFORMATION OF SPECIFIC TENANT
     function getLeaseByEmail() {
         var leases = leaseService.getLeaseByTenantEmail($scope.userName);
         leases.then(function (response) {
@@ -199,16 +201,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
 
     // *********** EDIT SECTION ******************************************
 
-    var start = document.getElementById('editstartDate');
-    var enddate = document.getElementById('endDate');
-
-    if (start != null) {
-        start.addEventListener('change', function () {
-            if (start.value)
-                enddate.min = start.value;
-        }, false);
-    }
-
     $scope.editClick = function (id) {
         $location.path('/addlease/' + id);
     }
@@ -219,6 +211,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
         var startDateFiltered = null;
         var expireDateFiltered = null;
 
+        //VALIDATE DATE
         if ($scope.modelEdit.endDate != "" && $scope.modelEdit.endDate < $scope.modelEdit.startDate) {
             $scope.errorMessage = "Enter a date greater than or equal Start Date";
         }
@@ -273,6 +266,7 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
         $location.path('/lease');
     }
 
+    // DATE PICKER
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
     $scope.format = $scope.formats[4];
     $scope.altInputFormats = ['M!/d!/yyyy'];
@@ -284,7 +278,6 @@ function leaseController($scope, $filter, $location, $routeParams, leaseService,
     $scope.popup2 = {
         opened: false
     };
-
 
     $scope.open1 = function () {
         $scope.popup1.opened = true;

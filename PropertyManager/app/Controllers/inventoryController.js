@@ -43,6 +43,8 @@ function inventoryController($scope, $filter, $location, $routeParams, inventory
         $location.path('/addinventory');
     }
     
+
+    // ********* ADD SECTION
     $scope.addInventory = function () {
 
         var inventory = {
@@ -73,7 +75,7 @@ function inventoryController($scope, $filter, $location, $routeParams, inventory
         $scope.showConfirmation = false;
     }
 
-    //GET ALL
+    //*********** GET ALL
     function getInventory () {
         var allResults = inventoryService.getAllInventory();
         allResults.then(function (response) {
@@ -119,6 +121,7 @@ function inventoryController($scope, $filter, $location, $routeParams, inventory
             $scope.message = error.statusText;
         });
     } // close function
+
 
     //************** DELETE ************************
     $scope.delete = function (id) {

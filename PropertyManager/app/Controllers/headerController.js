@@ -9,10 +9,12 @@ function headerController($scope, $location, userProfile) {
 
     var user = userProfile.getProfile();
 
+    //GET USER ROLE FOR DISPLAYING MENU ITEMS
     $scope.isLoggedIn = user.isLoggedIn;
     $scope.firstName = user.firstName;
     $scope.userRole = user.userRole;
 
+    // LOGOUT - REMOVE SESSION STORAGE
     $scope.logout = function () {
         sessionStorage.removeItem('accessToken');
         sessionStorage.removeItem('userName');

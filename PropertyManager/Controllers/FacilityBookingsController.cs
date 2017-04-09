@@ -38,6 +38,10 @@ namespace PropertyManager.Controllers
             }
         }
 
+        // VALIDATES DATE AND TIME
+        // CHECKS TO SEE IF THERE'S A BOOKING ON THE SAME DAY
+        // IF IT FINDS ANOTHER BOOKING, CHECKS TO SEE IF THEIR TIMES OVERLAP
+        // ALSO CHECKS TO SEE IF FACILITY IS OPEN AT THE TIME OF THE REQUESTED BOOKING
         // POST: api/FacilityBookings
         [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Post([FromBody]FacilityBookingAdd newItem)
@@ -124,6 +128,10 @@ namespace PropertyManager.Controllers
             return Created(uri, addedItem);
         }
 
+        // VALIDATES DATE AND TIME
+        // CHECKS TO SEE IF THERE'S A BOOKING ON THE SAME DAY
+        // IF IT FINDS ANOTHER BOOKING, CHECKS TO SEE IF THEIR TIMES OVERLAP
+        // ALSO CHECKS TO SEE IF FACILITY IS OPEN AT THE TIME OF THE REQUESTED BOOKING
         // PUT: api/FacilityBookings/5
         [Authorize(Roles = "Administrator, Manager, Tenant")]
         public IHttpActionResult Put(int id, [FromBody]FacilityBookingEdit editedItem)

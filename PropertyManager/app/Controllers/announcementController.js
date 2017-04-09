@@ -155,17 +155,6 @@ function announcementController($scope, $filter, $location, $routeParams, announ
 
 
     // *********** EDIT SECTION ******************************************
-
-    var start = document.getElementById('editstartDate');
-    var enddate = document.getElementById('editexpireDate');
-
-    if (start != null) {
-        start.addEventListener('change', function () {
-            if (start.value)
-                enddate.min = start.value;
-        }, false);
-    }
-
     
 
     $scope.editClick = function (id) {
@@ -255,6 +244,7 @@ function announcementController($scope, $filter, $location, $routeParams, announ
         }
     }
 
+    // DATE PICKER
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
     $scope.format = $scope.formats[4];
     $scope.altInputFormats = ['M!/d!/yyyy'];

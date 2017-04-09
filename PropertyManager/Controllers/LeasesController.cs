@@ -75,6 +75,9 @@ namespace PropertyManager.Controllers
             }
         }
 
+        // CHECKS TO SEE IF APARTMENT EXISTS TO ASSOCIATE LEASE WITH
+        // ALSO CHECKS IF APARTMENT REQUESTED IS NOT ALREADY ASSOCIATED WITH ANOTHER LEASE
+        // SENDS ACTIVATION CODE TO TENANT FOR REGISTERING ON THE WEBSITE WHEN LEASE IS ADDED
         // POST: api/Leases
         [Authorize(Roles = "Administrator, Manager")]
         public async Task<IHttpActionResult> Post([FromBody]LeaseAdd newItem)
@@ -104,7 +107,7 @@ namespace PropertyManager.Controllers
 
             var uri = Url.Link("DefaultApi", new { id = addedItem.Id });
 
-            // ADD ACTIVATION CODE TO TENANT
+            // SEND ACTIVATION CODE TO TENANT
             var hashPassword = m.TenantAddCode(addedItem.TenantId);
 
             var tenant = m.TenantGetById(addedItem.TenantId);

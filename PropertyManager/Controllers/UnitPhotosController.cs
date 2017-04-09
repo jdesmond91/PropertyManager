@@ -44,6 +44,7 @@ namespace PropertyManager.Controllers
             }
         }    
 
+        // ADD IMAGE IN PROJECT FOLDER AND ASSOCIATE IT WITH A UNIT
         // POST: api/UnitPhotos
 
         [System.Web.Http.Route("addUnitPhoto")]
@@ -74,6 +75,7 @@ namespace PropertyManager.Controllers
             return this.Request.CreateResponse(HttpStatusCode.OK, new { returnData });
         }
 
+        // GET NAME AND PATH OF THE FILE
         private MultipartFormDataStreamProvider GetMultipartProvider()
         {
             var uploadFolder = "~/Album/FileUploads"; 
@@ -82,6 +84,7 @@ namespace PropertyManager.Controllers
             return new MultipartFormDataStreamProvider(root);
         }
 
+        // GET DATA FROM JSON OBJECT SENT WITH PICTURE
         private object GetFormData<T>(MultipartFormDataStreamProvider result)
         {
             if (result.FormData.HasKeys())
@@ -105,7 +108,9 @@ namespace PropertyManager.Controllers
             return fileData.Headers.ContentDisposition.FileName;
         }
 
-
+        // EDIT IMAGE
+        // FIND IMAGE TO BE EDITED, DELETE THIS IMAGE FROM FOLDER
+        // ADD NEW IMAGE AND UPDATE DATA SENT (ASSOCIATED UNIT AND IMAGE PATH)
         // PUT: api/UnitPhotos/5
         [System.Web.Http.Route("editUnitPhoto")]
         public async Task<HttpResponseMessage> PostEdit()

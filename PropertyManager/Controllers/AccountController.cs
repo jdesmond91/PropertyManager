@@ -150,6 +150,7 @@ namespace PropertyManager.Controllers
             return Mapper.Map<IEnumerable<UserBase>>(UserManager.Users);
         }
 
+        // FIND USER BY EMAIL
         [AllowAnonymous]
         [Route("userGetByEmail/{email}/find")]
         public UserBase getByEmail(string email)
@@ -160,6 +161,7 @@ namespace PropertyManager.Controllers
 
         }
 
+        // DELETE USER
         [AllowAnonymous]
         [Route("userDelete/{email}/delete")]
         [HttpDelete]
@@ -190,6 +192,7 @@ namespace PropertyManager.Controllers
             return Ok("Deleted");
         }
 
+        // RE SET USER PASSOWRD
         // POST api/Account/SetPassword
         [AllowAnonymous]
         [Route("SetPassword")]
@@ -200,8 +203,6 @@ namespace PropertyManager.Controllers
                 return BadRequest(ModelState);
             }
 
-            //var tenant = ds.Tenants.SingleOrDefault(a => a.BirthDate == model.BirthDate && a.Email == model.Email && a.LastName == model.Surname);
-
             IdentityUser user = UserManager.FindByEmailAsync(model.Email).Result;          
 
             if (user == null)
@@ -210,25 +211,6 @@ namespace PropertyManager.Controllers
             }
 
             IdentityResult passwordChangeResult = null ;
-
-            //foreach (IdentityUserClaim claim in user.Claims)
-            //{
-            //    if (claim.ClaimValue == "Tenant")
-            //    {
-            //        if (tenant != null && tenant.Email == user.Email)
-            //        {
-            //            string resetToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-            //            passwordChangeResult = await UserManager.ResetPasswordAsync(user.Id, resetToken, model.NewPassword);
-            //        }
-            //    }
-            //    else if(claim.ClaimValue == "Manager")
-            //    {
-            //        string resetToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-            //        passwordChangeResult = await UserManager.ResetPasswordAsync(user.Id, resetToken, model.NewPassword);
-            //    }
-            //}          
-
-            //IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
 
             string resetToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
             passwordChangeResult = await UserManager.ResetPasswordAsync(user.Id, resetToken, model.NewPassword);
@@ -241,6 +223,7 @@ namespace PropertyManager.Controllers
             return Ok();
         }
 
+        // SEND TEMPORARY PASSWORD TO USER'S EMAIL IF USER FORGOT PASSWORD
         // POST api/Account/ForgetPassword
         [AllowAnonymous]
         [Route("ForgetPassword")]
@@ -442,6 +425,9 @@ namespace PropertyManager.Controllers
             return logins;
         }
 
+        // REGISTER USER
+        // CHECK TO SEE IF USER REGISTERED IS TENANT - THEN SEND ACTIVATION CODE AND SET TENANT ROLE
+        // IF USER REGISTERED IS MANAGER - SEND TEMPORARY PASSWORD AND SET MANAGER ROLE
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
@@ -453,18 +439,11 @@ namespace PropertyManager.Controllers
                 return BadRequest(ModelState);
             }
 
-            // var tenant = ds.Tenants.SingleOrDefault(a => a.BirthDate == model.BirthDate && a.Email == model.Email && a.LastName == model.Surname);
-
             var tenant = ds.Tenants.SingleOrDefault(a => a.Email == model.Email);
 
 
             if (tenant != null)
-            {
-                //var lease = ds.Leases.Include("Tenant").Include("Apartment").FirstOrDefault(j => j.Tenant.Id == tenant.Id && j.Apartment.ApartmentNumber == model.ApartmentNumber);
-                //if (tenant == null || lease == null)
-                //{
-                //    return Content(HttpStatusCode.NotFound, "User not found");
-                //}
+            {                
                 if(tenant.ActivationCode != model.ActivationCode)
                 {
                     return Content(HttpStatusCode.NotFound, "Wrong activation code");
@@ -503,13 +482,7 @@ namespace PropertyManager.Controllers
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
-            }
-
-            // var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);        
-
-            // var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code }));
-            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                      
+            }    
 
             await UserManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, model.Role));
 
@@ -524,6 +497,8 @@ namespace PropertyManager.Controllers
 
             return Ok(userMapped);
         }
+
+
         [AllowAnonymous]
         [HttpGet]
         [Route("ConfirmEmail", Name = "ConfirmEmailRoute")]

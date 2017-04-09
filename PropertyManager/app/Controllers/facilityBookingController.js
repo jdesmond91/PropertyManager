@@ -67,19 +67,20 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         $location.path('/addbookfacility');
     }
    
-
     $scope.SelectedEvent = null;
     var isFirstTime = true;
-
     $scope.events = [];
     $scope.eventSources = [$scope.events];
 
+
+    // ADD SECTION
 
     $scope.addFacilityBooking = function () {
 
         $scope.message = "";
         var add = false;
 
+        // VALIDATE BOOKING DATE
         if ($scope.modelAdd.bookedDate < $scope.today) {
             $scope.message = "Enter a date greater than today";
         }
@@ -91,8 +92,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
                 add = true;
             }
         }
-
-                 
+                
         if (add == true) {
 
             var bookedDateFiltered = null;
@@ -134,6 +134,8 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         
     } // close function
 
+    // GET SECTION
+
     function getFacilityBooking() {
         var allFacilityBookings = facilityBookingService.getAllFacilityBooking();
         allFacilityBookings.then(function (response) {
@@ -152,9 +154,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
             $scope.message = error.statusText;
         })
 
-   } // close function
-
-    
+   } // close function   
 
     $scope.addAnother = function () {
         $scope.modelAdd = {
@@ -208,6 +208,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         $scope.message = "";
         var add = false;
 
+        // VALIDATE DATE
         if ($scope.modelEdit.bookedDate < $scope.today) {
             $scope.message = "Enter a date greater than today";
         }
@@ -258,6 +259,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         
     } // close function
 
+    // GET FACILITIES FOR DROPDOWN MENU
     function getAllFacilities() {
         var facility = facilityService.getAllFacility();
         facility.then(function (response) {
@@ -267,6 +269,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         })
     }
 
+    // GET USER ID TO ASSOCIATE BOOKING WITH USER
     function getUserId() {
         var user = tenantService.getByEmailTenant($scope.userName);
         user.then(function (response) {
@@ -296,7 +299,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         $location.path('/bookfacility');
     }
 
-    // Calendar ************************************************************
+    // CALENDAR ************************************************************
 
     $scope.uiConfig = {
         calendar: {
@@ -321,6 +324,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         }
     };
 
+    //FILTER TO DISPLAY ONLY NON-EXPIRED BOOKINGS
     $scope.greaterThan = function (item) {
         return function (item) {
             var bookdate = new Date(item.BookedDate.replace('T', ' ').replace('-', '/'));
@@ -328,20 +332,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         }
     }
 
-    /*$scope.greaterThan = function (items) {
-        var filtered = [];
-        var today2 = new Date();
-        console.log(today2);
-        angular.forEach(items, function (item) {
-            console.log(item);
-            if (item.BookedDate <= today2) {
-                filtered.push(item);
-            }
-        });
-        console.log(filtered);
-        return filtered;
-    }*/
-
+    // DATE AND TIME PICKER
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
     $scope.format = $scope.formats[4];
     $scope.altInputFormats = ['M!/d!/yyyy'];

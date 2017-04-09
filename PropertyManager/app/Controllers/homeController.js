@@ -14,12 +14,12 @@ function homeController($scope, uiCalendarConfig, facilityBookingService, servic
 
     $scope.SelectedEvent = null;
     var isFirstTime = true;
-
     $scope.events = [];
     $scope.eventSources = [$scope.events];
 
     getFacilityBooking();
 
+    // GETS DATA FROM FACILITY BOOKING, WORK ORDER AND SERVICE REQUESTS TO DISPLAY IN THE CALENDAR
     function getFacilityBooking() {
         var allFacilityBookings = facilityBookingService.getAllFacilityBooking();
         allFacilityBookings.then(function (response) {
@@ -77,10 +77,10 @@ function homeController($scope, uiCalendarConfig, facilityBookingService, servic
                 $scope.message = error.statusText;
             })
         })
-
     } // close function
 
 
+    // CALENDAR CONFIGURATION
     $scope.uiConfig = {
         calendar: {
             height: 450,
@@ -96,7 +96,6 @@ function homeController($scope, uiCalendarConfig, facilityBookingService, servic
             },
             eventAfterAllRender: function () {
                 if ($scope.events.length > 0 && isFirstTime) {
-                    //Focus first event
                     uiCalendarConfig.calendars.myCalendar.fullCalendar('gotoDate', $scope.events[0].start);
                     isFirstTime = false;
                 }

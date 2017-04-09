@@ -56,8 +56,11 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
         $location.path('/addoccupant');
     }
 
+    // CHECK FOR ASSOCIATED TENANT
+    // CHECK FOR ASSOCIATED APARTMENT
+    // IF BOTH TRUE, ADD OCCUPANT
+    // IF NOT, RETURN ERROR MESSAGE
     $scope.addOccupant = function () {       
-
         var findTenant = tenantService.getByEmailTenant($scope.modelAdd.tenantEmail);
         findTenant.then(function (response) {
             $scope.modelAdd.tenantId = response.data.Id; 
@@ -83,6 +86,7 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
 
     } // close function
 
+    // ADD OCUPANT IF TENANT AND APARTMENT EXIST
     function addOccupantTrue() {
         var birthDateFiltered = null;
 
@@ -192,6 +196,7 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
         });
     } // close function
 
+
     //************** DELETE ************************
     $scope.delete = function (id) {
         $scope.errorMessage = "";
@@ -212,6 +217,7 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
         $location.path('/occupant');
     }
 
+    // DATE PICKER
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
     $scope.format = $scope.formats[4];
     $scope.altInputFormats = ['M!/d!/yyyy'];
@@ -219,7 +225,6 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
     $scope.popup1 = {
         opened: false
     };
-
 
     $scope.open1 = function () {
         $scope.popup1.opened = true;

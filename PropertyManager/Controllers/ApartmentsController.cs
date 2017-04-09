@@ -38,6 +38,8 @@ namespace PropertyManager.Controllers
             }
         }
 
+        // ADD APARTMENT
+        // CHECKS TO SEE IF APARTMENT IS ALREADY ASSOCIATED WITH A LEASE
         // POST: api/Apartments
         [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Post([FromBody]ApartmentAdd newItem)
@@ -100,6 +102,8 @@ namespace PropertyManager.Controllers
             }
         }
 
+        // CHECK TO SEE IF THERE'S A LEASE ASSOCIATED WITH THE APARTMENT
+        // DOESN'T DELETE IF IT FINDS A LEASE ASSOCIATED - RETURN ADVICE TO MANAGER
         // DELETE: api/Apartments/5
         [Authorize(Roles = "Administrator, Manager")]
         public IHttpActionResult Delete(int id)

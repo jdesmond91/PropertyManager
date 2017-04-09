@@ -186,6 +186,7 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
         $location.path('/tenant');
     }
 
+    //DATE PICKER
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
     $scope.format = $scope.formats[4];
     $scope.altInputFormats = ['M!/d!/yyyy'];
@@ -193,7 +194,6 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
     $scope.popup1 = {
         opened: false
     };
-
 
     $scope.open1 = function () {
         $scope.popup1.opened = true;

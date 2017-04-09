@@ -38,7 +38,7 @@ function workOrderManagerController($scope, $filter, $location, $routeParams, wo
     today.setHours(0, 0, 0, 0);
     $scope.today = today;
 
-
+    // GET ALL WORK ORDERS FROM ALL TENANT FOR MANAGEMENT VIEW
     function getWorkOrder() {
         $scope.workOrders = [];
         var allRequests = workOrderService.getAllWorkOrder();
@@ -55,6 +55,7 @@ function workOrderManagerController($scope, $filter, $location, $routeParams, wo
 
     }; // close function
 
+    // GET SPECIFIC WORK ORDER FOR EDITING
     function getWorkOrderById(id) {
         var RequestById = workOrderService.getByIdWorkOrder(id);
         RequestById.then(function (response) {
@@ -81,6 +82,7 @@ function workOrderManagerController($scope, $filter, $location, $routeParams, wo
         $location.path('/editworkorderrequest/' + id);
     }
 
+    // EDIT COMPLETION DATE
     $scope.editWorkOrder = function () {
 
         $scope.message = "";
@@ -133,6 +135,7 @@ function workOrderManagerController($scope, $filter, $location, $routeParams, wo
         $location.path('/workorderrequestmanager');
     }
 
+    // DATE PICKER
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
     $scope.format = $scope.formats[4];
     $scope.altInputFormats = ['M!/d!/yyyy'];

@@ -83,6 +83,8 @@ function serviceController($scope, $filter, $location, $routeParams, serviceServ
         $scope.showConfirmation = false;
     }
 
+    // ****** GET ALL
+
     function getService () {
         var allResults = serviceService.getAllService();
         allResults.then(function (response) {

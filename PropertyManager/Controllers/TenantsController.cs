@@ -77,7 +77,7 @@ namespace PropertyManager.Controllers
             return Created(uri, addedItem);
         }
 
-        
+        // RE SEND ACTIVATIN CODE TO TENANT BY EMAIL
         [Route("api/tenants/{email}/sendActivation")]
         [HttpPost]
         public async Task<IHttpActionResult> sendEmail(string email)

@@ -18,6 +18,7 @@ namespace PropertyManager.Controllers
     {
         private ApplicationDbContext ds = new ApplicationDbContext();
 
+        // FIND USER BY EMAIL
         public UserBase getByEmail(string email)
         {           
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -28,6 +29,8 @@ namespace PropertyManager.Controllers
 
         }
 
+        // GENERATES RANDOM PASSWORD FOR MANAGER REGISTRATION
+        // GENERATES RANDOM ACTIVATION CODE FOR TENANT REGISTRATION
         public string GeneratePassword()
         {
             string PasswordLength = "6";
@@ -907,6 +910,7 @@ namespace PropertyManager.Controllers
             return tenants;
         }
 
+        // GET ALL TENANTS NOT ASSOCIATED WITH LEASE
         public IEnumerable<TenantBase> TenantGetAllNotLease()
         {
             var leases = ds.Leases.OrderBy(a => a.Id);
@@ -930,6 +934,7 @@ namespace PropertyManager.Controllers
             return (c == null) ? null : newTenant;
         }
 
+        // ADD ACTIVATION CODE FOR TENANT REGISTRATION
         public string TenantAddCode(int id)
         {
             var c = ds.Tenants.SingleOrDefault(a => a.Id == id);

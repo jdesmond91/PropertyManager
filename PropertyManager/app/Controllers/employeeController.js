@@ -218,6 +218,7 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
         $location.path('/employee');
     }
 
+    // DATE PICKER
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
     $scope.format = $scope.formats[4];
     $scope.altInputFormats = ['M!/d!/yyyy'];
@@ -225,7 +226,6 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
     $scope.popup1 = {
         opened: false
     };
-
 
     $scope.open1 = function () {
         $scope.popup1.opened = true;

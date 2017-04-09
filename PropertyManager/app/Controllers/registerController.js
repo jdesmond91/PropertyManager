@@ -21,6 +21,7 @@ function registerController($scope, $location, $filter, loginService, userProfil
     var userProf = userProfile.getProfile();
     $scope.userRole = userProf.userRole;
 
+    // TENANT REGISTRATION
     $scope.registerUser = function () {
         $scope.message = "";
         $scope.errorMessage = "";
@@ -53,6 +54,7 @@ function registerController($scope, $location, $filter, loginService, userProfil
         });
     };
 
+    // MANAGER REGISTRATION
     $scope.registerManager = function () {
         $scope.message = "";
         $scope.errorMessage = "";
@@ -60,8 +62,6 @@ function registerController($scope, $location, $filter, loginService, userProfil
 
         var userInfo = {
             Email: $scope.userEmail,
-            //Password: $scope.userPassword,
-            //ConfirmPassword: $scope.userPassword,
             GivenName: $scope.userFirstName,
             Surname: $scope.userLastName,
             Role: "Manager",
@@ -82,6 +82,7 @@ function registerController($scope, $location, $filter, loginService, userProfil
         });
     };
 
+    // RESEND ACTIVATION CODE TO TENANT EMAIL
     $scope.sendCode = function () {
         $scope.message = "";
         $scope.errorMessage = "";
@@ -100,6 +101,7 @@ function registerController($scope, $location, $filter, loginService, userProfil
         });
     }
 
+    // DATE PICKER
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'MM/dd/yyyy'];
     $scope.format = $scope.formats[4];
     $scope.altInputFormats = ['M!/d!/yyyy'];
@@ -111,7 +113,6 @@ function registerController($scope, $location, $filter, loginService, userProfil
     $scope.popup2 = {
         opened: false
     };
-
 
     $scope.open1 = function () {
         $scope.popup1.opened = true;

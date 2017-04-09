@@ -71,31 +71,8 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
     $scope.addOneClick = function () {
         $location.path('/addunit');
     }
-
-    //$scope.addUnit = function () {      
-
-    //    var unit = {
-    //        Bedrooms: $scope.modelAdd.bedrooms,
-    //        Bathrooms: $scope.modelAdd.bathrooms,
-    //        SquareFeet: $scope.modelAdd.squareFt,
-    //        MaxOccupants: $scope.modelAdd.maxOccupants,
-    //        Balcony: $scope.modelAdd.balcony,
-    //        Dishwasher: $scope.modelAdd.dishwasher,
-    //        Laundry: $scope.modelAdd.laundry
-    //    };
-
-    //    var addResults = unitService.addUnit(unit);
-    //    addResults.then(function (response) {
-    //        console.log(response.data);
-    //        $scope.modelAdd.unitId = response.data.Id;
-    //        $scope.showConfirmation = true;
-    //        $scope.message = "Unit Added"
-    //    }, function (error) {
-    //        $scope.message = error.statusText + " " + error.status;
-    //    });
-
-    //} // close function
-
+    
+    // ADD UNIT AND THEN ADD PICTURE IF USER ATTACHED A IMAGE
     $scope.addUnit = function () {
 
         var unit = {
@@ -185,8 +162,6 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
                 $scope.modelEdit.UnitPhotoId = response.data.UnitPhotos[0].Id;
                 $scope.photomodelEdit.PathName = response.data.UnitPhotos[0].PathName;
             }
-            
-
         }, function (error) {
             $scope.message = error.statusText;
         })
@@ -201,6 +176,7 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
 
     $scope.editUnit = function () {
 
+        // EDIT UNIT AND EDIT PICTURE IF USER CHOSE SO
         var unit = {
             Id: $scope.editId,
             Bedrooms: $scope.modelEdit.bedrooms,
@@ -244,31 +220,7 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
         }, function (error) {
             $scope.message = error.statusText + " " + error.status;
         });
-    }
-
-    /*$scope.editUnit = function () {
-
-        var unit = {
-            Id: $scope.editId,
-            Bedrooms: $scope.modelEdit.bedrooms,
-            Bathrooms: $scope.modelEdit.bathrooms,
-            SquareFeet: $scope.modelEdit.squareFt,
-            MaxOccupants: $scope.modelEdit.maxOccupants,
-            Balcony: $scope.modelEdit.balcony,
-            Dishwasher: $scope.modelEdit.dishwasher,
-            Laundry: $scope.modelEdit.laundry
-        };
-
-        var editResults = unitService.editUnit(unit, unit.Id);
-        editResults.then(function (response) {
-            console.log("edit");
-            console.log(response);
-            $scope.message = "Edit successful";
-            $scope.showEditConfirmation = true;
-        }, function (error) {
-            $scope.message = error.statusText;
-        });
-    } // close function*/
+    }  
 
     $scope.sorterFunc = function (unit) {
         return parseInt(unit.Bedrooms);
@@ -294,14 +246,16 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
     }
 
     // *************************************************** UNIT PHOTO *****************************************************
+
+    // CHECK TO SEE IF USER ATTACHED IMAGE
     $scope.$on("seletedFile", function (event, args) {
         $scope.$apply(function () {
-            //add the file object to the scope's files collection  
             //$scope.files.push(args.file);
             $scope.file = args.file;
         });
     });
 
+    // ADD IMAGE WHEN USER IS IN EDIT UNIT MODE
     function addUnitPhotoInEdit() {
         $scope.photomodel.UnitId = $scope.modelEdit.unitId;
         $scope.photomodel.Description = "";
@@ -314,6 +268,7 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
         });
     };
 
+    // GET UNIT PHOTO BY ID
     function getUnitPhotoById (id) {
         var resultById = unitphotoService.getByIdUnitPhoto(id);
         resultById.then(function (response) {
@@ -325,6 +280,7 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
         })
     } // close function
 
+    // DELETE IMAGE
     $scope.deletePicture = function (unitPhotoId) {
         var deleteOne = unitphotoService.deleteUnitPhoto(unitPhotoId);
         deleteOne.then(function (response) {
@@ -340,6 +296,7 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
         });
     }
 
+    // OPEN IMAGE IN ORIGINAL SIZE
     $scope.openPic = function (pathName) {
         window.open(pathName);
     }

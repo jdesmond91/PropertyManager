@@ -26,6 +26,7 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         $location.path('/register');
     };
 
+    // LOGIN AND GET USER INFO
     $scope.login = function () {
         $scope.dataLoading = true;
         var userLogin = {
@@ -65,18 +66,15 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         $scope.passForget = true;
     }
 
+    // PASSWORD RESET
     $scope.resetPasword = function () {
         $scope.message = "";
-
-        //var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
         var user = userProfile.getProfile();
 
         var userInfo = {
             NewPassword: $scope.userResetPassword,
             ConfirmPassword: $scope.userResetPassword,
-            //Surname: $scope.userLastName,
             Email: user.username,
-           // BirthDate: birthDateFiltered
         };
         var resetResult = loginService.resetPassword(userInfo);
         resetResult.then(function (data) {
@@ -93,7 +91,7 @@ function loginController($scope, $location, $filter, loginService, userProfile) 
         $scope.passForget = false;
     }
 
-
+    // PASSWORD FORGET - SEND TEMPORARY PASSWORD BY EMAIL
     $scope.forgetPasword = function () {
         $scope.errorMessage = "";
         $scope.message = "";

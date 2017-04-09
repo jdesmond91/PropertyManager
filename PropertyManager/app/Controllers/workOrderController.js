@@ -42,7 +42,10 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
     $scope.sortReverse = false;
     $scope.searchWorkOrder = "";
     
-   
+    //GET TENANT ID TO ASSOCIATE WITH WORK ORDER REQUEST. 
+    //IF USER IS IN EDIT MODE, GET SPECIFIC WORK ORDER.
+    //IF USER IS NOT IN EDIT, GET ALL WORK ORDERS ASSOCIATED WITH THE TENANT LOGGEG IN
+
     function getUserId() {
         var user = tenantService.getByEmailTenant($scope.userName);
         user.then(function (response) {
@@ -64,6 +67,7 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
            })
     }     
 
+    // GET ALL WORK ORDERS FROM LOGGED IN TENANT
     function getAllTenantOrders(id) {
         $scope.workOrders = [];
         var tenantOrder = workOrderService.getByTenantIdWorkOrder(id);
@@ -82,10 +86,10 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
 
     $scope.addWorkOrder = function () {
 
-
         var requestDateFiltered = null;
         var completionDateFiltered = null;
 
+        //VALIDATE DATE
         if ($scope.modelAdd.requestDate != "") {
             requestDateFiltered = $filter('date')($scope.modelAdd.requestDate, "yyyy-MM-dd");
         }
@@ -126,6 +130,7 @@ function workOrderController($scope, $filter, $location, $routeParams, workOrder
         $scope.showConfirmation = false;
     }
 
+    // ************* GET BY ID
     function getWorkOrderById (id) {
         var RequestById = workOrderService.getByIdWorkOrder(id);
         RequestById.then(function (response) {

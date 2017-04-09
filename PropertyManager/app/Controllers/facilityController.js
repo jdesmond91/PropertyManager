@@ -48,6 +48,7 @@ function facilityController($scope, $filter, $location, $routeParams, facilitySe
         $location.path('/addfacility');
     }
 
+    // ********** ADD SECTION
     $scope.addFacility = function () {
 
         var openTimeFiltered = null;
@@ -80,6 +81,7 @@ function facilityController($scope, $filter, $location, $routeParams, facilitySe
 
     } // close function
 
+    // **************** GET ALL
     function getFacility() {
         var allResults = facilityService.getAllFacility();
         allResults.then(function (response) {
@@ -180,6 +182,7 @@ function facilityController($scope, $filter, $location, $routeParams, facilitySe
         $location.path('/facility');
     }
    
+    //TIME PICKER
     $scope.hstep = 1;
     $scope.mstep = 1;
 

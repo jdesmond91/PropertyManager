@@ -18,7 +18,6 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
     $scope.showEditConfirmation = false;
     $scope.occupied = "";
     $scope.vaccant = "";
-
     $scope.colors = ["rgb(255,215,0)", "rgb(51,122,183)"];
 
     if ($routeParams.apartment_id) {
@@ -51,6 +50,8 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
     $scope.addOneClick = function () {
         $location.path('/addapartment');
     }
+
+    // ******************************** ADD SECTION
 
     $scope.addApartment = function () {    
         $scope.errorMessage = "";
@@ -169,6 +170,7 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
         $location.path('/apartment');
     }
 
+    // GET UNITS FOR DROPDOWN MENU
     function getUnits() {
         var allResults = unitService.getAllUnit();
         allResults.then(function (response) {
@@ -178,11 +180,8 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
         })
     }
 
+    // DOUGHNUT CHART
     $scope.options = {
-       /* title: {
-            display: true,
-            text: 'Apartments'
-        },*/
         maintainAspectRatio: false,
         legend: {
             display: false,
@@ -194,7 +193,6 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
         tooltip: {
             position: 'nearest'
         }
-
     };
     
 

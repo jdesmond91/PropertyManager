@@ -12,10 +12,9 @@ function userController($scope, $filter, $location, $routeParams, userService, u
     $scope.searchUser = "";
     $scope.showConfirmation = false;
 
-    //******************************************************************************************//
     getUserAll();
 
-    //GET ALL
+    //*************** GET ALL
     function getUserAll() {
         $scope.errorMessage = "";
         var allUsers = userService.getAllUser();
