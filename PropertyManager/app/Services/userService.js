@@ -1,4 +1,4 @@
-﻿//Made by Amanda Marques
+﻿//Made by Jonathan Desmond
 
 angular.module("common.services").factory("userService", ["$http", "$q", "appSettings", userService]);
 function userService($http, $q, appSettings) {

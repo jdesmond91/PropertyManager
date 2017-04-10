@@ -1,4 +1,4 @@
-﻿//Made by Jonathan Desmond
+﻿//Made by Amanda Marques
 
 angular.module("propertyManagerApp").controller("inventoryController", ["$scope", "$filter", '$location', "$routeParams", "inventoryService", "userProfile", inventoryController]);
 
