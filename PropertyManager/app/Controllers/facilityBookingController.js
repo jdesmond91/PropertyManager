@@ -316,7 +316,6 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
             },
             eventAfterAllRender: function () {
                 if ($scope.events.length > 0 && isFirstTime) {
-                    //Focus first event
                     uiCalendarConfig.calendars.myCalendar.fullCalendar('gotoDate', $scope.events[0].start);
                     isFirstTime = false;
                 }
