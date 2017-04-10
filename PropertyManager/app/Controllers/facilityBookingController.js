@@ -139,7 +139,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
     function getFacilityBooking() {
         var allFacilityBookings = facilityBookingService.getAllFacilityBooking();
         allFacilityBookings.then(function (response) {
-            $scope.facilityBookings = response.data;        
+            $scope.facilityBookings = response.data;
             $scope.events.slice(0, $scope.events.length);
             angular.forEach($scope.facilityBookings, function (value) {        
                 $scope.events.push({
