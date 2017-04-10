@@ -86,6 +86,7 @@
                             </div>
                             <div class="detailRight">
                                 <button type="submit" class="btn btn-primary" style="float: right;" ng-click="editClick(workOrder.Id)">Edit</button>
+                                <button type="submit" class="btn btn-primary cancelAddButton" style="float: right; margin-top: 10px;" ng-show="userRole=='Administrator'" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="delete(workOrder.Id)">Delete</button>
                             </div>
                         </div>
                     </td>

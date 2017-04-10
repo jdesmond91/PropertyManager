@@ -17,6 +17,9 @@ function workOrderManagerController($scope, $filter, $location, $routeParams, wo
         getWorkOrder();
     }
 
+    var user = userProfile.getProfile();
+    $scope.userRole = user.userRole;
+
     $scope.modelEdit = {
         workOrderId: "",
         description: "",
@@ -125,6 +128,17 @@ function workOrderManagerController($scope, $filter, $location, $routeParams, wo
         
     } // close function
 
+    // ********* DELETE 
+
+    $scope.delete = function (id) {
+        var deleteOne = workOrderService.deleteWorkOrder(id);
+        deleteOne.then(function (response) {
+            $scope.message = "Delete successfull";
+            getWorkOrder();
+        }, function (error) {
+            $scope.message = error.statusText;
+        });
+    }
    
 
     $scope.cancelAdd = function () {

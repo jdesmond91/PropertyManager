@@ -267,6 +267,10 @@
     <Compile Include="Migrations\201704101650210_UserAccount.Designer.cs">
       <DependentUpon>201704101650210_UserAccount.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704101715236_userAccountManager.cs" />
+    <Compile Include="Migrations\201704101715236_userAccountManager.Designer.cs">
+      <DependentUpon>201704101715236_userAccountManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -477,6 +481,8 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="ClassDiagram1.cd" />
+    <None Include="Properties\PublishProfiles\propertycloud1 - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\propertycloud1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1260,6 +1266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704101650210_UserAccount.resx">
       <DependentUpon>201704101650210_UserAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704101715236_userAccountManager.resx">
+      <DependentUpon>201704101715236_userAccountManager.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

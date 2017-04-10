@@ -34,6 +34,7 @@ namespace PropertyManager.Migrations
             //    );
             //
 
+
             if (!(context.Users.Any(u => u.UserName == "propertycloudmanager@gmail.com")))
             {
                 var userStore = new UserStore<ApplicationUser>(context);
