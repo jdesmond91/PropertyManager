@@ -28,7 +28,7 @@ namespace PropertyManager
 
             //INTIALIZE DB HERE
             // Initialize user accounts for the app
-            //DataBaseInitializer.LoadUserAccounts();
+            // DataBaseInitializer.LoadUserAccounts();
             //DataBaseInitializer.LoadSampleData();
 
             // Enable the application to use a cookie to store information for the signed in user

@@ -21,8 +21,8 @@ namespace PropertyManager.Models
             {
                 var user = new ApplicationUser
                 {
-                    UserName = "propertycloudmanager@gmail.com",
-                    Email = "propertycloudmanager@gmail.com",
+                    UserName = "propertycloudadm@gmail.com",
+                    Email = "propertycloudadm@gmail.com",
                     GivenName = "Administrator",
                     Surname = "Adm",
                     Role = "Administrator"
@@ -36,8 +36,8 @@ namespace PropertyManager.Models
 
                 var manager = new ApplicationUser
                 {
-                    UserName = "amarquesdacruz@myseneca.ca",
-                    Email = "amarquesdacruz@myseneca.ca",
+                    UserName = "propertycloudmanager@gmail.com",
+                    Email = "propertycloudmanager@gmail.com",
                     GivenName = "Amanda",
                     Surname = "Cruz",
                     Role = "Manager"

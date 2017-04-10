@@ -42,22 +42,6 @@ namespace PropertyManager.Migrations
                 {
                     UserName = "propertycloudmanager@gmail.com",
                     Email = "propertycloudmanager@gmail.com",
-                    GivenName = "Administrator",
-                    Surname = "Adm",
-                    Role = "Administrator"
-                };
-                userManager.Create(userToInsert, "PropertyApp123");
-                userManager.AddClaim(userToInsert.Id, new Claim(ClaimTypes.Role, "Administrator"));
-            }
-
-            if (!(context.Users.Any(u => u.UserName == "amarquesdacruz@myseneca.ca")))
-            {
-                var userStore = new UserStore<ApplicationUser>(context);
-                var userManager = new UserManager<ApplicationUser>(userStore);
-                var userToInsert = new ApplicationUser
-                {
-                    UserName = "amarquesdacruz@myseneca.ca",
-                    Email = "amarquesdacruz@myseneca.ca",
                     GivenName = "Amanda",
                     Surname = "Cruz",
                     Role = "Manager"
@@ -65,6 +49,23 @@ namespace PropertyManager.Migrations
                 userManager.Create(userToInsert, "PropertyApp123");
                 userManager.AddClaim(userToInsert.Id, new Claim(ClaimTypes.Role, "Manager"));
             }
+
+            if (!(context.Users.Any(u => u.UserName == "propertycloudadm@gmail.com")))
+            {
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                var userToInsert = new ApplicationUser
+                {
+                    UserName = "propertycloudadm@gmail.com",
+                    Email = "propertycloudadm@gmail.com",
+                    GivenName = "Administrator",
+                    Surname = "Adm",
+                    Role = "Administrator"
+                };
+                userManager.Create(userToInsert, "PropertyApp123");
+                userManager.AddClaim(userToInsert.Id, new Claim(ClaimTypes.Role, "Administrator"));
+            }
+           
 
             if (!(context.Users.Any(u => u.UserName == "amanda.mc4@hotmail.com")))
             {

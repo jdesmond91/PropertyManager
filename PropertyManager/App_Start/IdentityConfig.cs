@@ -54,7 +54,7 @@ namespace PropertyManager
             // Plug in your email service here to send an email.
             SmtpClient client = new SmtpClient();
 
-            MailMessage message2 = new MailMessage("propertycloudmanager@gmail.com", message.Destination, message.Subject, message.Body);
+            MailMessage message2 = new MailMessage("propertycloudadm@gmail.com", message.Destination, message.Subject, message.Body);
             message2.IsBodyHtml = true;
 
             //return client.SendMailAsync("propertycloudmanager@gmail.com",
