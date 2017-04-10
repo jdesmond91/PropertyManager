@@ -445,7 +445,7 @@ td.text-right {
 .form-style-5 input[type="search"],
 .form-style-5 input[type="url"],
 .form-style-5 select {
-    width: 30%;
+    /*width: 30%;*/
  }
 
 .form-style-5 input[type="date"],

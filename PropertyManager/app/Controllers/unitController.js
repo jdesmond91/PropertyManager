@@ -156,7 +156,7 @@ function unitController($scope, $filter, $location, $routeParams, unitService, u
             $scope.modelEdit.balcony = response.data.Balcony;
             $scope.modelEdit.dishwasher = response.data.Dishwasher;
             $scope.modelEdit.laundry = response.data.Laundry;
-            $scope.selecteds = "true";
+
             if (response.data.UnitPhotos.length > 0) {
                 $scope.modelEdit.PathName = response.data.UnitPhotos[0].PathName;
                 $scope.modelEdit.UnitPhotoId = response.data.UnitPhotos[0].Id;
