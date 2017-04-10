@@ -1,4 +1,4 @@
-﻿//Made by Jonathan Desmond
+﻿//Made by Amanda Marques
 
 angular.module('propertyManagerApp')
     .directive('compareTo', function () {
