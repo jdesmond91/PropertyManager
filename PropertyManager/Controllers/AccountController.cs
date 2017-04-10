@@ -443,7 +443,13 @@ namespace PropertyManager.Controllers
 
 
             if (tenant != null)
-            {                
+            {
+                var lease = ds.Leases.Include("Apartment").SingleOrDefault(a => a.Tenant.Id == tenant.Id && a.Apartment.ApartmentNumber == model.ApartmentNumber);
+                if(lease == null)
+                {
+                    return Content(HttpStatusCode.NotFound, "Tenant not found for this apartment");
+                }
+                           
                 if(tenant.ActivationCode != model.ActivationCode)
                 {
                     return Content(HttpStatusCode.NotFound, "Wrong activation code");

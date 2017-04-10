@@ -21,65 +21,86 @@ function registerController($scope, $location, $filter, loginService, userProfil
     var userProf = userProfile.getProfile();
     $scope.userRole = userProf.userRole;
 
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    $scope.today = today;
+
     // TENANT REGISTRATION
     $scope.registerUser = function () {
         $scope.message = "";
         $scope.errorMessage = "";
-        var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
+        var add = true;
 
-        var userInfo = {
-            Email: $scope.userEmail,
-            Password: $scope.userPassword,
-            ConfirmPassword: $scope.userPassword,
-            GivenName: $scope.userFirstName,
-            Surname: $scope.userLastName,
-            Role: "Tenant",
-            BirthDate: birthDateFiltered,
-            ApartmentNumber: $scope.apartmentNumber,
-            ActivationCode: $scope.activationCode
-        };
-              
-        var registerResult = loginService.register(userInfo);
-        registerResult.then(function (data) {
-            console.log(data);
-            $scope.message = "User Registration Successfull";
-            $scope.userPassword = "";
-            $location.path('/login');
-        }, function (response) {
-            $scope.errorMessage = response.data;
-            if (response.status == 400) {
-                $scope.errorMessage = "This email is already registered."
-            }
-            
-        });
+        if ($scope.birthDate >= $scope.today) {
+            $scope.errorMessage = "Enter a valid birth date";
+            add = false;
+        }
+        if (add == true) {
+            var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
+
+            var userInfo = {
+                Email: $scope.userEmail,
+                Password: $scope.userPassword,
+                ConfirmPassword: $scope.userPassword,
+                GivenName: $scope.userFirstName,
+                Surname: $scope.userLastName,
+                Role: "Tenant",
+                BirthDate: birthDateFiltered,
+                ApartmentNumber: $scope.apartmentNumber,
+                ActivationCode: $scope.activationCode
+            };
+
+            var registerResult = loginService.register(userInfo);
+            registerResult.then(function (data) {
+                console.log(data);
+                $scope.message = "User Registration Successfull";
+                $scope.userPassword = "";
+                $location.path('/login');
+            }, function (response) {
+                $scope.errorMessage = response.data;
+                if (response.status == 400) {
+                    $scope.errorMessage = "This email is already registered."
+                }
+
+            });
+        }
     };
 
     // MANAGER REGISTRATION
     $scope.registerManager = function () {
         $scope.message = "";
         $scope.errorMessage = "";
-        var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
+        var add = true;
 
-        var userInfo = {
-            Email: $scope.userEmail,
-            GivenName: $scope.userFirstName,
-            Surname: $scope.userLastName,
-            Role: "Manager",
-            BirthDate: birthDateFiltered,
-            ApartmentNumber: $scope.apartmentNumber
-        };
-        var registerResult = loginService.register(userInfo);
-        registerResult.then(function (data) {
-            console.log(data);
-            $scope.message = "User Registration Successfull";
-            $scope.userEmail = "";
-            $scope.userFirstName = "";
-            $scope.userLastName = "";
-            $scope.birthDate = "";
-            $scope.form.$setPristine();
-        }, function (response) {
-            $scope.errorMessage = "Registration failed. Please try again."
-        });
+        if ($scope.birthDate >= $scope.today) {
+            $scope.errorMessage = "Enter a valid birth date";
+            add = false;
+        }
+
+        if (add == true) {
+            var birthDateFiltered = $filter('date')($scope.birthDate, "yyyy-MM-dd");
+
+            var userInfo = {
+                Email: $scope.userEmail,
+                GivenName: $scope.userFirstName,
+                Surname: $scope.userLastName,
+                Role: "Manager",
+                BirthDate: birthDateFiltered,
+                ApartmentNumber: $scope.apartmentNumber
+            };
+            var registerResult = loginService.register(userInfo);
+            registerResult.then(function (data) {
+                console.log(data);
+                $scope.message = "User Registration Successfull";
+                $scope.userEmail = "";
+                $scope.userFirstName = "";
+                $scope.userLastName = "";
+                $scope.birthDate = "";
+                $scope.form.$setPristine();
+            }, function (response) {
+                $scope.errorMessage = "Registration failed. Please try again."
+            });
+        }
     };
 
     // RESEND ACTIVATION CODE TO TENANT EMAIL

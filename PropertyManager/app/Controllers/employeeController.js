@@ -54,6 +54,10 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
     $scope.sortReverse = false;
     $scope.searchEmployee = "";
 
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    $scope.today = today;
+
     // ADD SECTION 
 
     $scope.addOneClick = function () {
@@ -61,38 +65,48 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
     }
 
     $scope.addEmployee = function () {
-        var BirthDateFiltered = null;
-        var HireDateFiltered = null;
-
-        if ($scope.modelAdd.BirthDate != "") {
-            BirthDateFiltered = $filter('date')($scope.modelAdd.BirthDate, "yyyy-MM-dd");
-        }
-        if ($scope.modelAdd.HireDate != "") {
-            HireDateFiltered = $filter('date')($scope.modelAdd.HireDate, "yyyy-MM-dd");
+        $scope.message = "";
+        var add = true;
+        
+        if ($scope.modelAdd.BirthDate >= $scope.today) {
+            $scope.message = "Enter a valid birth date";
+            add = false;
         }
 
-        var employee = {
-            LastName: $scope.modelAdd.LastName,
-            FirstName: $scope.modelAdd.FirstName,
-            Title: $scope.modelAdd.Title,
-            Address: $scope.modelAdd.Address,
-            City: $scope.modelAdd.City,
-            State: $scope.modelAdd.State,
-            PostalCode: $scope.modelAdd.PostalCode,
-            Phone: $scope.modelAdd.Phone,     
-            Email: $scope.modelAdd.Email,
-            BirthDate: BirthDateFiltered,
-            HireDate: HireDateFiltered
-        };
+        if (add == true) {
+            var BirthDateFiltered = null;
+            var HireDateFiltered = null;
 
-        var addResults = employeeService.addEmployee(employee);
-        addResults.then(function (response) {
-            $scope.modelAdd.employeeId = response.data.Id;
-            $scope.showConfirmation = true;
-            $scope.message = "Employee Added"
-        }, function (error) {
-            $scope.message = error.statusText + " " + error.status;
-        });
+            if ($scope.modelAdd.BirthDate != "") {
+                BirthDateFiltered = $filter('date')($scope.modelAdd.BirthDate, "yyyy-MM-dd");
+            }
+            if ($scope.modelAdd.HireDate != "") {
+                HireDateFiltered = $filter('date')($scope.modelAdd.HireDate, "yyyy-MM-dd");
+            }
+
+            var employee = {
+                LastName: $scope.modelAdd.LastName,
+                FirstName: $scope.modelAdd.FirstName,
+                Title: $scope.modelAdd.Title,
+                Address: $scope.modelAdd.Address,
+                City: $scope.modelAdd.City,
+                State: $scope.modelAdd.State,
+                PostalCode: $scope.modelAdd.PostalCode,
+                Phone: $scope.modelAdd.Phone,
+                Email: $scope.modelAdd.Email,
+                BirthDate: BirthDateFiltered,
+                HireDate: HireDateFiltered
+            };
+
+            var addResults = employeeService.addEmployee(employee);
+            addResults.then(function (response) {
+                $scope.modelAdd.employeeId = response.data.Id;
+                $scope.showConfirmation = true;
+                $scope.message = "Employee Added"
+            }, function (error) {
+                $scope.message = error.statusText + " " + error.status;
+            });
+        }
     } // close function
 
     $scope.addAnother = function () {
@@ -163,15 +177,25 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
   
     $scope.editEmployee = function () {
 
-        var BirthDateFiltered = null;
-        var HireDateFiltered = null;
+        $scope.message = "";
+        var add = true;
 
-        if ($scope.modelEdit.BirthDate != "") {
-            BirthDateFiltered = $filter('date')($scope.modelEdit.BirthDate, "yyyy-MM-dd");
+        if ($scope.modelEdit.BirthDate >= $scope.today) {
+            $scope.message = "Enter a valid birth date";
+            add = false;
         }
-        if ($scope.modelEdit.HireDate != "") {
-            HireDateFiltered = $filter('date')($scope.modelEdit.HireDate, "yyyy-MM-dd");
-        }
+
+        if (add == true) {
+
+            var BirthDateFiltered = null;
+            var HireDateFiltered = null;
+
+            if ($scope.modelEdit.BirthDate != "") {
+                BirthDateFiltered = $filter('date')($scope.modelEdit.BirthDate, "yyyy-MM-dd");
+            }
+            if ($scope.modelEdit.HireDate != "") {
+                HireDateFiltered = $filter('date')($scope.modelEdit.HireDate, "yyyy-MM-dd");
+            }
 
             var employee = {
                 Id: $scope.editId,
@@ -189,12 +213,13 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
             };
 
             var editResults = employeeService.editEmployee(employee, $scope.editId);
-        editResults.then(function (response) {
-            $scope.message = "Edit successful";
-            $scope.showEditConfirmation = true;
-        }, function (error) {
-            $scope.message = error.statusText;
-        });
+            editResults.then(function (response) {
+                $scope.message = "Edit successful";
+                $scope.showEditConfirmation = true;
+            }, function (error) {
+                $scope.message = error.statusText;
+            });
+        }
     } // close function
 
     //************** DELETE ************************

@@ -45,6 +45,10 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
     $scope.sortReverse = false;
     $scope.searchTenant = "";
 
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    $scope.today = today;
+
     // ADD SECTION 
 
     $scope.addOneClick = function () {
@@ -52,30 +56,38 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
     }
 
     $scope.addTenant = function () {
+        $scope.message = "";
+        var add = true;
 
-        var birthDateFiltered = null;
-
-        if ($scope.modelAdd.birthDate != "") {
-            birthDateFiltered = $filter('date')($scope.modelAdd.birthDate, "yyyy-MM-dd");
+        if ($scope.modelAdd.birthDate >= $scope.today) {
+            $scope.message = "Enter a valid birth date";
+            add = false;
         }
+        if (add == true) {
+            var birthDateFiltered = null;
 
-        var tenant = {
-            FirstName: $scope.modelAdd.firstName,
-            LastName: $scope.modelAdd.lastName,
-            MobilePhone: $scope.modelAdd.mobileNumber,
-            HomePhone: $scope.modelAdd.homeNumber,
-            Email: $scope.modelAdd.email,
-            BirthDate: birthDateFiltered
-        };
+            if ($scope.modelAdd.birthDate != "") {
+                birthDateFiltered = $filter('date')($scope.modelAdd.birthDate, "yyyy-MM-dd");
+            }
 
-        var addResults = tenantService.addTenant(tenant);
-        addResults.then(function (response) {
-            $scope.modelAdd.tenantId = response.data.Id;
-            $scope.showConfirmation = true;
-            $scope.message = "Tenant Added"
-        }, function (error) {
-            $scope.message = error.statusText + " " + error.status;
-        });
+            var tenant = {
+                FirstName: $scope.modelAdd.firstName,
+                LastName: $scope.modelAdd.lastName,
+                MobilePhone: $scope.modelAdd.mobileNumber,
+                HomePhone: $scope.modelAdd.homeNumber,
+                Email: $scope.modelAdd.email,
+                BirthDate: birthDateFiltered
+            };
+
+            var addResults = tenantService.addTenant(tenant);
+            addResults.then(function (response) {
+                $scope.modelAdd.tenantId = response.data.Id;
+                $scope.showConfirmation = true;
+                $scope.message = "Tenant Added"
+            }, function (error) {
+                $scope.message = error.statusText + " " + error.status;
+            });
+        }
 
     } // close function
 
@@ -123,10 +135,10 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
             leaseInfo.then(function (response) {
                 $scope.apartmentNumber = response.data.Apartment.ApartmentNumber;
             }, function (error) {
-                $scope.error = response.statusText;
+                $scope.error = error.statusText;
             })
         }, function (error) {
-            $scope.error = response.statusText;
+            $scope.error = error.statusText;
         })
 
     } // close function
@@ -138,30 +150,39 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
     }
 
     $scope.editTenant = function () {
+        $scope.message = "";
+        var add = true;
 
-        var birthDateFiltered = null;
-
-        if ($scope.modelEdit.birthDate != "") {
-            birthDateFiltered = $filter('date')($scope.modelEdit.birthDate, "yyyy-MM-dd");
+        if ($scope.modelEdit.birthDate >= $scope.today) {
+            $scope.message = "Enter a valid birth date";
+            add = false;
         }
 
-        var tenant = {
-            Id: $scope.editId,
-            FirstName: $scope.modelEdit.firstName,
-            LastName: $scope.modelEdit.lastName,
-            MobilePhone: $scope.modelEdit.mobileNumber,
-            HomePhone: $scope.modelEdit.homeNumber,
-            Email: $scope.modelEdit.email,
-            BirthDate: birthDateFiltered
-        };
+        if (add == true) {
+            var birthDateFiltered = null;
 
-        var editResults = tenantService.editTenant(tenant, tenant.Id);
-        editResults.then(function (response) {
-            $scope.message = "Edit successful";
-            $scope.showEditConfirmation = true;
-        }, function (error) {
-            $scope.message = error.statusText;
-        });
+            if ($scope.modelEdit.birthDate != "") {
+                birthDateFiltered = $filter('date')($scope.modelEdit.birthDate, "yyyy-MM-dd");
+            }
+
+            var tenant = {
+                Id: $scope.editId,
+                FirstName: $scope.modelEdit.firstName,
+                LastName: $scope.modelEdit.lastName,
+                MobilePhone: $scope.modelEdit.mobileNumber,
+                HomePhone: $scope.modelEdit.homeNumber,
+                Email: $scope.modelEdit.email,
+                BirthDate: birthDateFiltered
+            };
+
+            var editResults = tenantService.editTenant(tenant, tenant.Id);
+            editResults.then(function (response) {
+                $scope.message = "Edit successful";
+                $scope.showEditConfirmation = true;
+            }, function (error) {
+                $scope.message = error.statusText;
+            });
+        }
     } // close function
 
     //************** DELETE ************************

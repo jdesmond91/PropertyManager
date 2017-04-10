@@ -49,6 +49,9 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
     $scope.sortType = 'FirstName';
     $scope.sortReverse = false;
     $scope.searchOccupant = "";
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    $scope.today = today;
 
     // ADD SECTION 
 
@@ -60,34 +63,45 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
     // CHECK FOR ASSOCIATED APARTMENT
     // IF BOTH TRUE, ADD OCCUPANT
     // IF NOT, RETURN ERROR MESSAGE
-    $scope.addOccupant = function () {       
-        var findTenant = tenantService.getByEmailTenant($scope.modelAdd.tenantEmail);
-        findTenant.then(function (response) {
-            $scope.modelAdd.tenantId = response.data.Id; 
-            return response.data.Id;      
-        }).then(function (tenantId) {
-            if (tenantId != "") {
-                var lease = leaseService.getLeaseByTenantId(tenantId);
-                lease.then(function (response) {
-                    if (response.data.Apartment.ApartmentNumber == $scope.modelAdd.apartmentNumber) {
-                        addOccupantTrue();
-                    }
-                    else {
-                        $scope.message = "The apartment number is wrong for this tenant";
-                    }
-                }, function (error) {
-                    $scope.message = "Couldn't find apartment";
-                })           
-            }
-        }, function (error) {
-            $scope.message = "Couldn't find a tenant";
-        });
+    $scope.addOccupant = function () {
+        $scope.message = "";
+        var add = true;
+
+        if ($scope.modelAdd.birthDate >= $scope.today) {
+            $scope.message = "Enter a valid birth date";
+            add = false;
+        }
+
+        if (add == true) {
+            var findTenant = tenantService.getByEmailTenant($scope.modelAdd.tenantEmail);
+            findTenant.then(function (response) {
+                $scope.modelAdd.tenantId = response.data.Id;
+                return response.data.Id;
+            }).then(function (tenantId) {
+                if (tenantId != "") {
+                    var lease = leaseService.getLeaseByTenantId(tenantId);
+                    lease.then(function (response) {
+                        if (response.data.Apartment.ApartmentNumber == $scope.modelAdd.apartmentNumber) {
+                            addOccupantTrue();
+                        }
+                        else {
+                            $scope.message = "The apartment number is wrong for this tenant";
+                        }
+                    }, function (error) {
+                        $scope.message = "Couldn't find apartment";
+                    })
+                }
+            }, function (error) {
+                $scope.message = "Couldn't find a tenant";
+            });
+        }
                   
 
     } // close function
 
     // ADD OCUPANT IF TENANT AND APARTMENT EXIST
     function addOccupantTrue() {
+        
         var birthDateFiltered = null;
 
         if ($scope.modelAdd.birthDate != "") {
@@ -170,30 +184,39 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
 
     $scope.editOccupant = function () {
 
-        var birthDateFiltered = null;
+        var add = true;
 
-        if ($scope.modelEdit.birthDate != "") {
-            birthDateFiltered = $filter('date')($scope.modelEdit.birthDate, "yyyy-MM-dd");
+        if ($scope.modelEdit.birthDate >= $scope.today) {
+            $scope.message = "Enter a valid birth date";
+            add = false;
         }
 
-        var occupant = {
-            Id: $scope.editId,
-            FirstName: $scope.modelEdit.firstName,
-            LastName: $scope.modelEdit.lastName,
-            MobilePhone: $scope.modelEdit.mobileNumber,
-            WorkPhone: $scope.modelEdit.workNumber,
-            Email: $scope.modelEdit.email,
-            BirthDate: birthDateFiltered,
-            ApartmentNumber: $scope.modelEdit.apartmentNumber,
-        };
+        if (add == true) {
+            var birthDateFiltered = null;
 
-        var editResults = occupantService.editOccupant(occupant, occupant.Id);
-        editResults.then(function (response) {
-            $scope.message = "Edit successful";
-            $scope.showEditConfirmation = true;
-        }, function (error) {
-            $scope.message = error.statusText;
-        });
+            if ($scope.modelEdit.birthDate != "") {
+                birthDateFiltered = $filter('date')($scope.modelEdit.birthDate, "yyyy-MM-dd");
+            }
+
+            var occupant = {
+                Id: $scope.editId,
+                FirstName: $scope.modelEdit.firstName,
+                LastName: $scope.modelEdit.lastName,
+                MobilePhone: $scope.modelEdit.mobileNumber,
+                WorkPhone: $scope.modelEdit.workNumber,
+                Email: $scope.modelEdit.email,
+                BirthDate: birthDateFiltered,
+                ApartmentNumber: $scope.modelEdit.apartmentNumber,
+            };
+
+            var editResults = occupantService.editOccupant(occupant, occupant.Id);
+            editResults.then(function (response) {
+                $scope.message = "Edit successful";
+                $scope.showEditConfirmation = true;
+            }, function (error) {
+                $scope.message = error.statusText;
+            });
+        }
     } // close function
 
 
