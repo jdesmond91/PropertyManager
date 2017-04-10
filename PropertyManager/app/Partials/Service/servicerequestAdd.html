@@ -43,11 +43,11 @@
                         </div>
 
                         <label class="control-label" for="description">Description</label>
-                        <textarea id="description" name="description" ng-model="modelAdd.Description" rows="6" cols="20" style="overflow:auto;resize:none" maxlength="200" ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():% ]+$/"></textarea>
+                        <textarea id="description" name="description" ng-model="modelAdd.Description" rows="6" cols="20" style="overflow:auto;resize:none" maxlength="200" ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():%\\@+-= ]+$/"></textarea>
                         <br /><span class="spanError" ng-show="form.description.$error.pattern && !form.description.$pristine">Enter valid characters</span>
 
                         <label class="control-label" for="notes">Notes</label>
-                        <textarea id="notes" name="notes" ng-model="modelAdd.Notes" rows="4" cols="15" style="overflow:auto;resize:none" maxlength="100" ng-pattern="/^[a-zA-Z\\.!\\?() ]+$/"></textarea>
+                        <textarea id="notes" name="notes" ng-model="modelAdd.Notes" rows="4" cols="15" style="overflow:auto;resize:none" maxlength="100" ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():%\\@+-= ]+$/"></textarea>
                         <br /><span class="spanError" ng-show="form.notes.$error.pattern && !form.notes.$pristine">Enter valid characters</span>
 
                     </fieldset>
@@ -114,11 +114,11 @@
                         </div>
 
                         <label class="control-label" for="description">Description</label>
-                        <textarea id="description" name="description" ng-model="modelEdit.Description" rows="6" cols="20" style="overflow:auto;resize:none" maxlength="200" ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():% ]+$/"></textarea>
+                        <textarea id="description" name="description" ng-model="modelEdit.Description" rows="6" cols="20" style="overflow:auto;resize:none" maxlength="200" ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():%\\@+-= ]+$/"></textarea>
                         <br /><span class="spanError" ng-show="formEdit.description.$error.pattern && !formEdit.description.$pristine">Enter valid characters</span>
 
                         <label class="control-label" for="notes">Notes</label>
-                        <textarea id="notes" name="notes" ng-model="modelEdit.Notes" rows="4" cols="15" style="overflow:auto;resize:none" maxlength="100" ng-pattern="/^[a-zA-Z\\.!\\?() ]+$/"></textarea>
+                        <textarea id="notes" name="notes" ng-model="modelEdit.Notes" rows="4" cols="15" style="overflow:auto;resize:none" maxlength="100" ng-pattern="/^[a-zA-Z0-9\\.!\\?\-\\/\\*\x22\\&\\$():%\\@+-= ]+$/"></textarea>
                         <br /><span class="spanError" ng-show="formEdit.notes.$error.pattern && !formEdit.notes.$pristine">Enter valid characters</span>
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editServiceRequest()">Edit Service Request</button>
