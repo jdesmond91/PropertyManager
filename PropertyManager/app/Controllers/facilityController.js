@@ -51,33 +51,43 @@ function facilityController($scope, $filter, $location, $routeParams, facilitySe
     // ********** ADD SECTION
     $scope.addFacility = function () {
 
-        var openTimeFiltered = null;
-        var expireDateFiltered = null;
+        $scope.message = "";
+        var add = true;
 
-        if ($scope.modelAdd.openTime != "") {
-            openTimeFiltered = $filter('date')($scope.modelAdd.openTime, 'HH:mm');
+        if ($scope.modelAdd.closeTime <= $scope.modelAdd.openTime) {
+            $scope.message = "Close time must be greater than open time."
+            add = false;
         }
-        if ($scope.modelAdd.closeTime != "") {
-            expireDateFiltered = $filter('date')($scope.modelAdd.closeTime, 'HH:mm');
-        }
-        
-        var facility = {
-            FacilityName: $scope.modelAdd.name,
-            Description: $scope.modelAdd.description,
-            Location: $scope.modelAdd.location,
-            Status: $scope.modelAdd.status,
-            OpenTime: openTimeFiltered,
-            CloseTime: expireDateFiltered
-        };
 
-        var addResults = facilityService.addFacility(facility);
-        addResults.then(function (response) {
-            $scope.modelAdd.facilityId = response.data.Id;
-            $scope.showConfirmation = true;
-            $scope.message = "Facility Added"
-        }, function (error) {
-            $scope.message = error.statusText + " " + error.status;
-        });
+        if (add == true) {
+            var openTimeFiltered = null;
+            var expireDateFiltered = null;
+
+            if ($scope.modelAdd.openTime != "") {
+                openTimeFiltered = $filter('date')($scope.modelAdd.openTime, 'HH:mm');
+            }
+            if ($scope.modelAdd.closeTime != "") {
+                expireDateFiltered = $filter('date')($scope.modelAdd.closeTime, 'HH:mm');
+            }
+
+            var facility = {
+                FacilityName: $scope.modelAdd.name,
+                Description: $scope.modelAdd.description,
+                Location: $scope.modelAdd.location,
+                Status: $scope.modelAdd.status,
+                OpenTime: openTimeFiltered,
+                CloseTime: expireDateFiltered
+            };
+
+            var addResults = facilityService.addFacility(facility);
+            addResults.then(function (response) {
+                $scope.modelAdd.facilityId = response.data.Id;
+                $scope.showConfirmation = true;
+                $scope.message = "Facility Added"
+            }, function (error) {
+                $scope.message = error.statusText + " " + error.status;
+            });
+        }
 
     } // close function
 
@@ -133,34 +143,44 @@ function facilityController($scope, $filter, $location, $routeParams, facilitySe
 
     $scope.editFacility = function () {
 
-        var openTimeFiltered = null;
-        var expireDateFiltered = null;
+        $scope.message = "";
+        var add = true;
 
-        if ($scope.modelEdit.openTime != "") {
-            var openTimeFiltered = $filter('date')($scope.modelEdit.openTime, 'HH:mm:ss');
-        }
-        
-        if ($scope.modelEdit.closeTime != "") {
-            var expireDateFiltered = $filter('date')($scope.modelEdit.closeTime, 'HH:mm:ss');
+        if ($scope.modelEdit.closeTime <= $scope.modelEdit.openTime) {
+            $scope.message = "Close time must be greater than open time."
+            add = false;
         }
 
-        var facility = {
-            Id: $scope.editId,
-            FacilityName: $scope.modelEdit.name,
-            Description: $scope.modelEdit.description,
-            Location: $scope.modelEdit.location,
-            Status: $scope.modelEdit.status,
-            OpenTime: openTimeFiltered,
-            CloseTime: expireDateFiltered
-        };
+        if (add == true) {
+            var openTimeFiltered = null;
+            var expireDateFiltered = null;
 
-        var editResults = facilityService.editFacility(facility, facility.Id);
-        editResults.then(function (response) {
-            $scope.message = "Edit successful";
-            $scope.showEditConfirmation = true;
-        }, function (error) {
-            $scope.message = error.statusText;
-        });         
+            if ($scope.modelEdit.openTime != "") {
+                var openTimeFiltered = $filter('date')($scope.modelEdit.openTime, 'HH:mm:ss');
+            }
+
+            if ($scope.modelEdit.closeTime != "") {
+                var expireDateFiltered = $filter('date')($scope.modelEdit.closeTime, 'HH:mm:ss');
+            }
+
+            var facility = {
+                Id: $scope.editId,
+                FacilityName: $scope.modelEdit.name,
+                Description: $scope.modelEdit.description,
+                Location: $scope.modelEdit.location,
+                Status: $scope.modelEdit.status,
+                OpenTime: openTimeFiltered,
+                CloseTime: expireDateFiltered
+            };
+
+            var editResults = facilityService.editFacility(facility, facility.Id);
+            editResults.then(function (response) {
+                $scope.message = "Edit successful";
+                $scope.showEditConfirmation = true;
+            }, function (error) {
+                $scope.message = error.statusText;
+            });
+        }
     } // close function
 
     //************** DELETE ************************
