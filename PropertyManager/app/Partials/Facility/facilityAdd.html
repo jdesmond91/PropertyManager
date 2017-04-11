@@ -106,11 +106,11 @@
                         <span class="spanError" ng-show="formEdit.status.$error.pattern && !formEdit.status.$pristine">Enter valid characters</span>
 
                         <label class="control-label" for="openTime">Open Time*</label>
-                        <div uib-timepicker name="openTime" class="form-control" id="openTime" ng-model="modelEdit.openTime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></div>
+                        <div uib-timepicker name="openTime" id="openTime" ng-model="modelEdit.openTime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></div>
                         <span class="spanError" ng-show="formEdit.openTime.$invalid && !formEdit.openTime.$pristine">Enter a open time</span>
 
                         <label class="control-label" for="closeTime">Close Time*</label>
-                        <div uib-timepicker name="closeTime" class="form-control" id="closeTime" ng-model="modelEdit.closeTime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></div>
+                        <div uib-timepicker name="closeTime" id="closeTime" ng-model="modelEdit.closeTime" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-required="true"></div>
                         <span class="spanError" ng-show="forformEditm.closeTime.$invalid && !formEdit.closeTime.$pristine">Enter a close time</span>
                     </fieldset>
                     <button type="submit" ng-disabled="formEdit.$invalid" class="btn btn-primary submitForm" ng-click="editFacility()">Edit Facility </button>
