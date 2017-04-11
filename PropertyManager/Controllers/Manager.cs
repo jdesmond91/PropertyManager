@@ -850,7 +850,7 @@ namespace PropertyManager.Controllers
             }
         }
 
-        public ApartmentBase ApartmentEdit(ApartmentEdit editedItem)
+        public ApartmentWithUnit ApartmentEdit(ApartmentEdit editedItem)
         {
             if (editedItem == null)
             {
@@ -867,7 +867,7 @@ namespace PropertyManager.Controllers
                 ds.Entry(storedItem).CurrentValues.SetValues(editedItem);
                 ds.SaveChanges();
 
-                return Mapper.Map<ApartmentBase>(storedItem);
+                return Mapper.Map<ApartmentWithUnit>(storedItem);
             }
         }
 

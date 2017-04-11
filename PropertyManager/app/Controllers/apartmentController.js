@@ -142,6 +142,7 @@ function apartmentController($scope, $filter, $location, $routeParams, apartment
         var editResults = apartmentService.editApartment(apartment, $scope.modelEdit.aptNumber);
         editResults.then(function (response) {
             $scope.message = "Edit successful";
+            $scope.modelEdit.unitType = response.data.Unit.Bedrooms;
             $scope.showEditConfirmation = true;      
         }, function (error) {
             $scope.message = error.statusText;      

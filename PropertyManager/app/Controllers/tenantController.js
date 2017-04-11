@@ -154,7 +154,7 @@ function tenantController($scope, $filter, $location, $routeParams, tenantServic
         var add = true;
 
         if ($scope.modelEdit.birthDate >= $scope.today) {
-            $scope.message = "Enter a valid birth date";
+            $scope.message = "Enter a valid birth date - Must be before current date";
             add = false;
         }
 

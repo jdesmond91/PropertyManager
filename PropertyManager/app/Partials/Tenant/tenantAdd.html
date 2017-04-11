@@ -163,7 +163,7 @@
                         <span class="spanError" ng-show="formEdit.homeNumber2.$error.maxlength && !formEdit.homeNumber2.$pristine">The phone is too big</span>
 
                         <label class="control-label" for="email">Email*</label>
-                        <input type="email" name="email" id="email" class="form-control" ng-model="modelEdit.email" maxlength="30" required />
+                        <input type="email" name="email" id="email" class="form-control" ng-model="modelEdit.email" maxlength="30" required readonly/>
                         <span class="spanError" ng-show="formEdit.email.$invalid && !formEdit.email.$pristine">Email is required</span>
 
                         <label class="control-label" for="birthDate">Birth Date*</label>
