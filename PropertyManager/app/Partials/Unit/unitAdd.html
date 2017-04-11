@@ -60,22 +60,22 @@
                         <input type="number" name="maxOccupants" id="maxOccupants" ng-model="modelAdd.maxOccupants" ng-pattern="/^\d{1,2}$/" class="form-control" onKeyPress="return check(event,value)" onInput="checkLength(2,this)" >
                         <span class="spanError" ng-show="form.maxOccupants.$error.pattern || form.maxOccupants.$invalid && !form.maxOccupants.$pristine">Enter a valid number</span>
 
-                        <label class="control-label" for="balcony">Balcony</label>
-                        <select ng-model="modelAdd.balcony" name="balcony" id="balcony">
+                        <label class="control-label" for="balcony">Balcony*</label>
+                        <select ng-model="modelAdd.balcony" name="balcony" id="balcony" required>
                             <option value=true>Yes</option>
                             <option value=false>No</option>
                         </select>
                         <span class="spanError" ng-show="form.balcony.$invalid && !form.balcony.$pristine">Enter balcony</span>
 
-                        <label class="control-label" for="laundry">Laundry</label>
-                        <select ng-model="modelAdd.laundry" name="laundry" id="laundry">
+                        <label class="control-label" for="laundry">Laundry*</label>
+                        <select ng-model="modelAdd.laundry" name="laundry" id="laundry" required>
                             <option value=true>Yes</option>
                             <option value=false>No</option>
                         </select>
                         <span class="spanError" ng-show="form.laundry.$invalid && !form.laundry.$pristine">Enter laundry</span>
 
-                        <label class="control-label" for="dishwasher">Dishwasher</label>
-                        <select ng-model="modelAdd.dishwasher" name="dishwasher" id="dishwasher">
+                        <label class="control-label" for="dishwasher">Dishwasher*</label>
+                        <select ng-model="modelAdd.dishwasher" name="dishwasher" id="dishwasher" required>
                             <option value=true>Yes</option>
                             <option value=false>No</option>
                         </select>
@@ -153,22 +153,22 @@
                         <input type="number" name="maxOccupants" id="maxOccupants" ng-model="modelEdit.maxOccupants" ng-pattern="/^[0-9]{0,2}$/" class="form-control" onKeyPress="return check(event,value)" onInput="checkLength(2,this)">
                         <span class="spanError" ng-show="formEdit.maxOccupants.$error.pattern || formEdit.maxOccupants.$invalid && !formEdit.maxOccupants.$pristine">Enter a valid number</span>
 
-                       <label class="control-label" for="balcony">Balcony</label>
-                        <select ng-model="modelEdit.balcony" name="balcony" id="balcony">
+                       <label class="control-label" for="balcony">Balcony*</label>
+                        <select ng-model="modelEdit.balcony" name="balcony" id="balcony" required>
                             <option value=true ng-selected="modelEdit.balcony">Yes</option>
                             <option value=false ng-selected="modelEdit.balcony === false">No</option>
                         </select>
                         <span class="spanError" ng-show="formEdit.balcony.$invalid && !formEdit.balcony.$pristine">Enter balcony</span>
 
-                      <label class="control-label" for="laundry">Laundry</label>
-                        <select ng-model="modelEdit.laundry" name="laundry" id="laundry">
+                      <label class="control-label" for="laundry">Laundry*</label>
+                        <select ng-model="modelEdit.laundry" name="laundry" id="laundry" required>
                             <option value=true ng-selected="modelEdit.laundry">Yes</option>
                             <option value=false ng-selected="modelEdit.laundry === false">No</option>
                         </select>
                         <span class="spanError" ng-show="formEdit.laundry.$invalid && !formEdit.laundry.$pristine">Enter laundry</span>
 
-                        <label class="control-label" for="dishwasher">Dishwasher</label>
-                        <select ng-model="modelEdit.dishwasher" name="dishwasher" id="dishwasher">
+                        <label class="control-label" for="dishwasher">Dishwasher*</label>
+                        <select ng-model="modelEdit.dishwasher" name="dishwasher" id="dishwasher" required>
                             <option value=true ng-selected="modelEdit.dishwasher">Yes</option>
                             <option value=false ng-selected="modelEdit.dishwasher === false">No</option>
                         </select>
