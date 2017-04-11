@@ -69,7 +69,7 @@ function employeeController($scope, $filter, $location, $routeParams, employeeSe
         var add = true;
         
         if ($scope.modelAdd.BirthDate >= $scope.today) {
-            $scope.message = "Enter a valid birth date";
+            $scope.message = "Enter a valid birth date - Must be before current date";
             add = false;
         }
 

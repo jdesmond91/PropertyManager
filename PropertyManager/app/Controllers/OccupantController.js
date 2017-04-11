@@ -68,7 +68,7 @@ function occupantController($scope, $filter, $location, $routeParams, occupantSe
         var add = true;
 
         if ($scope.modelAdd.birthDate >= $scope.today) {
-            $scope.message = "Enter a valid birth date";
+            $scope.message = "Enter a valid birth date - Must be before current date";
             add = false;
         }
 
