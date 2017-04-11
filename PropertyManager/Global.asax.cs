@@ -24,9 +24,7 @@ namespace PropertyManager
 
             GlobalConfiguration.Configuration.Formatters.Add(new ServiceLayer.ByteFormatter());
 
-            //recreate the DB
-            //Database.SetInitializer<Models.ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<Models.ApplicationDbContext>());
-
+            // Drop and recreate the DB
             //Database.SetInitializer<Models.ApplicationDbContext>(new DropCreateDatabaseAlways<Models.ApplicationDbContext>());    
         }
     }
