@@ -78,18 +78,17 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
     $scope.addFacilityBooking = function () {
 
         $scope.message = "";
-        var add = false;
+        var add = true;
 
         // VALIDATE BOOKING DATE
         if ($scope.modelAdd.bookedDate <= $scope.today) {
             $scope.message = "Enter a date greater than today";
+            add = false;
         }
         else {
             if ($scope.modelAdd.endTime < $scope.modelAdd.startTime) {
                 $scope.message = "Enter a time greater than Start Time";
-            }
-            else {
-                add = true;
+                add = false;
             }
         }
                 
@@ -206,18 +205,17 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
     $scope.editFacilityBooking = function () {
 
         $scope.message = "";
-        var add = false;
+        var add = true;
 
         // VALIDATE DATE
         if ($scope.modelEdit.bookedDate <= $scope.today) {
             $scope.message = "Enter a date greater than today";
+            add = false;
         }
         else {
             if ($scope.modelEdit.endTime < $scope.modelEdit.startTime) {
                 $scope.message = "Enter a time greater than Start Time";
-            }
-            else {
-                add = true;
+                add = false;
             }
         }
 
