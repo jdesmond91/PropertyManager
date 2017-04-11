@@ -86,7 +86,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         }
         else {
             if ($scope.modelAdd.endTime < $scope.modelAdd.startTime) {
-                $scope.message = "Enter a time greater than or equal Start Time";
+                $scope.message = "Enter a time greater than Start Time";
             }
             else {
                 add = true;
@@ -214,7 +214,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         }
         else {
             if ($scope.modelEdit.endTime < $scope.modelEdit.startTime) {
-                $scope.message = "Enter a time greater than or equal Start Time";
+                $scope.message = "Enter a time greater than Start Time";
             }
             else {
                 add = true;
