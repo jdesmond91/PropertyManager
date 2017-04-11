@@ -81,7 +81,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         var add = false;
 
         // VALIDATE BOOKING DATE
-        if ($scope.modelAdd.bookedDate < $scope.today) {
+        if ($scope.modelAdd.bookedDate <= $scope.today) {
             $scope.message = "Enter a date greater than today";
         }
         else {
@@ -209,7 +209,7 @@ function facilityBookingController($scope, $filter, $location, $routeParams, uiC
         var add = false;
 
         // VALIDATE DATE
-        if ($scope.modelEdit.bookedDate < $scope.today) {
+        if ($scope.modelEdit.bookedDate <= $scope.today) {
             $scope.message = "Enter a date greater than today";
         }
         else {
