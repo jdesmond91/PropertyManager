@@ -14,7 +14,7 @@ namespace PropertyManager.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "PropertyManager.Models.ApplicationDbContext";
         }
 

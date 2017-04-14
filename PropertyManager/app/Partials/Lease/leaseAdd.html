@@ -61,12 +61,12 @@
                         </div>                      
 
                         <label class="control-label" for="monthlyRent">Monthly Rent*</label>
-                        <input type="number" name="monthlyRent" id="monthlyRent"  ng-model="modelAdd.monthlyRent" max="10000" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-control" onKeyPress="return checkDigit(event, value)" onInput="checkLength(9, this)" required>
+                        <input type="number" name="monthlyRent" id="monthlyRent"  ng-model="modelAdd.monthlyRent" step="any" max="10000" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-control" onKeyPress="return checkDigit(event, value)" onInput="checkLength(9, this)" required>
                         <span class="spanError" ng-show="form.monthlyRent.$error.pattern && !form.monthlyRent.$pristine">Enter valid characters</span>
                         <span class="spanError" ng-show="form.monthlyRent.$error.required && !form.monthlyRent.$pristine">Monthly rent is required</span>
 
                         <label class="control-label" for="securityDeposit">Security Deposit</label>
-                        <input type="number" name="securityDeposit" id="securityDeposit"  ng-model="modelAdd.securityDeposit" max="10000" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-control" onKeyPress="return checkDigit(event, value)" onInput="checkLength(9, this)">
+                        <input type="number" name="securityDeposit" id="securityDeposit"  ng-model="modelAdd.securityDeposit" step="any" max="10000" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-control" onKeyPress="return checkDigit(event, value)" onInput="checkLength(9, this)">
                         <span class="spanError" ng-show="form.securityDeposit.$error.pattern && !form.securityDeposit.$pristine">Enter valid characters</span>
 
                         <label class="control-label" for="aptnumber">Apartment Number*</label>
@@ -151,12 +151,12 @@
                         </div>             
 
                         <label class="control-label" for="monthlyRent" ng-show="editMonthlyRent">Monthly Rent*</label>
-                        <input type="number" name="monthlyRent" id="monthlyRent" ng-model="modelEdit.monthlyRent" max="10000" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-control" onKeyPress="return checkDigit(event, value)" onInput="checkLength(9, this)" ng-show="editMonthlyRent" required>
+                        <input type="number" name="monthlyRent" id="monthlyRent" ng-model="modelEdit.monthlyRent"step="any"  max="10000" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" class="form-control" onKeyPress="return checkDigit(event, value)" onInput="checkLength(9, this)" ng-show="editMonthlyRent" required>
                         <span class="spanError" ng-show="formEdit.monthlyRent.$error.pattern  && !formEdit.monthlyRent.$pristine">Enter valid characters</span>
                         <span class="spanError" ng-show="formEdit.monthlyRent.$error.required && !formEdit.monthlyRent.$pristine">Monthly rent is required</span>
 
                         <label class="control-label" for="securityDeposit" ng-show="editMonthlyRent">Security Deposit</label>
-                        <input type="number" name="securityDeposit" id="securityDeposit" ng-model="modelEdit.securityDeposit"  class="form-control" onKeyPress="return checkDigit(event, value)" onInput="checkLength(9, this)" ng-show="editMonthlyRent">
+                        <input type="number" name="securityDeposit" id="securityDeposit" ng-model="modelEdit.securityDeposit" step="any" class="form-control" onKeyPress="return checkDigit(event, value)" onInput="checkLength(9, this)" ng-show="editMonthlyRent">
                         <span class="spanError" ng-show="formEdit.securityDeposit.$error.pattern && !formEdit.securityDeposit.$pristine">Enter valid characters</span>
 
                         <div ng-hide="editMonthlyRent">
